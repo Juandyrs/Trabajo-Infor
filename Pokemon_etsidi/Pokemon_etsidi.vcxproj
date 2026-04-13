@@ -182,7 +182,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ArenaCombate.cpp" />
+    <ClCompile Include="Casilla.cpp" />
+    <ClCompile Include="Juego.cpp" />
+    <ClCompile Include="Pokemon.cpp" />
     <ClCompile Include="Pokemon_etsidi.cpp" />
+    <ClCompile Include="Tablero.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ArenaCombate.h" />
+    <ClInclude Include="Casilla.h" />
+    <ClInclude Include="Juego.h" />
+    <ClInclude Include="Pokemon.h" />
+    <ClInclude Include="Tablero.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

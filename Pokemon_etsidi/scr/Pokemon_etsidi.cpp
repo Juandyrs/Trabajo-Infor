@@ -8,9 +8,14 @@
 
 int main()
 {
-Pokemon:Hechicero Alakazam;
 
+	Hechicero Alakazam1, Alakazam2;
 
+	Alakazam1.preparar("Hechicero1", 'H', Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno);
+	Alakazam2.preparar("Hechicero", 'H', Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno);
+	
+	
+	
 	Tablero Mitablerito;
 }
 

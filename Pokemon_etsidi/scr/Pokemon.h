@@ -9,7 +9,7 @@ enum class Bando {
 enum class Tipo {Tierra, Agua, Fuego, 
 	Planta, Siniestro, Bicho, Dragon, Electrico,
 	Hada, Lucha, Fire, Volador, Fantasma,Normal, 
-	Acero, Veneno, Psiquico, Hielo
+	Acero, Veneno, Psiquico, Hielo,Ninguno
 };
 
 enum class TipoMovimiento {

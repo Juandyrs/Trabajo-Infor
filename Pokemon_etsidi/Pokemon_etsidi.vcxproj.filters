@@ -56,5 +56,14 @@
     <ClInclude Include="scr\Tipos_Pokemon.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="lib\freeglut.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\freeglut.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\freeglut.lib" />
   </ItemGroup>
 </Project>

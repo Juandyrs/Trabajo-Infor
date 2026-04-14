@@ -26,7 +26,7 @@ protected:
 	double vida_max,vida_actual;
 	double velocidad;
 	double tiempo_recarga;
-	double daño;
+	double dano;
 	double velocidad_proyectil;
 	TipoMovimiento movimiento;
 	int numero_casillas;

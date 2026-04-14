@@ -16,7 +16,7 @@ void Pokemon::inicializa_stats(double v_max, double v_act, double vel, double ti
 	vida_actual = v_act;
 	velocidad = vel;
 	tiempo_recarga = timp;
-	daño = da;
+	dano = da;
 	velocidad_proyectil = vel_proy;
 
 }

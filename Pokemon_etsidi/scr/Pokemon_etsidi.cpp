@@ -3,10 +3,13 @@
 
 #include <iostream>
 #include "tablero.h"
+#include "Pokemon.h"
+#include "Tipos_Pokemon.h"
 
 int main()
 {
-	Pokemon 
+Pokemon:Hechicero Alakazam;
+
 
 	Tablero Mitablerito;
 }

@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Pokemon_etsidi.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="scr\Tablero.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -34,6 +31,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="scr\Tipos_Pokemon.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\Pokemon_etsidi.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

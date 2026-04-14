@@ -1,4 +1,7 @@
 #include "Pokemon.h"
+#include <string>
+
+using namespace std;
 
 void Pokemon::inicializa_datos(string n, char s, Bando b, Tipo tipo1, Tipo tipo2) {
 nombre = n;

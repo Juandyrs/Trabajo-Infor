@@ -5,6 +5,7 @@
 #include "tablero.h"
 #include "Pokemon.h"
 #include "Tipos_Pokemon.h"
+#include <freeglut.h>
 
 int main()
 {

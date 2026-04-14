@@ -4,5 +4,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="Pokemon_etsidi.vcxproj" />
+  <Project Path="Pokemon_etsidi.vcxproj" Id="92254b73-540c-4689-81cf-e3e3b00a3ef4" />
 </Solution>

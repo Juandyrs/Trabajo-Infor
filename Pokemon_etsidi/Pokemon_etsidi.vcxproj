@@ -182,21 +182,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ArenaCombate.cpp" />
-    <ClCompile Include="Casilla.cpp" />
-    <ClCompile Include="Juego.cpp" />
-    <ClCompile Include="Pokemon.cpp" />
+    <ClCompile Include="scr\ArenaCombate.cpp" />
+    <ClCompile Include="scr\Casilla.cpp" />
+    <ClCompile Include="scr\Juego.cpp" />
+    <ClCompile Include="scr\Pokemon.cpp" />
     <ClCompile Include="Pokemon_etsidi.cpp" />
-    <ClCompile Include="Tablero.cpp" />
-    <ClCompile Include="Tipos_Pokemon.cpp" />
+    <ClCompile Include="scr\Tablero.cpp" />
+    <ClCompile Include="scr\Tipos_Pokemon.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ArenaCombate.h" />
-    <ClInclude Include="Casilla.h" />
-    <ClInclude Include="Juego.h" />
-    <ClInclude Include="Pokemon.h" />
-    <ClInclude Include="Tablero.h" />
-    <ClInclude Include="Tipos_Pokemon.h" />
+    <ClInclude Include="scr\ArenaCombate.h" />
+    <ClInclude Include="scr\Casilla.h" />
+    <ClInclude Include="scr\Juego.h" />
+    <ClInclude Include="scr\Pokemon.h" />
+    <ClInclude Include="scr\Tablero.h" />
+    <ClInclude Include="scr\Tipos_Pokemon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -213,6 +213,20 @@
   <ItemGroup>
     <Library Include="lib\freeglut.lib" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="sprites\Blanca\alakazam.png" />
+    <Image Include="sprites\Blanca\charizard.png" />
+    <Image Include="sprites\Blanca\leafeon.png" />
+    <Image Include="sprites\Blanca\machop.png" />
+    <Image Include="sprites\Blanca\moltres.png" />
+    <Image Include="sprites\Blanca\snorlax.png" />
+    <Image Include="sprites\Negra\crobat.png" />
+    <Image Include="sprites\Negra\ditto.png" />
+    <Image Include="sprites\Negra\gengar.png" />
+    <Image Include="sprites\Negra\scraggy.png" />
+    <Image Include="sprites\Negra\tyranitar.png" />
+    <Image Include="sprites\Negra\umbreon.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

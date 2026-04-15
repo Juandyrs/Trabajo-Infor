@@ -62,8 +62,47 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\freeglut.dll" />
+    <None Include="bin\Pokemon_etsidi.exe" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\freeglut.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="sprites\Blanca\alakazam.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Blanca\charizard.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Blanca\leafeon.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Blanca\machop.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Blanca\moltres.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Blanca\snorlax.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Negra\crobat.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Negra\ditto.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Negra\gengar.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Negra\scraggy.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Negra\tyranitar.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Negra\umbreon.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
   </ItemGroup>
 </Project>

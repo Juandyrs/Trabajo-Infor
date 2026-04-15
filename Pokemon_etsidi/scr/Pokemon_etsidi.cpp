@@ -50,32 +50,39 @@ int main(int argc, char* argv[])
 
 	Tablero Mitablerito;
 	Hechicero Alakazam,Gengar;
-	Volador Charizard, Crobat;
-	Tanque Snorlax, Tyranitar;
-	Distancia Grovile, Umbreon;
-	Basico Machop, Scraggy;
-
+	Volador Charizard[2], Crobat[2];
+	Tanque Snorlax[2], Tyranitar[2];
+	Distancia Grovile[4], Umbreon[4];
+	Basico Machop[7], Scraggy[7];
+	Cambiaforma Ditto[2];
+	Fenix Moltres[2];
 
 	//Hechiceros
 	Alakazam.preparar("Hechicero", 'H', Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno);
 	Gengar.preparar("Hechicero", 'H', Bando::Team_Rocket, Tipo::Fantasma, Tipo::Veneno);
 	
 	//Voladores
-	Charizard.preparar("Volador", 'V', Bando::Entrenador, Tipo::Fuego, Tipo::Volador);
-	Crobat.preparar("Volador", 'V', Bando::Team_Rocket, Tipo::Veneno, Tipo::Volador);
+	for(int i=0;i<2;i++) Charizard[i].preparar("Volador", 'V', Bando::Entrenador, Tipo::Fuego, Tipo::Volador);
+	for(int i=0; i<2;i++) Crobat[i].preparar("Volador", 'V', Bando::Team_Rocket, Tipo::Veneno, Tipo::Volador);
 
 	//Tanques 
-	Snorlax.preparar("Tanque", 'T', Bando::Entrenador, Tipo::Normal, Tipo::Ninguno);
-	Tyranitar.preparar("Tanque", 'T', Bando::Team Rocket, Tipo::Tierra, Tipo::Siniestro);
+	for (int i = 0; i < 2; i++) Snorlax[i].preparar("Tanque", 'T', Bando::Entrenador, Tipo::Normal, Tipo::Ninguno);
+	for (int i = 0; i < 2; i++) Tyranitar[i].preparar("Tanque", 'T', Bando::Team_Rocket, Tipo::Tierra, Tipo::Siniestro);
 
 	//Distancia
-	Grovile.preparar("Distancia", 'D', Bando::Entrenador, Tipo::Planta, Tipo::Ninguno);
-	Umbreon.preparar("Distancia", 'D', Bando::Team_Rocket, Tipo::Siniestro, Tipo::Ninguno);
+	for (int i = 0; i < 4; i++) Grovile[i].preparar("Distancia", 'D', Bando::Entrenador, Tipo::Planta, Tipo::Ninguno);
+	for (int i = 0; i < 4; i++) Umbreon[i].preparar("Distancia", 'D', Bando::Team_Rocket, Tipo::Siniestro, Tipo::Ninguno);
 
 	//Basico
-	Machop.preparar("Basico", 'B', Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno);
-	Machop.preparar("Basico", 'B', Bando::Team_Rocket, Tipo::Lucha, Tipo::Siniestro);
-
+	for (int i = 1; i < 8; i++) Machop[i-1].preparar("Basico", 'B', Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno);
+	for (int i = 1; i < 8; i++) Scraggy[i - 1].preparar("Basico", 'B', Bando::Team_Rocket, Tipo::Lucha, Tipo::Siniestro);
+	
+	//Cambiaforma
+	for (int i = 0; i < 2; i++) Ditto[i].preparar("Cambiaforma", 'C', Bando::Team_Rocket, Tipo::Normal, Tipo::Ninguno);
+	
+	//Fenix
+	for (int i = 0; i < 2; i++) Moltres[i].preparar("Fenix", 'F', Bando::Entrenador, Tipo::Fuego, Tipo::Volador);
+	
 
 	//Colocacion en tablero
 	
@@ -83,30 +90,36 @@ int main(int argc, char* argv[])
 	Mitablerito.colocar_pokemon(4, 0, &Alakazam);
 	Mitablerito.colocar_pokemon(4, 8, &Gengar);
 	//Posicion Volador
-	Mitablerito.colocar_pokemon(2, 0, &Charizard);
-	Mitablerito.colocar_pokemon(6, 0, &Charizard);
-	Mitablerito.colocar_pokemon(2, 8, &Crobat);
-	Mitablerito.colocar_pokemon(6, 8, &Crobat);
+	Mitablerito.colocar_pokemon(2, 0, &Charizard[0]);
+	Mitablerito.colocar_pokemon(6, 0, &Charizard[1]);
+	Mitablerito.colocar_pokemon(2, 8, &Crobat[0]);
+	Mitablerito.colocar_pokemon(6, 8, &Crobat[1]);
 	//Posicion Tanque
-	Mitablerito.colocar_pokemon(0, 0, &Snorlax);
-	Mitablerito.colocar_pokemon(8, 0, &Snorlax);
-	Mitablerito.colocar_pokemon(0, 8, &Tyranitar);
-	Mitablerito.colocar_pokemon(8, 8, &Tyranitar);
+	Mitablerito.colocar_pokemon(0, 0, &Snorlax[0]);
+	Mitablerito.colocar_pokemon(8, 0, &Snorlax[1]);
+	Mitablerito.colocar_pokemon(0, 8, &Tyranitar[0]);
+	Mitablerito.colocar_pokemon(8, 8, &Tyranitar[1]);
 	//Posicion Distancia
-	Mitablerito.colocar_pokemon(0, 1, &Grovile);
-	Mitablerito.colocar_pokemon(1, 0, &Grovile);
-	Mitablerito.colocar_pokemon(7, 0, &Grovile);
-	Mitablerito.colocar_pokemon(8, 1, &Grovile);
-	Mitablerito.colocar_pokemon(0, 7, &Umbreon);
-	Mitablerito.colocar_pokemon(1, 8, &Umbreon);
-	Mitablerito.colocar_pokemon(8, 7, &Umbreon);
-	Mitablerito.colocar_pokemon(7, 8, &Umbreon);
-
+	Mitablerito.colocar_pokemon(0, 1, &Grovile[0]);
+	Mitablerito.colocar_pokemon(1, 0, &Grovile[1]);
+	Mitablerito.colocar_pokemon(7, 0, &Grovile[2]);
+	Mitablerito.colocar_pokemon(8, 1, &Grovile[3]);
+	Mitablerito.colocar_pokemon(0, 7, &Umbreon[0]);
+	Mitablerito.colocar_pokemon(1, 8, &Umbreon[1]);
+	Mitablerito.colocar_pokemon(8, 7, &Umbreon[2]);
+	Mitablerito.colocar_pokemon(7, 8, &Umbreon[3]);
 	//Posicion Basico
-	for (i = 1; i < 8; i++) Mitablerito.colocar_pokemon(i, 1, &Machop);
-	for (i = 1; i < 8; i++) Mitablerito.colocar_pokemon(i, 7, &Scraggy);
+	for (int i = 1; i < 8; i++) Mitablerito.colocar_pokemon(i, 1, &Machop[i-1]);
+	for (int i = 1; i < 8; i++) Mitablerito.colocar_pokemon(i, 7, &Scraggy[i-1]);
+	//Posicion Cambiaforma
+	Mitablerito.colocar_pokemon(3, 8,&Ditto[0]);
+	Mitablerito.colocar_pokemon(5, 8, &Ditto[1]);
+	//Posicion Fenix
+	Mitablerito.colocar_pokemon(3, 0, &Moltres[0]);
+	Mitablerito.colocar_pokemon(5, 0, &Moltres[1]);
 
-
+	Mitablerito.imprimir();
+	//Dibujar el tablero
 
 
 

@@ -34,12 +34,87 @@ int main(int argc, char* argv[])
 	glutTimerFunc(25, OnTimer, 0);//le decimos que dentro de 25ms llame 1 vez a la funcion OnTimer()
 	glutKeyboardFunc(OnKeyboardDown);
 
-	Hechicero Alakazam1, Alakazam2;
 
-	Alakazam1.preparar("Hechicero1", 'H', Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno);
-	Alakazam2.preparar("Hechicero", 'H', Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno);
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
 	Tablero Mitablerito;
+	Hechicero Alakazam,Gengar;
+	Volador Charizard, Crobat;
+	Tanque Snorlax, Tyranitar;
+	Distancia Grovile, Umbreon;
+	Basico Machop, Scraggy;
+
+
+	//Hechiceros
+	Alakazam.preparar("Hechicero", 'H', Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno);
+	Gengar.preparar("Hechicero", 'H', Bando::Team_Rocket, Tipo::Fantasma, Tipo::Veneno);
+	
+	//Voladores
+	Charizard.preparar("Volador", 'V', Bando::Entrenador, Tipo::Fuego, Tipo::Volador);
+	Crobat.preparar("Volador", 'V', Bando::Team_Rocket, Tipo::Veneno, Tipo::Volador);
+
+	//Tanques 
+	Snorlax.preparar("Tanque", 'T', Bando::Entrenador, Tipo::Normal, Tipo::Ninguno);
+	Tyranitar.preparar("Tanque", 'T', Bando::Team Rocket, Tipo::Tierra, Tipo::Siniestro);
+
+	//Distancia
+	Grovile.preparar("Distancia", 'D', Bando::Entrenador, Tipo::Planta, Tipo::Ninguno);
+	Umbreon.preparar("Distancia", 'D', Bando::Team_Rocket, Tipo::Siniestro, Tipo::Ninguno);
+
+	//Basico
+	Machop.preparar("Basico", 'B', Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno);
+	Machop.preparar("Basico", 'B', Bando::Team_Rocket, Tipo::Lucha, Tipo::Siniestro);
+
+
+	//Colocacion en tablero
+	
+	//Posicion Hechicero
+	Mitablerito.colocar_pokemon(4, 0, &Alakazam);
+	Mitablerito.colocar_pokemon(4, 8, &Gengar);
+	//Posicion Volador
+	Mitablerito.colocar_pokemon(2, 0, &Charizard);
+	Mitablerito.colocar_pokemon(6, 0, &Charizard);
+	Mitablerito.colocar_pokemon(2, 8, &Crobat);
+	Mitablerito.colocar_pokemon(6, 8, &Crobat);
+	//Posicion Tanque
+	Mitablerito.colocar_pokemon(0, 0, &Snorlax);
+	Mitablerito.colocar_pokemon(8, 0, &Snorlax);
+	Mitablerito.colocar_pokemon(0, 8, &Tyranitar);
+	Mitablerito.colocar_pokemon(8, 8, &Tyranitar);
+	//Posicion Distancia
+	Mitablerito.colocar_pokemon(0, 1, &Grovile);
+	Mitablerito.colocar_pokemon(1, 0, &Grovile);
+	Mitablerito.colocar_pokemon(7, 0, &Grovile);
+	Mitablerito.colocar_pokemon(8, 1, &Grovile);
+	Mitablerito.colocar_pokemon(0, 7, &Umbreon);
+	Mitablerito.colocar_pokemon(1, 8, &Umbreon);
+	Mitablerito.colocar_pokemon(8, 7, &Umbreon);
+	Mitablerito.colocar_pokemon(7, 8, &Umbreon);
+
+	//Posicion Basico
+	for (i = 1; i < 8; i++) Mitablerito.colocar_pokemon(i, 1, &Machop);
+	for (i = 1; i < 8; i++) Mitablerito.colocar_pokemon(i, 7, &Scraggy);
+
+
+
+
+
+
+
+
+
+	
 
 	//pasarle el control a GLUT,que llamara a los callbacks
 	glutMainLoop();

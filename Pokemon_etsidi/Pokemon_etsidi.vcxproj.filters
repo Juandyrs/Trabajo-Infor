@@ -39,6 +39,27 @@
     <ClCompile Include="scr\Vector2D.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="scr\tiposp\Hechicero.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\tiposp\Volador.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\tiposp\Tanque.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\tiposp\Distancia.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\tiposp\Basico.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\tiposp\Fenix.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\tiposp\CambiaFormas.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="scr\Tablero.h">
@@ -63,6 +84,27 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="scr\Vector2D.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\tiposp\Hechicero.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\tiposp\Volador.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\tiposp\Tanque.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\tiposp\Distancia.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\tiposp\Basico.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\tiposp\Fenix.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\tiposp\CambiaFormas.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

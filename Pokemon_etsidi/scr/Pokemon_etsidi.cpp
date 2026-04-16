@@ -4,6 +4,13 @@
 #include <iostream>
 #include "tablero.h"
 #include "Pokemon.h"
+#include "Hechicero.h"
+#include "Volador.h"
+#include "Tanque.h"
+#include "Distancia.h"
+#include "Basico.h"
+#include "Fenix.h"
+#include "CambiaFormas.h"
 #include "Tipos_Pokemon.h"
 #include "ArenaCombate.h"
 #include <freeglut.h>
@@ -56,7 +63,7 @@ int main(int argc, char* argv[])
 	Tanque Snorlax[2], Tyranitar[2];
 	Distancia Grovile[4], Umbreon[4];
 	Basico Machop[7], Scraggy[7];
-	Cambiaforma Ditto[2];
+	CambiaFormas Ditto[2];
 	Fenix Moltres[2];
 
 	//Hechiceros

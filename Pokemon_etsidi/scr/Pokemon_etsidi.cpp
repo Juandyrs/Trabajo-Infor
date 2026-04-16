@@ -11,7 +11,6 @@
 #include "Basico.h"
 #include "Fenix.h"
 #include "CambiaFormas.h"
-#include "Tipos_Pokemon.h"
 #include "ArenaCombate.h"
 #include <freeglut.h>
 

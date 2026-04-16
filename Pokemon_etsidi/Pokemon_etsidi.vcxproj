@@ -200,7 +200,6 @@
     <ClCompile Include="scr\Pokemon.cpp" />
     <ClCompile Include="scr\Pokemon_etsidi.cpp" />
     <ClCompile Include="scr\Tablero.cpp" />
-    <ClCompile Include="scr\Tipos_Pokemon.cpp" />
     <ClCompile Include="scr\Vector2D.cpp" />
     <ClCompile Include="scr\tiposp\Volador.cpp" />
     <ClCompile Include="scr\tiposp\Tanque.cpp" />
@@ -217,7 +216,6 @@
     <ClInclude Include="scr\Juego.h" />
     <ClInclude Include="scr\Pokemon.h" />
     <ClInclude Include="scr\Tablero.h" />
-    <ClInclude Include="scr\Tipos_Pokemon.h" />
     <ClInclude Include="scr\Vector2D.h" />
     <ClInclude Include="scr\tiposp\Volador.h" />
     <ClInclude Include="scr\tiposp\Tanque.h" />

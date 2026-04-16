@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "Vector2D.h"
 
 using namespace std;
 
@@ -19,17 +20,24 @@ enum class TipoMovimiento {
 class Pokemon
 {
 protected:
+
+	//Atributos Generales
 	string nombre;
-	char simbolo;
-	Bando equipo;
 	Tipo tip1, tip2;
+	Bando equipo;
+
+	//Atributos del Tablero
+	char simbolo;
+	TipoMovimiento movimiento;
+	int numero_casillas;
+
+	//Atributos de la Arena
 	double vida_max,vida_actual;
 	double velocidad;
 	double tiempo_recarga;
 	double dano;
 	double velocidad_proyectil;
-	TipoMovimiento movimiento;
-	int numero_casillas;
+	Vector2D pos_arena;
 
 public:
 
@@ -39,6 +47,8 @@ public:
 	void inicializa_mov(TipoMovimiento mov, int nu_ca);
 	char obtener_simbolo() { return simbolo; }
 	
+	//Metodos Relacionados con el tablero
 
+	//Metodos Relacionados con la Arena
 };
 

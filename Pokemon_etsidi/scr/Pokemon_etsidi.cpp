@@ -5,11 +5,15 @@
 #include "tablero.h"
 #include "Pokemon.h"
 #include "Tipos_Pokemon.h"
+#include "ArenaCombate.h"
 #include <freeglut.h>
 
 void OnDraw(void); //esta funcion sera llamada para dibujar
 void OnTimer(int value); //esta funcion sera llamada cuando transcurra una temporizacion 
 void OnKeyboardDown(unsigned char key, int x, int y); //cuando se pulse una tecla	
+
+ArenaCombate Arena;
+Hechicero p1, p2;
 
 int main(int argc, char* argv[])
 {
@@ -19,7 +23,7 @@ int main(int argc, char* argv[])
 	glutInit(&argc, argv);
 	glutInitWindowSize(800, 600);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-	glutCreateWindow("PANGSIDI");
+	glutCreateWindow("POKETSIDI");
 
 	//habilitar luces y definir perspectiva
 	glEnable(GL_LIGHT0);
@@ -33,8 +37,6 @@ int main(int argc, char* argv[])
 	glutDisplayFunc(OnDraw);
 	glutTimerFunc(25, OnTimer, 0);//le decimos que dentro de 25ms llame 1 vez a la funcion OnTimer()
 	glutKeyboardFunc(OnKeyboardDown);
-
-
 
 
 
@@ -125,8 +127,6 @@ int main(int argc, char* argv[])
 
 
 
-
-
 	
 
 	//pasarle el control a GLUT,que llamara a los callbacks
@@ -141,27 +141,19 @@ void OnDraw(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(0, 10, 20,  // posicion del ojo
+	gluLookAt(10, 10, 10,  // posicion del ojo
 		0.0, 0, 0.0,				// hacia que punto mira  (0,0,0) 
-		0.0, 1.0, 0.0);				// definimos hacia arriba (eje Y)    
+		0.0, 1.0, 0);				// definimos hacia arriba (eje Y)    
 
 	//aqui es donde hay que poner el codigo de dibujo
-
-	//dibujo del suelo inicial que BORRAREMOS
-	glDisable(GL_LIGHTING);
-	glBegin(GL_POLYGON);
-	glColor3ub(255, 0, 0);
-	glVertex3d(-5.0, 0, -5.0);
-	glVertex3d(-5.0, 0, 5.0);
-	glColor3ub(255, 255, 0);
-	glVertex3d(5.0, 0, 5.0);
-	glVertex3d(5.0, 0, -5.0);
-	glEnd();
-	glEnable(GL_LIGHTING);
+	
+	Arena.dibuja_Arena();
+	Arena.dibuja_Personajes(p1,p2);
 	
 	//no borrar esta linea ni poner nada despues
 	glutSwapBuffers();
 }
+
 void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 {
 	//codigo de gestion de teclado

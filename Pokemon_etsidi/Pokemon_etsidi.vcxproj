@@ -196,6 +196,7 @@
     <ClCompile Include="scr\Pokemon_etsidi.cpp" />
     <ClCompile Include="scr\Tablero.cpp" />
     <ClCompile Include="scr\Tipos_Pokemon.cpp" />
+    <ClCompile Include="scr\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\freeglut.h" />
@@ -205,6 +206,7 @@
     <ClInclude Include="scr\Pokemon.h" />
     <ClInclude Include="scr\Tablero.h" />
     <ClInclude Include="scr\Tipos_Pokemon.h" />
+    <ClInclude Include="scr\Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\freeglut.dll" />

@@ -17,9 +17,16 @@
 void OnDraw(void); //esta funcion sera llamada para dibujar
 void OnTimer(int value); //esta funcion sera llamada cuando transcurra una temporizacion 
 void OnKeyboardDown(unsigned char key, int x, int y); //cuando se pulse una tecla	
+void OnKeyboardUp(unsigned char key, int x, int y);
 
 ArenaCombate Arena;
 Hechicero p1, p2;
+bool keys[256];
+
+// Para poder detectar el pulsado de dos teclas simultaneas
+void init() {
+	for (int i = 0; i < 256; i++) keys[i] = false;
+}
 
 int main(int argc, char* argv[])
 {
@@ -30,6 +37,7 @@ int main(int argc, char* argv[])
 	glutInitWindowSize(800, 600);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutCreateWindow("POKETSIDI");
+	init();
 
 	//habilitar luces y definir perspectiva
 	glEnable(GL_LIGHT0);
@@ -42,7 +50,8 @@ int main(int argc, char* argv[])
 	//Registrar los callbacks
 	glutDisplayFunc(OnDraw);
 	glutTimerFunc(25, OnTimer, 0);//le decimos que dentro de 25ms llame 1 vez a la funcion OnTimer()
-	glutKeyboardFunc(OnKeyboardDown);
+	glutKeyboardFunc(OnKeyboardDown); // Registra cuando se pulsa una de las teclas
+	glutKeyboardUpFunc(OnKeyboardUp); // Registra cuando se deja de pulsar una tecla
 
 
 
@@ -131,7 +140,7 @@ int main(int argc, char* argv[])
 
 
 
-
+	Arena.inicializar_pos(p1, p2);
 
 	
 
@@ -147,14 +156,14 @@ void OnDraw(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(10, 10, 10,  // posicion del ojo
+	gluLookAt(0, 0, 20,  // posicion del ojo
 		0.0, 0, 0.0,				// hacia que punto mira  (0,0,0) 
-		0.0, 1.0, 0);				// definimos hacia arriba (eje Y)    
+		0.0, 1, 0.0);				// definimos hacia arriba (eje Z)    
 
 	//aqui es donde hay que poner el codigo de dibujo
 	
 	Arena.dibuja_Arena();
-	Arena.dibuja_Personajes(p1,p2);
+	Arena.dibuja_Personajes();
 	
 	//no borrar esta linea ni poner nada despues
 	glutSwapBuffers();
@@ -164,11 +173,21 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 {
 	//codigo de gestion de teclado
 	
+	keys[key] = true;
+
+	Arena.mueve_personaje(keys);
 
 	//indicamos que se vuelva a dibujar la pantalla, para que se vean los cambios
 	glutPostRedisplay();
 }
 
+void OnKeyboardUp(unsigned char key, int x_t, int y_t)
+{
+	//codigo de gestion de teclado
+
+	keys[key] = false;
+
+}
 
 void OnTimer(int value)
 {

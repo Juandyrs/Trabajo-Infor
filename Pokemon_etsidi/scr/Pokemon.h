@@ -41,7 +41,8 @@ protected:
 
 public:
 
-	
+	friend class ArenaCombate;
+
 	void inicializa_datos(string n, char s, Bando b, Tipo tipo1, Tipo tipo2);
 	void inicializa_stats(double v_max, double v_act, double vel, double timp,double da, double vel_proy);
 	void inicializa_mov(TipoMovimiento mov, int nu_ca);

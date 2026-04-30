@@ -29,7 +29,8 @@ bool Distancia::colision_ataque(Pokemon& objetivo)
 	double distancia_y = ataque.pos_atk.y - objetivo.pos_arena.y;
 
 	if (abs(distancia_x) < (ataque.radio_proyectil + objetivo.Hitbox.x) &&
-		abs(distancia_y) < (ataque.radio_proyectil + objetivo.Hitbox.y)) {
+		abs(distancia_y) < (ataque.radio_proyectil + objetivo.Hitbox.y)) 
+	{
 
 		// Colisión detectada, aplicar daño al objetivo
 		objetivo.vida_actual -= ataque.dano;

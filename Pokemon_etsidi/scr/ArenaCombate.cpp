@@ -2,6 +2,7 @@
 #include <freeglut.h>
 
 bool atk1 = false, atk1_ini = false, atk2 = false, atk2_ini = false;
+double cd1 = 0.0, cd2 = 0.0;
 
 void ArenaCombate::dibuja_Arena()
 {
@@ -36,8 +37,6 @@ void ArenaCombate::dibuja_Arena()
 	}
 
 	//Contenedor de Barra de vida del equipo 1
-
-
 
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
@@ -116,12 +115,14 @@ void ArenaCombate::arena_combate()
 	{
 		atk1 = true;
 		equipo1.atacar(equipo1.pos_arena, equipo1.dir_mov);
+		cd1 = equipo1.cooldown;
 		atk1_ini = false;
 	}
 	if (atk2_ini)
 	{
 		atk2 = true;
 		equipo2.atacar(equipo2.pos_arena, equipo2.dir_mov);
+		cd2 = equipo2.cooldown;
 		atk2_ini = false;
 	}
 
@@ -138,6 +139,9 @@ void ArenaCombate::arena_combate()
 		atk2 = !equipo2.colision_ataque(equipo1);
 		if (equipo1.vida_actual <= 0) equipo1.vida_actual = 0;
 	}
+
+	if (cd1 > 0) cd1 -= 0.025;
+	if (cd2 > 0) cd2 -= 0.025;
 }
 
 void ArenaCombate::limita_movimiento()
@@ -200,7 +204,7 @@ void ArenaCombate::mueve_personaje(bool key[])
 		equipo1.pos_arena.y -= 0.1;
 		equipo1.dir_mov = { -sqrt(2) / 2, -sqrt(2) / 2 };
 	}
-	if ((key['f'] || key['F'])) atk1_ini = true;
+	if ((key['f'] || key['F']) && cd1 <= 0) atk1_ini = true;
 
 
 	if ((key['i'] || key['I']) && !(key['l'] || key['L']) && !(key['j'] || key['J']))
@@ -247,6 +251,6 @@ void ArenaCombate::mueve_personaje(bool key[])
 		equipo2.pos_arena.x -= 0.1;
 		equipo2.dir_mov = { -sqrt(2) / 2, -sqrt(2) / 2 };
 	}	
-	if ((key['h'] || key['H'])) atk2_ini = true;
+	if ((key['h'] || key['H']) && cd2 <= 0) atk2_ini = true;
 }
  

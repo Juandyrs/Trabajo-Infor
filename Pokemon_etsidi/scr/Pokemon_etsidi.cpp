@@ -124,7 +124,6 @@ int main(int argc, char* argv[])
 	
 	*/
 
-	Arena.inicializar_pos();
 
 	
 
@@ -179,7 +178,7 @@ void OnTimer(int value)
 {
 	//código de animacion
 	
-	Arena.arena_transicion();
+	Arena.arena_combate();
 	
 	//no borrar estas lineas
 	//indicamos que se vuelva a dibujar la pantalla, para que se vean los cambios

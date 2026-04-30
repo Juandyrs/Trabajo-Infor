@@ -15,12 +15,14 @@ public:
 	ArenaCombate(Pokemon &t1, Pokemon &t2)
 		: equipo1(t1)
 		, equipo2(t2)
-	{}
+	{
+		equipo1.pos_arena = { -dimensiones_arena.x + 2, 0 };
+		equipo2.pos_arena = { dimensiones_arena.x - 2, 0 };
+	}
 
 	void dibuja_Arena();
 	void dibuja_Personajes();
-	void arena_transicion();
-	void inicializar_pos();
+	void arena_combate();
 	void mueve_personaje(bool key[]);
 
 };

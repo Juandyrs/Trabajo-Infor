@@ -24,6 +24,7 @@ public:
 	void dibuja_Personajes();
 	void arena_combate();
 	void mueve_personaje(bool key[]);
+	void limita_movimiento();
 
 };
 

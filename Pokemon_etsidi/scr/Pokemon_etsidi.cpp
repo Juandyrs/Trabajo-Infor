@@ -179,7 +179,8 @@ void OnTimer(int value)
 	//código de animacion
 	
 	Arena.arena_combate();
-	
+	Arena.limita_movimiento();
+
 	//no borrar estas lineas
 	//indicamos que se vuelva a dibujar la pantalla, para que se vean los cambios
 	glutPostRedisplay();

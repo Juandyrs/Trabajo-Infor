@@ -26,11 +26,11 @@ void ArenaCombate::dibuja_Arena()
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
 		glColor3ub(255, 0, 0);
-		glVertex3d(-dimensiones_arena.x - 4, -equipo1.vida_actual / 10 - 0.5, 0);
-		glVertex3d(-dimensiones_arena.x - 4, equipo1.vida_actual / 10 + 0.5, 0);
+		glVertex3d(-dimensiones_arena.x - 4, -equipo1.vida_actual / 10, 0);
+		glVertex3d(-dimensiones_arena.x - 4, equipo1.vida_actual / 10, 0);
 		glColor3ub(255, 0, 0);
-		glVertex3d(-dimensiones_arena.x - 2, equipo1.vida_actual / 10 + 0.5, 0);
-		glVertex3d(-dimensiones_arena.x - 2, -equipo1.vida_actual / 10 - 0.5, 0);
+		glVertex3d(-dimensiones_arena.x - 2, equipo1.vida_actual / 10, 0);
+		glVertex3d(-dimensiones_arena.x - 2, -equipo1.vida_actual / 10, 0);
 		glEnd();
 		glEnable(GL_LIGHTING);
 	}
@@ -42,11 +42,11 @@ void ArenaCombate::dibuja_Arena()
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
 	glColor3ub(255, 255, 255);
-	glVertex3d(-dimensiones_arena.x - 4, -dimensiones_arena.y - 0.5, 0);
-	glVertex3d(-dimensiones_arena.x - 4, dimensiones_arena.y + 0.5, 0);
+	glVertex3d(-dimensiones_arena.x - 4, -dimensiones_arena.y - 1, 0);
+	glVertex3d(-dimensiones_arena.x - 4, dimensiones_arena.y + 1, 0);
 	glColor3ub(255, 255, 255);
-	glVertex3d(-dimensiones_arena.x - 2, dimensiones_arena.y + 0.5, 0);
-	glVertex3d(-dimensiones_arena.x - 2, -dimensiones_arena.y - 0.5, 0);
+	glVertex3d(-dimensiones_arena.x - 2, dimensiones_arena.y + 1, 0);
+	glVertex3d(-dimensiones_arena.x - 2, -dimensiones_arena.y - 1, 0);
 	glEnd();
 	glEnable(GL_LIGHTING);
 
@@ -57,11 +57,11 @@ void ArenaCombate::dibuja_Arena()
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
 		glColor3ub(255, 0, 0);
-		glVertex3d(dimensiones_arena.x + 4, -equipo2.vida_actual / 10 - 0.5, 0);
-		glVertex3d(dimensiones_arena.x + 4, equipo2.vida_actual / 10 + 0.5, 0);
+		glVertex3d(dimensiones_arena.x + 4, -equipo2.vida_actual / 10 , 0);
+		glVertex3d(dimensiones_arena.x + 4, equipo2.vida_actual / 10 , 0);
 		glColor3ub(255, 0, 0);
-		glVertex3d(dimensiones_arena.x + 2, equipo2.vida_actual / 10 + 0.5, 0);
-		glVertex3d(dimensiones_arena.x + 2, -equipo2.vida_actual / 10 - 0.5, 0);
+		glVertex3d(dimensiones_arena.x + 2, equipo2.vida_actual / 10 , 0);
+		glVertex3d(dimensiones_arena.x + 2, -equipo2.vida_actual / 10 , 0);
 		glEnd();
 		glEnable(GL_LIGHTING);
 	}
@@ -71,11 +71,11 @@ void ArenaCombate::dibuja_Arena()
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
 	glColor3ub(255, 255, 255);
-	glVertex3d(dimensiones_arena.x + 4, -dimensiones_arena.y - 0.5, 0);
-	glVertex3d(dimensiones_arena.x + 4, dimensiones_arena.y + 0.5, 0);
+	glVertex3d(dimensiones_arena.x + 4, -dimensiones_arena.y-1, 0);
+	glVertex3d(dimensiones_arena.x + 4, dimensiones_arena.y+1, 0);
 	glColor3ub(255, 255, 255);
-	glVertex3d(dimensiones_arena.x + 2, dimensiones_arena.y + 0.5, 0);
-	glVertex3d(dimensiones_arena.x + 2, -dimensiones_arena.y - 0.5, 0);
+	glVertex3d(dimensiones_arena.x + 2, dimensiones_arena.y+1, 0);
+	glVertex3d(dimensiones_arena.x + 2, -dimensiones_arena.y-1, 0);
 	glEnd();
 	glEnable(GL_LIGHTING);
 }
@@ -83,14 +83,21 @@ void ArenaCombate::dibuja_Arena()
 void ArenaCombate::dibuja_Personajes()
 {
 	//PlaceHolders hay que cambiarlos
-	glColor3ub(255,255,0);
-	glTranslated(equipo1.pos_arena.x, equipo1.pos_arena.y, 0);
-	glutSolidSphere(1, 20, 20);
-	glTranslated(-equipo1.pos_arena.x, -equipo1.pos_arena.y, 0);
+	if (equipo1.vida_actual > 0)
+	{
+		glColor3ub(255, 255, 0);
+		glTranslated(equipo1.pos_arena.x, equipo1.pos_arena.y, 0);
+		glutSolidSphere(1, 20, 20);
+		glTranslated(-equipo1.pos_arena.x, -equipo1.pos_arena.y, 0);
+	}
 
-	glTranslated(equipo2.pos_arena.x, equipo2.pos_arena.y, 0);
-	glutSolidSphere(1, 20, 20);
-	glTranslated(-equipo2.pos_arena.x, -equipo2.pos_arena.y, 0);
+	if(equipo2.vida_actual > 0)
+	{
+		glColor3ub(0, 255, 0);
+		glTranslated(equipo2.pos_arena.x, equipo2.pos_arena.y, 0);
+		glutSolidSphere(1, 20, 20);
+		glTranslated(-equipo2.pos_arena.x, -equipo2.pos_arena.y, 0);
+	}
 
 	if (atk1)
 	{
@@ -122,60 +129,124 @@ void ArenaCombate::arena_combate()
 	{
 		equipo1.mueve_ataque();
 		atk1 = !equipo1.colision_ataque(equipo2);
+		if (equipo2.vida_actual <= 0) equipo2.vida_actual = 0;
 	}
 
 	if (atk2)
 	{
 		equipo2.mueve_ataque();
 		atk2 = !equipo2.colision_ataque(equipo1);
+		if (equipo1.vida_actual <= 0) equipo1.vida_actual = 0;
 	}
+}
+
+void ArenaCombate::limita_movimiento()
+{
+	if (equipo1.pos_arena.x >= dimensiones_arena.x) equipo1.pos_arena.x = dimensiones_arena.x;
+	if (equipo1.pos_arena.x <= -dimensiones_arena.x) equipo1.pos_arena.x = -dimensiones_arena.x;
+	if (equipo1.pos_arena.y >= dimensiones_arena.y) equipo1.pos_arena.y = dimensiones_arena.y;
+	if (equipo1.pos_arena.y <= -dimensiones_arena.y) equipo1.pos_arena.y = -dimensiones_arena.y;
+
+	if (equipo2.pos_arena.x >= dimensiones_arena.x) equipo2.pos_arena.x = dimensiones_arena.x;
+	if (equipo2.pos_arena.x <= -dimensiones_arena.x) equipo2.pos_arena.x = -dimensiones_arena.x;
+	if (equipo2.pos_arena.y >= dimensiones_arena.y) equipo2.pos_arena.y = dimensiones_arena.y;
+	if (equipo2.pos_arena.y <= -dimensiones_arena.y) equipo2.pos_arena.y = -dimensiones_arena.y;
 }
 
 void ArenaCombate::mueve_personaje(bool key[])
 {
 
-	if ((key['w']|| key['W']) && equipo1.pos_arena.y < dimensiones_arena.y)
+	if ((key['w']|| key['W']) && !(key['d'] || key['D']) && !(key['a'] || key['A']))
 	{
 		equipo1.pos_arena.y += 0.1;
 		equipo1.dir_mov = { 0.0, 1.0 };
 	}
-	if ((key['s'] || key['S']) && equipo1.pos_arena.y > -dimensiones_arena.y)
+	if ((key['s'] || key['S']) && !(key['d'] || key['D']) && !(key['a'] || key['A']))
 	{
 		equipo1.pos_arena.y -= 0.1;
 		equipo1.dir_mov = { 0.0, -1.0 };
 	}
-	if ((key['d'] || key['D']) && equipo1.pos_arena.x < dimensiones_arena.x)
+	if ((key['d'] || key['D']) && !(key['w'] || key['W']) && !(key['s'] || key['S']))
 	{
 		equipo1.pos_arena.x += 0.1;
 		equipo1.dir_mov = { 1.0, 0.0 };
 	}
-	if ((key['a'] || key['A']) && equipo1.pos_arena.x > -dimensiones_arena.x)
+	if ((key['a'] || key['A']) && !(key['w'] || key['W']) && !(key['s'] || key['S']))
 	{
 		equipo1.pos_arena.x -= 0.1;
 		equipo1.dir_mov = { -1.0, 0.0 };
 	}
+	if ((key['w'] || key['W']) && (key['d'] || key['D']))
+	{
+		equipo1.pos_arena.y += 0.1;
+		equipo1.pos_arena.x += 0.1;
+		equipo1.dir_mov = { sqrt(2) / 2, sqrt(2) / 2 };
+	}
+	if ((key['w'] || key['W']) && (key['a'] || key['A']))
+	{
+		equipo1.pos_arena.y += 0.1;
+		equipo1.pos_arena.x -= 0.1;
+		equipo1.dir_mov = { -sqrt(2) / 2, sqrt(2) / 2 };
+	}
+	if ((key['s'] || key['S']) && (key['d'] || key['D']))
+	{
+		equipo1.pos_arena.x += 0.1;
+		equipo1.pos_arena.y -= 0.1;
+		equipo1.dir_mov = { sqrt(2) / 2, -sqrt(2) / 2 };
+	}
+	if ((key['s'] || key['S']) && (key['a'] || key['A']))
+	{
+		equipo1.pos_arena.x -= 0.1;
+		equipo1.pos_arena.y -= 0.1;
+		equipo1.dir_mov = { -sqrt(2) / 2, -sqrt(2) / 2 };
+	}
 	if ((key['f'] || key['F'])) atk1_ini = true;
 
-	if ((key['i'] || key['I']) && equipo2.pos_arena.y < dimensiones_arena.y)
+
+	if ((key['i'] || key['I']) && !(key['l'] || key['L']) && !(key['j'] || key['J']))
 	{
 		equipo2.pos_arena.y += 0.1;
 		equipo2.dir_mov = { 0.0, 1.0 };
 	}
-	if ((key['k'] || key['K']) && equipo2.pos_arena.y > -dimensiones_arena.y)
+	if ((key['k'] || key['K']) && !(key['l'] || key['L']) && !(key['j'] || key['J']))
 	{
 		equipo2.pos_arena.y -= 0.1;
 		equipo2.dir_mov = { 0.0, -1.0 };
 	}
-	if ((key['l'] || key['L']) && equipo2.pos_arena.x < dimensiones_arena.x)
+	if ((key['l'] || key['L']) && !(key['i'] || key['I']) && !(key['k'] || key['K']))
 	{
 		equipo2.pos_arena.x += 0.1;
 		equipo2.dir_mov = { 1.0, 0.0 };
 	}
-	if ((key['j'] || key['J']) && equipo2.pos_arena.x > -dimensiones_arena.x)
+	if ((key['j'] || key['J']) && !(key['i'] || key['I']) && !(key['k'] || key['K']))
 	{
 		equipo2.pos_arena.x -= 0.1;
 		equipo2.dir_mov = { -1.0, 0.0 };
 	}
-	if ((key['h'] || key['H'])) atk2_ini = true;	
+	if ((key['i'] || key['I']) && (key['l'] || key['L']))
+	{
+		equipo2.pos_arena.y += 0.1;
+		equipo2.pos_arena.x += 0.1;
+		equipo2.dir_mov = { sqrt(2) / 2, sqrt(2) / 2 };
+	}
+	if ((key['i'] || key['I']) && (key['j'] || key['J']))
+	{
+		equipo2.pos_arena.y += 0.1;
+		equipo2.pos_arena.x -= 0.1;
+		equipo2.dir_mov = { -sqrt(2) / 2, sqrt(2) / 2 };
+	}
+	if ((key['k'] || key['K']) && (key['l'] || key['L']))
+	{
+		equipo2.pos_arena.y -= 0.1;
+		equipo2.pos_arena.x += 0.1;
+		equipo2.dir_mov = { sqrt(2) / 2, -sqrt(2) / 2 };
+	}
+	if ((key['k'] || key['K']) && (key['j'] || key['J']))
+	{
+		equipo2.pos_arena.y -= 0.1;
+		equipo2.pos_arena.x -= 0.1;
+		equipo2.dir_mov = { -sqrt(2) / 2, -sqrt(2) / 2 };
+	}	
+	if ((key['h'] || key['H'])) atk2_ini = true;
 }
  

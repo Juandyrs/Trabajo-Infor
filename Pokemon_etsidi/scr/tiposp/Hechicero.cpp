@@ -19,7 +19,7 @@ void Hechicero::atacar_dibujar()
 	glTranslated(-ataque.pos_atk.x, -ataque.pos_atk.y, 0);
 }
 
-bool Hechicero::colision_ataque(Pokemon& objetivo)
+bool Hechicero::colision_ataque(Pokemon &objetivo)
 {
 	//Calculo de la distancia entre el ataque y el objetivo
 	double distancia_x = abs(ataque.pos_atk.x - objetivo.pos_arena.x);

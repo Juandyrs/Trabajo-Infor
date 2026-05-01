@@ -30,7 +30,7 @@ void Basico::atacar_dibujar()
 	glTranslated(-ataque.pos_atk.x, -ataque.pos_atk.y, 0);
 }
 
-bool Basico::colision_ataque(Pokemon& objetivo)
+bool Basico::colision_ataque(Pokemon &objetivo)
 {
 	double ang_ataque = ataque.dir_atk.argumento();
 	Vector2D ataque_centro = ataque.pos_atk + Vector2D{ ataque.rango_ataque/2 * cos(ang_ataque), ataque.ancho_ataque/2 * sin(ang_ataque) };

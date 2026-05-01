@@ -19,7 +19,7 @@ void OnTimer(int value); //esta funcion sera llamada cuando transcurra una tempo
 void OnKeyboardDown(unsigned char key, int x, int y); //cuando se pulse una tecla	
 void OnKeyboardUp(unsigned char key, int x, int y);
 
-Basico& p1 = *new Basico();
+Basico &p1 = *new Basico();
 Distancia &p2 = *new Distancia();
 ArenaCombate Arena(p1, p2);
 bool keys[256]{false};
@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
 	glutKeyboardFunc(OnKeyboardDown); // Registra cuando se pulsa una de las teclas
 	glutKeyboardUpFunc(OnKeyboardUp); // Registra cuando se deja de pulsar una tecla
 
-	/*Tablero Mitablerito;
+	Tablero Mitablerito;
 	Hechicero Alakazam,Gengar;
 	Volador Charizard[2], Crobat[2];
 	Tanque Snorlax[2], Tyranitar[2];
@@ -122,8 +122,6 @@ int main(int argc, char* argv[])
 
 	Mitablerito.imprimir();
 	//Dibujar el tablero
-	
-	*/
 
 
 	

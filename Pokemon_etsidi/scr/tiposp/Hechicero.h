@@ -34,6 +34,6 @@ public:
     void atacar(Vector2D posicion, Vector2D dir) override;
     void atacar_dibujar() override;
     void mueve_ataque() override { ataque.pos_atk = ataque.pos_atk + ataque.vel_proyectil; }
-    bool colision_ataque(Pokemon& objetivo) override;
+    bool colision_ataque(Pokemon &objetivo) override;
 };
 

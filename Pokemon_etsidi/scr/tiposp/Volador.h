@@ -6,7 +6,18 @@ class Volador :
     public Pokemon
 {
     
+    Area ataque;
+
 public:
+
+    Volador()
+        : ataque(5.0, Vector2D{ 0.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 1.5, 2.0)
+    {
+        vida_max = 60.0;
+        vida_actual = 60.0;
+        velocidad = 2.0;
+        Hitbox = { 1.0, 1.0 };
+    }
 
     void preparar(string n, char s, Bando b, Tipo t1, Tipo t2)
     {

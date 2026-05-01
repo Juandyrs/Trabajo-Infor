@@ -19,8 +19,8 @@ void OnTimer(int value); //esta funcion sera llamada cuando transcurra una tempo
 void OnKeyboardDown(unsigned char key, int x, int y); //cuando se pulse una tecla	
 void OnKeyboardUp(unsigned char key, int x, int y);
 
-Basico &p1 = *new Basico();
-Distancia &p2 = *new Distancia();
+Fenix &p1 = *new Fenix();
+Volador &p2 = *new Volador();
 ArenaCombate Arena(p1, p2);
 bool keys[256]{false};
 

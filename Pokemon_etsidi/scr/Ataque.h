@@ -18,8 +18,8 @@ public:
 		, pos_atk{ 0.0, 0.0 }
 	{}
 
-	Ataque(double d, Vector2D dir, Vector2D pos)
-		: dano(d)
+	Ataque(double dano, Vector2D dir, Vector2D pos)
+		: dano(dano)
 		, dir_atk(dir)
 		, pos_atk(pos)
 	{}
@@ -42,8 +42,8 @@ class Rango :
 
 public:
 
-	Rango(double d, Vector2D dir, Vector2D pos, double vel, double radio)
-		: Ataque(d, dir, pos)
+	Rango(double dano, Vector2D dir, Vector2D pos, double vel, double radio)
+		: Ataque(dano, dir, pos)
 		, vel_proyectil(vel*dir_atk)
 		, radio_proyectil(radio)
 	{}
@@ -59,13 +59,15 @@ class Melee :
 {
 	double rango_ataque{};
 	double ancho_ataque{};
+	double frame_ataque{};
 
 public:
 
-	Melee(double d, Vector2D dir, Vector2D pos, double r, double a)
-		: Ataque(d, dir, pos)
-		, rango_ataque(r)
-		, ancho_ataque(a)
+	Melee(double dano, Vector2D dir, Vector2D pos, double rango, double ancho, double frame)
+		: Ataque(dano, dir, pos)
+		, rango_ataque(rango)
+		, ancho_ataque(ancho)
+		, frame_ataque(frame)
 	{}
 
 	friend class Basico;
@@ -76,14 +78,20 @@ class Area :
 	public Ataque
 {
 	double radio_ataque{};
+	double frame_ataque{};
 
 public:
 
-	Area(double r)
-	{
-		radio_ataque = r;
-	}
+
+
+	Area(double dano, Vector2D dir, Vector2D pos, double radio, double frame)
+		: Ataque(dano, dir, pos)
+		, radio_ataque(radio)
+		, frame_ataque(frame)
+	{}
 
 	friend class Pokemon;
+	friend class Fenix;
+	friend class Volador;
 	friend class ArenaCombate;
 };

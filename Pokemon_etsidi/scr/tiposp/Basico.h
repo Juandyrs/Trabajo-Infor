@@ -12,7 +12,7 @@ class Basico :
 public:
 
     Basico()
-		: ataque(20.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 2.0, 1.0)
+		: ataque(20.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 2.0, 1.0, 1.0)
     {
         vida_max = 60.0;
         vida_actual = 60.0;

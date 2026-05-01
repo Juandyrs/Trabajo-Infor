@@ -11,7 +11,7 @@ class Distancia :
 
 public:
 
-	//Constructor para la clase Distancia, que inicializa a la clase
+	//Constructor para la clase Distancia, que inicializa la clase
 
 	Distancia()
 		: ataque(20.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 0.5, 0.5)
@@ -22,7 +22,7 @@ public:
 		velocidad = 2.0;
 		dano = 20.0;
 		cooldown = 5;
-		Hitbox = { 0.5, 0.5 };
+		Hitbox = { 2, 2 }; // Hitbox para prueba, hay que cambiarlo
 	}
 
     void preparar(string n, char s, Bando b, Tipo t1, Tipo t2) {

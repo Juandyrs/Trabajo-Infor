@@ -5,7 +5,6 @@
 
 void Distancia::atacar(Vector2D posicion, Vector2D dir)
 {	
-
 	double velocidad_ataque = 0.1;
 
 	ataque.pos_atk = posicion;
@@ -25,11 +24,10 @@ void Distancia::atacar_dibujar()
 bool Distancia::colision_ataque(Pokemon& objetivo)
 {
 	//Calculo de la distancia entre el ataque y el objetivo
-	double distancia_x = ataque.pos_atk.x - objetivo.pos_arena.x;
-	double distancia_y = ataque.pos_atk.y - objetivo.pos_arena.y;
+	double distancia_x = abs(ataque.pos_atk.x - objetivo.pos_arena.x);
+	double distancia_y = abs(ataque.pos_atk.y - objetivo.pos_arena.y);
 
-	if (abs(distancia_x) < (ataque.radio_proyectil + objetivo.Hitbox.x) &&
-		abs(distancia_y) < (ataque.radio_proyectil + objetivo.Hitbox.y)) 
+	if (distancia_x < (ataque.radio_proyectil + objetivo.Hitbox.x) && distancia_y < (ataque.radio_proyectil + objetivo.Hitbox.y)) 
 	{
 
 		// Colisión detectada, aplicar daño al objetivo

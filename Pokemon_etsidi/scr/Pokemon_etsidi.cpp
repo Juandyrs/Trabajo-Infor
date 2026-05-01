@@ -19,7 +19,8 @@ void OnTimer(int value); //esta funcion sera llamada cuando transcurra una tempo
 void OnKeyboardDown(unsigned char key, int x, int y); //cuando se pulse una tecla	
 void OnKeyboardUp(unsigned char key, int x, int y);
 
-Distancia &p1 = *new Distancia(), & p2 = *new Distancia();
+Basico& p1 = *new Basico();
+Distancia &p2 = *new Distancia();
 ArenaCombate Arena(p1, p2);
 bool keys[256]{false};
 
@@ -145,8 +146,8 @@ void OnDraw(void)
 
 	//aqui es donde hay que poner el codigo de dibujo
 	
-	Arena.dibuja_Arena();
 	Arena.dibuja_Personajes();
+	Arena.dibuja_Arena();
 
 	
 	//no borrar esta linea ni poner nada despues

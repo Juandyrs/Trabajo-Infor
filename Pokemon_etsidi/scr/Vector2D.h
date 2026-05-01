@@ -8,6 +8,7 @@ struct Vector2D
 	double y{};
 
 	double modulo() const; //modulo del vector
+	double argumento() const; //argumento del vector
 	Vector2D operator - (const Vector2D&) const; //resta de vectores
 	Vector2D operator + (const Vector2D&) const; //suma de vectores
 	Vector2D operator *(double) const; // producto por un escalar
@@ -16,6 +17,11 @@ struct Vector2D
 inline double Vector2D::modulo() const
 {
 	return sqrt(x * x + y * y);
+}
+
+inline double Vector2D::argumento() const
+{
+	return atan2(y, x);
 }
 
 inline Vector2D Vector2D::operator - (const Vector2D& v) const

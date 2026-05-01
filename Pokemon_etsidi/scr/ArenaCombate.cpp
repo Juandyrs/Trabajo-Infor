@@ -92,10 +92,26 @@ void ArenaCombate::dibuja_Personajes()
 
 	if(equipo2.vida_actual > 0)
 	{
+		// Para probar hitbox, temporal hasta que se prueben todos las colisiones
+		glTranslated(equipo2.pos_arena.x, equipo2.pos_arena.y, 0);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glColor3ub(0, 255, 255);
+		glVertex3d(-equipo2.Hitbox.x, -equipo2.Hitbox.y, 0);
+		glVertex3d(-equipo2.Hitbox.x, equipo2.Hitbox.y, 0);
+		glColor3ub(0, 255, 255);
+		glVertex3d(equipo2.Hitbox.x, equipo2.Hitbox.y, 0);
+		glVertex3d(equipo2.Hitbox.x, -equipo2.Hitbox.y, 0);
+		glEnd();
+		glEnable(GL_LIGHTING);
+		glTranslated(-equipo2.pos_arena.x, -equipo2.pos_arena.y, 0);
+
+		// Personaje real, placeholder, hay que cambiarlo
 		glColor3ub(0, 255, 0);
 		glTranslated(equipo2.pos_arena.x, equipo2.pos_arena.y, 0);
 		glutSolidSphere(1, 20, 20);
 		glTranslated(-equipo2.pos_arena.x, -equipo2.pos_arena.y, 0);
+		
 	}
 
 	if (atk1)
@@ -140,8 +156,9 @@ void ArenaCombate::arena_combate()
 		if (equipo1.vida_actual <= 0) equipo1.vida_actual = 0;
 	}
 
-	if (cd1 > 0) cd1 -= 0.025;
-	if (cd2 > 0) cd2 -= 0.025;
+	// Cooldown para pruebas, hay que cambiarlo 
+	if (cd1 > 0) cd1 -= 1;
+	if (cd2 > 0) cd2 -= 1;
 }
 
 void ArenaCombate::limita_movimiento()

@@ -49,6 +49,8 @@ public:
 	{}
 
 	friend class Distancia;
+	friend class Hechicero;
+	friend class Tanque;
 	friend class ArenaCombate;
 };
 
@@ -60,13 +62,13 @@ class Melee :
 
 public:
 
-	Melee(double r, double a)
-	{
-		rango_ataque = r;
-		ancho_ataque = a;
-	}
+	Melee(double d, Vector2D dir, Vector2D pos, double r, double a)
+		: Ataque(d, dir, pos)
+		, rango_ataque(r)
+		, ancho_ataque(a)
+	{}
 
-	friend class Pokemon;
+	friend class Basico;
 	friend class ArenaCombate;
 };
 

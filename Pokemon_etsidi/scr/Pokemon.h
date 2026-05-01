@@ -67,6 +67,9 @@ public:
 	friend class ArenaCombate;
 	friend class Tablero;
 	friend class Distancia;
+	friend class Basico;
+	friend class Hechicero;
+	friend class Tanque;
 
 	void inicializa_datos(string n, char s, Bando b, Tipo tipo1, Tipo tipo2);
 	void inicializa_stats(double v_max, double v_act, double vel);

@@ -5,14 +5,26 @@
 
 class ArenaCombate
 {
-	Vector2D pos_inicial_equipo1{-3,0.5}, pos_inicial_equipo2{3,0.5}, dimensiones_arena{5,5};
-	Pokemon equipo1, equipo2;
+	Vector2D dimensiones_arena{9,9};
+	Pokemon &equipo1, &equipo2;
 
 public:
 	
+	ArenaCombate() = default;
+
+	ArenaCombate(Pokemon &t1, Pokemon &t2)
+		: equipo1(t1)
+		, equipo2(t2)
+	{
+		equipo1.pos_arena = { -dimensiones_arena.x + 2, 0 };
+		equipo2.pos_arena = { dimensiones_arena.x - 2, 0 };
+	}
+
 	void dibuja_Arena();
 	void dibuja_Personajes();
-	void inicializar_pos(Pokemon team1, Pokemon team2);
+	void arena_combate();
 	void mueve_personaje(bool key[]);
+	void limita_movimiento();
+
 };
 

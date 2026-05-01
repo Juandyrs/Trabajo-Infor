@@ -19,14 +19,12 @@ void OnTimer(int value); //esta funcion sera llamada cuando transcurra una tempo
 void OnKeyboardDown(unsigned char key, int x, int y); //cuando se pulse una tecla	
 void OnKeyboardUp(unsigned char key, int x, int y);
 
-ArenaCombate Arena;
-Hechicero p1, p2;
-bool keys[256];
+Basico& p1 = *new Basico();
+Distancia &p2 = *new Distancia();
+ArenaCombate Arena(p1, p2);
+bool keys[256]{false};
 
 // Para poder detectar el pulsado de dos teclas simultaneas
-void init() {
-	for (int i = 0; i < 256; i++) keys[i] = false;
-}
 
 int main(int argc, char* argv[])
 {
@@ -37,7 +35,6 @@ int main(int argc, char* argv[])
 	glutInitWindowSize(800, 600);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutCreateWindow("POKETSIDI");
-	init();
 
 	//habilitar luces y definir perspectiva
 	glEnable(GL_LIGHT0);
@@ -53,19 +50,7 @@ int main(int argc, char* argv[])
 	glutKeyboardFunc(OnKeyboardDown); // Registra cuando se pulsa una de las teclas
 	glutKeyboardUpFunc(OnKeyboardUp); // Registra cuando se deja de pulsar una tecla
 
-
-
-
-
-
-
-
-
-
-
-
-
-	Tablero Mitablerito;
+	/*Tablero Mitablerito;
 	Hechicero Alakazam,Gengar;
 	Volador Charizard[2], Crobat[2];
 	Tanque Snorlax[2], Tyranitar[2];
@@ -137,10 +122,9 @@ int main(int argc, char* argv[])
 
 	Mitablerito.imprimir();
 	//Dibujar el tablero
+	
+	*/
 
-
-
-	Arena.inicializar_pos(p1, p2);
 
 	
 
@@ -156,14 +140,15 @@ void OnDraw(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(0, 0, 20,  // posicion del ojo
+	gluLookAt(0, 0, 30,  // posicion del ojo
 		0.0, 0, 0.0,				// hacia que punto mira  (0,0,0) 
 		0.0, 1, 0.0);				// definimos hacia arriba (eje Z)    
 
 	//aqui es donde hay que poner el codigo de dibujo
 	
-	Arena.dibuja_Arena();
 	Arena.dibuja_Personajes();
+	Arena.dibuja_Arena();
+
 	
 	//no borrar esta linea ni poner nada despues
 	glutSwapBuffers();
@@ -176,6 +161,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 	keys[key] = true;
 
 	Arena.mueve_personaje(keys);
+
 
 	//indicamos que se vuelva a dibujar la pantalla, para que se vean los cambios
 	glutPostRedisplay();
@@ -193,6 +179,8 @@ void OnTimer(int value)
 {
 	//código de animacion
 	
+	Arena.arena_combate();
+	Arena.limita_movimiento();
 
 	//no borrar estas lineas
 	//indicamos que se vuelva a dibujar la pantalla, para que se vean los cambios

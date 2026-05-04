@@ -40,6 +40,7 @@ bool Fenix::colision_ataque(Pokemon &objetivo)
 	if (frame_ataque <= 0)
 	{
 		frame_ataque = ataque.frame_ataque;
+		contador = 10;
 		return true;
 	}
 

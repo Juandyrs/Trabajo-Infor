@@ -8,7 +8,7 @@ class ArenaCombate
 {
 	Vector2D dimensiones_arena{9,9};
 	Pokemon &equipo1, &equipo2;
-	Obs_Piedra obstaculo1{ Vector2D{0.0, 0.0} };
+	Obs_Fuego obstaculo1{ Vector2D{0.0, 0.0} };
 
 public:
 	
@@ -22,11 +22,18 @@ public:
 		equipo2.pos_arena = { dimensiones_arena.x - 2, 0 };
 	}
 
+
+	//Metodos de dibujo
 	void dibuja_Arena();
 	void dibuja_Personajes();
+	void dibuja_BarrasVida();
+	void dibuja_Ataques();
+	void dibuja_Obstaculos();
+
+	//Metodos de movimiento y ataque
 	void arena_combate();
+	void interaccion_obstaculos();
 	void mueve_personaje(bool key[]);
 	void limita_movimiento();
-
 };
 

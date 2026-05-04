@@ -5,8 +5,17 @@
 class CambiaFormas :
     public Pokemon
 {
+	Pokemon *forma; //Prueba
 
 public:
+
+    CambiaFormas()
+		: forma(nullptr)
+    {
+        vida_max = 60.0;
+        vida_actual = 60.0;
+        Hitbox = { 0.5, 0.5 };
+    }
 
     void preparar(string n, char s, Bando b, Tipo t1, Tipo t2) {
 

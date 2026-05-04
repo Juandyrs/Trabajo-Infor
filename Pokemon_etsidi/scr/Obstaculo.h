@@ -33,7 +33,7 @@ public:
 		Posicion = pos;
 	}
 
-	void interrumpir(Pokemon& personaje) override;
+	void interrumpir(Pokemon &personaje) override;
 	void dibujar() override;
 };
 
@@ -48,6 +48,7 @@ public:
 		Hitbox = { 1.0, 1.0 };
 		Posicion = pos;
 	}
-	void interrumpir(Pokemon& personaje) override;
+
+	void interrumpir(Pokemon &personaje) override;
 	void dibujar() override;
 };

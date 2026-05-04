@@ -18,9 +18,9 @@ void Fenix::atacar_dibujar()
 
 bool Fenix::colision_ataque(Pokemon &objetivo)
 {
-	static double frame_ataque = ataque.frame_ataque;
+	static double frame_ataque{ ataque.frame_ataque };
 	static double vida_antes{};
-	static int contador{10}; // Es para que no haga daño en todo los frames (Si no, estaría desbalanceado) 
+	static int contador{ 10 }; // Es para que no haga daño en todo los frames (Si no, estaría desbalanceado) 
 
 	if (frame_ataque == ataque.frame_ataque)
 	{
@@ -47,7 +47,8 @@ bool Fenix::colision_ataque(Pokemon &objetivo)
 	pos_arena = ataque.pos_atk; // Mantiene al fenix inmovil mientras dure el ataque
 	vida_actual = vida_antes; // El fenix no recibe daño mientras ataca
 	frame_ataque -= 0.1;
-	contador++;
+
+	if (contador < 10) contador++;
 
 	return false;
 }

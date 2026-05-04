@@ -20,7 +20,7 @@ void OnKeyboardDown(unsigned char key, int x, int y); //cuando se pulse una tecl
 void OnKeyboardUp(unsigned char key, int x, int y);
 
 Fenix &p1 = *new Fenix();
-Volador &p2 = *new Volador();
+Distancia &p2 = *new Distancia();
 ArenaCombate Arena(p1, p2);
 bool keys[256]{false};
 
@@ -144,6 +144,9 @@ void OnDraw(void)
 
 	//aqui es donde hay que poner el codigo de dibujo
 	
+	Arena.dibuja_Ataques();
+	Arena.dibuja_Obstaculos();
+	Arena.dibuja_BarrasVida();
 	Arena.dibuja_Personajes();
 	Arena.dibuja_Arena();
 
@@ -178,6 +181,7 @@ void OnTimer(int value)
 	//código de animacion
 	
 	Arena.arena_combate();
+	Arena.interaccion_obstaculos();
 	Arena.limita_movimiento();
 
 	//no borrar estas lineas

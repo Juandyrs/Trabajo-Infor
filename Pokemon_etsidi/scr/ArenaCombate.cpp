@@ -4,9 +4,10 @@
 bool atk1 = false, atk1_ini = false, atk2 = false, atk2_ini = false;
 double cd1 = 0.0, cd2 = 0.0;
 
+//Metodos de dibujo
+
 void ArenaCombate::dibuja_Arena()
 {
-	obstaculo1.dibujar();
 
 	//Dibujar el suelo de la arena
 	glDisable(GL_LIGHTING);
@@ -20,6 +21,64 @@ void ArenaCombate::dibuja_Arena()
 	glEnd();
 	glEnable(GL_LIGHTING);
 
+}
+
+void ArenaCombate::dibuja_Personajes()
+{
+	//PlaceHolders hay que cambiarlos
+	if (equipo1.vida_actual > 0)
+	{
+		// Para probar hitbox, temporal hasta que se prueben todos las colisiones
+		glTranslated(equipo1.pos_arena.x, equipo1.pos_arena.y, 0);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glColor3ub(0, 255, 255);
+		glVertex3d(-equipo1.Hitbox.x, -equipo1.Hitbox.y, 0);
+		glVertex3d(-equipo1.Hitbox.x, equipo1.Hitbox.y, 0);
+		glColor3ub(0, 255, 255);
+		glVertex3d(equipo1.Hitbox.x, equipo1.Hitbox.y, 0);
+		glVertex3d(equipo1.Hitbox.x, -equipo1.Hitbox.y, 0);
+		glEnd();
+		glEnable(GL_LIGHTING);
+		glTranslated(-equipo1.pos_arena.x, -equipo1.pos_arena.y, 0);
+
+		// Personaje real, placeholder, hay que cambiarlo
+		glColor3ub(255, 255, 0);
+		glTranslated(equipo1.pos_arena.x, equipo1.pos_arena.y, 0);
+		glutSolidSphere(1, 20, 20);
+		glTranslated(-equipo1.pos_arena.x, -equipo1.pos_arena.y, 0);
+	}
+
+	if(equipo2.vida_actual > 0)
+	{
+		// Para probar hitbox, temporal hasta que se prueben todos las colisiones
+		glTranslated(equipo2.pos_arena.x, equipo2.pos_arena.y, 0);
+		glDisable(GL_LIGHTING);
+		glBegin(GL_POLYGON);
+		glColor3ub(0, 255, 255);
+		glVertex3d(-equipo2.Hitbox.x, -equipo2.Hitbox.y, 0);
+		glVertex3d(-equipo2.Hitbox.x, equipo2.Hitbox.y, 0);
+		glColor3ub(0, 255, 255);
+		glVertex3d(equipo2.Hitbox.x, equipo2.Hitbox.y, 0);
+		glVertex3d(equipo2.Hitbox.x, -equipo2.Hitbox.y, 0);
+		glEnd();
+		glEnable(GL_LIGHTING);
+		glTranslated(-equipo2.pos_arena.x, -equipo2.pos_arena.y, 0);
+
+		// Personaje real, placeholder, hay que cambiarlo
+		glColor3ub(0, 255, 0);
+		glTranslated(equipo2.pos_arena.x, equipo2.pos_arena.y, 0);
+		glutSolidSphere(1, 20, 20);
+		glTranslated(-equipo2.pos_arena.x, -equipo2.pos_arena.y, 0);
+		
+	}
+
+}
+
+
+
+void ArenaCombate::dibuja_BarrasVida()
+{
 	//Dibujar barras de vida 
 
 	//Barra de vida del equipo 1
@@ -58,11 +117,11 @@ void ArenaCombate::dibuja_Arena()
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
 		glColor3ub(255, 0, 0);
-		glVertex3d(dimensiones_arena.x + 4, -equipo2.vida_actual / 10 , 0);
-		glVertex3d(dimensiones_arena.x + 4, equipo2.vida_actual / 10 , 0);
+		glVertex3d(dimensiones_arena.x + 4, -equipo2.vida_actual / 10, 0);
+		glVertex3d(dimensiones_arena.x + 4, equipo2.vida_actual / 10, 0);
 		glColor3ub(255, 0, 0);
-		glVertex3d(dimensiones_arena.x + 2, equipo2.vida_actual / 10 , 0);
-		glVertex3d(dimensiones_arena.x + 2, -equipo2.vida_actual / 10 , 0);
+		glVertex3d(dimensiones_arena.x + 2, equipo2.vida_actual / 10, 0);
+		glVertex3d(dimensiones_arena.x + 2, -equipo2.vida_actual / 10, 0);
 		glEnd();
 		glEnable(GL_LIGHTING);
 	}
@@ -72,50 +131,17 @@ void ArenaCombate::dibuja_Arena()
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
 	glColor3ub(255, 255, 255);
-	glVertex3d(dimensiones_arena.x + 4, -dimensiones_arena.y-1, 0);
-	glVertex3d(dimensiones_arena.x + 4, dimensiones_arena.y+1, 0);
+	glVertex3d(dimensiones_arena.x + 4, -dimensiones_arena.y - 1, 0);
+	glVertex3d(dimensiones_arena.x + 4, dimensiones_arena.y + 1, 0);
 	glColor3ub(255, 255, 255);
-	glVertex3d(dimensiones_arena.x + 2, dimensiones_arena.y+1, 0);
-	glVertex3d(dimensiones_arena.x + 2, -dimensiones_arena.y-1, 0);
+	glVertex3d(dimensiones_arena.x + 2, dimensiones_arena.y + 1, 0);
+	glVertex3d(dimensiones_arena.x + 2, -dimensiones_arena.y - 1, 0);
 	glEnd();
 	glEnable(GL_LIGHTING);
 }
 
-void ArenaCombate::dibuja_Personajes()
+void ArenaCombate::dibuja_Ataques()
 {
-	//PlaceHolders hay que cambiarlos
-	if (equipo1.vida_actual > 0)
-	{
-		glColor3ub(255, 255, 0);
-		glTranslated(equipo1.pos_arena.x, equipo1.pos_arena.y, 0);
-		glutSolidSphere(1, 20, 20);
-		glTranslated(-equipo1.pos_arena.x, -equipo1.pos_arena.y, 0);
-	}
-
-	if(equipo2.vida_actual > 0)
-	{
-		// Para probar hitbox, temporal hasta que se prueben todos las colisiones
-		glTranslated(equipo2.pos_arena.x, equipo2.pos_arena.y, 0);
-		glDisable(GL_LIGHTING);
-		glBegin(GL_POLYGON);
-		glColor3ub(0, 255, 255);
-		glVertex3d(-equipo2.Hitbox.x, -equipo2.Hitbox.y, 0);
-		glVertex3d(-equipo2.Hitbox.x, equipo2.Hitbox.y, 0);
-		glColor3ub(0, 255, 255);
-		glVertex3d(equipo2.Hitbox.x, equipo2.Hitbox.y, 0);
-		glVertex3d(equipo2.Hitbox.x, -equipo2.Hitbox.y, 0);
-		glEnd();
-		glEnable(GL_LIGHTING);
-		glTranslated(-equipo2.pos_arena.x, -equipo2.pos_arena.y, 0);
-
-		// Personaje real, placeholder, hay que cambiarlo
-		glColor3ub(0, 255, 0);
-		glTranslated(equipo2.pos_arena.x, equipo2.pos_arena.y, 0);
-		glutSolidSphere(1, 20, 20);
-		glTranslated(-equipo2.pos_arena.x, -equipo2.pos_arena.y, 0);
-		
-	}
-
 	if (atk1)
 	{
 		equipo1.atacar_dibujar();;
@@ -124,11 +150,18 @@ void ArenaCombate::dibuja_Personajes()
 	{
 		equipo2.atacar_dibujar();;
 	}
-
 }
 
-void ArenaCombate::arena_combate()
+void ArenaCombate::dibuja_Obstaculos()
 {
+	obstaculo1.dibujar();
+}
+
+//Metodos de movimiento y ataque
+
+void ArenaCombate::arena_combate()
+{ 
+
 	if (atk1_ini)
 	{
 		atk1 = true;
@@ -163,11 +196,17 @@ void ArenaCombate::arena_combate()
 	if (cd2 > 0) cd2 -= 1;
 }
 
-void ArenaCombate::limita_movimiento()
+void ArenaCombate::interaccion_obstaculos()
 {
+	static bool team1_inter = false, team2_inter = false;
+
 	obstaculo1.interrumpir(equipo1);
 	obstaculo1.interrumpir(equipo2);
 
+}
+
+void ArenaCombate::limita_movimiento()
+{
 
 	if (equipo1.pos_arena.x >= dimensiones_arena.x) equipo1.pos_arena.x = dimensiones_arena.x;
 	if (equipo1.pos_arena.x <= -dimensiones_arena.x) equipo1.pos_arena.x = -dimensiones_arena.x;

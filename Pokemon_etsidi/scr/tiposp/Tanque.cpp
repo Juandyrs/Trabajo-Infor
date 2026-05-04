@@ -15,7 +15,7 @@ void Tanque::atacar_dibujar()
 {
 	glColor3ub(255, 0, 0);
 	glTranslated(ataque.pos_atk.x, ataque.pos_atk.y, 0);
-	glutSolidSphere(static_cast<Rango&>(ataque).radio_proyectil, 20, 20);
+	glutSolidSphere(ataque.radio_proyectil, 20, 20);
 	glTranslated(-ataque.pos_atk.x, -ataque.pos_atk.y, 0);
 }
 

@@ -73,6 +73,7 @@ public:
 	friend class CambiaFormas;
 	friend class Fenix;
 	friend class Volador;
+	friend class Obs_Piedra;
 
 	void inicializa_datos(string n, char s, Bando b, Tipo tipo1, Tipo tipo2);
 	void inicializa_stats(double v_max, double v_act, double vel);
@@ -85,7 +86,7 @@ public:
 
 	virtual void atacar(Vector2D posicion, Vector2D dir) = 0;
 	virtual void mueve_ataque() = 0;
-	virtual bool colision_ataque(Pokemon& objetivo) = 0;
+	virtual bool colision_ataque(Pokemon &objetivo) = 0;
 	virtual void atacar_dibujar() = 0;
 };
 

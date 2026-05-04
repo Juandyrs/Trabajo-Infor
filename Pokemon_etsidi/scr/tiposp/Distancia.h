@@ -19,7 +19,7 @@ public:
 		// No se pueden inicializar miembros heredados en la lista de inicialización
 		vida_max = 60.0;
 		vida_actual = 60.0;
-		velocidad = 2.0;
+		velocidad = 0.2;
 		dano = 20.0;
 		cooldown = 5;
 		Hitbox = { 2, 2 }; // Hitbox para prueba, hay que cambiarlo

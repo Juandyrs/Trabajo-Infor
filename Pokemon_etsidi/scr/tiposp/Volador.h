@@ -15,7 +15,7 @@ public:
     {
         vida_max = 60.0;
         vida_actual = 60.0;
-        velocidad = 2.0;
+        velocidad = 0.2;
         Hitbox = { 1.0, 1.0 };
     }
 

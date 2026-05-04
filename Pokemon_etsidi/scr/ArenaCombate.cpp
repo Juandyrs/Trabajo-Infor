@@ -6,6 +6,8 @@ double cd1 = 0.0, cd2 = 0.0;
 
 void ArenaCombate::dibuja_Arena()
 {
+	obstaculo1.dibujar();
+
 	//Dibujar el suelo de la arena
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
@@ -163,6 +165,10 @@ void ArenaCombate::arena_combate()
 
 void ArenaCombate::limita_movimiento()
 {
+	obstaculo1.interrumpir(equipo1);
+	obstaculo1.interrumpir(equipo2);
+
+
 	if (equipo1.pos_arena.x >= dimensiones_arena.x) equipo1.pos_arena.x = dimensiones_arena.x;
 	if (equipo1.pos_arena.x <= -dimensiones_arena.x) equipo1.pos_arena.x = -dimensiones_arena.x;
 	if (equipo1.pos_arena.y >= dimensiones_arena.y) equipo1.pos_arena.y = dimensiones_arena.y;
@@ -179,94 +185,86 @@ void ArenaCombate::mueve_personaje(bool key[])
 
 	if ((key['w']|| key['W']) && !(key['d'] || key['D']) && !(key['a'] || key['A']))
 	{
-		equipo1.pos_arena.y += 0.1;
 		equipo1.dir_mov = { 0.0, 1.0 };
+		equipo1.pos_arena = equipo1.pos_arena + equipo1.dir_mov * equipo1.velocidad;
 	}
 	if ((key['s'] || key['S']) && !(key['d'] || key['D']) && !(key['a'] || key['A']))
 	{
-		equipo1.pos_arena.y -= 0.1;
 		equipo1.dir_mov = { 0.0, -1.0 };
+		equipo1.pos_arena = equipo1.pos_arena + equipo1.dir_mov * equipo1.velocidad;
 	}
 	if ((key['d'] || key['D']) && !(key['w'] || key['W']) && !(key['s'] || key['S']))
 	{
-		equipo1.pos_arena.x += 0.1;
 		equipo1.dir_mov = { 1.0, 0.0 };
+		equipo1.pos_arena = equipo1.pos_arena + equipo1.dir_mov * equipo1.velocidad;
 	}
 	if ((key['a'] || key['A']) && !(key['w'] || key['W']) && !(key['s'] || key['S']))
 	{
-		equipo1.pos_arena.x -= 0.1;
 		equipo1.dir_mov = { -1.0, 0.0 };
+		equipo1.pos_arena = equipo1.pos_arena + equipo1.dir_mov * equipo1.velocidad;
 	}
 	if ((key['w'] || key['W']) && (key['d'] || key['D']))
 	{
-		equipo1.pos_arena.y += 0.1;
-		equipo1.pos_arena.x += 0.1;
 		equipo1.dir_mov = { sqrt(2) / 2, sqrt(2) / 2 };
+		equipo1.pos_arena = equipo1.pos_arena + equipo1.dir_mov * equipo1.velocidad;
 	}
 	if ((key['w'] || key['W']) && (key['a'] || key['A']))
 	{
-		equipo1.pos_arena.y += 0.1;
-		equipo1.pos_arena.x -= 0.1;
 		equipo1.dir_mov = { -sqrt(2) / 2, sqrt(2) / 2 };
+		equipo1.pos_arena = equipo1.pos_arena + equipo1.dir_mov * equipo1.velocidad;
 	}
 	if ((key['s'] || key['S']) && (key['d'] || key['D']))
 	{
-		equipo1.pos_arena.x += 0.1;
-		equipo1.pos_arena.y -= 0.1;
 		equipo1.dir_mov = { sqrt(2) / 2, -sqrt(2) / 2 };
+		equipo1.pos_arena = equipo1.pos_arena + equipo1.dir_mov * equipo1.velocidad;
 	}
 	if ((key['s'] || key['S']) && (key['a'] || key['A']))
 	{
-		equipo1.pos_arena.x -= 0.1;
-		equipo1.pos_arena.y -= 0.1;
 		equipo1.dir_mov = { -sqrt(2) / 2, -sqrt(2) / 2 };
+		equipo1.pos_arena = equipo1.pos_arena + equipo1.dir_mov * equipo1.velocidad;
 	}
 	if ((key['f'] || key['F']) && cd1 <= 0) atk1_ini = true;
 
 
 	if ((key['i'] || key['I']) && !(key['l'] || key['L']) && !(key['j'] || key['J']))
 	{
-		equipo2.pos_arena.y += 0.1;
 		equipo2.dir_mov = { 0.0, 1.0 };
+		equipo2.pos_arena = equipo2.pos_arena + equipo2.dir_mov * equipo2.velocidad;
 	}
 	if ((key['k'] || key['K']) && !(key['l'] || key['L']) && !(key['j'] || key['J']))
 	{
-		equipo2.pos_arena.y -= 0.1;
 		equipo2.dir_mov = { 0.0, -1.0 };
+		equipo2.pos_arena = equipo2.pos_arena + equipo2.dir_mov * equipo2.velocidad;
 	}
 	if ((key['l'] || key['L']) && !(key['i'] || key['I']) && !(key['k'] || key['K']))
 	{
-		equipo2.pos_arena.x += 0.1;
 		equipo2.dir_mov = { 1.0, 0.0 };
+		equipo2.pos_arena = equipo2.pos_arena + equipo2.dir_mov * equipo2.velocidad;
 	}
 	if ((key['j'] || key['J']) && !(key['i'] || key['I']) && !(key['k'] || key['K']))
 	{
-		equipo2.pos_arena.x -= 0.1;
 		equipo2.dir_mov = { -1.0, 0.0 };
+		equipo2.pos_arena = equipo2.pos_arena + equipo2.dir_mov * equipo2.velocidad;
 	}
 	if ((key['i'] || key['I']) && (key['l'] || key['L']))
 	{
-		equipo2.pos_arena.y += 0.1;
-		equipo2.pos_arena.x += 0.1;
 		equipo2.dir_mov = { sqrt(2) / 2, sqrt(2) / 2 };
+		equipo2.pos_arena = equipo2.pos_arena + equipo2.dir_mov * equipo2.velocidad;
 	}
 	if ((key['i'] || key['I']) && (key['j'] || key['J']))
 	{
-		equipo2.pos_arena.y += 0.1;
-		equipo2.pos_arena.x -= 0.1;
 		equipo2.dir_mov = { -sqrt(2) / 2, sqrt(2) / 2 };
+		equipo2.pos_arena = equipo2.pos_arena + equipo2.dir_mov * equipo2.velocidad;
 	}
 	if ((key['k'] || key['K']) && (key['l'] || key['L']))
 	{
-		equipo2.pos_arena.y -= 0.1;
-		equipo2.pos_arena.x += 0.1;
 		equipo2.dir_mov = { sqrt(2) / 2, -sqrt(2) / 2 };
+		equipo2.pos_arena = equipo2.pos_arena + equipo2.dir_mov * equipo2.velocidad;
 	}
 	if ((key['k'] || key['K']) && (key['j'] || key['J']))
 	{
-		equipo2.pos_arena.y -= 0.1;
-		equipo2.pos_arena.x -= 0.1;
 		equipo2.dir_mov = { -sqrt(2) / 2, -sqrt(2) / 2 };
+		equipo2.pos_arena = equipo2.pos_arena + equipo2.dir_mov * equipo2.velocidad;
 	}	
 	if ((key['h'] || key['H']) && cd2 <= 0) atk2_ini = true;
 }

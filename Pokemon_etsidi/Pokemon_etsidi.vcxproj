@@ -190,6 +190,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="scr\Ataque.cpp" />
+    <ClCompile Include="scr\Obstaculo.cpp" />
     <ClCompile Include="scr\tiposp\CambiaFormas.cpp" />
     <ClCompile Include="scr\tiposp\Fenix.cpp" />
     <ClCompile Include="scr\tiposp\Basico.cpp" />
@@ -207,6 +208,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="scr\Ataque.h" />
+    <ClInclude Include="scr\Obstaculo.h" />
     <ClInclude Include="scr\tiposp\CambiaFormas.h" />
     <ClInclude Include="scr\tiposp\Fenix.h" />
     <ClInclude Include="scr\tiposp\Basico.h" />

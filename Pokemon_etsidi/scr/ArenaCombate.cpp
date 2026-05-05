@@ -181,14 +181,12 @@ void ArenaCombate::arena_combate()
 	{
 		equipo1.mueve_ataque();
 		atk1 = !equipo1.colision_ataque(equipo2);
-		if (equipo2.vida_actual <= 0) equipo2.vida_actual = 0;
 	}
 
 	if (atk2)
 	{
 		equipo2.mueve_ataque();
 		atk2 = !equipo2.colision_ataque(equipo1);
-		if (equipo1.vida_actual <= 0) equipo1.vida_actual = 0;
 	}
 
 	// Cooldown para pruebas, hay que cambiarlo 

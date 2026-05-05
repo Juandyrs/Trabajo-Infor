@@ -8,7 +8,7 @@ class ArenaCombate
 {
 	Vector2D dimensiones_arena{9,9};
 	Pokemon &equipo1, &equipo2;
-	Obs_Fuego obstaculo1{ Vector2D{0.0, 0.0} };
+	Obs_Piedra obstaculo1{ Vector2D{0.0, 0.0} };
 
 public:
 	

@@ -8,9 +8,9 @@ void Obs_Piedra::interrumpir(Pokemon& personaje)
 	double distancia_x = abs(Posicion.x - personaje.pos_arena.x);
 	double distancia_y = abs(Posicion.y - personaje.pos_arena.y);
 
-	if (distancia_x < (Hitbox.x + personaje.Hitbox.x) && distancia_y < (Hitbox.y + personaje.Hitbox.y))
+	if (distancia_x < (Hitbox.x + personaje.consultar_hitbox().x) && distancia_y < (Hitbox.y + personaje.consultar_hitbox().y))
 	{
-		personaje.pos_arena = personaje.pos_arena - personaje.dir_mov * personaje.velocidad;
+		personaje.pos_arena = personaje.consultar_posicion() - personaje.dir_mov * personaje.velocidad;
 	}
 
 }
@@ -34,8 +34,8 @@ void Obs_Piedra::dibujar()
 void Obs_Fuego::interrumpir(Pokemon &personaje)
 {
 
-	double distancia_x = abs(Posicion.x - personaje.pos_arena.x);
-	double distancia_y = abs(Posicion.y - personaje.pos_arena.y);
+	double distancia_x = abs(Posicion.x - personaje.consultar_posicion().x);
+	double distancia_y = abs(Posicion.y - personaje.consultar_posicion().y);
 
 	double dano_fuego{ 2.0 };
 	double frames_fuego{ 30.0 };
@@ -43,10 +43,10 @@ void Obs_Fuego::interrumpir(Pokemon &personaje)
 	static double contador_fuego{ 10 };
 	double velocidad_extincion_fuego{ 1 };
 
-	if ((distancia_x < (Hitbox.x + personaje.Hitbox.x) && distancia_y < (Hitbox.y + personaje.Hitbox.y) 
+	if ((distancia_x < (Hitbox.x + personaje.consultar_hitbox().x) && distancia_y < (Hitbox.y + personaje.consultar_hitbox().y) 
 		&& (contador_fuego == 10)))
 	{
-		personaje.vida_actual -= dano_fuego;
+		personaje.recibir_dano(dano_fuego);
 		contador_fuego = 0;
 		frame = frames_fuego;
 	}

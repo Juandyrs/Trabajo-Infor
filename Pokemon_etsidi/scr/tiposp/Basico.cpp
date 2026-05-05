@@ -34,16 +34,16 @@ bool Basico::colision_ataque(Pokemon &objetivo)
 {
 	double ang_ataque = ataque.dir_atk.argumento();
 	Vector2D ataque_centro = ataque.pos_atk + Vector2D{ ataque.rango_ataque/2 * cos(ang_ataque), ataque.ancho_ataque/2 * sin(ang_ataque) };
-	double distancia_x = abs(ataque_centro.x - objetivo.pos_arena.x);
-	double distancia_y = abs(ataque_centro.y - objetivo.pos_arena.y);
+	double distancia_x = abs(ataque_centro.x - objetivo.consultar_posicion().x);
+	double distancia_y = abs(ataque_centro.y - objetivo.consultar_posicion().y);
 	static double frame_ataque = ataque.frame_ataque;
 
 
 	//Debido a que el ataque melee puede estar rotado hay ligeros errores en la colision, por mientras se deja como si no lo estuviera. Es suficientemente aceptable
-	if (distancia_x < ((ataque.rango_ataque/2 + objetivo.Hitbox.x))
-		&& distancia_y < ((ataque.ancho_ataque + objetivo.Hitbox.y)))
+	if (distancia_x < ((ataque.rango_ataque/2 + objetivo.consultar_hitbox().x))
+		&& distancia_y < ((ataque.ancho_ataque + objetivo.consultar_hitbox().y)))
 	{
-		objetivo.vida_actual -= ataque.dano;
+		objetivo.recibir_dano(ataque.dano);
 		return true;
 	}
 

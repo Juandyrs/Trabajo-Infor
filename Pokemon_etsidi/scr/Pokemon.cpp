@@ -21,3 +21,13 @@ void Pokemon::inicializa_mov(TipoMovimiento mov, int nu_ca) {
 	numero_casillas = nu_ca;
 
 }
+
+//Metodos relacionados con la arena
+
+void Pokemon::recibir_dano(double cantidad)
+{
+	vida_actual -= cantidad;
+	if (vida_actual < 0) {
+		vida_actual = 0;
+	}
+}

@@ -66,15 +66,7 @@ public:
 
 	friend class ArenaCombate;
 	friend class Tablero;
-	friend class Distancia;
-	friend class Basico;
-	friend class Hechicero;
-	friend class Tanque;
-	friend class CambiaFormas;
-	friend class Fenix;
-	friend class Volador;
 	friend class Obs_Piedra;
-	friend class Obs_Fuego;
 
 	void inicializa_datos(string n, char s, Bando b, Tipo tipo1, Tipo tipo2);
 	void inicializa_stats(double v_max, double v_act, double vel);
@@ -84,6 +76,13 @@ public:
 	//Metodos Relacionados con el tablero
 
 	//Metodos Relacionados con la Arena
+
+
+	void recibir_dano(double cantidad);
+
+
+	Vector2D consultar_hitbox() const { return Hitbox; }
+	Vector2D consultar_posicion() const { return pos_arena; }
 
 	virtual void atacar(Vector2D posicion, Vector2D dir) = 0;
 	virtual void mueve_ataque() = 0;

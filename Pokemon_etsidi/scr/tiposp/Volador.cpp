@@ -20,13 +20,13 @@ bool Volador::colision_ataque(Pokemon &objetivo)
 	static double frame_ataque = ataque.frame_ataque;
 	static int contador{ 10 }; // Es para que no haga daño en todo los frames (Si no, estaría desbalanceado)
 
-	double distancia_x = abs(ataque.pos_atk.x - objetivo.pos_arena.x);
-	double distancia_y = abs(ataque.pos_atk.y - objetivo.pos_arena.y);
+	double distancia_x = abs(ataque.pos_atk.x - objetivo.consultar_posicion().x);
+	double distancia_y = abs(ataque.pos_atk.y - objetivo.consultar_posicion().y);
 
-	if (distancia_x < (ataque.radio_ataque + objetivo.Hitbox.x) && distancia_y < (ataque.radio_ataque + objetivo.Hitbox.y) 
+	if (distancia_x < (ataque.radio_ataque + objetivo.consultar_hitbox().x) && distancia_y < (ataque.radio_ataque + objetivo.consultar_hitbox().y) 
 		&& (contador == 10))
 	{
-		objetivo.vida_actual -= ataque.dano;
+		objetivo.recibir_dano(ataque.dano);
 		contador = 0;
 	}
 

@@ -27,13 +27,13 @@ bool Fenix::colision_ataque(Pokemon &objetivo)
 		vida_antes = vida_actual;
 	}
 
-	double distancia_x = abs(ataque.pos_atk.x - objetivo.pos_arena.x);
-	double distancia_y = abs(ataque.pos_atk.y - objetivo.pos_arena.y);
+	double distancia_x = abs(ataque.pos_atk.x - objetivo.consultar_posicion().x);
+	double distancia_y = abs(ataque.pos_atk.y - objetivo.consultar_posicion().y);
 
-	if ((distancia_x < (ataque.radio_ataque + objetivo.Hitbox.x) && distancia_y < (ataque.radio_ataque + objetivo.Hitbox.y)) 
+	if ((distancia_x < (ataque.radio_ataque + objetivo.consultar_hitbox().x) && distancia_y < (ataque.radio_ataque + objetivo.consultar_hitbox().y)) 
 		&& (contador == 10))
 	{
-		objetivo.vida_actual -= ataque.dano;
+		objetivo.recibir_dano(ataque.dano);
 		contador = 0;
 	}
 

@@ -24,14 +24,14 @@ void Distancia::atacar_dibujar()
 bool Distancia::colision_ataque(Pokemon &objetivo)
 {
 	//Calculo de la distancia entre el ataque y el objetivo
-	double distancia_x = abs(ataque.pos_atk.x - objetivo.pos_arena.x);
-	double distancia_y = abs(ataque.pos_atk.y - objetivo.pos_arena.y);
+	double distancia_x = abs(ataque.pos_atk.x - objetivo.consultar_posicion().x);
+	double distancia_y = abs(ataque.pos_atk.y - objetivo.consultar_posicion().y);
 
-	if (distancia_x < (ataque.radio_proyectil + objetivo.Hitbox.x) && distancia_y < (ataque.radio_proyectil + objetivo.Hitbox.y)) 
+	if (distancia_x < (ataque.radio_proyectil + objetivo.consultar_hitbox().x) && distancia_y < (ataque.radio_proyectil + objetivo.consultar_hitbox().y)) 
 	{
 
 		// Colisión detectada, aplicar daño al objetivo
-		objetivo.vida_actual -= ataque.dano;
+		objetivo.recibir_dano(ataque.dano);
 		return true;
 	}
 

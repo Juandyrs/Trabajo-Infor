@@ -7,14 +7,12 @@ class Hechicero :
     public Pokemon
 {
 
-	Rango ataque;
-
 public:
 
 	Hechicero()
-		: ataque(20.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 0.5, 0.5)
 	{
 		// No se pueden inicializar miembros heredados en la lista de inicialización
+		ataque = new Rango(20.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 0.5, 0.5);
 		vida_max = 60.0;
 		vida_actual = 60.0;
 		velocidad = 0.2;
@@ -31,9 +29,5 @@ public:
         inicializa_mov(TipoMovimiento::Teletransporte, 9);//Paso el tipo de transporte
     }
 
-    void atacar(Vector2D posicion, Vector2D dir) override;
-    void atacar_dibujar() override;
-    void mueve_ataque() override { ataque.pos_atk = ataque.pos_atk + ataque.vel_proyectil; }
-    bool colision_ataque(Pokemon &objetivo) override;
 };
 

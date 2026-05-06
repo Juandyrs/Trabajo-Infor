@@ -25,9 +25,5 @@ public:
         inicializa_mov(TipoMovimiento::Teletransporte, 9);//Paso el tipo de transporte
     }
 
-    void atacar(Vector2D posicion, Vector2D dir) override;
-    void atacar_dibujar() override;
-    void mueve_ataque() override {}
-    bool colision_ataque(Pokemon &objetivo) override;
 };
 

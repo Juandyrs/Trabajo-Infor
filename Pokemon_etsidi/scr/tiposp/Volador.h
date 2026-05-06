@@ -5,14 +5,12 @@
 class Volador :
     public Pokemon
 {
-    
-    Area ataque;
 
 public:
 
     Volador()
-        : ataque(5.0, Vector2D{ 0.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 1.5, 2.0)
     {
+		ataque = new Area(5.0, Vector2D{ 0.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 1.5, 3.0);
         vida_max = 60.0;
         vida_actual = 60.0;
         velocidad = 0.2;
@@ -26,9 +24,5 @@ public:
         inicializa_mov(TipoMovimiento::Vuelo, 5);//Paso el tipo de transporte
     }
   
-    void atacar(Vector2D posicion, Vector2D dir) override;
-    void atacar_dibujar() override;
-    void mueve_ataque() override {}
-    bool colision_ataque(Pokemon& objetivo) override;
 };
 

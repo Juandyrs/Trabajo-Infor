@@ -7,13 +7,11 @@ class Basico :
     public Pokemon
 {
 
-	Melee ataque;
-
 public:
 
     Basico()
-		: ataque(20.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 2.0, 1.0, 1.0)
     {
+		ataque = new Melee(10.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 2.0, 2.5, 1.0);
         vida_max = 60.0;
         vida_actual = 60.0;
         velocidad = 0.2;
@@ -30,9 +28,5 @@ public:
 
 
     // Metodos de la arena
-    void atacar(Vector2D posicion, Vector2D dir) override;
-    void atacar_dibujar() override;
-    void mueve_ataque() override {} // Para evitar errores, el ataque de Basico no se mueve
-    bool colision_ataque(Pokemon &objetivo) override;
 };
 

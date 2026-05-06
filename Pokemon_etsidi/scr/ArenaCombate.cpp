@@ -144,11 +144,11 @@ void ArenaCombate::dibuja_Ataques()
 {
 	if (atk1)
 	{
-		equipo1.atacar_dibujar();;
+		equipo1.ataque->atacar_dibujar();
 	}
 	if (atk2)
 	{
-		equipo2.atacar_dibujar();;
+		equipo2.ataque->atacar_dibujar();
 	}
 }
 
@@ -165,28 +165,28 @@ void ArenaCombate::arena_combate()
 	if (atk1_ini)
 	{
 		atk1 = true;
-		equipo1.atacar(equipo1.pos_arena, equipo1.dir_mov);
+		equipo1.ataque->atacar(equipo1.pos_arena, equipo1.dir_mov);
 		cd1 = equipo1.cooldown;
 		atk1_ini = false;
 	}
 	if (atk2_ini)
 	{
 		atk2 = true;
-		equipo2.atacar(equipo2.pos_arena, equipo2.dir_mov);
+		equipo2.ataque->atacar(equipo2.pos_arena, equipo2.dir_mov);
 		cd2 = equipo2.cooldown;
 		atk2_ini = false;
 	}
 
 	if (atk1)
 	{
-		equipo1.mueve_ataque();
-		atk1 = !equipo1.colision_ataque(equipo2);
+		equipo1.ataque->mueve_ataque();
+		atk1 = !equipo1.ataque->colision_ataque(equipo2);
 	}
 
 	if (atk2)
 	{
-		equipo2.mueve_ataque();
-		atk2 = !equipo2.colision_ataque(equipo1);
+		equipo2.ataque->mueve_ataque();
+		atk2 = !(equipo2.ataque->colision_ataque(equipo1));
 	}
 
 	// Cooldown para pruebas, hay que cambiarlo 

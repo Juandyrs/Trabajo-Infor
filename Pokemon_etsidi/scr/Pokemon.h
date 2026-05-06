@@ -41,6 +41,7 @@ protected:
 	Vector2D Hitbox;
 	Vector2D pos_arena;
 	Vector2D dir_mov;
+	Ataque *ataque;
 
 public:
 
@@ -59,9 +60,10 @@ public:
 		, velocidad(0.0)
 		, dano(0.0)
 		, cooldown(0.0)
-		, Hitbox{0.0, 0.0}
-		, pos_arena{0.0, 0.0}
+		, Hitbox{ 0.0, 0.0 }
+		, pos_arena{ 0.0, 0.0 }
 		, dir_mov{ 0.0, 0.0 }
+		, ataque(nullptr)
 	{}
 
 	friend class ArenaCombate;
@@ -79,14 +81,12 @@ public:
 
 
 	void recibir_dano(double cantidad);
+	void modificar_posicion(Vector2D nueva_pos) { pos_arena = nueva_pos; }
 
 
 	Vector2D consultar_hitbox() const { return Hitbox; }
 	Vector2D consultar_posicion() const { return pos_arena; }
+	double consultar_vida() const { return vida_actual; }
 
-	virtual void atacar(Vector2D posicion, Vector2D dir) = 0;
-	virtual void mueve_ataque() = 0;
-	virtual bool colision_ataque(Pokemon &objetivo) = 0;
-	virtual void atacar_dibujar() = 0;
 };
 

@@ -7,13 +7,11 @@ class Fenix :
     public Pokemon
 {
 
-	Area ataque;
-
 public:
 
     Fenix()
-        : ataque(5.0, Vector2D{0.0, 0.0}, Vector2D{0.0, 0.0}, 1.5, 3.0)
     {
+		ataque = new Area(5.0, Vector2D{ 0.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 1.5, 10.0);
         vida_max = 60.0;
         vida_actual = 60.0;
         velocidad = 0.2;
@@ -28,9 +26,5 @@ public:
         inicializa_mov(TipoMovimiento::Teletransporte, 9);//Paso el tipo de transporte
     }
 
-    void atacar(Vector2D posicion, Vector2D dir) override;
-    void atacar_dibujar() override;
-	void mueve_ataque() override {} // Para evitar errores, el ataque de Fenix no se mueve, por ahora 
-    bool colision_ataque(Pokemon &objetivo) override;
 };
 

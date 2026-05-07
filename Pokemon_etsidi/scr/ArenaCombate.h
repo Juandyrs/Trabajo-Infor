@@ -3,12 +3,13 @@
 #include "Vector2D.h"
 #include "Pokemon.h"
 #include "Obstaculo.h"
+#include "ListaObstaculos.h"
 
 class ArenaCombate
 {
 	Vector2D dimensiones_arena{9,9};
 	Pokemon &equipo1, &equipo2;
-	Obs_Piedra obstaculo1{ Vector2D{0.0, 0.0} };
+	ListaObstaculos obstaculos;
 
 public:
 	
@@ -33,6 +34,7 @@ public:
 	//Metodos de movimiento y ataque
 	void arena_combate();
 	void interaccion_obstaculos();
+	void inicializa_obstaculos();
 	void mueve_personaje(bool key[]);
 	void limita_movimiento();
 };

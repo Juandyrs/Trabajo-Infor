@@ -63,6 +63,12 @@
     <ClCompile Include="scr\Obstaculo.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="scr\Colisiones.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\ListaObstaculos.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="scr\Tablero.h">
@@ -111,6 +117,12 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="scr\Obstaculo.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\Colisiones.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\ListaObstaculos.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

@@ -154,7 +154,7 @@ void ArenaCombate::dibuja_Ataques()
 
 void ArenaCombate::dibuja_Obstaculos()
 {
-	obstaculo1.dibujar();
+	obstaculos.dibujar_Obstaculos();
 }
 
 //Metodos de movimiento y ataque
@@ -198,10 +198,30 @@ void ArenaCombate::interaccion_obstaculos()
 {
 	static bool team1_inter = false, team2_inter = false;
 
-	obstaculo1.interrumpir(equipo1);
-	obstaculo1.interrumpir(equipo2);
-
+	obstaculos.interrumpir_Obstaculos(equipo1);
+	obstaculos.interrumpir_Obstaculos(equipo2);
 }
+
+void ArenaCombate::inicializa_obstaculos()
+{
+	int cantidad_max_obtaculos{3};
+	int cantidad_min_obstaculos{10};
+	Vector2D pos{1, 0};
+
+	srand(time(NULL));
+	
+	int cantidad_obstaculos = rand() % (cantidad_max_obtaculos - cantidad_min_obstaculos + 1) + cantidad_min_obstaculos;
+
+	for (int i = 0; i < cantidad_obstaculos; i++)
+	{
+		pos.x = rand() % (2*(int)dimensiones_arena.x - 5) - ((int)dimensiones_arena.x - 3);
+		pos.y = rand() % (2*(int)dimensiones_arena.y - 5) - ((int)dimensiones_arena.y - 3);
+
+		obstaculos.agregar_Obstaculo(new Obs_Piedra(pos));
+	}
+
+	// Falta agregar que no se puedan genera en puntos especificos
+}	
 
 void ArenaCombate::limita_movimiento()
 {

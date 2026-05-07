@@ -59,9 +59,7 @@ public:
 		, radio_proyectil(radio)
 	{}
 
-	friend class Distancia;
-	friend class Hechicero;
-	friend class Tanque;
+
 	friend class ArenaCombate;
 
 	void atacar(Vector2D posicion, Vector2D dir) override;
@@ -93,7 +91,6 @@ public:
 		, frame_ataque(frame)
 	{}
 
-	friend class Basico;
 	friend class ArenaCombate;
 
 	void atacar(Vector2D posicion, Vector2D dir) override;
@@ -117,9 +114,6 @@ public:
 		, frame_ataque(frame)
 	{}
 
-	friend class Pokemon;
-	friend class Fenix;
-	friend class Volador;
 	friend class ArenaCombate;
 
 	void atacar(Vector2D posicion, Vector2D dir) override;

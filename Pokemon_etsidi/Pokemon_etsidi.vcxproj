@@ -189,6 +189,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="scr\ListaObstaculos.cpp" />
+    <ClCompile Include="scr\Colisiones.cpp" />
     <ClCompile Include="scr\Ataque.cpp" />
     <ClCompile Include="scr\Obstaculo.cpp" />
     <ClCompile Include="scr\tiposp\CambiaFormas.cpp" />
@@ -207,6 +209,8 @@
     <ClCompile Include="scr\tiposp\Tanque.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="scr\ListaObstaculos.h" />
+    <ClInclude Include="scr\Colisiones.h" />
     <ClInclude Include="scr\Ataque.h" />
     <ClInclude Include="scr\Obstaculo.h" />
     <ClInclude Include="scr\tiposp\CambiaFormas.h" />

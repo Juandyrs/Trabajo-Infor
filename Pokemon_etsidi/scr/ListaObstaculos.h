@@ -1,0 +1,24 @@
+#pragma once
+
+#include "Obstaculo.h"
+#include <vector>
+#include "Pokemon.h"
+
+using std::vector;
+
+class ListaObstaculos
+{
+
+    vector<Obstaculo*> lista;
+
+public:
+    
+
+
+    void agregar_Obstaculo(Obstaculo *obstaculo);
+    void eliminar_Obstaculo(int index);
+    void dibujar_Obstaculos() { for (auto obstaculo : lista) obstaculo->dibujar(); }
+	void interrumpir_Obstaculos(Pokemon &personaje) { for (auto obstaculo : lista) obstaculo->interrumpir(personaje); }
+	void eliminar_Contenido();
+
+};

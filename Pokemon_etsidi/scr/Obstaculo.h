@@ -17,6 +17,11 @@ public:
 		, Posicion(0, 0)
 	{}
 
+	Obstaculo(Vector2D pos)
+		: Hitbox(1.0, 1.0)
+		, Posicion(pos)
+	{}
+
 	virtual void interrumpir(Pokemon &personaje) = 0;
 	virtual void dibujar() = 0;
 };
@@ -28,10 +33,9 @@ class Obs_Piedra :
 public:
 
 	Obs_Piedra(Vector2D pos)
-	{
-		Hitbox = { 1.0, 1.0 };
-		Posicion = pos;
-	}
+		: Obstaculo(pos)
+	{}
+	
 
 	void interrumpir(Pokemon &personaje) override;
 	void dibujar() override;
@@ -44,10 +48,8 @@ class Obs_Fuego :
 public:
 
 	Obs_Fuego(Vector2D pos)
-	{
-		Hitbox = { 1.0, 1.0 };
-		Posicion = pos;
-	}
+		: Obstaculo(pos)
+	{}
 
 	void interrumpir(Pokemon &personaje) override;
 	void dibujar() override;

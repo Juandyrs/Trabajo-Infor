@@ -19,7 +19,7 @@ void OnTimer(int value); //esta funcion sera llamada cuando transcurra una tempo
 void OnKeyboardDown(unsigned char key, int x, int y); //cuando se pulse una tecla	
 void OnKeyboardUp(unsigned char key, int x, int y);
 
-Fenix &p1 = *new Fenix();
+Basico &p1 = *new Basico();
 Distancia &p2 = *new Distancia();
 ArenaCombate Arena(p1, p2);
 bool keys[256]{false};
@@ -123,7 +123,7 @@ int main(int argc, char* argv[])
 	Mitablerito.imprimir();
 	//Dibujar el tablero
 
-
+	Arena.inicializa_obstaculos();
 	
 
 	//pasarle el control a GLUT,que llamara a los callbacks

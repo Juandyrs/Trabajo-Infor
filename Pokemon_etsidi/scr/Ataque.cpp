@@ -2,6 +2,7 @@
 #include <freeglut.h>
 #include <numbers>
 #include "Pokemon.h"
+#include "Colisiones.h"
 
 // Metodos de ataque rango
 
@@ -24,11 +25,8 @@ void Rango::atacar_dibujar()
 
 bool Rango::colision_ataque(Pokemon &objetivo)
 {
-	//Calculo de la distancia entre el ataque y el objetivo
-	double distancia_x = abs(pos_atk.x - objetivo.consultar_posicion().x);
-	double distancia_y = abs(pos_atk.y - objetivo.consultar_posicion().y);
 
-	if (distancia_x < (radio_proyectil + objetivo.consultar_hitbox().x) && distancia_y < (radio_proyectil + objetivo.consultar_hitbox().y))
+	if (Colisiones::colision(radio_proyectil, pos_atk, objetivo.consultar_hitbox(), objetivo.consultar_posicion()))
 	{
 		// Colisión detectada, aplicar daño al objetivo
 		objetivo.recibir_dano(dano);
@@ -72,13 +70,10 @@ bool Melee::colision_ataque(Pokemon &objetivo)
 {
 	double ang_ataque = dir_atk.argumento();
 	Vector2D ataque_centro = pos_atk + Vector2D{ rango_ataque / 2 * cos(ang_ataque), ancho_ataque / 2 * sin(ang_ataque) };
-	double distancia_x = abs(ataque_centro.x - objetivo.consultar_posicion().x);
-	double distancia_y = abs(ataque_centro.y - objetivo.consultar_posicion().y);
 	static double frame = frame_ataque;
 
 	//Debido a que el ataque melee puede estar rotado hay ligeros errores en la colision, por mientras se deja como si no lo estuviera. Es suficientemente aceptable
-	if (distancia_x < ((rango_ataque / 2 + objetivo.consultar_hitbox().x))
-		&& distancia_y < ((ancho_ataque / 2 + objetivo.consultar_hitbox().y)))
+	if (Colisiones::colision(Vector2D{ rango_ataque / 2, ancho_ataque / 2 }, ataque_centro, objetivo.consultar_hitbox(), objetivo.consultar_posicion()))
 	{
 		objetivo.recibir_dano(dano);
 		return true;
@@ -118,18 +113,10 @@ void Area::atacar_dibujar()
 bool Area::colision_ataque(Pokemon &objetivo)
 {
 	static double frame = frame_ataque;
-	static double vida_antes{};
 	static int contador{ 10 }; // Es para que no haga daño en todo los frames (Si no, estaría desbalanceado) 
 
-	if (frame == frame_ataque)
-	{
-		vida_antes = objetivo.consultar_vida();
-	}
 
-	double distancia_x = abs(pos_atk.x - objetivo.consultar_posicion().x);
-	double distancia_y = abs(pos_atk.y - objetivo.consultar_posicion().y);
-
-	if ((distancia_x < (radio_ataque + objetivo.consultar_hitbox().x) && distancia_y < (radio_ataque + objetivo.consultar_hitbox().y))
+	if (Colisiones::colision(radio_ataque, pos_atk, objetivo.consultar_hitbox(), objetivo.consultar_posicion())
 		&& (contador == 10))
 	{
 		objetivo.recibir_dano(dano);

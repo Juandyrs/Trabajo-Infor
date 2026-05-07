@@ -24,6 +24,9 @@ public:
 
 	virtual void interrumpir(Pokemon &personaje) = 0;
 	virtual void dibujar() = 0;
+
+	Vector2D consultar_hitbox() const { return Hitbox; }
+	Vector2D consultar_posicion() const { return Posicion; }
 };
 
 class Obs_Piedra :

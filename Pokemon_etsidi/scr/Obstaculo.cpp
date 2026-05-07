@@ -19,10 +19,10 @@ void Obs_Piedra::dibujar()
 	glTranslated(Posicion.x, Posicion.y, 0);
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
-	glColor3ub(255, 0, 0);
+	glColor3ub(111, 67, 33);
 	glVertex3d(-Hitbox.x, -Hitbox.y, 0);
 	glVertex3d(-Hitbox.x, Hitbox.y, 0);
-	glColor3ub(255, 0, 0);
+	glColor3ub(111, 67, 33);
 	glVertex3d(Hitbox.x, Hitbox.y, 0);
 	glVertex3d(Hitbox.x, -Hitbox.y, 0);
 	glEnd();

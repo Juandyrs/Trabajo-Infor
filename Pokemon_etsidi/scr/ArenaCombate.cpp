@@ -1,5 +1,6 @@
 #include "ArenaCombate.h"
 #include <freeglut.h>
+#include "Colisiones.h"
 
 bool atk1 = false, atk1_ini = false, atk2 = false, atk2_ini = false;
 double cd1 = 0.0, cd2 = 0.0;
@@ -204,23 +205,45 @@ void ArenaCombate::interaccion_obstaculos()
 
 void ArenaCombate::inicializa_obstaculos()
 {
-	int cantidad_max_obtaculos{3};
-	int cantidad_min_obstaculos{10};
-	Vector2D pos{1, 0};
+	int cantidad_max_obtaculos{12};
+	int cantidad_min_obstaculos{4};
+	Vector2D pos{0, 0};
+	Obs_Piedra temporal({0,0});
 
 	srand(time(NULL));
 	
 	int cantidad_obstaculos = rand() % (cantidad_max_obtaculos - cantidad_min_obstaculos + 1) + cantidad_min_obstaculos;
+	int i{};
+	bool salir{ false };
 
-	for (int i = 0; i < cantidad_obstaculos; i++)
+	while (i < cantidad_obstaculos)
 	{
-		pos.x = rand() % (2*(int)dimensiones_arena.x - 5) - ((int)dimensiones_arena.x - 3);
-		pos.y = rand() % (2*(int)dimensiones_arena.y - 5) - ((int)dimensiones_arena.y - 3);
+		salir = false;
+
+		pos.x = rand() % (2*((int)dimensiones_arena.x - 2) + 1) - ((int)dimensiones_arena.x - 2);
+		pos.y = rand() % (2*((int)dimensiones_arena.y - 2) + 1) - ((int)dimensiones_arena.y - 2);
+
+		//Para evitar que un obstaculo se genere encima de un personaje
+		if (Colisiones::colision(temporal.consultar_hitbox(), pos, equipo1.consultar_hitbox(), equipo1.pos_arena) || Colisiones::colision(temporal.consultar_hitbox(), pos, equipo2.consultar_hitbox(), equipo2.pos_arena))
+		{
+			continue;
+		}
+
+		//Para evitar que un obstaculo se genere encima de otro obstaculo
+		for (int j = 0; j < obstaculos.obtener_Tamano(); j++)
+		{
+			if (Colisiones::colision(temporal.consultar_hitbox(), pos, obstaculos.obtener_Obstaculo(j).consultar_hitbox(), obstaculos.obtener_Obstaculo(j).consultar_posicion()))
+			{
+				salir = true;
+				break;
+			}
+		}
+
+		if (salir) continue;
 
 		obstaculos.agregar_Obstaculo(new Obs_Piedra(pos));
-	}
-
-	// Falta agregar que no se puedan genera en puntos especificos
+		i++;
+	}	
 }	
 
 void ArenaCombate::limita_movimiento()

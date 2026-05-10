@@ -189,6 +189,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="scr\InteraccionArena.cpp" />
     <ClCompile Include="scr\ListaObstaculos.cpp" />
     <ClCompile Include="scr\Colisiones.cpp" />
     <ClCompile Include="scr\Ataque.cpp" />
@@ -209,6 +210,7 @@
     <ClCompile Include="scr\tiposp\Tanque.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="scr\InteraccionArena.h" />
     <ClInclude Include="scr\ListaObstaculos.h" />
     <ClInclude Include="scr\Colisiones.h" />
     <ClInclude Include="scr\Ataque.h" />

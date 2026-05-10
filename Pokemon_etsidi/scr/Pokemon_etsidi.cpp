@@ -13,15 +13,15 @@
 #include "CambiaFormas.h"
 #include "ArenaCombate.h"
 #include <freeglut.h>
+#include "Juego.h"
 
 void OnDraw(void); //esta funcion sera llamada para dibujar
 void OnTimer(int value); //esta funcion sera llamada cuando transcurra una temporizacion 
 void OnKeyboardDown(unsigned char key, int x, int y); //cuando se pulse una tecla	
 void OnKeyboardUp(unsigned char key, int x, int y);
 
-Fenix &p1 = *new Fenix();
-Distancia &p2 = *new Distancia();
-ArenaCombate Arena(p1, p2);
+Juego MiJuego;
+
 bool keys[256]{false};
 
 // Para poder detectar el pulsado de dos teclas simultaneas
@@ -123,9 +123,6 @@ int main(int argc, char* argv[])
 	Mitablerito.imprimir();
 	//Dibujar el tablero
 
-	Arena.inicializa_obstaculos();
-	
-
 	//pasarle el control a GLUT,que llamara a los callbacks
 	glutMainLoop();
 	return 0;
@@ -144,12 +141,7 @@ void OnDraw(void)
 
 	//aqui es donde hay que poner el codigo de dibujo
 	
-	Arena.dibuja_Ataques();
-	Arena.dibuja_Obstaculos();
-	Arena.dibuja_BarrasVida();
-	Arena.dibuja_Personajes();
-	Arena.dibuja_Arena();
-
+	MiJuego.dibujar_Juego();
 	
 	//no borrar esta linea ni poner nada despues
 	glutSwapBuffers();
@@ -161,7 +153,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 	
 	keys[key] = true;
 
-	Arena.mueve_personaje(keys);
+	MiJuego.mover_Juego(keys);
 
 
 	//indicamos que se vuelva a dibujar la pantalla, para que se vean los cambios
@@ -180,9 +172,7 @@ void OnTimer(int value)
 {
 	//código de animacion
 	
-	Arena.arena_combate();
-	Arena.interaccion_obstaculos();
-	Arena.limita_movimiento();
+	MiJuego.jugar();
 
 	//no borrar estas lineas
 	//indicamos que se vuelva a dibujar la pantalla, para que se vean los cambios

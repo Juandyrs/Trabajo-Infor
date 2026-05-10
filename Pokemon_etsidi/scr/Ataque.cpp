@@ -6,7 +6,7 @@
 
 // Metodos de ataque rango
 
-void Rango::atacar(Vector2D posicion, Vector2D dir)
+void Rango::iniciar_ataque(Vector2D posicion, Vector2D dir)
 {
 	double velocidad_ataque = 0.1;
 
@@ -26,7 +26,8 @@ void Rango::atacar_dibujar()
 bool Rango::colision_ataque(Pokemon &objetivo)
 {
 
-	if (Colisiones::colision(radio_proyectil, pos_atk, objetivo.consultar_hitbox(), objetivo.consultar_posicion()))
+	if (Colisiones::colision(radio_proyectil, pos_atk, objetivo.consultar_hitbox(), objetivo.consultar_posicion())
+		&& (objetivo.consultar_estado() != EfectoEstado::Invulnerable))
 	{
 		// Colisión detectada, aplicar daño al objetivo
 		objetivo.recibir_dano(dano);
@@ -38,7 +39,7 @@ bool Rango::colision_ataque(Pokemon &objetivo)
 
 //Metodos de ataque melee
 
-void Melee::atacar(Vector2D posicion, Vector2D dir)
+void Melee::iniciar_ataque(Vector2D posicion, Vector2D dir)
 {
 	pos_atk = posicion;
 	dir_atk = dir;
@@ -70,10 +71,11 @@ bool Melee::colision_ataque(Pokemon &objetivo)
 {
 	double ang_ataque = dir_atk.argumento();
 	Vector2D ataque_centro = pos_atk + Vector2D{ rango_ataque / 2 * cos(ang_ataque), ancho_ataque / 2 * sin(ang_ataque) };
-	static double frame = frame_ataque;
+	static int frame = frame_ataque;
 
 	//Debido a que el ataque melee puede estar rotado hay ligeros errores en la colision, por mientras se deja como si no lo estuviera. Es suficientemente aceptable
-	if (Colisiones::colision(Vector2D{ rango_ataque / 2, ancho_ataque / 2 }, ataque_centro, objetivo.consultar_hitbox(), objetivo.consultar_posicion()))
+	if (Colisiones::colision(Vector2D{ rango_ataque / 2, ancho_ataque / 2 }, ataque_centro, objetivo.consultar_hitbox(), objetivo.consultar_posicion())
+		&& (objetivo.consultar_estado() != EfectoEstado::Invulnerable))
 	{
 		objetivo.recibir_dano(dano);
 		return true;
@@ -81,7 +83,7 @@ bool Melee::colision_ataque(Pokemon &objetivo)
 
 	if (frame > 0)
 	{
-		frame -= 0.1;
+		frame -= 1;
 		return false;
 	}                    
 	else
@@ -95,7 +97,7 @@ bool Melee::colision_ataque(Pokemon &objetivo)
 
 //Metodos de ataque area
 
-void Area::atacar(Vector2D posicion, Vector2D dir)
+void Area::iniciar_ataque(Vector2D posicion, Vector2D dir)
 {
 	// No es necesario el uso de la direccion
 
@@ -112,30 +114,24 @@ void Area::atacar_dibujar()
 
 bool Area::colision_ataque(Pokemon &objetivo)
 {
-	static double frame = frame_ataque;
-	static int contador{ 10 }; // Es para que no haga daño en todo los frames (Si no, estaría desbalanceado) 
-
+	static int frame = frame_ataque;
 
 	if (Colisiones::colision(radio_ataque, pos_atk, objetivo.consultar_hitbox(), objetivo.consultar_posicion())
-		&& (contador == 10))
+		&& (frame % 10 == 0) && (objetivo.consultar_estado() != EfectoEstado::Invulnerable))
 	{
 		objetivo.recibir_dano(dano);
-		contador = 0;
 	}
 
 	if (frame <= 0)
 	{
 		frame = frame_ataque;
-		contador = 10;
 		return true;
 	}
 
 	// Hay que agregar que el se Mantiene al fenix inmovil mientras dure el ataque
 	// Hay que agregar que el se Mantiene El fenix no recibe daño mientras ataca
 
-	frame -= 0.1;
-
-	if (contador < 10) contador++;
+	frame -= 1;
 
 	return false;
 }

@@ -47,6 +47,7 @@ public:
 class Obs_Fuego :
 	public Obstaculo
 {
+	int frames_fuego{ 100 };
 
 public:
 

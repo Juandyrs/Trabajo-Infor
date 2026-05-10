@@ -1,8 +1,9 @@
 #include "ArenaCombate.h"
 #include <freeglut.h>
 #include "Colisiones.h"
+#include "InteraccionArena.h"
 
-bool atk1 = false, atk1_ini = false, atk2 = false, atk2_ini = false;
+bool atk1_ini = false, atk2_ini = false;
 double cd1 = 0.0, cd2 = 0.0;
 
 //Metodos de dibujo
@@ -76,8 +77,6 @@ void ArenaCombate::dibuja_Personajes()
 
 }
 
-
-
 void ArenaCombate::dibuja_BarrasVida()
 {
 	//Dibujar barras de vida 
@@ -143,11 +142,11 @@ void ArenaCombate::dibuja_BarrasVida()
 
 void ArenaCombate::dibuja_Ataques()
 {
-	if (atk1)
+	if (equipo1.atacando)
 	{
 		equipo1.ataque->atacar_dibujar();
 	}
-	if (atk2)
+	if (equipo2.atacando)
 	{
 		equipo2.ataque->atacar_dibujar();
 	}
@@ -162,33 +161,27 @@ void ArenaCombate::dibuja_Obstaculos()
 
 void ArenaCombate::arena_combate()
 { 
+	InteraccionArena::aplicar_Efectos(equipo1);
+	InteraccionArena::aplicar_Efectos(equipo2);
 
 	if (atk1_ini)
 	{
-		atk1 = true;
-		equipo1.ataque->atacar(equipo1.pos_arena, equipo1.dir_mov);
+		equipo1.atacando = true;
+		equipo1.ataque->iniciar_ataque(equipo1.pos_arena, equipo1.dir_mov);
 		cd1 = equipo1.cooldown;
 		atk1_ini = false;
 	}
 	if (atk2_ini)
 	{
-		atk2 = true;
-		equipo2.ataque->atacar(equipo2.pos_arena, equipo2.dir_mov);
+		equipo2.atacando = true;
+		equipo2.ataque->iniciar_ataque(equipo2.pos_arena, equipo2.dir_mov);
 		cd2 = equipo2.cooldown;
 		atk2_ini = false;
 	}
 
-	if (atk1)
-	{
-		equipo1.ataque->mueve_ataque();
-		atk1 = !equipo1.ataque->colision_ataque(equipo2);
-	}
+	equipo1.atacar(equipo2);
 
-	if (atk2)
-	{
-		equipo2.ataque->mueve_ataque();
-		atk2 = !(equipo2.ataque->colision_ataque(equipo1));
-	}
+	equipo2.atacar(equipo1);
 
 	// Cooldown para pruebas, hay que cambiarlo 
 	if (cd1 > 0) cd1 -= 1;
@@ -241,7 +234,7 @@ void ArenaCombate::inicializa_obstaculos()
 
 		if (salir) continue;
 
-		obstaculos.agregar_Obstaculo(new Obs_Piedra(pos));
+		obstaculos.agregar_Obstaculo(new Obs_Fuego(pos));
 		i++;
 	}	
 }	
@@ -260,92 +253,37 @@ void ArenaCombate::limita_movimiento()
 	if (equipo2.pos_arena.y <= -dimensiones_arena.y) equipo2.pos_arena.y = -dimensiones_arena.y;
 }
 
+void ArenaCombate::inicializa_Arena(Pokemon &t1, Pokemon &t2)
+{
+	equipo1 = t1;
+	equipo2 = t2;
+
+	equipo1.pos_arena = { -dimensiones_arena.x + 2, 0 };
+	equipo2.pos_arena = { dimensiones_arena.x - 2, 0 };
+}
+
 void ArenaCombate::mueve_personaje(bool key[])
 {
 
-	if ((key['w']|| key['W']) && !(key['d'] || key['D']) && !(key['a'] || key['A']))
-	{
-		equipo1.dir_mov = { 0.0, 1.0 };
-		equipo1.pos_arena = equipo1.pos_arena + equipo1.dir_mov * equipo1.velocidad;
-	}
-	if ((key['s'] || key['S']) && !(key['d'] || key['D']) && !(key['a'] || key['A']))
-	{
-		equipo1.dir_mov = { 0.0, -1.0 };
-		equipo1.pos_arena = equipo1.pos_arena + equipo1.dir_mov * equipo1.velocidad;
-	}
-	if ((key['d'] || key['D']) && !(key['w'] || key['W']) && !(key['s'] || key['S']))
-	{
-		equipo1.dir_mov = { 1.0, 0.0 };
-		equipo1.pos_arena = equipo1.pos_arena + equipo1.dir_mov * equipo1.velocidad;
-	}
-	if ((key['a'] || key['A']) && !(key['w'] || key['W']) && !(key['s'] || key['S']))
-	{
-		equipo1.dir_mov = { -1.0, 0.0 };
-		equipo1.pos_arena = equipo1.pos_arena + equipo1.dir_mov * equipo1.velocidad;
-	}
-	if ((key['w'] || key['W']) && (key['d'] || key['D']))
-	{
-		equipo1.dir_mov = { sqrt(2) / 2, sqrt(2) / 2 };
-		equipo1.pos_arena = equipo1.pos_arena + equipo1.dir_mov * equipo1.velocidad;
-	}
-	if ((key['w'] || key['W']) && (key['a'] || key['A']))
-	{
-		equipo1.dir_mov = { -sqrt(2) / 2, sqrt(2) / 2 };
-		equipo1.pos_arena = equipo1.pos_arena + equipo1.dir_mov * equipo1.velocidad;
-	}
-	if ((key['s'] || key['S']) && (key['d'] || key['D']))
-	{
-		equipo1.dir_mov = { sqrt(2) / 2, -sqrt(2) / 2 };
-		equipo1.pos_arena = equipo1.pos_arena + equipo1.dir_mov * equipo1.velocidad;
-	}
-	if ((key['s'] || key['S']) && (key['a'] || key['A']))
-	{
-		equipo1.dir_mov = { -sqrt(2) / 2, -sqrt(2) / 2 };
-		equipo1.pos_arena = equipo1.pos_arena + equipo1.dir_mov * equipo1.velocidad;
-	}
+	if ((key['w']|| key['W']) && !(key['d'] || key['D']) && !(key['a'] || key['A'])) equipo1.mover_arena({ 0.0, 1.0 });
+	if ((key['s'] || key['S']) && !(key['d'] || key['D']) && !(key['a'] || key['A'])) equipo1.mover_arena({ 0.0, -1.0 });
+	if ((key['d'] || key['D']) && !(key['w'] || key['W']) && !(key['s'] || key['S'])) equipo1.mover_arena({ 1.0, 0.0 });
+	if ((key['a'] || key['A']) && !(key['w'] || key['W']) && !(key['s'] || key['S'])) equipo1.mover_arena({ -1.0, 0.0 });
+	if ((key['w'] || key['W']) && (key['d'] || key['D'])) equipo1.mover_arena({ sqrt(2) / 2, sqrt(2) / 2 });
+	if ((key['w'] || key['W']) && (key['a'] || key['A'])) equipo1.mover_arena({ -sqrt(2) / 2, sqrt(2) / 2 });
+	if ((key['s'] || key['S']) && (key['d'] || key['D'])) equipo1.mover_arena({ sqrt(2) / 2, -sqrt(2) / 2 });
+	if ((key['s'] || key['S']) && (key['a'] || key['A'])) equipo1.mover_arena({ -sqrt(2) / 2, -sqrt(2) / 2 });
 	if ((key['f'] || key['F']) && cd1 <= 0) atk1_ini = true;
+		
 
-
-	if ((key['i'] || key['I']) && !(key['l'] || key['L']) && !(key['j'] || key['J']))
-	{
-		equipo2.dir_mov = { 0.0, 1.0 };
-		equipo2.pos_arena = equipo2.pos_arena + equipo2.dir_mov * equipo2.velocidad;
-	}
-	if ((key['k'] || key['K']) && !(key['l'] || key['L']) && !(key['j'] || key['J']))
-	{
-		equipo2.dir_mov = { 0.0, -1.0 };
-		equipo2.pos_arena = equipo2.pos_arena + equipo2.dir_mov * equipo2.velocidad;
-	}
-	if ((key['l'] || key['L']) && !(key['i'] || key['I']) && !(key['k'] || key['K']))
-	{
-		equipo2.dir_mov = { 1.0, 0.0 };
-		equipo2.pos_arena = equipo2.pos_arena + equipo2.dir_mov * equipo2.velocidad;
-	}
-	if ((key['j'] || key['J']) && !(key['i'] || key['I']) && !(key['k'] || key['K']))
-	{
-		equipo2.dir_mov = { -1.0, 0.0 };
-		equipo2.pos_arena = equipo2.pos_arena + equipo2.dir_mov * equipo2.velocidad;
-	}
-	if ((key['i'] || key['I']) && (key['l'] || key['L']))
-	{
-		equipo2.dir_mov = { sqrt(2) / 2, sqrt(2) / 2 };
-		equipo2.pos_arena = equipo2.pos_arena + equipo2.dir_mov * equipo2.velocidad;
-	}
-	if ((key['i'] || key['I']) && (key['j'] || key['J']))
-	{
-		equipo2.dir_mov = { -sqrt(2) / 2, sqrt(2) / 2 };
-		equipo2.pos_arena = equipo2.pos_arena + equipo2.dir_mov * equipo2.velocidad;
-	}
-	if ((key['k'] || key['K']) && (key['l'] || key['L']))
-	{
-		equipo2.dir_mov = { sqrt(2) / 2, -sqrt(2) / 2 };
-		equipo2.pos_arena = equipo2.pos_arena + equipo2.dir_mov * equipo2.velocidad;
-	}
-	if ((key['k'] || key['K']) && (key['j'] || key['J']))
-	{
-		equipo2.dir_mov = { -sqrt(2) / 2, -sqrt(2) / 2 };
-		equipo2.pos_arena = equipo2.pos_arena + equipo2.dir_mov * equipo2.velocidad;
-	}	
+	if ((key['i'] || key['I']) && !(key['l'] || key['L']) && !(key['j'] || key['J'])) equipo2.mover_arena({ 0.0, 1.0 });
+	if ((key['k'] || key['K']) && !(key['l'] || key['L']) && !(key['j'] || key['J'])) equipo2.mover_arena({ 0.0, -1.0 });
+	if ((key['l'] || key['L']) && !(key['i'] || key['I']) && !(key['k'] || key['K'])) equipo2.mover_arena({ 1.0, 0.0 });
+	if ((key['j'] || key['J']) && !(key['i'] || key['I']) && !(key['k'] || key['K'])) equipo2.mover_arena({ -1.0, 0.0 });
+	if ((key['i'] || key['I']) && (key['l'] || key['L'])) equipo2.mover_arena({ sqrt(2) / 2, sqrt(2) / 2 });
+	if ((key['i'] || key['I']) && (key['j'] || key['J'])) equipo2.mover_arena({ -sqrt(2) / 2, sqrt(2) / 2 });
+	if ((key['k'] || key['K']) && (key['l'] || key['L'])) equipo2.mover_arena({ sqrt(2) / 2, -sqrt(2) / 2 });
+	if ((key['k'] || key['K']) && (key['j'] || key['J'])) equipo2.mover_arena({ -sqrt(2) / 2, -sqrt(2) / 2 });
 	if ((key['h'] || key['H']) && cd2 <= 0) atk2_ini = true;
 }
  

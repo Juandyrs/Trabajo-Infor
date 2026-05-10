@@ -10,7 +10,7 @@ public:
 
     Volador()
     {
-		ataque = new Area(5.0, Vector2D{ 0.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 1.5, 3.0);
+		ataque = new Area(5.0, Vector2D{ 0.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 1.5, 3);
         vida_max = 60.0;
         vida_actual = 60.0;
         velocidad = 0.2;

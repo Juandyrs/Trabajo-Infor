@@ -13,7 +13,14 @@ class ArenaCombate
 
 public:
 	
-	ArenaCombate() = default;
+	ArenaCombate()
+		: equipo1(*new Pokemon())
+		, equipo2(*new Pokemon())
+	{
+		equipo1.pos_arena = { -dimensiones_arena.x + 2, 0 };
+		equipo2.pos_arena = { dimensiones_arena.x - 2, 0 };
+	}
+
 
 	ArenaCombate(Pokemon &t1, Pokemon &t2)
 		: equipo1(t1)
@@ -37,5 +44,8 @@ public:
 	void inicializa_obstaculos();
 	void mueve_personaje(bool key[]);
 	void limita_movimiento();
+
+	//Metodos de inicializacion y reseteo
+	void inicializa_Arena(Pokemon &t1, Pokemon &t2);
 };
 

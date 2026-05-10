@@ -27,7 +27,23 @@ void Pokemon::inicializa_mov(TipoMovimiento mov, int nu_ca) {
 void Pokemon::recibir_dano(double cantidad)
 {
 	vida_actual -= cantidad;
-	if (vida_actual < 0) {
+
+	if (vida_actual < 0) 
+	{
 		vida_actual = 0;
 	}
+}
+
+void Pokemon::atacar(Pokemon& objetivo)
+{
+	if (!atacando) return;
+	ataque->mueve_ataque();
+	atacando = !ataque->colision_ataque(objetivo);
+
+}
+
+void Pokemon::mover_arena(Vector2D dir)
+{
+	dir_mov = dir;
+	pos_arena += dir_mov * velocidad;
 }

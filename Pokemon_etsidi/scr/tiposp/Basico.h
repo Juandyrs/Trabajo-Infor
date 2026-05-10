@@ -11,11 +11,11 @@ public:
 
     Basico()
     {
-		ataque = new Melee(10.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 2.0, 2.5, 1.0);
+		ataque = new Melee(10.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 2.0, 2.5, 5);
         vida_max = 60.0;
         vida_actual = 60.0;
-        velocidad = 0.2;
-        Hitbox = { 0.5, 0.5 };
+        velocidad = 0.5;
+        Hitbox = { 1.0 , 1.0 };
     }
 
     void preparar(string n, char s, Bando b, Tipo t1, Tipo t2) {

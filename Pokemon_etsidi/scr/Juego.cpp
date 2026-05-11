@@ -57,3 +57,7 @@ void Juego::arena_combate(Pokemon &equipo1, Pokemon &equipo2)
 	Arena.interaccion_obstaculos();
 	Arena.limita_movimiento();
 }
+
+void Juego::inicializar_tablero() {
+	
+}

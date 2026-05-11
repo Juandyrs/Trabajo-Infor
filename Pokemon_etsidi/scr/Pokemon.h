@@ -3,7 +3,7 @@
 #include <iostream>
 #include "Ataque.h"
 #include "Vector2D.h"
-
+#include "Tablero.h"
 using namespace std;
 
 enum class Bando {
@@ -25,7 +25,10 @@ enum class EfectoEstado {
 
 class Pokemon
 {
+	
 protected:
+
+	friend int main(int argc, char* argv[]);
 
 	//Atributos Generales
 	string nombre;
@@ -36,6 +39,7 @@ protected:
 	char simbolo;
 	TipoMovimiento movimiento;
 	int numero_casillas;
+	Vector2D pos_tab;
 
 	//Atributos de la Arena
 	bool atacando;

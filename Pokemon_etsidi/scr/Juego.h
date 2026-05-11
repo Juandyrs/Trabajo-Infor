@@ -18,7 +18,7 @@ public:
 	void logica_Juego();
 	void jugar();
 	void arena_combate(Pokemon& equipo1, Pokemon& equipo2);
-
+	void inicializar_tablero();
 
 };
 

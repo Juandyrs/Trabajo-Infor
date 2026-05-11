@@ -14,6 +14,9 @@
 #include "ArenaCombate.h"
 #include <freeglut.h>
 #include "Juego.h"
+#include <vector>
+
+using std::vector;
 
 void OnDraw(void); //esta funcion sera llamada para dibujar
 void OnTimer(int value); //esta funcion sera llamada cuando transcurra una temporizacion 
@@ -55,9 +58,24 @@ int main(int argc, char* argv[])
 	Volador Charizard[2], Crobat[2];
 	Tanque Snorlax[2], Tyranitar[2];
 	Distancia Grovile[4], Umbreon[4];
-	Basico Machop[7], Scraggy[7];
+	
 	CambiaFormas Ditto[2];
-	Fenix Moltres[2];
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	//Hechiceros
 	Alakazam.preparar("Hechicero", 'H', Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno);
@@ -76,14 +94,33 @@ int main(int argc, char* argv[])
 	for (int i = 0; i < 4; i++) Umbreon[i].preparar("Distancia", 'D', Bando::Team_Rocket, Tipo::Siniestro, Tipo::Ninguno);
 
 	//Basico
-	for (int i = 1; i < 8; i++) Machop[i-1].preparar("Basico", 'B', Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno);
-	for (int i = 1; i < 8; i++) Scraggy[i - 1].preparar("Basico", 'B', Bando::Team_Rocket, Tipo::Lucha, Tipo::Siniestro);
-	
+	Basico Machomp[7] = {
+		Basico("Machomp", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{1,1}),
+		Basico("Machomp", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{2,1}),
+		Basico("Machomp", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{3,1}),
+		Basico("Machomp", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{4,1}),
+		Basico("Machomp", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{5,1}),
+		Basico("Machomp", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{6,1}),
+		Basico("Machomp", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{7,1})
+	};
+
+	Basico Scraggy[7] = {
+		Basico("Scraggy", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{1,7}),
+		Basico("Scraggy", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{2,7}),
+		Basico("Scraggy", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{3,7}),
+		Basico("Scraggy", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{4,7}),
+		Basico("Scraggy", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{5,7}),
+		Basico("Scraggy", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{6,7}),
+		Basico("Scraggy", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{7,7})
+	};
+
+
 	//Cambiaforma
 	for (int i = 0; i < 2; i++) Ditto[i].preparar("Cambiaforma", 'C', Bando::Team_Rocket, Tipo::Normal, Tipo::Ninguno);
 	
 	//Fenix
-	for (int i = 0; i < 2; i++) Moltres[i].preparar("Fenix", 'F', Bando::Entrenador, Tipo::Fuego, Tipo::Volador);
+	Fenix Moltres[2] = { Fenix("Moltres", Bando::Entrenador, Tipo::Fuego, Tipo::Volador,{5,0}),Fenix("Moltres", Bando::Entrenador, Tipo::Fuego, Tipo::Volador,{3,0})};
+
 	
 
 	//Colocacion en tablero
@@ -111,14 +148,15 @@ int main(int argc, char* argv[])
 	Mitablerito.colocar_pokemon(8, 7, &Umbreon[2]);
 	Mitablerito.colocar_pokemon(7, 8, &Umbreon[3]);
 	//Posicion Basico
-	for (int i = 1; i < 8; i++) Mitablerito.colocar_pokemon(i, 1, &Machop[i-1]);
-	for (int i = 1; i < 8; i++) Mitablerito.colocar_pokemon(i, 7, &Scraggy[i-1]);
+	for (int i = 0; i < 8; i++) Mitablerito.colocar_pokemon(Machomp[i].pos_tab.x, Machomp[i].pos_tab.y, &Machomp[i]);
+	for (int i = 0; i < 8; i++) Mitablerito.colocar_pokemon(Scraggy[i].pos_tab.x, Scraggy[i].pos_tab.y, &Scraggy[i]);
+
 	//Posicion Cambiaforma
 	Mitablerito.colocar_pokemon(3, 8,&Ditto[0]);
 	Mitablerito.colocar_pokemon(5, 8, &Ditto[1]);
 	//Posicion Fenix
-	Mitablerito.colocar_pokemon(3, 0, &Moltres[0]);
-	Mitablerito.colocar_pokemon(5, 0, &Moltres[1]);
+	Mitablerito.colocar_pokemon(Moltres[0].pos_tab.x, Moltres[0].pos_tab.y, &Moltres[0]);
+	Mitablerito.colocar_pokemon(Moltres[1].pos_tab.x, Moltres[1].pos_tab.y, &Moltres[1]);
 
 	Mitablerito.imprimir();
 	//Dibujar el tablero

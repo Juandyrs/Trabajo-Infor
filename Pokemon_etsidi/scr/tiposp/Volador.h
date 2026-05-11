@@ -7,22 +7,28 @@ class Volador :
 {
 
 public:
+    Volador() = default;
 
-    Volador()
+    Volador(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t)
     {
+        //Arena
 		ataque = new Area(5.0, Vector2D{ 0.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 1.5, 3);
         vida_max = 60.0;
         vida_actual = 60.0;
         velocidad = 0.2;
         Hitbox = { 1.0, 1.0 };
+
+        //Tablero
+        nombre = n;
+        equipo = b;
+        tip1 = tipo1;
+        tip2 = tipo2;
+        pos_tab = pos_t;
+        simbolo = 'V';
+
     }
 
-    void preparar(string n, char s, Bando b, Tipo t1, Tipo t2)
-    {
-        inicializa_datos(n, s, b, t1, t2); //Paso los datos recibidos del main
-        inicializa_stats(200.0, 200.0, 50.0); //Paso las estadísticas
-        inicializa_mov(TipoMovimiento::Vuelo, 5);//Paso el tipo de transporte
-    }
+   
   
 };
 

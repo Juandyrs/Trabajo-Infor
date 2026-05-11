@@ -32,9 +32,6 @@ public:
 	}
 
 
-   
-
-
     //Arena
     void atacar(Pokemon &objetivo) override;
 };

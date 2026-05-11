@@ -8,10 +8,12 @@ class Tanque :
 {
 
 public:
+	Tanque() = default;
 
-	Tanque()
+	Tanque(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t)
 	{
 		// No se pueden inicializar miembros heredados en la lista de inicialización
+		//Arena
 		ataque = new Rango(20.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 0.5, 0.5);
 		vida_max = 60.0;
 		vida_actual = 60.0;
@@ -19,15 +21,16 @@ public:
 		dano = 20.0;
 		cooldown = 5;
 		Hitbox = { 2, 2 }; // Hitbox para prueba, hay que cambiarlo
+
+		//Tablero
+		nombre = n;
+		equipo = b;
+		tip1 = tipo1;
+		tip2 = tipo2;
+		pos_tab = pos_t;
+		simbolo = 'T';
 	}
 
-    void preparar(string n, char s, Bando b, Tipo t1, Tipo t2) 
-    {
-        inicializa_datos(n, s, b, t1, t2); //Paso los datos recibidos del main
-        inicializa_stats(200.0, 200.0, 50.0); //Paso las estadísticas
-       inicializa_mov(TipoMovimiento::Tierra, 5);//Paso el tipo de transporte
-    }
-
-
+   
 };
 

@@ -17,6 +17,8 @@ void Rango::iniciar_ataque(Vector2D posicion, Vector2D dir)
 
 void Rango::atacar_dibujar()
 {
+	if (dir_atk.modulo() == 0) return; // Si la dirección es un vector nulo, no se dibuja el ataque
+	
 	glColor3ub(255, 0, 0);
 	glTranslated(pos_atk.x, pos_atk.y, 0);
 	glutSolidSphere(radio_proyectil, 20, 20);
@@ -25,6 +27,7 @@ void Rango::atacar_dibujar()
 
 bool Rango::colision_ataque(Pokemon &objetivo)
 {
+	if (dir_atk.modulo() == 0) return false; // Si la dirección es un vector nulo, no se detecta colisión
 
 	if (Colisiones::colision(radio_proyectil, pos_atk, objetivo.consultar_hitbox(), objetivo.consultar_posicion())
 		&& (objetivo.consultar_estado() != EfectoEstado::Invulnerable))

@@ -185,7 +185,7 @@ void ArenaCombate::arena_combate()
 
 	// Cooldown para pruebas, hay que cambiarlo 
 	if (cd1 > 0) cd1 -= 1;
-	if (cd2 > 0) cd2 -= 1;
+	if (cd2 > 0) cd2 -= 0.1;
 }
 
 void ArenaCombate::interaccion_obstaculos()
@@ -234,7 +234,7 @@ void ArenaCombate::inicializa_obstaculos()
 
 		if (salir) continue;
 
-		obstaculos.agregar_Obstaculo(new Obs_Fuego(pos));
+		obstaculos.agregar_Obstaculo(new Obs_Piedra(pos));
 		i++;
 	}	
 }	
@@ -253,8 +253,10 @@ void ArenaCombate::limita_movimiento()
 	if (equipo2.pos_arena.y <= -dimensiones_arena.y) equipo2.pos_arena.y = -dimensiones_arena.y;
 }
 
-void ArenaCombate::inicializa_Arena(Pokemon &t1, Pokemon &t2)
+void ArenaCombate::inicializa_Arena(Pokemon &t1, Pokemon &t2, bool ia)
 {
+	IA_activa = ia;
+
 	equipo1 = t1;
 	equipo2 = t2;
 
@@ -275,6 +277,7 @@ void ArenaCombate::mueve_personaje(bool key[])
 	if ((key['s'] || key['S']) && (key['a'] || key['A'])) equipo1.mover_arena({ -sqrt(2) / 2, -sqrt(2) / 2 });
 	if ((key['f'] || key['F']) && cd1 <= 0) atk1_ini = true;
 		
+	if (IA_activa) return;
 
 	if ((key['i'] || key['I']) && !(key['l'] || key['L']) && !(key['j'] || key['J'])) equipo2.mover_arena({ 0.0, 1.0 });
 	if ((key['k'] || key['K']) && !(key['l'] || key['L']) && !(key['j'] || key['J'])) equipo2.mover_arena({ 0.0, -1.0 });

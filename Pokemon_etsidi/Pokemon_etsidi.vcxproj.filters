@@ -72,6 +72,9 @@
     <ClCompile Include="scr\InteraccionArena.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="scr\IA.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="scr\Tablero.h">
@@ -129,6 +132,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="scr\InteraccionArena.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\IA.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

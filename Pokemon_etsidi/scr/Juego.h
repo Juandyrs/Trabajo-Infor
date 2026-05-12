@@ -7,6 +7,7 @@
 class Juego
 {
 	bool arena_activa{ true }; // Es true por ahora para probar la arena 
+	bool IA_activa{ true }; // Es true por ahora para probar la Ia
 	ArenaCombate Arena;
 	Tablero Mitablerito;
 

@@ -17,6 +17,7 @@ public:
         vida_actual = 60.0;
         velocidad = 0.5;
         Hitbox = { 1.0 , 1.0 };
+		cooldown = 5.0;
 
         //Tablero
 

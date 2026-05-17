@@ -23,6 +23,18 @@ void ListaObstaculos::eliminar_Obstaculo(int index)
 	lista.erase(lista.begin() + index);
 }
 
+bool ListaObstaculos::interrumpir_Obstaculos(Pokemon& personaje)
+{
+	bool aux{ false };
+
+	for (auto obstaculo : lista)
+	{
+		if(obstaculo->interrumpir(personaje)) aux = true;
+	}
+
+	return aux;
+}
+
 void ListaObstaculos::eliminar_Contenido()
 {
 	for (auto e : lista) delete e;

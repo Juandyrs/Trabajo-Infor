@@ -52,6 +52,7 @@ void Juego::arena_combate(Pokemon &equipo1, Pokemon &equipo2)
 	{
 		Arena.inicializa_Arena(equipo1, equipo2, IA_activa);
 		Arena.inicializa_obstaculos();
+		IA::estado_arena = Estado_Arena::Buscar;
 		primera_vez = false;
 	}
 
@@ -61,8 +62,7 @@ void Juego::arena_combate(Pokemon &equipo1, Pokemon &equipo2)
 
 	if (IA_activa) 
 	{
-		IA::decidir_movimiento_Arena(Arena);
-		IA::decidir_ataque_Arena(Arena);
+		IA::IA_Combate_Arena(Arena);
 	}
 }
 

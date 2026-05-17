@@ -198,7 +198,7 @@ void ArenaCombate::interaccion_obstaculos()
 
 void ArenaCombate::inicializa_obstaculos()
 {
-	int cantidad_max_obtaculos{12};
+	int cantidad_max_obtaculos{10};
 	int cantidad_min_obstaculos{4};
 	Vector2D pos{0, 0};
 	Obs_Piedra temporal({0,0});

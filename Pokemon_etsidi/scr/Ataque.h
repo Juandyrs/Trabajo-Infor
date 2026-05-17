@@ -37,6 +37,7 @@ public:
 	virtual void mueve_ataque() = 0;
 	virtual bool colision_ataque(Pokemon &objetivo) = 0;
 	virtual void atacar_dibujar() = 0;
+	virtual double consultar_rango() const = 0;
 
 };
 
@@ -67,6 +68,7 @@ public:
 	void atacar_dibujar() override;
 	bool colision_ataque(Pokemon &objetivo) override;
 	void mueve_ataque() override { pos_atk = pos_atk + vel_proyectil; }
+	double consultar_rango() const override { return radio_proyectil; }
 };
 
 class Melee :
@@ -98,6 +100,7 @@ public:
 	void atacar_dibujar() override;
 	bool colision_ataque(Pokemon& objetivo) override;
 	void mueve_ataque() override {} // Para evitar errores, el ataque melee no se mueve, por ahora
+	double consultar_rango() const override { return rango_ataque; }
 
 };
 
@@ -121,5 +124,6 @@ public:
 	void atacar_dibujar() override;
 	bool colision_ataque(Pokemon &objetivo) override;
 	void mueve_ataque() override {} // Para evitar errores, el ataque de Area no se mueve, por ahora
+	double consultar_rango() const override { return radio_ataque; }
 
 };

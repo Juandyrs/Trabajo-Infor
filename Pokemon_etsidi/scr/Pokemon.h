@@ -106,8 +106,9 @@ public:
 	EfectoEstado consultar_estado() const { return efecto_estado; }
 	int consultar_duracion_estado() const { return duracion_efecto; }
 
-	virtual void atacar(Pokemon& objetivo);
+	virtual void atacar(Pokemon &objetivo);
 	void mover_arena(Vector2D dir);
+	Vector2D siguiente_posicion(const Vector2D dir) const { return pos_arena + dir * velocidad; }
 };
 
 //El dano con el tiempo se aplicara cada 10 frames

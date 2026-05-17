@@ -18,7 +18,7 @@ public:
     void agregar_Obstaculo(Obstaculo *obstaculo);
     void eliminar_Obstaculo(int index);
     void dibujar_Obstaculos() { for (auto obstaculo : lista) obstaculo->dibujar(); }
-	void interrumpir_Obstaculos(Pokemon &personaje) { for (auto obstaculo : lista) obstaculo->interrumpir(personaje); }
+    bool interrumpir_Obstaculos(Pokemon &personaje);
 	void eliminar_Contenido();
 	Obstaculo& obtener_Obstaculo(int index) { return *lista[index]; }
 	int obtener_Tamano() { return lista.size(); }

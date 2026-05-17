@@ -22,7 +22,7 @@ public:
 		, Posicion(pos)
 	{}
 
-	virtual void interrumpir(Pokemon &personaje) = 0;
+	virtual bool interrumpir(Pokemon& personaje) = 0;
 	virtual void dibujar() = 0;
 
 	Vector2D consultar_hitbox() const { return Hitbox; }
@@ -40,7 +40,7 @@ public:
 	{}
 	
 
-	void interrumpir(Pokemon &personaje) override;
+	bool interrumpir(Pokemon &personaje) override;
 	void dibujar() override;
 };
 
@@ -55,6 +55,6 @@ public:
 		: Obstaculo(pos)
 	{}
 
-	void interrumpir(Pokemon &personaje) override;
+	bool interrumpir(Pokemon &personaje) override;
 	void dibujar() override;
 };

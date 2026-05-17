@@ -9,6 +9,7 @@ struct Vector2D
 
 	double modulo() const; //modulo del vector
 	double argumento() const; //argumento del vector
+	Vector2D unitario() const; //devuelve un vector unitario
 	Vector2D operator - (const Vector2D&) const; //resta de vectores
 	Vector2D operator + (const Vector2D&) const; //suma de vectores
 	Vector2D& operator += (const Vector2D&); //suma de vectores
@@ -18,6 +19,13 @@ struct Vector2D
 inline double Vector2D::modulo() const
 {
 	return sqrt(x * x + y * y);
+}
+
+inline Vector2D Vector2D::unitario() const
+{
+	auto mod = modulo();
+	if (mod > 0.00001) return { x / mod, y / mod };
+	return { x,y };
 }
 
 inline double Vector2D::argumento() const

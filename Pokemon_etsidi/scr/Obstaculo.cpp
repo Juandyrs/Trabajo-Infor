@@ -4,14 +4,16 @@
 
 // Metodos del obstaculo de piedra
 
-void Obs_Piedra::interrumpir(Pokemon &personaje)
+bool Obs_Piedra::interrumpir(Pokemon &personaje)
 {
 
 	if (Colisiones::colision(Hitbox, Posicion, personaje.consultar_hitbox(), personaje.consultar_posicion()))
 	{
 		personaje.pos_arena = personaje.consultar_posicion() - personaje.dir_mov * personaje.velocidad;
+		return true;
 	}
 
+	return false;
 } 
 
 void Obs_Piedra::dibujar()
@@ -32,14 +34,16 @@ void Obs_Piedra::dibujar()
 
 // Metodos del obstaculo de fuego
 
-void Obs_Fuego::interrumpir(Pokemon &personaje)
+bool Obs_Fuego::interrumpir(Pokemon &personaje)
 {
 
 	if (Colisiones::colision(Hitbox, Posicion, personaje.consultar_hitbox(), personaje.consultar_posicion()) 
 		&& personaje.consultar_estado() != EfectoEstado::Invulnerable)
 	{
 		personaje.modificar_estado(EfectoEstado::Quemadura, frames_fuego);
+		return true;
 	}
+	return false;
 }
 
 void Obs_Fuego::dibujar()

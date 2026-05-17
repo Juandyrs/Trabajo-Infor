@@ -22,7 +22,7 @@ public:
 		velocidad = 0.2;
 		dano = 20.0;
 		cooldown = 5;
-		Hitbox = { 2, 2 }; // Hitbox para prueba, hay que cambiarlo
+		Hitbox = { 1.0, 1.0}; // Hitbox para prueba, hay que cambiarlo
 
 		//Tablero
 		nombre = n;

@@ -1,6 +1,9 @@
 #pragma once
 
 #include "cmath"
+#include <iostream>
+
+using namespace std;
 
 struct Vector2D
 {
@@ -9,7 +12,9 @@ struct Vector2D
 
 	double modulo() const; //modulo del vector
 	double argumento() const; //argumento del vector
+	bool operator ==(const Vector2D&) const; //Compara la igualdad de dos vectores
 	Vector2D unitario() const; //devuelve un vector unitario
+	friend ostream& operator<<(ostream& os, const Vector2D& v);
 	Vector2D operator - (const Vector2D&) const; //resta de vectores
 	Vector2D operator + (const Vector2D&) const; //suma de vectores
 	Vector2D& operator += (const Vector2D&); //suma de vectores
@@ -28,9 +33,23 @@ inline Vector2D Vector2D::unitario() const
 	return { x,y };
 }
 
+inline ostream& operator<<(ostream &os, const Vector2D& v)
+{
+	os << "(" << v.x << "," << v.y << ")";
+	return os;
+}
+
 inline double Vector2D::argumento() const
 {
 	return atan2(y, x);
+}
+
+inline bool Vector2D::operator==(const Vector2D &v) const
+{
+	//Umbral para evitar problemas de exactitud
+	const double umbral = 0.001;
+
+	return (abs(x - v.x) < umbral) && (abs(y - v.y) < umbral);
 }
 
 inline Vector2D Vector2D::operator - (const Vector2D &v) const

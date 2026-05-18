@@ -234,7 +234,7 @@ void ArenaCombate::inicializa_obstaculos()
 
 		if (salir) continue;
 
-		obstaculos.agregar_Obstaculo(new Obs_Piedra(pos));
+		obstaculos.agregar_Obstaculo(new Obs_Fuego(pos));
 		i++;
 	}	
 }	

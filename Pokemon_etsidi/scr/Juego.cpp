@@ -5,14 +5,14 @@
 
 //funciones para escribir en 2D freeglut
 void escribirCadena2D(float x, float y, const char* cadena) {
-	glRasterPos3d(x, y, 0);
+	glRasterPos3d(x, y, 1);
 	for (const char* c = cadena; *c != '\0'; c++) {
 		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *c);
 	}
 }
 
 void escribirChar2D(float x, float y, char letra) {
-	glRasterPos3d(x, y, 0);
+	glRasterPos3d(x, y, 1);
 	glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, letra);
 }
 
@@ -104,7 +104,6 @@ void Juego::dibujar_Juego()
 					else
 						glColor3f(1.0f, 0.1f, 0.1f); // Rojo Enemigo 
 
-
 					escribirChar2D(c + 0.4f, f + 0.35f, p->obtener_simbolo());
 				}
 			}
@@ -150,10 +149,12 @@ void Juego::mover_Juego(bool key[])
 		if (key['1']) {
 			IA_activa = false;
 			pantallaActual = TABLERO;
+			Mitablerito.inicializar_tablero();
 		}
 		else if (key['2']) {
 			IA_activa = true;
 			pantallaActual = TABLERO;
+			Mitablerito.inicializar_tablero();
 		}
 
 		break;
@@ -199,8 +200,8 @@ void Juego::jugar()
 
 	case ARENA:
 
-		arena_combate(*new Distancia("Grovile", Bando::Entrenador, Tipo::Planta, Tipo::Ninguno, { 0,1 }),
-			*new Basico("Scraggy", Bando::Team_Rocket, Tipo::Lucha, Tipo::Siniestro, { 1,7 }));
+		arena_combate(*new Distancia(1),
+			*new Basico(1));
 
 		break;
 	}
@@ -214,7 +215,6 @@ void Juego::arena_combate(Pokemon &equipo1, Pokemon &equipo2)
 	if(primera_vez) 
 	{
 		Arena.inicializa_Arena(equipo1, equipo2, IA_activa);
-		Arena.inicializa_obstaculos();
 		IA::estado_arena = Estado_Arena::Buscar;
 		primera_vez = false;
 	}
@@ -227,8 +227,4 @@ void Juego::arena_combate(Pokemon &equipo1, Pokemon &equipo2)
 	{
 		IA::IA_Combate_Arena(Arena);
 	}
-}
-
-void Juego::inicializar_tablero() {
-	
 }

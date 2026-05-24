@@ -264,6 +264,8 @@ void ArenaCombate::inicializa_Arena(Pokemon &t1, Pokemon &t2, bool ia)
 
 	equipo1.pos_arena = { -dimensiones_arena.x + 2, 0 };
 	equipo2.pos_arena = { dimensiones_arena.x - 2, 0 };
+
+	inicializa_obstaculos();
 }
 
 void ArenaCombate::mueve_personaje(bool key[])

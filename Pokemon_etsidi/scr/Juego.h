@@ -22,9 +22,5 @@ public:
 	void jugar();
 	void arena_combate(Pokemon& equipo1, Pokemon& equipo2);
 
-
-	void inicializar_tablero(); 
-	void inicializar_tablero(Tablero t) { Mitablerito = t; }
-
 };
 

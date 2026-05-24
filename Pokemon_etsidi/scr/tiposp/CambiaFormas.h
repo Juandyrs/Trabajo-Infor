@@ -21,7 +21,7 @@ public:
 
         //Tablero
         nombre = n;
-        equipo = b;
+        equipo = b; 
         tip1 = tipo1;
         tip2 = tipo2;
         pos_tab = pos_t;
@@ -29,7 +29,7 @@ public:
 
     }
 
-    
+    void cambiar_forma(Pokemon &enemigo);
 
 };
 

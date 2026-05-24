@@ -9,8 +9,10 @@ class Fenix :
   
 public:
 
+    Fenix() = default;
+
     //Constructor para probar la arena
-    Fenix()
+    Fenix(int a)
     {
         ataque = new Area(5.0, Vector2D{ 0.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 1.5, 60);
         vida_max = 60.0;

@@ -3,7 +3,7 @@
 #include <typeinfo>
 #include "tiposp/Distancia.h"
 #include "Colisiones.h"
-#include "Basico.h"
+#include "Ataque.h"
 #include <vector>
 
 using std::vector;
@@ -40,9 +40,9 @@ void IA::IA_Combate_Arena(ArenaCombate &arena)
 
 				arena.equipo2.dir_mov = distancia.unitario();
 
-				if (typeid(arena.equipo2) != typeid(Distancia))
+				if (typeid(*arena.equipo2.ataque) != typeid(Rango))
 				{
-					auto& aux = arena.equipo2;
+					auto &aux = arena.equipo2;
 
 					if (distancia.modulo() > aux.ataque->consultar_rango())	estado_arena = Estado_Arena::Buscar;
 				}
@@ -117,7 +117,7 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 	static Vector2D posicion_anterior{};
 
 	//Los personajes a distancia se comportan de manera distinta.
-	if (typeid(arena.equipo2) != typeid(Distancia))
+	if (typeid(*arena.equipo2.ataque) != typeid(Rango))
 	{
 		auto aux = arena.equipo2;
 

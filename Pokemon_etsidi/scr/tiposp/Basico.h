@@ -8,8 +8,11 @@ class Basico :
 {
 
 public:
+
+    Basico() = default;
+
     //Constructo para pruebas en la Arena
-    Basico()
+    Basico(int a)
     {
         //Arena
         ataque = new Melee(10.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 2.0, 2.5, 5);

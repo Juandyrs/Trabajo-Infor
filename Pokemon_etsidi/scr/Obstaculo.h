@@ -18,7 +18,7 @@ public:
 	{}
 
 	Obstaculo(Vector2D pos)
-		: Hitbox(1.0, 1.0)
+		: Hitbox(0.5, 0.5)
 		, Posicion(pos)
 	{}
 

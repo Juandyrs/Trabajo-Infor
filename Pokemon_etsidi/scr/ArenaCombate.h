@@ -7,16 +7,17 @@
 
 class ArenaCombate
 {
-	Vector2D dimensiones_arena{9,9};
+	Vector2D dimensiones_arena{4.5, 4.5};
 	Pokemon &equipo1, &equipo2;
 	ListaObstaculos obstaculos;
-	bool IA_activa; // Es true por ahora para probar la Ia
+	bool IA_activa{}; // Es true por ahora para probar la Ia
 
 public:
 	
 	ArenaCombate()
 		: equipo1(*new Pokemon())
 		, equipo2(*new Pokemon())
+		, IA_activa(false)
 	{
 		equipo1.pos_arena = { -dimensiones_arena.x + 2, 0 };
 		equipo2.pos_arena = { dimensiones_arena.x - 2, 0 };

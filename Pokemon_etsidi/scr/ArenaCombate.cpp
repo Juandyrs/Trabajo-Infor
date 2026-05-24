@@ -47,7 +47,7 @@ void ArenaCombate::dibuja_Personajes()
 		// Personaje real, placeholder, hay que cambiarlo
 		glColor3ub(255, 255, 0);
 		glTranslated(equipo1.pos_arena.x, equipo1.pos_arena.y, 0);
-		glutSolidSphere(1, 20, 20);
+		glutSolidSphere(0.5, 20, 20);
 		glTranslated(-equipo1.pos_arena.x, -equipo1.pos_arena.y, 0);
 	}
 
@@ -70,7 +70,7 @@ void ArenaCombate::dibuja_Personajes()
 		// Personaje real, placeholder, hay que cambiarlo
 		glColor3ub(0, 255, 0);
 		glTranslated(equipo2.pos_arena.x, equipo2.pos_arena.y, 0);
-		glutSolidSphere(1, 20, 20);
+		glutSolidSphere(0.5, 20, 20);
 		glTranslated(-equipo2.pos_arena.x, -equipo2.pos_arena.y, 0);
 		
 	}
@@ -81,6 +81,8 @@ void ArenaCombate::dibuja_BarrasVida()
 {
 	//Dibujar barras de vida 
 
+	double a{ 2.0 }, b{ 1.0 }, c{ 20.0 }, d{ 0.5 }; //Parametros de ajuste
+
 	//Barra de vida del equipo 1
 
 	if (equipo1.vida_actual >= 0)
@@ -88,11 +90,11 @@ void ArenaCombate::dibuja_BarrasVida()
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
 		glColor3ub(255, 0, 0);
-		glVertex3d(-dimensiones_arena.x - 4, -equipo1.vida_actual / 10, 0);
-		glVertex3d(-dimensiones_arena.x - 4, equipo1.vida_actual / 10, 0);
+		glVertex3d(-dimensiones_arena.x - a, -equipo1.vida_actual / c, 0);
+		glVertex3d(-dimensiones_arena.x - a, equipo1.vida_actual / c, 0);
 		glColor3ub(255, 0, 0);
-		glVertex3d(-dimensiones_arena.x - 2, equipo1.vida_actual / 10, 0);
-		glVertex3d(-dimensiones_arena.x - 2, -equipo1.vida_actual / 10, 0);
+		glVertex3d(-dimensiones_arena.x - b, equipo1.vida_actual / c, 0);
+		glVertex3d(-dimensiones_arena.x - b, -equipo1.vida_actual / c, 0);
 		glEnd();
 		glEnable(GL_LIGHTING);
 	}
@@ -102,11 +104,11 @@ void ArenaCombate::dibuja_BarrasVida()
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
 	glColor3ub(255, 255, 255);
-	glVertex3d(-dimensiones_arena.x - 4, -dimensiones_arena.y - 1, 0);
-	glVertex3d(-dimensiones_arena.x - 4, dimensiones_arena.y + 1, 0);
+	glVertex3d(-dimensiones_arena.x - a, -dimensiones_arena.y - d, 0);
+	glVertex3d(-dimensiones_arena.x - a, dimensiones_arena.y + d, 0);
 	glColor3ub(255, 255, 255);
-	glVertex3d(-dimensiones_arena.x - 2, dimensiones_arena.y + 1, 0);
-	glVertex3d(-dimensiones_arena.x - 2, -dimensiones_arena.y - 1, 0);
+	glVertex3d(-dimensiones_arena.x - b, dimensiones_arena.y + d, 0);
+	glVertex3d(-dimensiones_arena.x - b, -dimensiones_arena.y - d, 0);
 	glEnd();
 	glEnable(GL_LIGHTING);
 
@@ -117,11 +119,11 @@ void ArenaCombate::dibuja_BarrasVida()
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
 		glColor3ub(255, 0, 0);
-		glVertex3d(dimensiones_arena.x + 4, -equipo2.vida_actual / 10, 0);
-		glVertex3d(dimensiones_arena.x + 4, equipo2.vida_actual / 10, 0);
+		glVertex3d(dimensiones_arena.x + a, -equipo2.vida_actual / c, 0);
+		glVertex3d(dimensiones_arena.x + a, equipo2.vida_actual / c, 0);
 		glColor3ub(255, 0, 0);
-		glVertex3d(dimensiones_arena.x + 2, equipo2.vida_actual / 10, 0);
-		glVertex3d(dimensiones_arena.x + 2, -equipo2.vida_actual / 10, 0);
+		glVertex3d(dimensiones_arena.x + b, equipo2.vida_actual / c, 0);
+		glVertex3d(dimensiones_arena.x + b, -equipo2.vida_actual / c, 0);
 		glEnd();
 		glEnable(GL_LIGHTING);
 	}
@@ -131,11 +133,11 @@ void ArenaCombate::dibuja_BarrasVida()
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
 	glColor3ub(255, 255, 255);
-	glVertex3d(dimensiones_arena.x + 4, -dimensiones_arena.y - 1, 0);
-	glVertex3d(dimensiones_arena.x + 4, dimensiones_arena.y + 1, 0);
+	glVertex3d(dimensiones_arena.x + a, -dimensiones_arena.y - d, 0);
+	glVertex3d(dimensiones_arena.x + a, dimensiones_arena.y + d, 0);
 	glColor3ub(255, 255, 255);
-	glVertex3d(dimensiones_arena.x + 2, dimensiones_arena.y + 1, 0);
-	glVertex3d(dimensiones_arena.x + 2, -dimensiones_arena.y - 1, 0);
+	glVertex3d(dimensiones_arena.x + b, dimensiones_arena.y + d, 0);
+	glVertex3d(dimensiones_arena.x + b, -dimensiones_arena.y - d, 0);
 	glEnd();
 	glEnable(GL_LIGHTING);
 }
@@ -213,8 +215,8 @@ void ArenaCombate::inicializa_obstaculos()
 	{
 		salir = false;
 
-		pos.x = rand() % (2*((int)dimensiones_arena.x - 2) + 1) - ((int)dimensiones_arena.x - 2);
-		pos.y = rand() % (2*((int)dimensiones_arena.y - 2) + 1) - ((int)dimensiones_arena.y - 2);
+		pos.x = rand() % (2*((int)dimensiones_arena.x - 1) + 1) - ((int)dimensiones_arena.x - 1);
+		pos.y = rand() % (2*((int)dimensiones_arena.y - 1) + 1) - ((int)dimensiones_arena.y - 1);
 
 		//Para evitar que un obstaculo se genere encima de un personaje
 		if (Colisiones::colision(temporal.consultar_hitbox(), pos, equipo1.consultar_hitbox(), equipo1.pos_arena) || Colisiones::colision(temporal.consultar_hitbox(), pos, equipo2.consultar_hitbox(), equipo2.pos_arena))

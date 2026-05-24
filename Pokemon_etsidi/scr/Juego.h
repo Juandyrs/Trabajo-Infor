@@ -5,12 +5,11 @@
 #include "tiposp/Distancia.h"
 
 //distintos tableros
-enum EstadoPantalla { MENU, TABLERO_ESTRATEGICO, ARENA_FIGHT };
+enum EstadoPantalla { MENU, TABLERO, ARENA };
 
 class Juego
 {
-	bool arena_activa{ false }; // Es true por ahora para probar la arena 
-	bool IA_activa{ false }; // Es true por ahora para probar la Ia
+	bool IA_activa{ false };
 	ArenaCombate Arena;
 	Tablero Mitablerito;
 	EstadoPantalla pantallaActual{ MENU };

@@ -23,7 +23,7 @@ void OnTimer(int value); //esta funcion sera llamada cuando transcurra una tempo
 void OnKeyboardDown(unsigned char key, int x, int y); //cuando se pulse una tecla	
 void OnKeyboardUp(unsigned char key, int x, int y);
 
-Juego MiJuego;
+Juego Archon;
 
 bool keys[256]{false};
 
@@ -166,7 +166,7 @@ int main(int argc, char* argv[])
 	Mitablerito.colocar_pokemon(Moltres[1].pos_tab.x, Moltres[1].pos_tab.y, &Moltres[1]);
 
 
-	MiJuego.inicializar_tablero(Mitablerito); //para pasar todos los pokemons a juego
+	Archon.inicializar_tablero(Mitablerito); //para pasar todos los pokemons a juego
 
 	Mitablerito.imprimir();
 	//Dibujar el tablero
@@ -178,18 +178,8 @@ int main(int argc, char* argv[])
 
 void OnDraw(void)
 {
-	//Borrado de la pantalla y reseteo de la matriz de transformacion	
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-	/*gluLookAt(0, 0, 30,  // posicion del ojo
-		0.0, 0, 0.0,				// hacia que punto mira  (0,0,0) 
-		0.0, 1, 0.0);	*/			// definimos hacia arriba (eje Z)    
-
-	//aqui es donde hay que poner el codigo de dibujo
-	
-	MiJuego.dibujar_Juego();
+	//Codigo de Dibujo del Juego
+	Archon.dibujar_Juego();
 	
 	//no borrar esta linea ni poner nada despues
 	glutSwapBuffers();
@@ -201,7 +191,7 @@ void OnKeyboardDown(unsigned char key, int x_t, int y_t)
 	
 	keys[key] = true;
 
-	MiJuego.mover_Juego(keys);
+	Archon.mover_Juego(keys);
 
 
 	//indicamos que se vuelva a dibujar la pantalla, para que se vean los cambios
@@ -220,7 +210,7 @@ void OnTimer(int value)
 {
 	//código de animacion
 	
-	MiJuego.jugar();
+	Archon.jugar();
 
 	//no borrar estas lineas
 	//indicamos que se vuelva a dibujar la pantalla, para que se vean los cambios

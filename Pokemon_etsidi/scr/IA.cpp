@@ -23,7 +23,7 @@ void IA::IA_Combate_Arena(ArenaCombate &arena)
 
 	int decision = rand() % (8 - 1 + 1) + 1;
 	static int frame{100};
-	Vector2D distancia = arena.equipo1.consultar_posicion() - arena.equipo2.consultar_posicion();
+	Vector2D distancia = arena.equipo1->consultar_posicion() - arena.equipo2->consultar_posicion();
 
 	if (typeid(arena.equipo2) != typeid(Distancia) && frame%10 == 0)
 	{
@@ -38,13 +38,13 @@ void IA::IA_Combate_Arena(ArenaCombate &arena)
 			
 			case Estado_Arena::Atacar:
 
-				arena.equipo2.dir_mov = distancia.unitario();
+				arena.equipo2->dir_mov = distancia.unitario();
 
-				if (typeid(*arena.equipo2.ataque) != typeid(Rango))
+				if (typeid(*arena.equipo2->ataque) != typeid(Rango))
 				{
 					auto &aux = arena.equipo2;
 
-					if (distancia.modulo() > aux.ataque->consultar_rango())	estado_arena = Estado_Arena::Buscar;
+					if (distancia.modulo() > aux->ataque->consultar_rango())	estado_arena = Estado_Arena::Buscar;
 				}
 
 				if (cd2 <= 0)
@@ -64,50 +64,13 @@ void IA::IA_Combate_Arena(ArenaCombate &arena)
 		}
 	}
 
-
-
-	/* switch (decision)
-	{
-		case 1:
-			if(frame%10 == 0) arena.equipo2.mover_arena({ 0, 1 });
-			break;
-
-		case 2:
-			if(frame%10 == 0) arena.equipo2.mover_arena({ 0, -1 });
-			break;
-
-		case 3:
-			if(frame%10 == 0) arena.equipo2.mover_arena({ 1, 0 });
-			break;
-
-		case 4:
-			if(frame%10 == 0) arena.equipo2.mover_arena({ -1, 0 });
-			break;
-
-		case 5:
-			if (frame % 10 == 0) arena.equipo2.mover_arena({ sqrt(2) / 2, sqrt(2) / 2 });
-			break;
-
-		case 6:
-			if (frame % 10 == 0) arena.equipo2.mover_arena({ -sqrt(2) / 2, sqrt(2) / 2 });
-			break;
-
-		case 7:
-			if (frame % 10 == 0) arena.equipo2.mover_arena({ sqrt(2) / 2, -sqrt(2) / 2 });
-			break;
-
-		case 8:
-			if (frame % 10 == 0) arena.equipo2.mover_arena({ -sqrt(2) / 2, -sqrt(2) / 2 });
-			break;
-	}*/
-
 	frame--;
 	if (frame <= 0) frame = 100;
 }
 
 bool IA::buscar_camino_arena(ArenaCombate &arena)
 {
-	Vector2D distancia = arena.equipo1.consultar_posicion() - arena.equipo2.consultar_posicion();
+	Vector2D distancia = arena.equipo1->consultar_posicion() - arena.equipo2->consultar_posicion();
 	Vector2D d_aux{};
 	vector <int> pesos(8);
 	vector <Vector2D> movimientos = { {0,1}, {0,-1}, {1,0}, {-1,0},
@@ -117,28 +80,28 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 	static Vector2D posicion_anterior{};
 
 	//Los personajes a distancia se comportan de manera distinta.
-	if (typeid(*arena.equipo2.ataque) != typeid(Rango))
+	if (typeid(*arena.equipo2->ataque) != typeid(Rango))
 	{
-		auto aux = arena.equipo2;
+		auto aux = *arena.equipo2;
 
 		for (int i = 0; i < 8; i++)
 		{
-			puntos[i] = arena.equipo2.siguiente_posicion(movimientos[i]);
+			puntos[i] = arena.equipo2->siguiente_posicion(movimientos[i]);
 			aux.pos_arena = puntos[i];
-			d_aux = arena.equipo1.consultar_posicion() - aux.pos_arena;
+			d_aux = arena.equipo1->consultar_posicion() - aux.pos_arena;
 
 			pesos[i] = 100; // Valor base del peso
 			pesos[i] -= d_aux.modulo() * 10; //Premia el movimiento que se acerca al enemigo'
 
 			bool ver = puntos[i] == posicion_anterior;
 			if (puntos[i] == posicion_anterior) pesos[i] -= 50; //Penaliza volver a posiciones anteriores no funciona
-			if (arena.obstaculos.distancia_obstaculo_cercano(aux) <= 0.1) pesos[i] -= 100; //Penaliza estar cerca de obstaculos
+			if (arena.obstaculos.distancia_obstaculo_cercano(aux) <= 0.01) pesos[i] -= 100; //Penaliza estar cerca de obstaculos
 
 			//Para poder ver cuales son los pesos de los movimientos
-			//cout << "Pos siguiente:" << puntos[i] << endl;
-			//cout << "Pos anterior:" << posicion_anterior << endl;
-			//cout << ver << endl;
-			//cout << pesos[i]<< movimientos[i] << endl;
+			cout << "Pos siguiente:" << puntos[i] << endl;
+			cout << "Pos anterior:" << posicion_anterior << endl;
+			cout << ver << endl;
+			cout << pesos[i]<< movimientos[i] << endl;
 		}
 
 		auto mayor_peso = max_element(pesos.begin(), pesos.end()); //Devuelve el iterador del mayor elemento
@@ -146,8 +109,8 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 
 		mejor_movimiento = movimientos[indice];
 
-		posicion_anterior = arena.equipo2.pos_arena;
-		arena.equipo2.mover_arena(mejor_movimiento.unitario());
+		posicion_anterior = arena.equipo2->pos_arena;
+		arena.equipo2->mover_arena(mejor_movimiento.unitario());
 
 
 		if (distancia.modulo() < aux.ataque->consultar_rango())	return true;

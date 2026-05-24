@@ -102,13 +102,20 @@ public:
 
 	Vector2D consultar_hitbox() const { return Hitbox; }
 	Vector2D consultar_posicion() const { return pos_arena; }
+	string consultar_nombre() const { return nombre; }
+	double consultar_vel() const { return velocidad; }
 	double consultar_vida() const { return vida_actual; }
+	double consultar_dano() const { return dano; }
+	double consultar_vidamax() const { return vida_max; }
+	double consultar_cd() const { return cooldown; }
+	Ataque* consultar_ataque() const { return ataque; }
 	EfectoEstado consultar_estado() const { return efecto_estado; }
 	int consultar_duracion_estado() const { return duracion_efecto; }
 
 	virtual void atacar(Pokemon &objetivo);
 	void mover_arena(Vector2D dir);
 	Vector2D siguiente_posicion(const Vector2D dir) const { return pos_arena + dir * velocidad; }
+	
 };
 
 //El dano con el tiempo se aplicara cada 10 frames

@@ -3,7 +3,7 @@
 
 void Fenix::atacar(Pokemon &objetivo) 
 {
-    Fenix aux; //Para saber la velocidad inicial del personaje
+    Fenix aux(1); //Para saber la velocidad inicial del personaje
 	double vida_inicial = vida_actual;
 
 	if (!atacando)
@@ -14,7 +14,6 @@ void Fenix::atacar(Pokemon &objetivo)
 	}
 
 	Pokemon::atacar(objetivo);
-
 	velocidad = 0.0;
 	efecto_estado = EfectoEstado::Invulnerable;
 }

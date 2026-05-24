@@ -2,6 +2,8 @@
 #include "Pokemon.h"
 #include "IA.h"
 #include <freeglut.h>
+#include "tiposp/CambiaFormas.h"
+#include "tiposp/Fenix.h"
 
 //funciones para escribir en 2D freeglut
 void escribirCadena2D(float x, float y, const char* cadena) {
@@ -201,7 +203,7 @@ void Juego::jugar()
 	case ARENA:
 
 		arena_combate(*new Distancia(1),
-			*new Basico(1));
+			*new CambiaFormas(1));
 
 		break;
 	}
@@ -214,7 +216,22 @@ void Juego::arena_combate(Pokemon &equipo1, Pokemon &equipo2)
 
 	if(primera_vez) 
 	{
-		Arena.inicializa_Arena(equipo1, equipo2, IA_activa);
+		//Solo uno de los dos equipos puede tener un cambia formas
+		//Se identifica si uno de los dos es un cambiaformas
+		if (typeid(equipo1) == typeid(CambiaFormas))
+		{
+			//Se accede al pokemon como cambiaformas
+			CambiaFormas &p = dynamic_cast<CambiaFormas&>(equipo1);
+			p.cambiar_forma(equipo2);
+		}  
+		 
+		if (typeid(equipo2) == typeid(CambiaFormas))
+		{
+			CambiaFormas &p = dynamic_cast<CambiaFormas&>(equipo2);
+			p.cambiar_forma(equipo1);
+		}
+
+		Arena.inicializa_Arena(&equipo1, &equipo2, IA_activa);
 		IA::estado_arena = Estado_Arena::Buscar;
 		primera_vez = false;
 	}
@@ -227,4 +244,7 @@ void Juego::arena_combate(Pokemon &equipo1, Pokemon &equipo2)
 	{
 		IA::IA_Combate_Arena(Arena);
 	}
+
+	auto ganador = Arena.devolver_ganador();
+	if(ganador != nullptr) pantallaActual = TABLERO;
 }

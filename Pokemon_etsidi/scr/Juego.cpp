@@ -189,17 +189,22 @@ void Juego::jugar()
 {
 	// Todo el codigo necesario para jugar 
 
-	if (pantallaActual == TABLERO)
+	switch (pantallaActual)
 	{
+	case TABLERO:
+
 		logica_Juego();
-	}
-	else if (pantallaActual == ARENA)
-	{
-		
+
+		break;
+
+	case ARENA:
+
 		arena_combate(*new Distancia("Grovile", Bando::Entrenador, Tipo::Planta, Tipo::Ninguno, { 0,1 }),
 			*new Basico("Scraggy", Bando::Team_Rocket, Tipo::Lucha, Tipo::Siniestro, { 1,7 }));
+
+		break;
 	}
-	
+
 }
 
 void Juego::arena_combate(Pokemon &equipo1, Pokemon &equipo2)

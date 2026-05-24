@@ -165,6 +165,9 @@ int main(int argc, char* argv[])
 	Mitablerito.colocar_pokemon(Moltres[0].pos_tab.x, Moltres[0].pos_tab.y, &Moltres[0]);
 	Mitablerito.colocar_pokemon(Moltres[1].pos_tab.x, Moltres[1].pos_tab.y, &Moltres[1]);
 
+
+	MiJuego.inicializar_tablero(Mitablerito); //para pasar todos los pokemons a juego
+
 	Mitablerito.imprimir();
 	//Dibujar el tablero
 
@@ -180,9 +183,9 @@ void OnDraw(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(0, 0, 30,  // posicion del ojo
+	/*gluLookAt(0, 0, 30,  // posicion del ojo
 		0.0, 0, 0.0,				// hacia que punto mira  (0,0,0) 
-		0.0, 1, 0.0);				// definimos hacia arriba (eje Z)    
+		0.0, 1, 0.0);	*/			// definimos hacia arriba (eje Z)    
 
 	//aqui es donde hay que poner el codigo de dibujo
 	

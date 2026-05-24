@@ -92,7 +92,7 @@ public:
 	char obtener_simbolo() { return simbolo; }
 
 	//Metodos Relacionados con el tablero
-
+	Bando obtener_bando() { return equipo; } //para el color de la ficha
 	//Metodos Relacionados con la Arena
 
 

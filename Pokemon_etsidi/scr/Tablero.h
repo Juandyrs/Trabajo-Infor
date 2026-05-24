@@ -9,6 +9,8 @@ class Tablero
 public:
 	void colocar_pokemon(int f, int c, Pokemon* p) { matriz[f][c] = p; } // no se puede poner &p puesto que p ya es un puntero a pokemon 
 	void imprimir();
+	//para leer el tablero en 2D
+	Pokemon* get_pokemon(int f, int c) { return matriz[f][c]; }
 
 };
 

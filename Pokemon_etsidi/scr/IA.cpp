@@ -38,19 +38,18 @@ void IA::IA_Combate_Arena(ArenaCombate &arena)
 			
 			case Estado_Arena::Atacar:
 
-				arena.equipo2->dir_mov = distancia.unitario();
-
-				if (typeid(*arena.equipo2->ataque) != typeid(Rango))
+				if (typeid(*arena.equipo2->ataque) == typeid(Melee) || typeid(*arena.equipo2->ataque) == typeid(Area))
 				{
-					auto &aux = arena.equipo2;
-
-					if (distancia.modulo() > aux->ataque->consultar_rango())	estado_arena = Estado_Arena::Buscar;
+					arena.equipo2->dir_mov = distancia.unitario();
+					if (distancia.modulo() > arena.equipo2->ataque->consultar_rango()) estado_arena = Estado_Arena::Buscar;
 				}
 
-				if (cd2 <= 0)
+				else if (typeid(*arena.equipo2->ataque) == typeid(Rango))
 				{
-					atk2_ini = true;
+					if (!Colisiones::colision(arena.equipo1->Hitbox, arena.equipo1->pos_arena, arena.equipo2->dir_mov, arena.equipo2->pos_arena, 0)) estado_arena = Estado_Arena::Buscar;
 				}
+
+				if (cd2 <= 0) atk2_ini = true;
 
 				break;
 
@@ -75,13 +74,14 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 	vector <int> pesos(8);
 	vector <Vector2D> movimientos = { {0,1}, {0,-1}, {1,0}, {-1,0},
 		{sqrt(2) / 2, sqrt(2) / 2}, {-sqrt(2) / 2, sqrt(2) / 2}, {sqrt(2) / 2, -sqrt(2) / 2}, {-sqrt(2) / 2, -sqrt(2) / 2} };
-	vector <Vector2D> puntos(8);
+	vector <Vector2D> puntos(8), mejor_ruta;
 	Vector2D mejor_movimiento{ 0,0 };
-	static Vector2D posicion_anterior{};
+	static vector <Vector2D>  posiciones_anterior(20);
 
-	//Los personajes a distancia se comportan de manera distinta.
-	if (typeid(*arena.equipo2->ataque) != typeid(Rango))
+	//Los personajes cuerpo a cuerpo y los de ataque en area  se comportan de manera similar.
+	if (typeid(*arena.equipo2->ataque) == typeid(Melee) || typeid(*arena.equipo2->ataque) == typeid(Area))
 	{
+		//El personaje cuerpo a cuerpo intenta estar lo mas cerca del jugador para atacar
 		auto aux = *arena.equipo2;
 
 		for (int i = 0; i < 8; i++)
@@ -91,17 +91,18 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 			d_aux = arena.equipo1->consultar_posicion() - aux.pos_arena;
 
 			pesos[i] = 100; // Valor base del peso
-			pesos[i] -= d_aux.modulo() * 10; //Premia el movimiento que se acerca al enemigo'
 
-			bool ver = puntos[i] == posicion_anterior;
-			if (puntos[i] == posicion_anterior) pesos[i] -= 50; //Penaliza volver a posiciones anteriores no funciona
+			pesos[i] -= d_aux.modulo() * 10; //Premia el movimiento que se acerca al enemigo
+
+			for (auto e : posiciones_anterior) if (puntos[i] == e) pesos[i] -= 50; //Penaliza volver a alguna posicion anterior
+
 			if (arena.obstaculos.distancia_obstaculo_cercano(aux) <= 0.01) pesos[i] -= 100; //Penaliza estar cerca de obstaculos
 
+			pesos[i] += rand() % (5 - 1 + 1) + 1; // Un poco de aleatoriedad para intentar evitar que se trabe
+
 			//Para poder ver cuales son los pesos de los movimientos
-			cout << "Pos siguiente:" << puntos[i] << endl;
-			cout << "Pos anterior:" << posicion_anterior << endl;
-			cout << ver << endl;
-			cout << pesos[i]<< movimientos[i] << endl;
+			//cout << "Pos siguiente:" << puntos[i] << endl;
+			//cout << pesos[i]<< movimientos[i] << endl;
 		}
 
 		auto mayor_peso = max_element(pesos.begin(), pesos.end()); //Devuelve el iterador del mayor elemento
@@ -109,13 +110,57 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 
 		mejor_movimiento = movimientos[indice];
 
-		posicion_anterior = arena.equipo2->pos_arena;
-		arena.equipo2->mover_arena(mejor_movimiento.unitario());
+		for (int i = 19; i >= 1; i--)
+		{
+			//cout << posiciones_anterior[i] << endl;
+			//Guarda las posiciones anteriores y se pierde la posicion que se estuvo hace 20 movimientos 
+			posiciones_anterior[i] = posiciones_anterior[i - 1];
+		}
 
+		posiciones_anterior[0] = arena.equipo2->pos_arena;
+		arena.equipo2->mover_arena(mejor_movimiento.unitario());
 
 		if (distancia.modulo() < aux.ataque->consultar_rango())	return true;
 	}
 	
+	else if (typeid(*arena.equipo2->ataque) == typeid(Rango))
+	{
+		//El personaje a distancia intenta estar lejos del jugador y moverse para atacar a distancia
+		auto aux = *arena.equipo2;
+
+		for (int i = 0; i < 8; i++)
+		{
+			puntos[i] = arena.equipo2->siguiente_posicion(movimientos[i]);
+			aux.pos_arena = puntos[i];
+			d_aux = arena.equipo1->consultar_posicion() - aux.pos_arena;
+
+			pesos[i] = 100; // Valor base del peso
+
+			if (d_aux.modulo() >= 2) pesos[i] += 20; //Premia el movimiento que se mantenga a una distancia del enemigo
+
+			for (int i = 0; i < 8; i++) 
+				if (Colisiones::colision(arena.equipo1->Hitbox, arena.equipo1->pos_arena, movimientos[i], aux.pos_arena, 0)) pesos[i] += 50; // Premia movimientos en los que se pueda acertar
+
+			for (auto e : posiciones_anterior) if (puntos[i] == e) pesos[i] -= 50; //Penaliza volver a alguna posicion anterior
+
+			if (arena.obstaculos.distancia_obstaculo_cercano(aux) <= 0.01) pesos[i] -= 2000; //Penaliza estar cerca de obstaculos
+
+			pesos[i] += rand() % (5 - 1 + 1) + 1; // Un poco de aleatoriedad para intentar evitar que se trabe
+		}
+
+		auto mayor_peso = max_element(pesos.begin(), pesos.end()); //Devuelve el iterador del mayor elemento
+		auto indice = std::distance(pesos.begin(), mayor_peso); //Calcula la distancia entre el iterador y el inicio
+
+		mejor_movimiento = movimientos[indice];
+
+		for (int i = 19; i >= 1; i--) posiciones_anterior[i] = posiciones_anterior[i - 1];
+
+		posiciones_anterior[0] = arena.equipo2->pos_arena;
+		arena.equipo2->mover_arena(mejor_movimiento.unitario());
+
+		if (Colisiones::colision(arena.equipo1->Hitbox, arena.equipo1->pos_arena, mejor_movimiento, arena.equipo2->pos_arena, 0)) return true;
+	}
+
 	return false;
 }
  

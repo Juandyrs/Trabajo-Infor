@@ -203,7 +203,7 @@ void Juego::jugar()
 	case ARENA:
 
 		arena_combate(*new Distancia(1),
-			*new CambiaFormas(1));
+			*new Distancia(1));
 
 		break;
 	}

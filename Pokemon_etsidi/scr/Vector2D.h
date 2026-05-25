@@ -10,6 +10,7 @@ struct Vector2D
 	double x{};
 	double y{};
 
+	double proyeccion(const Vector2D &v) const; //proyeccion de este vector sobre otro
 	double modulo() const; //modulo del vector
 	double argumento() const; //argumento del vector
 	bool operator ==(const Vector2D&) const; //Compara la igualdad de dos vectores
@@ -19,7 +20,13 @@ struct Vector2D
 	Vector2D operator + (const Vector2D&) const; //suma de vectores
 	Vector2D& operator += (const Vector2D&); //suma de vectores
 	Vector2D operator *(double) const; // producto por un escalar
+	double operator *(const Vector2D&) const; // producto escalar
 };
+
+inline double Vector2D::proyeccion(const Vector2D& v) const
+{
+	return this->operator*(v) / v.modulo();
+}
 
 inline double Vector2D::modulo() const
 {
@@ -72,6 +79,11 @@ inline Vector2D& Vector2D::operator += (const Vector2D &v)
 inline Vector2D Vector2D::operator *(double a) const
 {
 	return { a * x, a * y };
+}
+
+inline double Vector2D::operator*(const Vector2D &v) const
+{
+	return x * v.x + y * v.y;
 }
 
 inline Vector2D operator * (double f, const Vector2D &v) { return v * f; }

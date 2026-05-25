@@ -186,8 +186,8 @@ void ArenaCombate::arena_combate()
 	equipo2->atacar(*equipo1);
 
 	// Cooldown para pruebas, hay que cambiarlo 
-	if (cd1 > 0) cd1 -= 1;
-	if (cd2 > 0) cd2 -= 1;
+	if (cd1 > 0) cd1 -= 0.1;
+	if (cd2 > 0) cd2 -= 0.1;
 }
 
 void ArenaCombate::interaccion_obstaculos()

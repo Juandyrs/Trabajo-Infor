@@ -89,10 +89,14 @@ public:
 	void inicializa_datos(string n, char s, Bando b, Tipo tipo1, Tipo tipo2);
 	void inicializa_stats(double v_max, double v_act, double vel);
 	void inicializa_mov(TipoMovimiento mov, int nu_ca);
+	
+	//TABLERO LOGICO 
 	char obtener_simbolo() { return simbolo; }
 
 	//Metodos Relacionados con el tablero
 	Bando obtener_bando() { return equipo; } //para el color de la ficha
+
+
 	//Metodos Relacionados con la Arena
 
 

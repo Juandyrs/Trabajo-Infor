@@ -163,6 +163,8 @@ void Juego::mover_Juego(bool key[])
 
 	case TABLERO:
 
+		Mitablerito.imprimir(); //CADA VEZ QUE SALE DE LA ARENA REESCRIBE EL TABLERO
+
 		//Para Probar la Arena
 		if (key['a'] || key['A'])
 		{
@@ -185,7 +187,7 @@ void Juego::mover_Juego(bool key[])
 
 void Juego::logica_Juego()
 {
-	
+
 }
 
 void Juego::jugar()

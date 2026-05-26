@@ -34,6 +34,7 @@ protected:
 	string nombre;
 	Tipo tip1, tip2;
 	Bando equipo;
+	string sprite; //VA A SER LA RUTA HACIA 
 
 	//Atributos del Tablero
 	char simbolo;
@@ -78,6 +79,7 @@ public:
 		, pos_arena{ 0.0, 0.0 }
 		, dir_mov{ 0.0, 0.0 }
 		, ataque(nullptr)
+		, sprite("")
 	{}
 
 	friend class ArenaCombate;
@@ -95,6 +97,7 @@ public:
 
 	//Metodos Relacionados con el tablero
 	Bando obtener_bando() { return equipo; } //para el color de la ficha
+	string obtenersprite() { return sprite;  } //PARA PODER ENCONTRAR LA RUTA CON FACILIDAD EN EL DIBUJADO
 
 
 	//Metodos Relacionados con la Arena

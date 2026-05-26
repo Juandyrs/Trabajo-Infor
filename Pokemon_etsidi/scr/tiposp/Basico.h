@@ -23,7 +23,7 @@ public:
         cooldown = 5.0;
     }
     
-    Basico(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t)
+    Basico(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t, string s)
     {
         //Arena
 		ataque = new Melee(10.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 1.0, 1.5, 5);
@@ -41,6 +41,7 @@ public:
         tip1 = tipo1;
         tip2 = tipo2;
         pos_tab = pos_t;
+        sprite = s;
         
     }
 

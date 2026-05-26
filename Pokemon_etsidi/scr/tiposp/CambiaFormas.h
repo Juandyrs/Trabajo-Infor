@@ -18,7 +18,7 @@ public:
         Hitbox = { 0.5, 0.5 };
     }
 
-    CambiaFormas(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t)
+    CambiaFormas(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t, string s)
         : nombre_original(n)
     {
         //Arena
@@ -33,6 +33,8 @@ public:
         tip2 = tipo2;
         pos_tab = pos_t;
         simbolo = 'C';
+        sprite = s;
+
     }
 
     void cambiar_forma(Pokemon &enemigo);

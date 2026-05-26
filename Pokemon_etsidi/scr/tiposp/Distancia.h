@@ -23,7 +23,7 @@ public:
 		Hitbox = { 0.5, 0.5 }; // Hitbox para prueba, hay que cambiarlo
 	}
 
-	Distancia(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t)
+	Distancia(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t, string s)
 	{
 		// No se pueden inicializar miembros heredados en la lista de inicialización
 		//Arena
@@ -42,6 +42,8 @@ public:
 		tip2 = tipo2;
 		pos_tab = pos_t;
 		simbolo = 'D';
+		sprite = s;
+
 
 	}
 

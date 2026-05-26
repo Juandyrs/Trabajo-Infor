@@ -1,5 +1,6 @@
 #include "InteraccionArena.h"
 
+
 void InteraccionArena::aplicar_Efectos(Pokemon &personaje)
 {
 	switch (personaje.efecto_estado)
@@ -21,7 +22,7 @@ void InteraccionArena::aplicar_Efectos(Pokemon &personaje)
 	}
 }
 
-static bool colision_ataques(Pokemon& objetivo, Ataque& atk)
+static bool colision_ataques_arena(ArenaCombate& obj, Ataque& atk)
 {
-	
+
 }

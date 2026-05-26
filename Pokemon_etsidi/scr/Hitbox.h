@@ -12,12 +12,18 @@ enum class TipoHitbox
 struct Hitbox
 {
 	TipoHitbox tipo;
+	Vector2D pos;
 
 	Hitbox() : tipo(TipoHitbox::Ninguno) {}
 
 	Hitbox(TipoHitbox tip) : tipo(tip) {}
 
-	virtual TipoHitbox consultar_tipo() = 0; //No tiene sentido que exista un objeto de tipo hitbox 
+	Hitbox(TipoHitbox tip, Vector2D posi)
+		: tipo(tip)
+		, pos(posi)
+	{}
+
+	virtual TipoHitbox consultar_tipo() const = 0; //No tiene sentido que exista un objeto de tipo hitbox 
 	virtual void dibujar() = 0;
 };
 
@@ -35,7 +41,14 @@ struct HitboxRectangular: public Hitbox
 		, rectangulo(rect)
 	{}
 
-	TipoHitbox consultar_tipo() override { return TipoHitbox::Rectangular; }
+	HitboxRectangular(Vector2D rect, Vector2D posi)
+		: Hitbox(TipoHitbox::Rectangular, posi)
+		, rectangulo(rect)
+	{
+	}
+
+	TipoHitbox consultar_tipo() const override { return TipoHitbox::Rectangular; }
+	Vector2D consultar_posicion() const { return pos; }
 	void dibujar() override;
 };
 
@@ -53,6 +66,12 @@ struct HitboxCircular : public Hitbox
 		, radio(r)
 	{}
 
-	TipoHitbox consultar_tipo() override { return TipoHitbox::Circular; }
-	void dibujar() override { glutSolidSphere(radio, 20, 20);}
+	HitboxCircular(double r, Vector2D posi)
+		: Hitbox(TipoHitbox::Circular, posi)
+		, radio(r)
+	{
+	}
+
+	TipoHitbox consultar_tipo() const override { return TipoHitbox::Circular; }
+	void dibujar() override;
 };

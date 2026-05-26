@@ -8,25 +8,22 @@ class Ataque
 protected:
 
 	Vector2D dir_atk;
-	Vector2D pos_atk;
 	Hitbox *hitbox;
 
 public:
 
 	Ataque()
 		: dir_atk{ 0.0, 0.0 }
-		, pos_atk{ 0.0, 0.0 }
 		, hitbox(nullptr)
 	{}
 
 	Ataque(Vector2D dir, Vector2D pos)
 		: dir_atk(dir)
-		, pos_atk(pos)
 		, hitbox(nullptr)
 	{}
 
 	void set_direccion(Vector2D dir) { dir_atk = dir; }
-	void set_posicion(Vector2D pos) { pos_atk = pos; }
+	void set_posicion(Vector2D pos) { hitbox->pos = pos; }
 
 	friend class ArenaCombate;
 	friend class InteraccionesArena;
@@ -55,14 +52,14 @@ public:
 		: Ataque(dir, pos)
 		, vel_proyectil(vel*dir_atk)
 	{
-		hitbox = new HitboxCircular(radio);
+		hitbox = new HitboxCircular(radio, pos);
 	}
 
 	friend class ArenaCombate;
 
 	void iniciar_ataque(Vector2D posicion, Vector2D dir) override;
 	void atacar_dibujar() override;
-	void mueve_ataque() override { pos_atk = pos_atk + vel_proyectil; }
+	void mueve_ataque() override { hitbox->pos += vel_proyectil; }
 };
 
 class Melee :
@@ -83,7 +80,7 @@ public:
 		: Ataque(dir, pos)
 		, frame_ataque(frame)
 	{
-		hitbox = new HitboxRectangular(Vector2D(rango, ancho));
+		hitbox = new HitboxRectangular(Vector2D(rango, ancho), pos);
 	}
 
 	friend class ArenaCombate;
@@ -105,7 +102,7 @@ public:
 		: Ataque(dir, pos)
 		, frame_ataque(frame)
 	{
-		hitbox = new HitboxCircular(radio);
+		hitbox = new HitboxCircular(radio, pos);
 	}
 
 	friend class ArenaCombate;

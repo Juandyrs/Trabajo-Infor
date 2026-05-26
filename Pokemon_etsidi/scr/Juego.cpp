@@ -198,7 +198,7 @@ void Juego::jugar()
 	case ARENA:
 
 		arena_combate(*new Basico(1),
-			*new Basico(1));
+			*new Distancia(1));
 
 		break;
 	}

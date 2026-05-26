@@ -23,39 +23,27 @@ void ArenaCombate::dibuja_Personajes()
 	if (equipo1->vida_actual > 0)
 	{
 		// Para probar hitbox, temporal hasta que se prueben todos las colisiones
-		glTranslated(equipo1->pos_arena.x, equipo1->pos_arena.y, 0);
-		glDisable(GL_LIGHTING);
-		glBegin(GL_POLYGON);
 		glColor3ub(0, 255, 255);
-		equipo1->hitbox.dibujar();
-		glEnd();
-		glEnable(GL_LIGHTING);
-		glTranslated(-equipo1->pos_arena.x, -equipo1->pos_arena.y, 0);
+		equipo1->hitbox->dibujar();
 
 		// Personaje real, placeholder, hay que cambiarlo
 		glColor3ub(255, 255, 0);
-		glTranslated(equipo1->pos_arena.x, equipo1->pos_arena.y, 0);
+		glTranslated(equipo1->hitbox->pos.x, equipo1->hitbox->pos.y, 0);
 		glutSolidSphere(0.5, 20, 20);
-		glTranslated(-equipo1->pos_arena.x, -equipo1->pos_arena.y, 0);
+		glTranslated(-equipo1->hitbox->pos.x, -equipo1->hitbox->pos.y, 0);
 	}
 
 	if(equipo2->vida_actual > 0)
 	{
 		// Para probar hitbox, temporal hasta que se prueben todos las colisiones
-		glTranslated(equipo2->pos_arena.x, equipo2->pos_arena.y, 0);
-		glDisable(GL_LIGHTING);
-		glBegin(GL_POLYGON);
 		glColor3ub(0, 255, 255);
-		equipo2->hitbox.dibujar();
-		glEnd();
-		glEnable(GL_LIGHTING);
-		glTranslated(-equipo2->pos_arena.x, -equipo2->pos_arena.y, 0);
+		equipo2->hitbox->dibujar();
 
 		// Personaje real, placeholder, hay que cambiarlo
 		glColor3ub(0, 255, 0);
-		glTranslated(equipo2->pos_arena.x, equipo2->pos_arena.y, 0);
+		glTranslated(equipo2->hitbox->pos.x, equipo2->hitbox->pos.y, 0);
 		glutSolidSphere(0.5, 20, 20);
-		glTranslated(-equipo2->pos_arena.x, -equipo2->pos_arena.y, 0);
+		glTranslated(-equipo2->hitbox->pos.x, -equipo2->hitbox->pos.y, 0);
 		
 	}
 
@@ -163,14 +151,14 @@ void ArenaCombate::arena_combate()
 	if (atk1_ini)
 	{
 		equipo1->atacando = true;
-		equipo1->ataque->iniciar_ataque(equipo1->pos_arena, equipo1->dir_mov);
+		equipo1->ataque->iniciar_ataque(equipo1->hitbox->pos, equipo1->dir_mov);
 		cd1 = equipo1->cooldown;
 		atk1_ini = false;
 	}
 	if (atk2_ini)
 	{
 		equipo2->atacando = true;
-		equipo2->ataque->iniciar_ataque(equipo2->pos_arena, equipo2->dir_mov);
+		equipo2->ataque->iniciar_ataque(equipo2->hitbox->pos, equipo2->dir_mov);
 		cd2 = equipo2->cooldown;
 		atk2_ini = false;
 	}
@@ -211,9 +199,10 @@ void ArenaCombate::inicializa_obstaculos()
 
 		pos.x = rand() % (2*((int)dimensiones_arena.x - 1) + 1) - ((int)dimensiones_arena.x - 1);
 		pos.y = rand() % (2*((int)dimensiones_arena.y - 1) + 1) - ((int)dimensiones_arena.y - 1);
+		temporal.hitbox->pos = pos;
 
 		//Para evitar que un obstaculo se genere encima de un personaje
-		if (Colisiones::colision(temporal.consultar_hitbox().rectangulo, pos, equipo1->consultar_hitbox().rectangulo, equipo1->pos_arena) || Colisiones::colision(temporal.consultar_hitbox().rectangulo, pos, equipo2->consultar_hitbox().rectangulo, equipo2->pos_arena))
+		if (Colisiones::colision(temporal.consultar_hitbox(), equipo1->consultar_hitbox()) || Colisiones::colision(temporal.consultar_hitbox(), equipo2->consultar_hitbox()))
 		{
 			continue;
 		}
@@ -221,7 +210,7 @@ void ArenaCombate::inicializa_obstaculos()
 		//Para evitar que un obstaculo se genere encima de otro obstaculo
 		for (int j = 0; j < obstaculos.obtener_Tamano(); j++)
 		{
-			if (Colisiones::colision(temporal.consultar_hitbox().rectangulo, pos, obstaculos.obtener_Obstaculo(j).consultar_hitbox().rectangulo, obstaculos.obtener_Obstaculo(j).consultar_posicion()))
+			if (Colisiones::colision(temporal.consultar_hitbox(), obstaculos.obtener_Obstaculo(j).consultar_hitbox()))
 			{
 				salir = true;
 				break;
@@ -238,15 +227,15 @@ void ArenaCombate::inicializa_obstaculos()
 void ArenaCombate::limita_movimiento()
 {
 
-	if (equipo1->pos_arena.x >= dimensiones_arena.x) equipo1->pos_arena.x = dimensiones_arena.x;
-	if (equipo1->pos_arena.x <= -dimensiones_arena.x) equipo1->pos_arena.x = -dimensiones_arena.x;
-	if (equipo1->pos_arena.y >= dimensiones_arena.y) equipo1->pos_arena.y = dimensiones_arena.y;
-	if (equipo1->pos_arena.y <= -dimensiones_arena.y) equipo1->pos_arena.y = -dimensiones_arena.y;
+	if (equipo1->hitbox->pos.x >= dimensiones_arena.x) equipo1->hitbox->pos.x = dimensiones_arena.x;
+	if (equipo1->hitbox->pos.x <= -dimensiones_arena.x) equipo1->hitbox->pos.x = -dimensiones_arena.x;
+	if (equipo1->hitbox->pos.y >= dimensiones_arena.y) equipo1->hitbox->pos.y = dimensiones_arena.y;
+	if (equipo1->hitbox->pos.y <= -dimensiones_arena.y) equipo1->hitbox->pos.y = -dimensiones_arena.y;
 
-	if (equipo2->pos_arena.x >= dimensiones_arena.x) equipo2->pos_arena.x = dimensiones_arena.x;
-	if (equipo2->pos_arena.x <= -dimensiones_arena.x) equipo2->pos_arena.x = -dimensiones_arena.x;
-	if (equipo2->pos_arena.y >= dimensiones_arena.y) equipo2->pos_arena.y = dimensiones_arena.y;
-	if (equipo2->pos_arena.y <= -dimensiones_arena.y) equipo2->pos_arena.y = -dimensiones_arena.y;
+	if (equipo2->hitbox->pos.x >= dimensiones_arena.x) equipo2->hitbox->pos.x = dimensiones_arena.x;
+	if (equipo2->hitbox->pos.x <= -dimensiones_arena.x) equipo2->hitbox->pos.x = -dimensiones_arena.x;
+	if (equipo2->hitbox->pos.y >= dimensiones_arena.y) equipo2->hitbox->pos.y = dimensiones_arena.y;
+	if (equipo2->hitbox->pos.y <= -dimensiones_arena.y) equipo2->hitbox->pos.y = -dimensiones_arena.y;
 }
 
 void ArenaCombate::inicializa_Arena(Pokemon *t1, Pokemon *t2, bool ia)
@@ -256,8 +245,8 @@ void ArenaCombate::inicializa_Arena(Pokemon *t1, Pokemon *t2, bool ia)
 	equipo1 = t1;
 	equipo2 = t2;
 
-	equipo1->pos_arena = { -dimensiones_arena.x + 2, 0 };
-	equipo2->pos_arena = { dimensiones_arena.x - 2, 0 };
+	equipo1->hitbox->pos = { -dimensiones_arena.x + 2, 0 };
+	equipo2->hitbox->pos = { dimensiones_arena.x - 2, 0 };
 
 	inicializa_obstaculos();
 }

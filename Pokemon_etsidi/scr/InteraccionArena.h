@@ -2,12 +2,13 @@
 
 #include "Pokemon.h"
 #include "Ataque.h"
+#include "ArenaCombate.h"
 
 class InteraccionArena
 {
 public:
 
 	static void aplicar_Efectos(Pokemon &personaje);
-	static bool colision_ataques(Pokemon &objetivo, Ataque &atk);
+	static bool colision_ataques_arena(ArenaCombate &obj, Ataque &atk);
 };
 

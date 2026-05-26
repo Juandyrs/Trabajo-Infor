@@ -19,8 +19,8 @@ public:
 		, equipo2(new Pokemon())
 		, IA_activa(false)
 	{
-		equipo1->pos_arena = { -dimensiones_arena.x + 2, 0 };
-		equipo2->pos_arena = { dimensiones_arena.x - 2, 0 };
+		equipo1->hitbox->pos = { -dimensiones_arena.x + 2, 0 };
+		equipo2->hitbox->pos = { dimensiones_arena.x - 2, 0 };
 	}
 
 
@@ -29,8 +29,8 @@ public:
 		, equipo2(t2)
 		, IA_activa(ia)
 	{
-		equipo1->pos_arena = { -dimensiones_arena.x + 2, 0 };
-		equipo2->pos_arena = { dimensiones_arena.x - 2, 0 };
+		equipo1->hitbox->pos = { -dimensiones_arena.x + 2, 0 };
+		equipo2->hitbox->pos = { dimensiones_arena.x - 2, 0 };
 	}
 
 	friend class IA;

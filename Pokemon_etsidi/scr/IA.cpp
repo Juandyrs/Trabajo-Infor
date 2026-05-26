@@ -46,7 +46,7 @@ void IA::IA_Combate_Arena(ArenaCombate &arena)
 
 				else if (typeid(*arena.equipo2->ataque) == typeid(Rango))
 				{
-					if (!Colisiones::colision(arena.equipo1->hitbox.rectangulo, arena.equipo1->pos_arena, arena.equipo2->dir_mov, arena.equipo2->pos_arena, 0)) estado_arena = Estado_Arena::Buscar;
+					if (!Colisiones::colision(arena.equipo1->hitbox, arena.equipo2->dir_mov, arena.equipo2->hitbox->pos)) estado_arena = Estado_Arena::Buscar;
 				}
 
 				if (cd2 <= 0 /* && !arena.equipo2->atacando*/ ) atk2_ini = true; // IMPORTANTE VER
@@ -87,8 +87,8 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 		for (int i = 0; i < 8; i++)
 		{
 			puntos[i] = arena.equipo2->siguiente_posicion(movimientos[i]);
-			aux.pos_arena = puntos[i];
-			d_aux = arena.equipo1->consultar_posicion() - aux.pos_arena;
+			aux.hitbox->pos = puntos[i];
+			d_aux = arena.equipo1->consultar_posicion() - aux.hitbox->pos;
 
 			pesos[i] = 100; // Valor base del peso
 
@@ -117,7 +117,7 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 			posiciones_anterior[i] = posiciones_anterior[i - 1];
 		}
 
-		posiciones_anterior[0] = arena.equipo2->pos_arena;
+		posiciones_anterior[0] = arena.equipo2->hitbox->pos;
 		arena.equipo2->mover_arena(mejor_movimiento.unitario());
 
 		//if (distancia.modulo() < aux.ataque->consultar_rango())	return true; IMPORTANTE VER
@@ -131,15 +131,15 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 		for (int i = 0; i < 8; i++)
 		{
 			puntos[i] = arena.equipo2->siguiente_posicion(movimientos[i]);
-			aux.pos_arena = puntos[i];
-			d_aux = arena.equipo1->consultar_posicion() - aux.pos_arena;
+			aux.hitbox->pos = puntos[i];
+			d_aux = arena.equipo1->consultar_posicion() - aux.hitbox->pos;
 
 			pesos[i] = 100; // Valor base del peso
 
 			if (1.0 <= d_aux.modulo() && d_aux.modulo() <= 1.5) pesos[i] += 20; //Premia el movimiento que se mantenga a una distancia del enemigo
 
 			for (int i = 0; i < 8; i++) 
-				if (Colisiones::colision(arena.equipo1->hitbox.rectangulo, arena.equipo1->pos_arena, movimientos[i], aux.pos_arena, 0)) pesos[i] += 50; // Premia movimientos en los que se pueda acertar
+				if (Colisiones::colision(arena.equipo1->hitbox, movimientos[i], aux.hitbox->pos)) pesos[i] += 50; // Premia movimientos en los que se pueda acertar
 
 			for (auto e : posiciones_anterior) if (puntos[i] == e) pesos[i] -= 50; //Penaliza volver a alguna posicion anterior
 
@@ -155,10 +155,10 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 
 		for (int i = 19; i >= 1; i--) posiciones_anterior[i] = posiciones_anterior[i - 1];
 
-		posiciones_anterior[0] = arena.equipo2->pos_arena;
+		posiciones_anterior[0] = arena.equipo2->hitbox->pos;
 		arena.equipo2->mover_arena(mejor_movimiento.unitario());
 
-		if (Colisiones::colision(arena.equipo1->hitbox.rectangulo, arena.equipo1->pos_arena, mejor_movimiento, arena.equipo2->pos_arena, 0)) return true;
+		if (Colisiones::colision(arena.equipo1->hitbox, mejor_movimiento, arena.equipo2->hitbox->pos)) return true;
 	}
 
 	return false;

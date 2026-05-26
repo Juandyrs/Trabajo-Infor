@@ -146,7 +146,7 @@ void Tablero::inicializar_tablero()
 	colocar_pokemon(Moltres[1]->pos_tab.x, Moltres[1]->pos_tab.y, Moltres[1]);
 }
 
-int distancia(int x1, int y1, int x2, int y2) {
+int Tablero::distancia(int x1, int y1, int x2, int y2) {
 
 	return abs(x1 - x2) + abs(y1 - y2);
 }
@@ -161,8 +161,11 @@ bool Tablero::casillaocupada(int f, int c) {
 }
 
 
-bool Tablero::casillaaliado(int f, int c, Bando MiEquipo)
+bool Tablero::casillaaliado(int f, int c, Pokemon* p)
 {
+
+	if (!p) return false;
+	Bando MiEquipo = p->obtener_bando();
 //DENTRO DE MARGENES
 	if (f < 0 || f >= 9 || c < 0 || c >= 9)
 		return false;
@@ -176,8 +179,11 @@ return matriz[f][c]->obtener_bando() == MiEquipo;
 }
 
 
-bool Tablero::casillaenemigo(int f, int c, Bando MiEquipo)
+bool Tablero::casillaenemigo(int f, int c, Pokemon* p)
 {
+
+	if (!p) return false;
+	Bando MiEquipo = p->obtener_bando();
 // MARGENES
 	if (f < 0 || f >= 9 || c < 0 || c >= 9)
 		return false;
@@ -213,14 +219,14 @@ int Tablero::movimientovalido(Pokemon* p, int nx, int ny)
 		return 1;
 
 //VER EL BANDO SI NO ESTA VACIA
-	Bando Miequipo = p->obtener_bando();
+
 
 	//ALIADA 3
-	if (casillaaliado(nx, ny, Miequipo))
+	if (casillaaliado(nx, ny, p))
 		return 3;
 
 //ENEMIGO 2
-	if (casillaenemigo(nx, ny, Miequipo))
+	if (casillaenemigo(nx, ny, p))
 		return 2;
 
 	return 0;

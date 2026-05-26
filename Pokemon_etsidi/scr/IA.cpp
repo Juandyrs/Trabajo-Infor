@@ -49,7 +49,7 @@ void IA::IA_Combate_Arena(ArenaCombate &arena)
 					if (!Colisiones::colision(arena.equipo1->Hitbox, arena.equipo1->pos_arena, arena.equipo2->dir_mov, arena.equipo2->pos_arena, 0)) estado_arena = Estado_Arena::Buscar;
 				}
 
-				if (cd2 <= 0) atk2_ini = true;
+				if (cd2 <= 0 /* && !arena.equipo2->atacando*/ ) atk2_ini = true;
 
 				break;
 
@@ -136,7 +136,7 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 
 			pesos[i] = 100; // Valor base del peso
 
-			if (d_aux.modulo() >= 2) pesos[i] += 20; //Premia el movimiento que se mantenga a una distancia del enemigo
+			if (1.0 <= d_aux.modulo() && d_aux.modulo() <= 1.5) pesos[i] += 20; //Premia el movimiento que se mantenga a una distancia del enemigo
 
 			for (int i = 0; i < 8; i++) 
 				if (Colisiones::colision(arena.equipo1->Hitbox, arena.equipo1->pos_arena, movimientos[i], aux.pos_arena, 0)) pesos[i] += 50; // Premia movimientos en los que se pueda acertar

@@ -20,3 +20,8 @@ void InteraccionArena::aplicar_Efectos(Pokemon &personaje)
 		break;
 	}
 }
+
+static bool colision_ataques(Pokemon& objetivo, Ataque& atk)
+{
+	
+}

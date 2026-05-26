@@ -27,11 +27,7 @@ void ArenaCombate::dibuja_Personajes()
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
 		glColor3ub(0, 255, 255);
-		glVertex3d(-equipo1->Hitbox.x, -equipo1->Hitbox.y, 0);
-		glVertex3d(-equipo1->Hitbox.x, equipo1->Hitbox.y, 0);
-		glColor3ub(0, 255, 255);
-		glVertex3d(equipo1->Hitbox.x, equipo1->Hitbox.y, 0);
-		glVertex3d(equipo1->Hitbox.x, -equipo1->Hitbox.y, 0);
+		equipo1->hitbox.dibujar();
 		glEnd();
 		glEnable(GL_LIGHTING);
 		glTranslated(-equipo1->pos_arena.x, -equipo1->pos_arena.y, 0);
@@ -50,11 +46,7 @@ void ArenaCombate::dibuja_Personajes()
 		glDisable(GL_LIGHTING);
 		glBegin(GL_POLYGON);
 		glColor3ub(0, 255, 255);
-		glVertex3d(-equipo2->Hitbox.x, -equipo2->Hitbox.y, 0);
-		glVertex3d(-equipo2->Hitbox.x, equipo2->Hitbox.y, 0);
-		glColor3ub(0, 255, 255);
-		glVertex3d(equipo2->Hitbox.x, equipo2->Hitbox.y, 0);
-		glVertex3d(equipo2->Hitbox.x, -equipo2->Hitbox.y, 0);
+		equipo2->hitbox.dibujar();
 		glEnd();
 		glEnable(GL_LIGHTING);
 		glTranslated(-equipo2->pos_arena.x, -equipo2->pos_arena.y, 0);
@@ -221,7 +213,7 @@ void ArenaCombate::inicializa_obstaculos()
 		pos.y = rand() % (2*((int)dimensiones_arena.y - 1) + 1) - ((int)dimensiones_arena.y - 1);
 
 		//Para evitar que un obstaculo se genere encima de un personaje
-		if (Colisiones::colision(temporal.consultar_hitbox(), pos, equipo1->consultar_hitbox(), equipo1->pos_arena) || Colisiones::colision(temporal.consultar_hitbox(), pos, equipo2->consultar_hitbox(), equipo2->pos_arena))
+		if (Colisiones::colision(temporal.consultar_hitbox().rectangulo, pos, equipo1->consultar_hitbox().rectangulo, equipo1->pos_arena) || Colisiones::colision(temporal.consultar_hitbox().rectangulo, pos, equipo2->consultar_hitbox().rectangulo, equipo2->pos_arena))
 		{
 			continue;
 		}
@@ -229,7 +221,7 @@ void ArenaCombate::inicializa_obstaculos()
 		//Para evitar que un obstaculo se genere encima de otro obstaculo
 		for (int j = 0; j < obstaculos.obtener_Tamano(); j++)
 		{
-			if (Colisiones::colision(temporal.consultar_hitbox(), pos, obstaculos.obtener_Obstaculo(j).consultar_hitbox(), obstaculos.obtener_Obstaculo(j).consultar_posicion()))
+			if (Colisiones::colision(temporal.consultar_hitbox().rectangulo, pos, obstaculos.obtener_Obstaculo(j).consultar_hitbox().rectangulo, obstaculos.obtener_Obstaculo(j).consultar_posicion()))
 			{
 				salir = true;
 				break;

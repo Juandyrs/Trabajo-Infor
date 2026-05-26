@@ -7,7 +7,7 @@
 bool Obs_Piedra::interrumpir(Pokemon &personaje)
 {
 
-	if (Colisiones::colision(Hitbox, Posicion, personaje.consultar_hitbox(), personaje.consultar_posicion()))
+	if (Colisiones::colision(hitbox.rectangulo, Posicion, personaje.consultar_hitbox().rectangulo, personaje.consultar_posicion()))
 	{
 		personaje.pos_arena = personaje.consultar_posicion() - personaje.dir_mov * personaje.velocidad;
 		return true;
@@ -22,11 +22,7 @@ void Obs_Piedra::dibujar()
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
 	glColor3ub(111, 67, 33);
-	glVertex3d(-Hitbox.x, -Hitbox.y, 0);
-	glVertex3d(-Hitbox.x, Hitbox.y, 0);
-	glColor3ub(111, 67, 33);
-	glVertex3d(Hitbox.x, Hitbox.y, 0);
-	glVertex3d(Hitbox.x, -Hitbox.y, 0);
+	hitbox.dibujar();
 	glEnd();
 	glEnable(GL_LIGHTING);
 	glTranslated(-Posicion.x, -Posicion.y, 0);
@@ -37,7 +33,7 @@ void Obs_Piedra::dibujar()
 bool Obs_Fuego::interrumpir(Pokemon &personaje)
 {
 
-	if (Colisiones::colision(Hitbox, Posicion, personaje.consultar_hitbox(), personaje.consultar_posicion()) 
+	if (Colisiones::colision(hitbox.rectangulo, Posicion, personaje.consultar_hitbox().rectangulo, personaje.consultar_posicion()) 
 		&& personaje.consultar_estado() != EfectoEstado::Invulnerable)
 	{
 		personaje.modificar_estado(EfectoEstado::Quemadura, frames_fuego);
@@ -52,11 +48,7 @@ void Obs_Fuego::dibujar()
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
 	glColor3ub(255, 0, 0);
-	glVertex3d(-Hitbox.x, -Hitbox.y, 0);
-	glVertex3d(-Hitbox.x, Hitbox.y, 0);
-	glColor3ub(255, 0, 0);
-	glVertex3d(Hitbox.x, Hitbox.y, 0);
-	glVertex3d(Hitbox.x, -Hitbox.y, 0);
+	hitbox.dibujar();
 	glEnd();
 	glEnable(GL_LIGHTING);
 	glTranslated(-Posicion.x, -Posicion.y, 0);

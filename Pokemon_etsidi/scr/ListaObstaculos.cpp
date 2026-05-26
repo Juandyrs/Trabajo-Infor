@@ -37,8 +37,8 @@ double ListaObstaculos::distancia_obstaculo_cercano(Pokemon &personaje)
 	{
 		DistanciaC = personaje.consultar_posicion() - (*e).consultar_posicion();
 
-		dx = max(0.0, abs(DistanciaC.x) - (personaje.consultar_hitbox().x + (*e).consultar_hitbox().x));
-		dy = max(0.0, abs(DistanciaC.y) - (personaje.consultar_hitbox().y + (*e).consultar_hitbox().y));
+		dx = max(0.0, abs(DistanciaC.x) - (personaje.consultar_hitbox().rectangulo.x + (*e).consultar_hitbox().rectangulo.x));
+		dy = max(0.0, abs(DistanciaC.y) - (personaje.consultar_hitbox().rectangulo.y + (*e).consultar_hitbox().rectangulo.y));
 		distancias[i] = sqrt(dx * dx + dy * dy);
 		i++;
 	}

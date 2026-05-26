@@ -3,7 +3,8 @@
 #include <iostream>
 #include "Ataque.h"
 #include "Vector2D.h"
-#include "Tablero.h"
+#include "Hitbox.h"
+
 using namespace std;
 
 enum class Bando {
@@ -50,7 +51,7 @@ protected:
 	double velocidad;
 	double dano;
 	double cooldown;
-	Vector2D Hitbox;
+	HitboxRectangular hitbox;
 	Vector2D pos_arena;
 	Vector2D dir_mov;
 	Ataque *ataque;
@@ -75,7 +76,7 @@ public:
 		, velocidad(0.0)
 		, dano(0.0)
 		, cooldown(0.0)
-		, Hitbox{ 0.0, 0.0 }
+		, hitbox(Vector2D( 0.0, 0.0 ) )
 		, pos_arena{ 0.0, 0.0 }
 		, dir_mov{ 0.0, 0.0 }
 		, ataque(nullptr)
@@ -110,7 +111,7 @@ public:
 	void modificar_posicion(Vector2D nueva_pos) { pos_arena = nueva_pos; }
 	void modificar_estado(EfectoEstado nuevo_estado, int duracion) { efecto_estado = nuevo_estado; duracion_efecto = duracion; }
 
-	Vector2D consultar_hitbox() const { return Hitbox; }
+	HitboxRectangular consultar_hitbox() const { return hitbox; }
 	Vector2D consultar_posicion() const { return pos_arena; }
 	string consultar_nombre() const { return nombre; }
 	double consultar_vel() const { return velocidad; }

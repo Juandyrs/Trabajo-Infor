@@ -1,13 +1,14 @@
 #pragma once
+
 #include "Pokemon.h"
 #include "cmath"
 
-enum class VENTAJA { JUGADOR, NADA, ROCKET }; //SERVIARÁ MAS ADELANTE PARA LOS MODOS Y VENTAJAS
+enum class VENTAJA { JUGADOR, NADA, ROCKET }; //SERVIRÁ MAS ADELANTE PARA LOS MODOS Y VENTAJAS
 
 class Tablero
 {
 
-	Pokemon* matriz[9][9] = { nullptr }; //Creo la matriz 9x9 de punteros a pokemons (VACIA) SE LLENA EN LA INICIALIZACIÓN
+	Pokemon* matriz[9][9]; //Creo la matriz 9x9 de punteros a pokemons (VACIA) SE LLENA EN LA INICIALIZACIÓN
 	
 public:
 	void colocar_pokemon(int f, int c, Pokemon* p) { matriz[f][c] = p; } // no se puede poner &p puesto que p ya es un puntero a pokemon 

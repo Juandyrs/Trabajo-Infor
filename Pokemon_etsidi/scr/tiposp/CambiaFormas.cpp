@@ -7,7 +7,7 @@ void CambiaFormas::cambiar_forma(Pokemon &enemigo)
 	velocidad = enemigo.consultar_vel();
 	dano = enemigo.consultar_dano();
 	cooldown = enemigo.consultar_cd();
-	Hitbox = enemigo.consultar_hitbox();
+	hitbox = enemigo.consultar_hitbox();
 
 	Rango *aux0 = dynamic_cast<Rango*>(enemigo.consultar_ataque());
 	Melee *aux1 = dynamic_cast<Melee*>(enemigo.consultar_ataque());

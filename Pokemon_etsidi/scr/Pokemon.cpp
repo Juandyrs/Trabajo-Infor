@@ -40,7 +40,7 @@ void Pokemon::atacar(Pokemon& objetivo)
 {
 	if (!atacando) return;
 	ataque->mueve_ataque();
-	atacando = !ataque->colision_ataque(objetivo);
+//	atacando = !ataque->colision_ataque(objetivo);
 
 }
 

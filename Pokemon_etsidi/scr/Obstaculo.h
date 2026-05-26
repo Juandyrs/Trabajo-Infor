@@ -2,30 +2,31 @@
 
 #include "Vector2D.h"
 #include "Pokemon.h"
+#include "Hitbox.h"
 
 class Obstaculo
 {
 protected:
 
-	Vector2D Hitbox;
+	HitboxRectangular hitbox;
 	Vector2D Posicion;
 
 public:
 
 	Obstaculo()
-		: Hitbox(0, 0)
+		: hitbox(Vector2D(0, 0))
 		, Posicion(0, 0)
 	{}
 
 	Obstaculo(Vector2D pos)
-		: Hitbox(0.5, 0.5)
+		: hitbox(Vector2D(0.5, 0.5))
 		, Posicion(pos)
 	{}
 
 	virtual bool interrumpir(Pokemon& personaje) = 0;
 	virtual void dibujar() = 0;
 
-	Vector2D consultar_hitbox() const { return Hitbox; }
+	HitboxRectangular consultar_hitbox() const { return hitbox; }
 	Vector2D consultar_posicion() const { return Posicion; }
 };
 

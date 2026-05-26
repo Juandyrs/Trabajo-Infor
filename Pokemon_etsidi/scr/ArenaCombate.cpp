@@ -10,19 +10,11 @@ double cd1 = 0.0, cd2 = 0.0;
 
 void ArenaCombate::dibuja_Arena()
 {
-
-	//Dibujar el suelo de la arena
-	glDisable(GL_LIGHTING);
-	glBegin(GL_POLYGON);
-	glColor3ub(255, 255, 0);
-	glVertex3d(-dimensiones_arena.x, -dimensiones_arena.y, 0);
-	glVertex3d(-dimensiones_arena.x, dimensiones_arena.y, 0);
-	glColor3ub(0, 255, 0);
-	glVertex3d(dimensiones_arena.x, dimensiones_arena.y, 0);
-	glVertex3d(dimensiones_arena.x, -dimensiones_arena.y, 0);
-	glEnd();
-	glEnable(GL_LIGHTING);
-
+	dibuja_Personajes();
+	dibuja_Ataques();
+	obstaculos.dibujar_Obstaculos();
+	dibuja_Suelo();
+	dibuja_BarrasVida();
 }
 
 void ArenaCombate::dibuja_Personajes()
@@ -154,9 +146,19 @@ void ArenaCombate::dibuja_Ataques()
 	}
 }
 
-void ArenaCombate::dibuja_Obstaculos()
+void ArenaCombate::dibuja_Suelo()
 {
-	obstaculos.dibujar_Obstaculos();
+	//Dibujar el suelo de la arena
+	glDisable(GL_LIGHTING);
+	glBegin(GL_POLYGON);
+	glColor3ub(255, 255, 0);
+	glVertex3d(-dimensiones_arena.x, -dimensiones_arena.y, 0);
+	glVertex3d(-dimensiones_arena.x, dimensiones_arena.y, 0);
+	glColor3ub(0, 255, 0);
+	glVertex3d(dimensiones_arena.x, dimensiones_arena.y, 0);
+	glVertex3d(dimensiones_arena.x, -dimensiones_arena.y, 0);
+	glEnd();
+	glEnable(GL_LIGHTING);
 }
 
 //Metodos de movimiento y ataque

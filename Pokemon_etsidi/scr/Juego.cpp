@@ -165,11 +165,7 @@ void Juego::dibujar_Juego()
 			0.0, 0, 0.0,				// hacia que punto mira  (0,0,0) 
 			0.0, 1, 0.0);
 
-		Arena.dibuja_Personajes();
-		Arena.dibuja_Ataques();
-		Arena.dibuja_Obstaculos();
 		Arena.dibuja_Arena();
-		Arena.dibuja_BarrasVida();
 
 		break;
 	}

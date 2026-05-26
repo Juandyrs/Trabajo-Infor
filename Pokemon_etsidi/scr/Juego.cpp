@@ -55,6 +55,8 @@ void Juego::dibujar_Juego()
 
 	case TABLERO:
 
+		Mitablerito.tablerodibuja();
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
@@ -100,50 +102,6 @@ void Juego::dibujar_Juego()
 				glVertex3d(c, f + 1, 0);
 				glEnd();
 
-				// Dibujar el Pokémon 
-				Pokemon* p = Mitablerito.get_pokemon(f, c);
-				if (p != nullptr) { //SI NO ESTA VACIO DIBUJA
-
-				glPushMatrix();
-
-				//TODO ESTO ES PARA LAS PANOS
-
-				//COLOCAR LOS PLANOS EN EL CENTRO DE LA CASILLA CORRESPONDIENTE
-				glPushMatrix();
-				glTranslatef(c + 0.5f, f + 0.5f, 0.51f); // justo encima de la casilla
-				glBegin(GL_QUADS);
-				glVertex3f(-0.45f, -0.45f, 0);
-				glVertex3f(0.45f, -0.45f, 0);
-				glVertex3f(0.45f, 0.45f, 0);
-				glVertex3f(-0.45f, 0.45f, 0);
-				glEnd();
-
-				glPopMatrix();
-
-
-				glEnable(GL_TEXTURE_2D);
-				glEnable(GL_BLEND);
-				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-				// Cargar textura directamente desde la ruta del Pokémon
-				unsigned int texID = ETSIDI::getTexture(p->obtenersprite().c_str()).id;
-				glBindTexture(GL_TEXTURE_2D, texID);
-
-				glPushMatrix();
-				glTranslatef(c + 0.5f, f + 0.5f, 0.5f);  // encima del plano
-
-				glBegin(GL_QUADS);
-				glTexCoord2f(0, 0); glVertex3f(-0.45f, -0.45f, 0);
-				glTexCoord2f(1, 0); glVertex3f(0.45f, -0.45f, 0);
-				glTexCoord2f(1, 1); glVertex3f(0.45f, 0.45f, 0);
-				glTexCoord2f(0, 1); glVertex3f(-0.45f, 0.45f, 0);
-				glEnd();
-
-				glPopMatrix();
-
-				glDisable(GL_BLEND);
-				glDisable(GL_TEXTURE_2D);
-				}
 			}
 		}
 

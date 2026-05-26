@@ -146,88 +146,94 @@ void Tablero::inicializar_tablero()
 	colocar_pokemon(Moltres[1]->pos_tab.x, Moltres[1]->pos_tab.y, Moltres[1]);
 }
 
-int Tablero::distancia(int x1, int y1, int x2, int y2) {
+void Tablero::tablerodibuja() {
 
-	return abs(x1 - x2) + abs(y1 - y2);
+	for (int f = 0; f < 9; f++)
+	{
+		for (int c = 0; c < 9; c++)
+		{
+			Pokemon* p = matriz[f][c];
+
+			if (p != nullptr)
+			{
+				p->pokemondibuja(f, c);   //EL POKEMONCITO SE DIBUJA A SI MISMO QUE MONO
+			}
+		}
+	}
 }
 
+int Tablero::distancia(int fi, int ci, int ff, int cf) {
 
-bool Tablero::casillaocupada(int f, int c) {
-	if (matriz[f][c] != nullptr) {
+	return abs(fi - ff) + abs(ci - cf); //COMPRUEBA EL NUMERO MÁXIMO DE CASILLAS QUE RECORRE LA FICHILLA
+}
+
+bool Tablero::casillaocupada(int ff, int cf) {
+	if (matriz[ff][cf] != nullptr)
+			return true;
+	}
+
+bool Tablero::casillaaliado(int ff, int cf, Pokemon* p) {
+
+		if (ff < 0 || ff >= 9 || cf < 0 || cf >= 9)
+			return false;
+
+		//CASILLA VACIA
+		if (matriz[ff][cf] == nullptr)
+			return false;
+
+		//COMPROBAR SI ES ALIADO
+		return matriz[ff][cf]->obtener_bando() == p->obtener_bando();
+
+}
+
+bool Tablero::casillaenemigo(int ff, int cf, Pokemon* p) {
+
+	if (ff < 0 || ff >= 9 || cf < 0 || cf >= 9)
+		return false;
+
+	//CASILLA VACIA
+	if (matriz[ff][cf] == nullptr)
+		return false;
+
+	//COMPROBAR SI ES ALIADO
+	return matriz[ff][cf]->obtener_bando() != p->obtener_bando();
+
+}
+
+bool movimientoTerrestre(Pokemon* p, int fi, int ci, int ff, int cf) {
+
+		int distanciafilas = ff - fi; //VER SI SE MUEVE DE IZQ A DERECHA
+		int distanciacolumnas = cf - ci; //LO MISMO
+
+		int pasos = std::max(abs(distanciafilas), abs(distanciacolumnas)); //TE DA EL MAYOR DE LOS DOS PARA VER CUANTAS CUADRICULAS VAS A PASAR
+
 		return true;
 	}
-	return false;
+
+bool movimientoVolador(Pokemon* p, int fi, int ci, int ff, int cf) {
+	return true; //SIEMPRE PUEDE EJECUTAR EL MOVIMIENTO, por lo menos por ahora
+
+}
+bool movimientoPsiquico(Pokemon* p, int fi, int ci, int ff, int cf) {
+	return true; //LO MISMO QUE VOLADOR
 
 }
 
+bool movimientoTipoValido(Pokemon* p, int fi, int ci, int ff, int cf) {
 
-bool Tablero::casillaaliado(int f, int c, Pokemon* p)
-{
+	switch (p->obtenertipomovimiento())
+	{
+	case TipoMovimiento::Tierra:
+		return movimientoTerrestre(p, fi, ci, ff, cf);
 
-	if (!p) return false;
-	Bando MiEquipo = p->obtener_bando();
-//DENTRO DE MARGENES
-	if (f < 0 || f >= 9 || c < 0 || c >= 9)
+	case TipoMovimiento::Vuelo:
+		return movimientoVolador(p, fi, ci, ff, cf);
+
+	case TipoMovimiento::Teletransporte:
+		return movimientoPsiquico(p, fi, ci, ff, cf);
+
+	default:
 		return false;
-
-//CASILLA VACIA
-	if (matriz[f][c] == nullptr)
-		return false;
-
-//COMPROBAR SI ES ALIADO
-return matriz[f][c]->obtener_bando() == MiEquipo;
+	}
 }
 
-
-bool Tablero::casillaenemigo(int f, int c, Pokemon* p)
-{
-
-	if (!p) return false;
-	Bando MiEquipo = p->obtener_bando();
-// MARGENES
-	if (f < 0 || f >= 9 || c < 0 || c >= 9)
-		return false;
-
-//VACIA DE NUEVO
-	if (matriz[f][c] == nullptr)
-		return false;
-
-//BANDO ENEMIGO
-	return matriz[f][c]->obtener_bando() != MiEquipo;
-}
-
-int Tablero::movimientovalido(Pokemon* p, int nx, int ny)
-{
-//COMPROBACIÓN DE QUE SE HA SELECCIONADO ALGUNA PIEZA
-	if (p == nullptr)
-		return 0;
-
-	int fx = p->pos_tab.x;
-	int fy = p->pos_tab.y;
-
-//MOVIMIENTO DENTRO DE MARGENES
-	if (nx < 0 || nx >= 9 || ny < 0 || ny >= 9)
-		return 0;
-
-//COMPROBAR DISTANCIA MAXIMA
-	int dist = distancia(fx, fy, nx, ny);
-	if (dist > p->numero_casillas)   // ← atributo del Pokémon
-		return 0;
-
-	//CASILLA VACIA DEVUELVE 1
-	if (matriz[nx][ny] == nullptr)
-		return 1;
-
-//VER EL BANDO SI NO ESTA VACIA
-
-
-	//ALIADA 3
-	if (casillaaliado(nx, ny, p))
-		return 3;
-
-//ENEMIGO 2
-	if (casillaenemigo(nx, ny, p))
-		return 2;
-
-	return 0;
-}

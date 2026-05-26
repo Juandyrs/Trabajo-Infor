@@ -98,7 +98,10 @@ public:
 	//Metodos Relacionados con el tablero
 	Bando obtener_bando() { return equipo; } //para el color de la ficha
 	string obtenersprite() { return sprite;  } //PARA PODER ENCONTRAR LA RUTA CON FACILIDAD EN EL DIBUJADO
+	TipoMovimiento obtenertipomovimiento() { return movimiento; }
 
+	//DIBUJADO
+	void pokemondibuja(int f, int c);
 
 	//Metodos Relacionados con la Arena
 

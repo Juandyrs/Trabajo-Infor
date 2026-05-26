@@ -16,12 +16,17 @@ public:
 	//para leer el tablero en 2D
 	Pokemon* get_pokemon(int f, int c) { return matriz[f][c]; }
 
+	void tablerodibuja();
 
 	//SON PARA VER LAS CONDICIONES DE MOVIMIENTO DEL TABLERO
-	int distancia(int x1, int y1, int x2, int y2);
-	bool casillaocupada(int f, int c);
-	bool casillaaliado(int f, int c, Pokemon* p);
-	bool casillaenemigo(int f, int c, Pokemon* p);
+	int distancia(int fi, int ci, int ff ,int cf);
+	bool casillaocupada(int ff, int cf);
+	bool casillaaliado(int ff, int cf, Pokemon* p);
+	bool casillaenemigo(int ff, int cf, Pokemon* p);
+	bool movimientoTipoValido(Pokemon* p, int fi, int ci, int ff, int cf);
+	bool movimientoTerrestre(Pokemon* p, int fi, int ci, int ff, int cf);
+	bool movimientoVolador(Pokemon* p, int fi, int ci, int ff, int cf);
+	bool movimientoPsiquico(Pokemon* p, int fi, int ci, int ff, int cf);
 	int movimientovalido(Pokemon* p, int nx, int ny); //LO HE HECHO CON INT PARA QUE DIGA POR QUE PUEDE O NO PUEDE MOVER 0 es invalido, 1 es vacio, 2 enemigo, 3 aliado 
 
 

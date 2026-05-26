@@ -17,6 +17,9 @@ public:
 	Pokemon* get_pokemon(int f, int c) { return matriz[f][c]; }
 
 
+	//PARA DIBUJARSE
+	void tablerodibuja(); 
+
 	//SON PARA VER LAS CONDICIONES DE MOVIMIENTO DEL TABLERO
 	int distancia(int x1, int y1, int x2, int y2);
 	bool casillaocupada(int f, int c);

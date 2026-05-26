@@ -231,3 +231,19 @@ int Tablero::movimientovalido(Pokemon* p, int nx, int ny)
 
 	return 0;
 }
+
+void Tablero::tablerodibuja() {
+
+	for (int f = 0; f < 9; f++)
+	{
+		for (int c = 0; c < 9; c++)
+		{
+			Pokemon* p = matriz[f][c];
+
+			if (p != nullptr)
+			{
+				p->pokemondibuja(f, c);   //EL POKEMONCITO SE DIBUJA A SI MISMO QUE MONO
+			}
+		}
+	}
+}

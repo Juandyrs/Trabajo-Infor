@@ -92,6 +92,9 @@ public:
 	void inicializa_stats(double v_max, double v_act, double vel);
 	void inicializa_mov(TipoMovimiento mov, int nu_ca);
 	
+	//DIBUJADO
+	void pokemondibuja(int f, int c);
+
 	//TABLERO LOGICO 
 	char obtener_simbolo() { return simbolo; }
 

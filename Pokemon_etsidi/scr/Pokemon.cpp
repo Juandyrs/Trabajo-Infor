@@ -1,5 +1,6 @@
 #include "Pokemon.h"
 #include <string>
+#include <freeglut.h>
 
 using namespace std;
 

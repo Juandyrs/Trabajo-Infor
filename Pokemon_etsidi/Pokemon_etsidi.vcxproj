@@ -211,6 +211,7 @@
     <ClCompile Include="scr\tiposp\Tanque.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="lib\ETSIDI.h" />
     <ClInclude Include="scr\IA.h" />
     <ClInclude Include="scr\InteraccionArena.h" />
     <ClInclude Include="scr\ListaObstaculos.h" />
@@ -237,6 +238,7 @@
     <None Include="bin\Pokemon_etsidi.exe" />
   </ItemGroup>
   <ItemGroup>
+    <Library Include="lib\ETSIDI.lib" />
     <Library Include="lib\freeglut.lib" />
   </ItemGroup>
   <ItemGroup>

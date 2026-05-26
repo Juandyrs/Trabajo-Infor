@@ -1,6 +1,7 @@
 #pragma once
 #include "Pokemon.h"
 
+enum class VENTAJA { JUGADOR, NADA, ROCKET }; //SERVIARÁ MAS ADELANTE PARA LOS MODOS Y VENTAJAS
 
 class Tablero
 {

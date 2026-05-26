@@ -137,6 +137,9 @@
     <ClInclude Include="scr\IA.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="lib\ETSIDI.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\freeglut.dll" />
@@ -144,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\freeglut.lib" />
+    <Library Include="lib\ETSIDI.lib" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="sprites\Blanca\alakazam.png">

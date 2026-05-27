@@ -18,6 +18,9 @@ enum class Tipo {Tierra, Agua, Fuego,
 enum class TipoMovimiento {
 	Tierra, Vuelo, Teletransporte
 };
+enum class Estado {
+	Vivo, Muerto
+};
 
 enum class EfectoEstado {
 	Ninguno, Quemadura, Invulnerable  //Veneno, Paralisis, Congelacion Posibles implementaciones futuras
@@ -34,6 +37,7 @@ protected:
 	string nombre;
 	Tipo tip1, tip2;
 	Bando equipo;
+	Estado estado;
 	string sprite; //VA A SER LA RUTA HACIA 
 
 	//Atributos del Tablero
@@ -64,6 +68,7 @@ public:
 		, tip1(Tipo::Ninguno)
 		, tip2(Tipo::Ninguno)
 		, equipo(Bando::Entrenador)
+		, estado(Estado::Vivo)
 		, simbolo(' ')
 		, movimiento(TipoMovimiento::Tierra)
 		, numero_casillas(0)

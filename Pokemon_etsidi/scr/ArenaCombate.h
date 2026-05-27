@@ -7,6 +7,8 @@
 
 class ArenaCombate
 {
+
+
 	Vector2D dimensiones_arena{4.5, 4.5};
 	Pokemon *equipo1, *equipo2;
 	ListaObstaculos obstaculos;

@@ -32,6 +32,8 @@ void Tablero::imprimir() {
 
 void Tablero::inicializar_tablero()
 {
+	Turnoactual = TURNO::JUGADOR1;
+
 	//Hechiceros
 
 	Pokemon* Alakazam = new Hechicero("Alakazam", Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno, { 4,0 }, "bin/sprites/Blanca/alakazam.png");
@@ -200,7 +202,7 @@ bool Tablero::casillaenemigo(int ff, int cf, Pokemon* p) {
 
 }
 
-bool movimientoTerrestre(Pokemon* p, int fi, int ci, int ff, int cf) {
+bool Tablero::movimientoTerrestre(Pokemon* p, int fi, int ci, int ff, int cf) {
 
 		int distanciafilas = ff - fi; //VER SI SE MUEVE DE IZQ A DERECHA
 		int distanciacolumnas = cf - ci; //LO MISMO
@@ -210,16 +212,16 @@ bool movimientoTerrestre(Pokemon* p, int fi, int ci, int ff, int cf) {
 		return true;
 	}
 
-bool movimientoVolador(Pokemon* p, int fi, int ci, int ff, int cf) {
+bool Tablero::movimientoVolador(Pokemon* p, int fi, int ci, int ff, int cf) {
 	return true; //SIEMPRE PUEDE EJECUTAR EL MOVIMIENTO, por lo menos por ahora
 
 }
-bool movimientoPsiquico(Pokemon* p, int fi, int ci, int ff, int cf) {
+bool Tablero::movimientoPsiquico(Pokemon* p, int fi, int ci, int ff, int cf) {
 	return true; //LO MISMO QUE VOLADOR
 
 }
 
-bool movimientoTipoValido(Pokemon* p, int fi, int ci, int ff, int cf) {
+bool Tablero::movimientoTipoValido(Pokemon* p, int fi, int ci, int ff, int cf) {
 
 	switch (p->obtenertipomovimiento())
 	{
@@ -237,3 +239,110 @@ bool movimientoTipoValido(Pokemon* p, int fi, int ci, int ff, int cf) {
 	}
 }
 
+int Tablero::movimientovalido(Pokemon* p, int nx, int ny) {
+
+	return nx; 
+}
+
+void Tablero::seleccionficha(int f, int c){
+	Pokemon* p = matriz[f][c]; //PILLA EL POKEMON DE LA FILA Y COLUMNA
+
+	//NO FICHA NO TRABAJO
+	if (p == nullptr)
+		return;
+
+	//FICHA NO ES DEL TURNO ACTUAL A TOMAR POR SACO (ES LA CONVERSIÓN DE LAS LISTAS A ENTEROS COMO HICE ANTERIORMENTE EN MOVER FICHA)
+	if (static_cast<int>(p->equipo) != static_cast<int>(Turnoactual))
+		return;
+
+	//SE SELECCIONA LA FICHA
+	fichaSeleccionada = p;
+	fichaYaSeleccionada = true;
+}
+
+bool Tablero::moverficha(Pokemon* p, int ff, int cf)
+{
+
+	if (p == nullptr || static_cast<int>(Turnoactual) != static_cast<int>(p->equipo)) //VER SI LA PIEZA PERTENCE AL TURNO o NO
+		return false; 
+	//COMO ENTRENADOR y JUGADOR 1 VALEN 1 y ROCKET Y JUGADOR 2 valen 2 se pueden pasar a enteros para programar, es bastante improvisado, pero funciona de momento
+
+	int movimiento = movimientovalido(p, ff, cf); //COMPROBAR MOVIMIENTO
+	//0  INvalido
+	//1  VACIO
+	//2  ENEMIGO
+
+	if (movimiento == 0)
+		return false;
+
+	if (movimiento == 1) //CASILLA VACIA Y MOVIMIENTO VALIDO
+	{
+		//QUITARLO DE LA MATRIZ DE PUNTEROS POR QUE SE HA PODIDO MOVER
+		matriz[(int)p->pos_tab.x][(int)p->pos_tab.y] = nullptr; //PONGO EL INT POR QUE EL MALDITO VECTOR 2D ES DE DOUBLES Y MATRIZ SOLO ADMITE ENTEROS COMO POSICIONES
+
+		//COLOCARLO EN LA NUEVA CASILLA
+		matriz[ff][cf] = p;
+
+		//ACTUALIZAR POSICION EN TABLERO LOGICO
+		p->pos_tab.x = ff;
+		p->pos_tab.y = cf;
+
+		//CAMBIO DE TURNO
+		conteoturno(); 
+		cambiarturno();
+
+		return true; // SE HA MOVIDO CORRECTAMENTE
+	}
+
+	//if (movimiento == 2)
+	//{
+		//Pokemon* enemigo = matriz[ff][cf];
+
+		//Arena.inicializa_Arena(p, enemigo, false);  
+
+		//Pokemon* ganador = Arena.devolver_ganador();
+
+		//matriz[p->pos_tab.x][p->pos_tab.y] = nullptr;
+
+		//if (ganador == p)
+		//{
+	
+		//	matriz[ff][cf] = p;
+		//	p->pos_tab.x = ff;
+		//	p->pos_tab.y = cf;
+	//	}
+	//	else
+	//	{
+		//EL QUE ESTABA EN LA CASILLA SE QUEDA EL OTRO DE MOMENTO DESAPARECE HASTA QUE CREE UN VECTOR DE MUERTOS O ALGO ASI 
+	//	}
+
+	//	conteoturno();
+	//	cambiarturno();
+
+	//	return true;
+	//}
+
+	//return false;
+}
+
+void Tablero::conteoturno() {
+	if (Turnoactual == TURNO::JUGADOR2)
+		numeroturno++;
+}
+void Tablero::cambiarturno(){
+	// Cambiar turno
+	if (Turnoactual == TURNO::JUGADOR1)
+		Turnoactual = TURNO::JUGADOR2;
+	else
+		Turnoactual = TURNO::JUGADOR1;
+
+}
+
+bool Tablero::turnofinalizadoexito()
+{
+	cambiarturno();
+	conteoturno();   // numeroturno++
+	fichaSeleccionada = nullptr;
+	fichaYaSeleccionada = false;
+	return true;
+}

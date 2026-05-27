@@ -55,104 +55,52 @@ void Juego::dibujar_Juego()
 
 	case TABLERO:
 
+		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glDisable(GL_LIGHTING);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+	
+		gluOrtho2D(-5.0, 65.0, -5.0, 65.0);
+
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // Fondo gris oscuro para el tablero
 
-		gluLookAt(0, 0, 15,  // posicion del ojo
-			0.0, 0, 0.0,				// hacia que punto mira  (0,0,0) 
-			0.0, 1, 0.0);
+	
+		Mitablerito.dibujar_casillas();
+		
+		// --- LEYENDA DEL TABLERO ---
+		
+		glColor3f(1.0f, 1.0f, 1.0f); // Texto blanco
+		escribirCadena2D(47.0f, 40.0f, "LEYENDA:");
 
-		glTranslated(-4.5, -4.5, 0);
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Fondo negro para los bordes
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		// Casilla Clara
+		glColor3ub(235, 235, 225);
+		glBegin(GL_QUADS); glVertex2f(47.0f, 36.0f); glVertex2f(49.0f, 36.0f); glVertex2f(49.0f, 38.0f); glVertex2f(47.0f, 38.0f); glEnd();
+		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 36.5f, "Clara");
 
-		for (int f = 0; f < 9; f++)
-		{
-			for (int c = 0; c < 9; c++) {
-				if ((f == 4 && c == 4) ||
-					(f == 0 && c == 4) || (f == 8 && c == 4) ||
-					(f == 4 && c == 0) || (f == 4 && c == 8))
-				{
-					glColor3f(0.5f, 0.0f, 0.5f); // Morado para puntos de poder
-				}
-				else if ((f + c) % 2 == 0) {
-					glColor3f(0.85f, 0.85f, 0.85f); // Casillas Claras
-				}
-				else {
-					glColor3f(0.18f, 0.18f, 0.18f); // Casillas Oscuras
-				}
+		// Casilla Oscura
+		glColor3ub(65, 65, 75);
+		glBegin(GL_QUADS); glVertex2f(47.0f, 32.0f); glVertex2f(49.0f, 32.0f); glVertex2f(49.0f, 34.0f); glVertex2f(47.0f, 34.0f); glEnd();
+		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 32.5f, "Oscura");
 
+		// Casilla Neutra
+		glColor3ub(140, 150, 160);
+		glBegin(GL_QUADS); glVertex2f(47.0f, 28.0f); glVertex2f(49.0f, 28.0f); glVertex2f(49.0f, 30.0f); glVertex2f(47.0f, 30.0f); glEnd();
+		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 28.5f, "Neutra");
 
-				glBegin(GL_QUADS);
-				glVertex3d(c, f, 0);
-				glVertex3d(c + 1, f, 0);
-				glVertex3d(c + 1, f + 1, 0);
-				glVertex3d(c, f + 1, 0);
-				glEnd();
+		// Casilla de Poder
+		glColor3ub(255, 215, 0);
+		glBegin(GL_QUADS); glVertex2f(47.0f, 24.0f); glVertex2f(49.0f, 24.0f); glVertex2f(49.0f, 26.0f); glVertex2f(47.0f, 26.0f); glEnd();
+		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 24.5f, "Poder");
 
-				// para separar casillas
-				glColor3f(0.0f, 0.0f, 0.0f);
-				glBegin(GL_LINE_LOOP);
-				glVertex3d(c, f, 0);
-				glVertex3d(c + 1, f, 0);
-				glVertex3d(c + 1, f + 1, 0);
-				glVertex3d(c, f + 1, 0);
-				glEnd();
-
-				// Dibujar el Pokémon 
-				Pokemon* p = Mitablerito.get_pokemon(f, c);
-				if (p != nullptr) { //SI NO ESTA VACIO DIBUJA
-
-				glPushMatrix();
-
-				//TODO ESTO ES PARA LAS PANOS
-
-				//COLOCAR LOS PLANOS EN EL CENTRO DE LA CASILLA CORRESPONDIENTE
-				glPushMatrix();
-				glTranslatef(c + 0.5f, f + 0.5f, 0.51f); // justo encima de la casilla
-				glBegin(GL_QUADS);
-				glVertex3f(-0.45f, -0.45f, 0);
-				glVertex3f(0.45f, -0.45f, 0);
-				glVertex3f(0.45f, 0.45f, 0);
-				glVertex3f(-0.45f, 0.45f, 0);
-				glEnd();
-
-				glPopMatrix();
+		
+		glColor3ub(240, 170, 90); // Color aviso
+		glBegin(GL_QUADS); glVertex2f(47.0f, 20.0f); glVertex2f(49.0f, 20.0f); glVertex2f(49.0f, 22.0f); glVertex2f(47.0f, 22.0f); glEnd();
+		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 20.5f, "Aviso (Cambio inminente)");
 
 
-				glEnable(GL_TEXTURE_2D);
-				glEnable(GL_BLEND);
-				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-				// Cargar textura directamente desde la ruta del Pokémon
-				unsigned int texID = ETSIDI::getTexture(p->obtenersprite().c_str()).id;
-				glBindTexture(GL_TEXTURE_2D, texID);
-
-				glPushMatrix();
-				glTranslatef(c + 0.5f, f + 0.5f, 0.5f);  // encima del plano
-
-				glBegin(GL_QUADS);
-				glTexCoord2f(0, 0); glVertex3f(-0.45f, -0.45f, 0);
-				glTexCoord2f(1, 0); glVertex3f(0.45f, -0.45f, 0);
-				glTexCoord2f(1, 1); glVertex3f(0.45f, 0.45f, 0);
-				glTexCoord2f(0, 1); glVertex3f(-0.45f, 0.45f, 0);
-				glEnd();
-
-				glPopMatrix();
-
-				glDisable(GL_BLEND);
-				glDisable(GL_TEXTURE_2D);
-				}
-			}
-		}
-
-		glMatrixMode(GL_PROJECTION);
-		glPopMatrix();
-		glMatrixMode(GL_MODELVIEW);
-		glPopMatrix();
-		glEnable(GL_LIGHTING);
-		glTranslated(-4.5, -4.5, 0);
 		break;
 
 	case ARENA:

@@ -1,15 +1,15 @@
 #include "Tablero.h"
 #include <iostream>
 #include "Pokemon.h"
-#include "Hechicero.h"
-#include "Volador.h"
-#include "Tanque.h"
-#include "Distancia.h"
-#include "Basico.h"
-#include "Fenix.h"
-#include "CambiaFormas.h"
+#include "tiposp/Hechicero.h"    // ← añadir subcarpeta
+#include "tiposp/Volador.h"
+#include "tiposp/Tanque.h"
+#include "tiposp/Distancia.h"
+#include "tiposp/Basico.h"
+#include "tiposp/Fenix.h"
+#include "tiposp/CambiaFormas.h"
 #include "ArenaCombate.h"
-#include "cmath"
+#include <cmath>
 
 using namespace std;
 
@@ -32,6 +32,13 @@ void Tablero::imprimir() {
 
 void Tablero::inicializar_tablero()
 {
+	for (int f = 0; f < 9; f++) {
+		for (int c = 0; c < 9; c++) {
+			casillas[f][c] = new Casilla();         // creamos la casilla en memoria
+			casillas[f][c]->inicializar(f, c);      // la inicializamos
+		}
+	}
+
 	//Hechiceros
 
 	Pokemon* Alakazam = new Hechicero("Alakazam", Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno, { 4,0 }, "bin/sprites/Blanca/alakazam.png");
@@ -230,4 +237,16 @@ int Tablero::movimientovalido(Pokemon* p, int nx, int ny)
 		return 2;
 
 	return 0;
+}
+
+
+
+void Tablero::dibujar_casillas() {
+
+	for (int f = 0; f < 9; f++) {
+		for (int c = 0; c < 9; c++) {
+			(*casillas[f][c]).dibujar(matriz[f][c]);
+		}
+	}
+
 }

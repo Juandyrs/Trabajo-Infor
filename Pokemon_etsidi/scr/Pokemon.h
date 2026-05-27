@@ -3,7 +3,7 @@
 #include <iostream>
 #include "Ataque.h"
 #include "Vector2D.h"
-#include "Tablero.h"
+
 using namespace std;
 
 enum class Bando {

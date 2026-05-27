@@ -1,15 +1,15 @@
 #include "Tablero.h"
 #include <iostream>
 #include "Pokemon.h"
-#include "tiposp/Hechicero.h"    // ← añadir subcarpeta
-#include "tiposp/Volador.h"
-#include "tiposp/Tanque.h"
-#include "tiposp/Distancia.h"
-#include "tiposp/Basico.h"
-#include "tiposp/Fenix.h"
-#include "tiposp/CambiaFormas.h"
+#include "Hechicero.h"
+#include "Volador.h"
+#include "Tanque.h"
+#include "Distancia.h"
+#include "Basico.h"
+#include "Fenix.h"
+#include "CambiaFormas.h"
 #include "ArenaCombate.h"
-#include <cmath>
+#include "cmath"
 
 using namespace std;
 
@@ -32,13 +32,6 @@ void Tablero::imprimir() {
 
 void Tablero::inicializar_tablero()
 {
-	for (int f = 0; f < 9; f++) {
-		for (int c = 0; c < 9; c++) {
-			casillas[f][c] = new Casilla();         // creamos la casilla en memoria
-			casillas[f][c]->inicializar(f, c);      // la inicializamos
-		}
-	}
-
 	Turnoactual = TURNO::JUGADOR1;
 
 	//Hechiceros
@@ -345,38 +338,6 @@ void Tablero::cambiarturno(){
 
 }
 
-	return 0;
-}
-
-
-
-void Tablero::dibujar_casillas() {
-
-	for (int f = 0; f < 9; f++) {
-		for (int c = 0; c < 9; c++) {
-			(*casillas[f][c]).dibujar(matriz[f][c]);
-		}
-	}
-
-	// dibujamos el cursor
-	float lado = 5.0f;
-	float x = cursor_c * lado;
-	float y = cursor_f * lado;
-
-	glDisable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glColor4ub(255, 255, 0, 100); 
-	glBegin(GL_QUADS);
-	glVertex2f(x, y);
-	glVertex2f(x + lado, y);
-	glVertex2f(x + lado, y + lado);
-	glVertex2f(x, y + lado);
-	glEnd();
-	glDisable(GL_BLEND);
-	glEnable(GL_DEPTH_TEST);
-
-}
 bool Tablero::turnofinalizadoexito()
 {
 	cambiarturno();

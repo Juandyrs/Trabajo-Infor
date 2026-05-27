@@ -2,7 +2,7 @@
 
 #include "Pokemon.h"
 #include "cmath"
-#include "Casilla.h"
+
 enum class VENTAJA { JUGADOR, NADA, ROCKET }; //SERVIARÁ MAS ADELANTE PARA LOS MODOS Y VENTAJAS
 enum class TURNO {JUGADOR1, JUGADOR2};
 
@@ -16,13 +16,8 @@ class Tablero
 	bool fichaYaSeleccionada = false; //SIRVE PARA SABER SI ESTA AGARRADA
 
 
-	Casilla* casillas[9][9]={nullptr};
-	int cursor_f = 0, cursor_c = 0; //posicion del cursor del tablero
-
 public:
-
 	void colocar_pokemon(int f, int c, Pokemon* p) { matriz[f][c] = p; } // no se puede poner &p puesto que p ya es un puntero a pokemon 
-	void dibujar_casillas();
 	void imprimir();
 	void inicializar_tablero();
 	//para leer el tablero en 2D
@@ -48,14 +43,6 @@ public:
 	void conteoturno(); 
 	bool preparacioncombate(); //PARA PASARLE LOS PUNTEROS A JUEGO Y QUE SE INICIALICE LA ARENA Y CAMBIE DE TABLERO A ARENA
 	bool turnofinalizadoexito(); //VA A SER DONDE MOVER FICHA DETECTE TRUE Y HAGA EL CONTEO Y EL CAMBIO DE TURNO.
-
-
-	//para mover el cursor y sacar el pokemon que esta en esa casilla 
-
-	void mover_cursor(int df, int dc) {cursor_f = max(0, min(8, cursor_f + df)); cursor_c = max(0, min(8, cursor_c + dc));}
-	Pokemon* seleccionar_cursor() { return matriz[cursor_f][cursor_c]; }
-	int obtener_cursor_f() const { return cursor_f; }
-	int obtener_cursor_c() const { return cursor_c; }
 
 };
 

@@ -31,6 +31,12 @@ void CambiaFormas::cambiar_forma(Pokemon &enemigo)
 
 }
 
+void CambiaFormas::forma_original()
+{
+	nombre = nombre_original;
+	delete ataque;
+}
+
 void CambiaFormas::atacar(Pokemon &objetivo)
 {
 

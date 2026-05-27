@@ -35,7 +35,7 @@ bool Obs_Fuego::interrumpir(Pokemon &personaje)
 {
 
 	if (Colisiones::colision(hitbox,personaje.consultar_hitbox()) 
-		&& personaje.consultar_estado() != EfectoEstado::Invulnerable)
+		&& personaje.consultar_efecto_estado() != EfectoEstado::Invulnerable)
 	{
 		personaje.modificar_estado(EfectoEstado::Quemadura, frames_fuego);
 		return true;

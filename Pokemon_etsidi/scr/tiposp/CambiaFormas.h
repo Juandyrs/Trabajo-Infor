@@ -38,7 +38,7 @@ public:
     }
 
     void cambiar_forma(Pokemon &enemigo);
-    void forma_original() { nombre = nombre_original; }
+    void forma_original();
     void atacar(Pokemon &objetivo) override;
 };
 

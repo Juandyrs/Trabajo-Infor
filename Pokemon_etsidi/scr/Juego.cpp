@@ -139,11 +139,8 @@ void Juego::dibujar_Juego()
 			0.0, 0, 0.0,
 			0.0, 1, 0.0);
 
-		Arena.dibuja_Personajes();
-		Arena.dibuja_Ataques();
-		Arena.dibuja_Obstaculos();
+
 		Arena.dibuja_Arena();
-		Arena.dibuja_BarrasVida();
 
 		break;
 	}
@@ -233,7 +230,7 @@ void Juego::jugar()
 
 	case ARENA:
 
-		arena_combate(*new Distancia(1),
+		arena_combate(*new Basico(1),
 			*new Distancia(1));
 
 		break;

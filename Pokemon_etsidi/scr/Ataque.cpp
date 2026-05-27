@@ -28,7 +28,7 @@ bool Rango::colision_ataque(Pokemon &objetivo)
 	if (dir_atk.modulo() == 0) return false; // Si la dirección es un vector nulo, no se detecta colisión
 
 	if (Colisiones::colision(hitbox, objetivo.consultar_hitbox())
-		&& (objetivo.consultar_estado() != EfectoEstado::Invulnerable))
+		&& (objetivo.consultar_efecto_estado() != EfectoEstado::Invulnerable))
 	{
 		// Colisión detectada, aplicar daño al objetivo
 		objetivo.recibir_dano(dano);
@@ -80,7 +80,7 @@ bool Melee::colision_ataque(Pokemon &objetivo)
 
 	//Debido a que el ataque melee puede estar rotado hay ligeros errores en la colision, por mientras se deja como si no lo estuviera. Es suficientemente aceptable
 	if (Colisiones::colision(aux, objetivo.consultar_hitbox())
-		&& (objetivo.consultar_estado() != EfectoEstado::Invulnerable))
+		&& (objetivo.consultar_efecto_estado() != EfectoEstado::Invulnerable))
 	{
 		objetivo.recibir_dano(dano);
 		delete aux;
@@ -122,7 +122,7 @@ bool Area::colision_ataque(Pokemon& objetivo)
 	static int frame = frame_ataque;
 
 	if (Colisiones::colision(hitbox, objetivo.consultar_hitbox())
-		&& (frame % 10 == 0) && (objetivo.consultar_estado() != EfectoEstado::Invulnerable))
+		&& (frame % 10 == 0) && (objetivo.consultar_efecto_estado() != EfectoEstado::Invulnerable))
 	{
 		objetivo.recibir_dano(dano);
 	}

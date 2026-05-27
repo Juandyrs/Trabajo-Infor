@@ -10,8 +10,15 @@ double cd1 = 0.0, cd2 = 0.0;
 
 void ArenaCombate::dibuja_Arena()
 {
+	dibuja_Obstaculos();
+	dibuja_Personajes();
+	dibuja_Ataques();
+	dibuja_suelo();
+	dibuja_BarrasVida();
+}
 
-	//Dibujar el suelo de la arena
+void ArenaCombate::dibuja_suelo()
+{
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
 	glColor3ub(255, 255, 0);
@@ -22,7 +29,6 @@ void ArenaCombate::dibuja_Arena()
 	glVertex3d(dimensiones_arena.x, -dimensiones_arena.y, 0);
 	glEnd();
 	glEnable(GL_LIGHTING);
-
 }
 
 void ArenaCombate::dibuja_Personajes()
@@ -254,8 +260,16 @@ void ArenaCombate::inicializa_Arena(Pokemon *t1, Pokemon *t2, bool ia)
 
 Pokemon* ArenaCombate::devolver_ganador()
 {
-	if (equipo1->vida_actual == 0) return equipo2;
-	if (equipo2->vida_actual == 0) return equipo1;
+	if (equipo1->vida_actual == 0)
+	{
+		equipo1->estado = Estado::Muerto;
+		return equipo2;
+	}
+	if (equipo2->vida_actual == 0)
+	{
+		equipo2->estado = Estado::Muerto;
+		return equipo1;
+	}
 	return nullptr;
 }
 
@@ -285,3 +299,26 @@ void ArenaCombate::mueve_personaje(bool key[])
 	if ((key['h'] || key['H']) && cd2 <= 0) atk2_ini = true;
 }
  
+void ArenaCombate::resetear_Arena()
+{
+	//Reinicio los obstaculos
+	obstaculos.eliminar_Contenido();
+
+	//Reinicio variables internas
+	atk1_ini = false;
+	atk2_ini = false;
+	cd1 = 0.0;
+	cd2 = 0.0;
+
+	//Reinicio ataque de pokemons y algunas estadisticas
+	equipo1->atacando = false;
+	equipo2->atacando = false;
+	equipo1->ataque->dano = equipo1->dano;
+	equipo2->ataque->dano = equipo2->dano;
+	equipo1->efecto_estado = EfectoEstado::Ninguno;
+	equipo2->efecto_estado = EfectoEstado::Ninguno;
+	equipo1->duracion_efecto = 0;
+	equipo2->duracion_efecto = 0;
+	equipo1->dir_mov = Vector2D{ 0.0,0.0 };
+	equipo2->dir_mov = Vector2D{ 0.0,0.0 };
+}

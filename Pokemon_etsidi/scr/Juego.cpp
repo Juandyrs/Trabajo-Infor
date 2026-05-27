@@ -25,7 +25,8 @@ void Juego::dibujar_Juego()
 
 	switch (pantallaActual)
 	{
-	case MENU:
+	case MENU: {
+
 
 		glDisable(GL_LIGHTING);
 		glMatrixMode(GL_PROJECTION);
@@ -37,11 +38,24 @@ void Juego::dibujar_Juego()
 		glPushMatrix();
 		glLoadIdentity();
 
-		glClearColor(0.08f, 0.08f, 0.15f, 1.00f);
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		glColor3f(1.0f, 0.85f, 0.0f);
-		escribirCadena2D(3.2f, 6.5f, "=== POKETSIDI ===");
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+
+
+		static ETSIDI::Sprite titulo("bin/fondos/letras_poketsidi.png", 4.5f, 7.0f, 6.5f, 2.5f);
+		titulo.draw();
+
+		static ETSIDI::Sprite fondoPlaya("bin/fondos/fondo_menu.png", 4.5f, 4.5f, 9.0f, 9.0f);
+		fondoPlaya.draw();
+
+
+
+		glDisable(GL_BLEND);
 
 		glColor3f(1.0f, 1.0f, 1.0f);
 		escribirCadena2D(2.5f, 4.5f, "Pulsa [1] -> Jugador vs Jugador");
@@ -52,8 +66,11 @@ void Juego::dibujar_Juego()
 
 
 		break;
+	}
 
 	case TABLERO:
+
+
 
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -99,6 +116,9 @@ void Juego::dibujar_Juego()
 		glColor3ub(240, 170, 90); // Color aviso
 		glBegin(GL_QUADS); glVertex2f(47.0f, 20.0f); glVertex2f(49.0f, 20.0f); glVertex2f(49.0f, 22.0f); glVertex2f(47.0f, 22.0f); glEnd();
 		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 20.5f, "Aviso (Cambio inminente)");
+
+
+		
 
 
 		break;
@@ -149,8 +169,27 @@ void Juego::mover_Juego(bool key[])
 
 		Mitablerito.imprimir(); //CADA VEZ QUE SALE DE LA ARENA REESCRIBE EL TABLERO
 
+		// movimiento cursor del tablero 
+
+		// Movimiento cursor
+		if (key['w'] || key['W']) { Mitablerito.mover_cursor(1, 0); key['w'] = key['W'] = false; }
+		if (key['s'] || key['S']) { Mitablerito.mover_cursor(-1, 0);  key['s'] = key['S'] = false; }
+		if (key['a'] || key['A']) { Mitablerito.mover_cursor(0, -1); key['a'] = key['A'] = false; }
+		if (key['d'] || key['D']) { Mitablerito.mover_cursor(0, 1);  key['d'] = key['D'] = false; }
+
+		// Seleccionamos con enter
+
+		if (key[13]) {
+			Pokemon* p = Mitablerito.seleccionar_cursor();
+			if (p != nullptr)
+				cout << "Pokemon: " << p->consultar_nombre() << "\n";
+			else
+				cout << "Casilla vacía\n";
+			key[13] = false;
+		}
+
 		//Para Probar la Arena
-		if (key['a'] || key['A'])
+		if (key['p'] || key['P'])
 		{
 			pantallaActual = ARENA;
 		}

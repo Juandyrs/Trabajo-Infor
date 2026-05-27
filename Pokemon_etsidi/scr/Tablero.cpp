@@ -249,4 +249,22 @@ void Tablero::dibujar_casillas() {
 		}
 	}
 
+	// dibujamos el cursor
+	float lado = 5.0f;
+	float x = cursor_c * lado;
+	float y = cursor_f * lado;
+
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glColor4ub(255, 255, 0, 100); 
+	glBegin(GL_QUADS);
+	glVertex2f(x, y);
+	glVertex2f(x + lado, y);
+	glVertex2f(x + lado, y + lado);
+	glVertex2f(x, y + lado);
+	glEnd();
+	glDisable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+
 }

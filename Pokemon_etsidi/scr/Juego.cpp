@@ -83,7 +83,7 @@ void Juego::dibujar_Juego()
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // Fondo gris oscuro para el tablero
-
+		
 	
 		Mitablerito.dibujar_casillas();
 		
@@ -126,11 +126,17 @@ void Juego::dibujar_Juego()
 	case ARENA:
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		gluPerspective(40.0, 800 / 600.0f, 0.1, 150);
+
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 
-		gluLookAt(0, 0, 15,  // posicion del ojo
-			0.0, 0, 0.0,				// hacia que punto mira  (0,0,0) 
+		gluLookAt(0, 0, 15,
+			0.0, 0, 0.0,
 			0.0, 1, 0.0);
 
 		Arena.dibuja_Personajes();

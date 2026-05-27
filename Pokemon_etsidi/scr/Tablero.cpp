@@ -32,6 +32,8 @@ void Tablero::imprimir() {
 
 void Tablero::inicializar_tablero()
 {
+	Turnoactual = TURNO::JUGADOR1;
+
 	//Hechiceros
 
 	Pokemon* Alakazam = new Hechicero("Alakazam", Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno, { 4,0 }, "bin/sprites/Blanca/alakazam.png");
@@ -146,92 +148,6 @@ void Tablero::inicializar_tablero()
 	colocar_pokemon(Moltres[1]->pos_tab.x, Moltres[1]->pos_tab.y, Moltres[1]);
 }
 
-int Tablero::distancia(int x1, int y1, int x2, int y2) {
-
-	return abs(x1 - x2) + abs(y1 - y2);
-}
-
-
-bool Tablero::casillaocupada(int f, int c) {
-	if (matriz[f][c] != nullptr) {
-		return true;
-	}
-	return false;
-
-}
-
-
-bool Tablero::casillaaliado(int f, int c, Pokemon* p)
-{
-
-	if (!p) return false;
-	Bando MiEquipo = p->obtener_bando();
-//DENTRO DE MARGENES
-	if (f < 0 || f >= 9 || c < 0 || c >= 9)
-		return false;
-
-//CASILLA VACIA
-	if (matriz[f][c] == nullptr)
-		return false;
-
-//COMPROBAR SI ES ALIADO
-return matriz[f][c]->obtener_bando() == MiEquipo;
-}
-
-
-bool Tablero::casillaenemigo(int f, int c, Pokemon* p)
-{
-
-	if (!p) return false;
-	Bando MiEquipo = p->obtener_bando();
-// MARGENES
-	if (f < 0 || f >= 9 || c < 0 || c >= 9)
-		return false;
-
-//VACIA DE NUEVO
-	if (matriz[f][c] == nullptr)
-		return false;
-
-//BANDO ENEMIGO
-	return matriz[f][c]->obtener_bando() != MiEquipo;
-}
-
-int Tablero::movimientovalido(Pokemon* p, int nx, int ny)
-{
-//COMPROBACIÓN DE QUE SE HA SELECCIONADO ALGUNA PIEZA
-	if (p == nullptr)
-		return 0;
-
-	int fx = p->pos_tab.x;
-	int fy = p->pos_tab.y;
-
-//MOVIMIENTO DENTRO DE MARGENES
-	if (nx < 0 || nx >= 9 || ny < 0 || ny >= 9)
-		return 0;
-
-//COMPROBAR DISTANCIA MAXIMA
-	int dist = distancia(fx, fy, nx, ny);
-	if (dist > p->numero_casillas)   // ← atributo del Pokémon
-		return 0;
-
-	//CASILLA VACIA DEVUELVE 1
-	if (matriz[nx][ny] == nullptr)
-		return 1;
-
-//VER EL BANDO SI NO ESTA VACIA
-
-
-	//ALIADA 3
-	if (casillaaliado(nx, ny, p))
-		return 3;
-
-//ENEMIGO 2
-	if (casillaenemigo(nx, ny, p))
-		return 2;
-
-	return 0;
-}
-
 void Tablero::tablerodibuja() {
 
 	for (int f = 0; f < 9; f++)
@@ -246,4 +162,187 @@ void Tablero::tablerodibuja() {
 			}
 		}
 	}
+}
+
+int Tablero::distancia(int fi, int ci, int ff, int cf) {
+
+	return abs(fi - ff) + abs(ci - cf); //COMPRUEBA EL NUMERO MÁXIMO DE CASILLAS QUE RECORRE LA FICHILLA
+}
+
+bool Tablero::casillaocupada(int ff, int cf) {
+	if (matriz[ff][cf] != nullptr)
+			return true;
+	}
+
+bool Tablero::casillaaliado(int ff, int cf, Pokemon* p) {
+
+		if (ff < 0 || ff >= 9 || cf < 0 || cf >= 9)
+			return false;
+
+		//CASILLA VACIA
+		if (matriz[ff][cf] == nullptr)
+			return false;
+
+		//COMPROBAR SI ES ALIADO
+		return matriz[ff][cf]->obtener_bando() == p->obtener_bando();
+
+}
+
+bool Tablero::casillaenemigo(int ff, int cf, Pokemon* p) {
+
+	if (ff < 0 || ff >= 9 || cf < 0 || cf >= 9)
+		return false;
+
+	//CASILLA VACIA
+	if (matriz[ff][cf] == nullptr)
+		return false;
+
+	//COMPROBAR SI ES ALIADO
+	return matriz[ff][cf]->obtener_bando() != p->obtener_bando();
+
+}
+
+bool Tablero::movimientoTerrestre(Pokemon* p, int fi, int ci, int ff, int cf) {
+
+		int distanciafilas = ff - fi; //VER SI SE MUEVE DE IZQ A DERECHA
+		int distanciacolumnas = cf - ci; //LO MISMO
+
+		int pasos = std::max(abs(distanciafilas), abs(distanciacolumnas)); //TE DA EL MAYOR DE LOS DOS PARA VER CUANTAS CUADRICULAS VAS A PASAR
+
+		return true;
+	}
+
+bool Tablero::movimientoVolador(Pokemon* p, int fi, int ci, int ff, int cf) {
+	return true; //SIEMPRE PUEDE EJECUTAR EL MOVIMIENTO, por lo menos por ahora
+
+}
+bool Tablero::movimientoPsiquico(Pokemon* p, int fi, int ci, int ff, int cf) {
+	return true; //LO MISMO QUE VOLADOR
+
+}
+
+bool Tablero::movimientoTipoValido(Pokemon* p, int fi, int ci, int ff, int cf) {
+
+	switch (p->obtenertipomovimiento())
+	{
+	case TipoMovimiento::Tierra:
+		return movimientoTerrestre(p, fi, ci, ff, cf);
+
+	case TipoMovimiento::Vuelo:
+		return movimientoVolador(p, fi, ci, ff, cf);
+
+	case TipoMovimiento::Teletransporte:
+		return movimientoPsiquico(p, fi, ci, ff, cf);
+
+	default:
+		return false;
+	}
+}
+
+int Tablero::movimientovalido(Pokemon* p, int nx, int ny) {
+
+	return nx; 
+}
+
+void Tablero::seleccionficha(int f, int c){
+	Pokemon* p = matriz[f][c]; //PILLA EL POKEMON DE LA FILA Y COLUMNA
+
+	//NO FICHA NO TRABAJO
+	if (p == nullptr)
+		return;
+
+	//FICHA NO ES DEL TURNO ACTUAL A TOMAR POR SACO (ES LA CONVERSIÓN DE LAS LISTAS A ENTEROS COMO HICE ANTERIORMENTE EN MOVER FICHA)
+	if (static_cast<int>(p->equipo) != static_cast<int>(Turnoactual))
+		return;
+
+	//SE SELECCIONA LA FICHA
+	fichaSeleccionada = p;
+	fichaYaSeleccionada = true;
+}
+
+bool Tablero::moverficha(Pokemon* p, int ff, int cf)
+{
+
+	if (p == nullptr || static_cast<int>(Turnoactual) != static_cast<int>(p->equipo)) //VER SI LA PIEZA PERTENCE AL TURNO o NO
+		return false; 
+	//COMO ENTRENADOR y JUGADOR 1 VALEN 1 y ROCKET Y JUGADOR 2 valen 2 se pueden pasar a enteros para programar, es bastante improvisado, pero funciona de momento
+
+	int movimiento = movimientovalido(p, ff, cf); //COMPROBAR MOVIMIENTO
+	//0  INvalido
+	//1  VACIO
+	//2  ENEMIGO
+
+	if (movimiento == 0)
+		return false;
+
+	if (movimiento == 1) //CASILLA VACIA Y MOVIMIENTO VALIDO
+	{
+		//QUITARLO DE LA MATRIZ DE PUNTEROS POR QUE SE HA PODIDO MOVER
+		matriz[(int)p->pos_tab.x][(int)p->pos_tab.y] = nullptr; //PONGO EL INT POR QUE EL MALDITO VECTOR 2D ES DE DOUBLES Y MATRIZ SOLO ADMITE ENTEROS COMO POSICIONES
+
+		//COLOCARLO EN LA NUEVA CASILLA
+		matriz[ff][cf] = p;
+
+		//ACTUALIZAR POSICION EN TABLERO LOGICO
+		p->pos_tab.x = ff;
+		p->pos_tab.y = cf;
+
+		//CAMBIO DE TURNO
+		conteoturno(); 
+		cambiarturno();
+
+		return true; // SE HA MOVIDO CORRECTAMENTE
+	}
+
+	//if (movimiento == 2)
+	//{
+		//Pokemon* enemigo = matriz[ff][cf];
+
+		//Arena.inicializa_Arena(p, enemigo, false);  
+
+		//Pokemon* ganador = Arena.devolver_ganador();
+
+		//matriz[p->pos_tab.x][p->pos_tab.y] = nullptr;
+
+		//if (ganador == p)
+		//{
+	
+		//	matriz[ff][cf] = p;
+		//	p->pos_tab.x = ff;
+		//	p->pos_tab.y = cf;
+	//	}
+	//	else
+	//	{
+		//EL QUE ESTABA EN LA CASILLA SE QUEDA EL OTRO DE MOMENTO DESAPARECE HASTA QUE CREE UN VECTOR DE MUERTOS O ALGO ASI 
+	//	}
+
+	//	conteoturno();
+	//	cambiarturno();
+
+	//	return true;
+	//}
+
+	//return false;
+}
+
+void Tablero::conteoturno() {
+	if (Turnoactual == TURNO::JUGADOR2)
+		numeroturno++;
+}
+void Tablero::cambiarturno(){
+	// Cambiar turno
+	if (Turnoactual == TURNO::JUGADOR1)
+		Turnoactual = TURNO::JUGADOR2;
+	else
+		Turnoactual = TURNO::JUGADOR1;
+
+}
+
+bool Tablero::turnofinalizadoexito()
+{
+	cambiarturno();
+	conteoturno();   // numeroturno++
+	fichaSeleccionada = nullptr;
+	fichaYaSeleccionada = false;
+	return true;
 }

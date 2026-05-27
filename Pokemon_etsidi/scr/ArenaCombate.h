@@ -7,6 +7,8 @@
 
 class ArenaCombate
 {
+
+
 	Vector2D dimensiones_arena{4.5, 4.5};
 	Pokemon *equipo1, *equipo2;
 	ListaObstaculos obstaculos;
@@ -41,7 +43,7 @@ public:
 	void dibuja_Personajes();
 	void dibuja_BarrasVida();
 	void dibuja_Ataques();
-	void dibuja_Suelo();
+	void dibuja_Obstaculos();
 
 	//Metodos de movimiento y ataque
 	void arena_combate();

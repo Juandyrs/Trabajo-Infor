@@ -19,6 +19,9 @@ enum class Tipo {Tierra, Agua, Fuego,
 enum class TipoMovimiento {
 	Tierra, Vuelo, Teletransporte
 };
+enum class Estado {
+	Vivo, Muerto
+};
 
 enum class EfectoEstado {
 	Ninguno, Quemadura, Invulnerable  //Veneno, Paralisis, Congelacion Posibles implementaciones futuras
@@ -35,6 +38,7 @@ protected:
 	string nombre;
 	Tipo tip1, tip2;
 	Bando equipo;
+	Estado estado;
 	string sprite; //VA A SER LA RUTA HACIA 
 
 	//Atributos del Tablero
@@ -64,6 +68,7 @@ public:
 		, tip1(Tipo::Ninguno)
 		, tip2(Tipo::Ninguno)
 		, equipo(Bando::Entrenador)
+		, estado(Estado::Vivo)
 		, simbolo(' ')
 		, movimiento(TipoMovimiento::Tierra)
 		, numero_casillas(0)
@@ -91,16 +96,16 @@ public:
 	void inicializa_stats(double v_max, double v_act, double vel);
 	void inicializa_mov(TipoMovimiento mov, int nu_ca);
 	
-	//DIBUJADO
-	void pokemondibuja(int f, int c);
-
 	//TABLERO LOGICO 
 	char obtener_simbolo() { return simbolo; }
 
 	//Metodos Relacionados con el tablero
 	Bando obtener_bando() { return equipo; } //para el color de la ficha
 	string obtenersprite() { return sprite;  } //PARA PODER ENCONTRAR LA RUTA CON FACILIDAD EN EL DIBUJADO
+	TipoMovimiento obtenertipomovimiento() { return movimiento; }
 
+	//DIBUJADO
+	void pokemondibuja(int f, int c);
 
 	//Metodos Relacionados con la Arena
 

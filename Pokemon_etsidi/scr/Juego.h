@@ -9,6 +9,7 @@ enum EstadoPantalla { MENU, TABLERO, ARENA };
 
 class Juego
 {
+
 	bool IA_activa{ false };
 	ArenaCombate Arena;
 	Tablero Mitablerito;

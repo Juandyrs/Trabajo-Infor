@@ -87,11 +87,12 @@ void Juego::dibujar_Juego()
 		glDisable(GL_DEPTH_TEST);
 		
 
-		
-		static ETSIDI::Sprite Ladrillo("bin/fondos/ladrillo.png", 25.0f, 25.0f, 102.0f, 102.0f);
-		Ladrillo.draw();
+		//Para el fondo del juego
+		static ETSIDI::Sprite fondoJuego("bin/fondos/fondo_juego.png", 25.0f, 25.0f, 102.0f, 102.0f);
+		fondoJuego.draw();
 
-		static ETSIDI::Sprite Archon("bin/fondos/Arch.png", 20.0f, 55.0f, 40.0f, 20.f);
+		//Letras arriba
+		static ETSIDI::Sprite Archon("bin/fondos/ARCHON.png", 20.0f, 55.0f, 40.0f, 20.f);
 		Archon.draw();
 		
 		glEnd();

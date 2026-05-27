@@ -34,6 +34,7 @@ public:
 	}
 
 	friend class IA;
+	friend class InteraccionArena;
 
 	//Metodos de dibujo
 	void dibuja_Arena();

@@ -163,13 +163,16 @@ void ArenaCombate::arena_combate()
 		atk2_ini = false;
 	}
 
-	equipo1->atacar(*equipo2);
+	if(equipo1->atacando) equipo1->atacando = !InteraccionArena::colision_ataques_arena(*this, *equipo1);
+	if(equipo2->atacando) equipo2->atacando = !InteraccionArena::colision_ataques_arena(*this, *equipo2);
 
+	equipo1->atacar(*equipo2);
 	equipo2->atacar(*equipo1);
 
 	// Cooldown para pruebas, hay que cambiarlo 
-	if (cd1 > 0) cd1 -= 0.1;
-	if (cd2 > 0) cd2 -= 0.1;
+	if (cd1 > 0) cd1 -= 1;
+	if (cd2 > 0) cd2 -= 1;
+
 }
 
 void ArenaCombate::interaccion_obstaculos()

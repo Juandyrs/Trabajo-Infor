@@ -71,6 +71,23 @@ bool Colisiones::colision(Vector2D rect, Vector2D pos, Vector2D dir, Vector2D or
     
 }
 
+bool Colisiones::colision(const double r, const Vector2D pos, const Vector2D dir, const Vector2D origen, int a)
+{
+    Vector2D d = pos - origen;
+    double t = d * dir;
+    Vector2D Sep{};
+
+	if (t >= 0)
+	{
+        Vector2D p_cercano = origen + t * dir;
+	    
+        Sep = pos - p_cercano;
+	}
+	else Sep = pos - origen;
+
+    return Sep.modulo() < r;
+}
+
 bool Colisiones::colision(Hitbox *h1, Hitbox *h2)
 {
     if (h1->consultar_tipo() == TipoHitbox::Rectangular && h2->consultar_tipo() == TipoHitbox::Rectangular)
@@ -89,8 +106,8 @@ bool Colisiones::colision(Hitbox *h1, Hitbox *h2)
     }
     else if (h1->consultar_tipo() == TipoHitbox::Circular && h2->consultar_tipo() == TipoHitbox::Rectangular)
     {
-        auto aux1 = dynamic_cast<HitboxRectangular*> (h1);
-        auto aux = dynamic_cast<HitboxCircular*> (h2);
+        auto aux1 = dynamic_cast<HitboxRectangular*> (h2);
+        auto aux = dynamic_cast<HitboxCircular*> (h1);
 
         return Colisiones::colision(aux->radio, aux->pos, aux1->rectangulo, aux1->pos);
     }
@@ -113,8 +130,12 @@ bool Colisiones::colision(Hitbox *h1, const Vector2D dir, const Vector2D origen)
 
         return Colisiones::colision(aux1->rectangulo, aux1->pos, dir, origen, 0);
     }
-    else if (h1->consultar_tipo() == TipoHitbox::Circular) // Sin implementar
+    else if (h1->consultar_tipo() == TipoHitbox::Circular)
     {
-        return false;
+        auto aux1 = dynamic_cast<HitboxCircular*> (h1);
+
+        return Colisiones::colision(aux1->radio, aux1->pos, dir, origen, 0);
     }
+
+    return false;
 }

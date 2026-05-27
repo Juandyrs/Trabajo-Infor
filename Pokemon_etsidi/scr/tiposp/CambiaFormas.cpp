@@ -17,20 +17,18 @@ void CambiaFormas::cambiar_forma(Pokemon &enemigo)
 	{
 		Rango *aux = new Rango(*aux0);
 		ataque = aux;
-		cout << "rango";
 	}
 	else if (aux1 != nullptr)
 	{
 		Melee *aux = new Melee(*aux1);
 		ataque = aux;
-		cout << "melee";
 	}
 	else if (aux2 != nullptr)
 	{
 		Area *aux = new Area(*aux2);
 		ataque = aux;
-		cout << "area";
 	}
+
 }
 
 void CambiaFormas::atacar(Pokemon &objetivo)

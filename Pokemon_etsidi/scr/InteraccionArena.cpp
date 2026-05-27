@@ -1,5 +1,5 @@
 #include "InteraccionArena.h"
-
+#include "Colisiones.h"
 
 void InteraccionArena::aplicar_Efectos(Pokemon &personaje)
 {
@@ -22,7 +22,23 @@ void InteraccionArena::aplicar_Efectos(Pokemon &personaje)
 	}
 }
 
-static bool colision_ataques_arena(ArenaCombate& obj, Ataque& atk)
+bool InteraccionArena::colision_ataques_arena(ArenaCombate &obj, Pokemon &p)
 {
 
+	Vector2D esq1, esq2, esq3, esq4;
+
+	esq1 = Vector2D(obj.dimensiones_arena.x, obj.dimensiones_arena.y);
+	esq2 = Vector2D(-obj.dimensiones_arena.x, obj.dimensiones_arena.y);
+	esq3 = Vector2D(-obj.dimensiones_arena.x, -obj.dimensiones_arena.y);
+	esq4 = Vector2D(obj.dimensiones_arena.x, -obj.dimensiones_arena.y);
+
+	if (typeid(*p.consultar_ataque()) == typeid(Rango))
+	{
+		if (Colisiones::colision(p.consultar_ataque()->hitbox, Vector2D(0, -1), esq1)) return true;
+		if (Colisiones::colision(p.consultar_ataque()->hitbox, Vector2D(1, 0), esq2)) return true;
+		if (Colisiones::colision(p.consultar_ataque()->hitbox, Vector2D(0, 1), esq3)) return true;
+		if (Colisiones::colision(p.consultar_ataque()->hitbox, Vector2D(-1, 0), esq4)) return true;
+	}
+
+	return false;
 }

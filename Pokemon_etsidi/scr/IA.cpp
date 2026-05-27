@@ -41,7 +41,7 @@ void IA::IA_Combate_Arena(ArenaCombate &arena)
 				if (typeid(*arena.equipo2->ataque) == typeid(Melee) || typeid(*arena.equipo2->ataque) == typeid(Area))
 				{
 					arena.equipo2->dir_mov = distancia.unitario();
-				//	if (distancia.modulo() > arena.equipo2->ataque->consultar_hitbox()) estado_arena = Estado_Arena::Buscar; IMPORTANTE VER
+					if (distancia.modulo() > 1.0) estado_arena = Estado_Arena::Buscar;
 				}
 
 				else if (typeid(*arena.equipo2->ataque) == typeid(Rango))
@@ -49,7 +49,7 @@ void IA::IA_Combate_Arena(ArenaCombate &arena)
 					if (!Colisiones::colision(arena.equipo1->hitbox, arena.equipo2->dir_mov, arena.equipo2->hitbox->pos)) estado_arena = Estado_Arena::Buscar;
 				}
 
-				if (cd2 <= 0 /* && !arena.equipo2->atacando*/ ) atk2_ini = true; // IMPORTANTE VER
+				if (cd2 <= 0  && !arena.equipo2->atacando ) atk2_ini = true; // IMPORTANTE VER
 
 				break;
 
@@ -83,6 +83,7 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 	{
 		//El personaje cuerpo a cuerpo intenta estar lo mas cerca del jugador para atacar
 		auto aux = *arena.equipo2;
+		aux.hitbox = new HitboxRectangular(arena.equipo2->consultar_dim_hitbox(), arena.equipo2->consultar_posicion());
 
 		for (int i = 0; i < 8; i++)
 		{
@@ -105,6 +106,8 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 			//cout << pesos[i]<< movimientos[i] << endl;
 		}
 
+		delete aux.hitbox;
+
 		auto mayor_peso = max_element(pesos.begin(), pesos.end()); //Devuelve el iterador del mayor elemento
 		auto indice = std::distance(pesos.begin(), mayor_peso); //Calcula la distancia entre el iterador y el inicio
 
@@ -120,13 +123,14 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 		posiciones_anterior[0] = arena.equipo2->hitbox->pos;
 		arena.equipo2->mover_arena(mejor_movimiento.unitario());
 
-		//if (distancia.modulo() < aux.ataque->consultar_rango())	return true; IMPORTANTE VER
+		if (distancia.modulo() < 1.0)	return true;
 	}
 	
 	else if (typeid(*arena.equipo2->ataque) == typeid(Rango))
 	{
 		//El personaje a distancia intenta estar lejos del jugador y moverse para atacar a distancia
 		auto aux = *arena.equipo2;
+		aux.hitbox = new HitboxRectangular(arena.equipo2->consultar_dim_hitbox(), arena.equipo2->consultar_posicion());
 
 		for (int i = 0; i < 8; i++)
 		{
@@ -147,6 +151,8 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 
 			pesos[i] += rand() % (5 - 1 + 1) + 1; // Un poco de aleatoriedad para intentar evitar que se trabe
 		}
+
+		delete aux.hitbox;
 
 		auto mayor_peso = max_element(pesos.begin(), pesos.end()); //Devuelve el iterador del mayor elemento
 		auto indice = std::distance(pesos.begin(), mayor_peso); //Calcula la distancia entre el iterador y el inicio

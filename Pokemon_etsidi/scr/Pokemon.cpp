@@ -48,7 +48,7 @@ void Pokemon::atacar(Pokemon& objetivo)
 void Pokemon::mover_arena(Vector2D dir)
 {
 	dir_mov = dir;
-	pos_arena += dir_mov * velocidad;
+	hitbox->pos += dir_mov * velocidad;
 }
 
 void Pokemon::pokemondibuja(int f, int c) {
@@ -93,4 +93,11 @@ void Pokemon::pokemondibuja(int f, int c) {
 	glDisable(GL_BLEND);
 	glDisable(GL_TEXTURE_2D);
 
+}
+
+Vector2D Pokemon::consultar_dim_hitbox() const
+{
+	HitboxRectangular *h = dynamic_cast<HitboxRectangular*>(hitbox);
+
+	return h->rectangulo;
 }

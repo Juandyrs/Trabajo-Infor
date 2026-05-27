@@ -1,129 +1,122 @@
 #pragma once
 
 #include "Vector2D.h"
+#include "Hitbox.h"
+
+class Pokemon;
 
 class Ataque
 {
 protected:
 
-	double dano;
 	Vector2D dir_atk;
-	Vector2D pos_atk;
+	Hitbox *hitbox;
+	double dano;
 
 public:
 
 	Ataque()
-		: dano(0.0)
-		, dir_atk{ 0.0, 0.0 }
-		, pos_atk{ 0.0, 0.0 }
+		: dir_atk{ 0.0, 0.0 }
+		, hitbox(nullptr)
+		, dano(0.0)
 	{}
 
-	Ataque(double dano, Vector2D dir, Vector2D pos)
-		: dano(dano)
-		, dir_atk(dir)
-		, pos_atk(pos)
+	Ataque(Vector2D dir, Vector2D pos, double d)
+		: dir_atk(dir)
+		, hitbox(nullptr)
+		, dano(d)
 	{}
-
 
 	void set_direccion(Vector2D dir) { dir_atk = dir; }
-	void set_posicion(Vector2D pos) { pos_atk = pos; }
+	void set_posicion(Vector2D pos) { hitbox->pos = pos; }
 
-	friend class Pokemon;
-	friend class Distancia;
 	friend class ArenaCombate;
-	friend class InteraccionesArena;
+	friend class InteraccionArena;
 
 	virtual void iniciar_ataque(Vector2D posicion, Vector2D dir) = 0;
 	virtual void mueve_ataque() = 0;
-	virtual bool colision_ataque(Pokemon &objetivo) = 0;
 	virtual void atacar_dibujar() = 0;
-	virtual double consultar_rango() const = 0;
-
+	virtual bool colision_ataque(Pokemon &objetivo) = 0;
+	virtual Hitbox* consultar_hitbox() { return hitbox; }
 };
 
 class Rango :
 	public Ataque
 {
 	Vector2D vel_proyectil;
-	double radio_proyectil;
 
 public:
 
 	Rango()
 		: Ataque()
 		, vel_proyectil{ 0.0, 0.0 }
-		, radio_proyectil(0.0)
-	{}
+	{
+		hitbox = new HitboxCircular();
+	}
 
-	Rango(double dano, Vector2D dir, Vector2D pos, double vel, double radio)
-		: Ataque(dano, dir, pos)
+	Rango(double d, Vector2D dir, Vector2D pos, double vel, double radio)
+		: Ataque(dir, pos, d)
 		, vel_proyectil(vel*dir_atk)
-		, radio_proyectil(radio)
-	{}
-
+	{
+		hitbox = new HitboxCircular(radio, pos);
+	}
 
 	friend class ArenaCombate;
 
 	void iniciar_ataque(Vector2D posicion, Vector2D dir) override;
 	void atacar_dibujar() override;
-	bool colision_ataque(Pokemon &objetivo) override;
-	void mueve_ataque() override { pos_atk = pos_atk + vel_proyectil; }
-	double consultar_rango() const override { return radio_proyectil; }
+	void mueve_ataque() override { hitbox->pos += vel_proyectil; }
+    bool colision_ataque(Pokemon &objetivo) override;
 };
 
 class Melee :
 	public Ataque
 {
-	double rango_ataque{};
-	double ancho_ataque{};
 	int frame_ataque{};
 
 public:
 
 	Melee()
 		: Ataque()
-		, rango_ataque(0.0)
-		, ancho_ataque(0.0)
 		, frame_ataque(0)
-	{}
+	{
+		hitbox = new HitboxRectangular();
+	}
 
-	Melee(double dano, Vector2D dir, Vector2D pos, double rango, double ancho, int frame)
-		: Ataque(dano, dir, pos)
-		, rango_ataque(rango)
-		, ancho_ataque(ancho)
+	Melee(double d, Vector2D dir, Vector2D pos, double rango, double ancho, int frame)
+		: Ataque(dir, pos, d)
 		, frame_ataque(frame)
-	{}
+	{
+		hitbox = new HitboxRectangular(Vector2D(rango, ancho), pos);
+	}
 
 	friend class ArenaCombate;
+	friend class InteraccionArena;
 
 	void iniciar_ataque(Vector2D posicion, Vector2D dir) override;
 	void atacar_dibujar() override;
-	bool colision_ataque(Pokemon& objetivo) override;
 	void mueve_ataque() override {} // Para evitar errores, el ataque melee no se mueve, por ahora
-	double consultar_rango() const override { return rango_ataque; }
-
+	bool colision_ataque(Pokemon &objetivo) override;
 };
 
 class Area :
 	public Ataque
 {
-	double radio_ataque{};
 	int frame_ataque{};
 
 public:
 
-	Area(double dano, Vector2D dir, Vector2D pos, double radio, int frame)
-		: Ataque(dano, dir, pos)
-		, radio_ataque(radio)
+	Area(double d, Vector2D dir, Vector2D pos, double radio, int frame)
+		: Ataque(dir, pos, d)
 		, frame_ataque(frame)
-	{}
+	{
+		hitbox = new HitboxCircular(radio, pos);
+	}
 
 	friend class ArenaCombate;
 
 	void iniciar_ataque(Vector2D posicion, Vector2D dir) override;
 	void atacar_dibujar() override;
-	bool colision_ataque(Pokemon &objetivo) override;
 	void mueve_ataque() override {} // Para evitar errores, el ataque de Area no se mueve, por ahora
-	double consultar_rango() const override { return radio_ataque; }
-
+	bool colision_ataque(Pokemon &objetivo) override;
 };

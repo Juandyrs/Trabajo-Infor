@@ -3,7 +3,8 @@
 #include <iostream>
 #include "Ataque.h"
 #include "Vector2D.h"
-#include "Tablero.h"
+#include "Hitbox.h"
+
 using namespace std;
 
 enum class Bando {
@@ -54,8 +55,7 @@ protected:
 	double velocidad;
 	double dano;
 	double cooldown;
-	Vector2D Hitbox;
-	Vector2D pos_arena;
+	Hitbox *hitbox; //La posicion en la arena esta guardada en la hitbox
 	Vector2D dir_mov;
 	Ataque *ataque;
 
@@ -80,8 +80,7 @@ public:
 		, velocidad(0.0)
 		, dano(0.0)
 		, cooldown(0.0)
-		, Hitbox{ 0.0, 0.0 }
-		, pos_arena{ 0.0, 0.0 }
+		, hitbox(new HitboxRectangular)
 		, dir_mov{ 0.0, 0.0 }
 		, ataque(nullptr)
 		, sprite("")
@@ -112,11 +111,12 @@ public:
 
 
 	void recibir_dano(double cantidad);
-	void modificar_posicion(Vector2D nueva_pos) { pos_arena = nueva_pos; }
+	void modificar_posicion(Vector2D nueva_pos) { hitbox->pos = nueva_pos; }
 	void modificar_estado(EfectoEstado nuevo_estado, int duracion) { efecto_estado = nuevo_estado; duracion_efecto = duracion; }
 
-	Vector2D consultar_hitbox() const { return Hitbox; }
-	Vector2D consultar_posicion() const { return pos_arena; }
+	Hitbox* consultar_hitbox() const { return hitbox; }
+	Vector2D consultar_dim_hitbox() const;// Sirve por que todas son rectangulares
+	Vector2D consultar_posicion() const { return hitbox->pos; }
 	string consultar_nombre() const { return nombre; }
 	double consultar_vel() const { return velocidad; }
 	double consultar_vida() const { return vida_actual; }
@@ -129,7 +129,7 @@ public:
 
 	virtual void atacar(Pokemon &objetivo);
 	void mover_arena(Vector2D dir);
-	Vector2D siguiente_posicion(const Vector2D dir) const { return pos_arena + dir * velocidad; }
+	Vector2D siguiente_posicion(const Vector2D dir) const { return hitbox->pos + dir * velocidad; }
 	
 };
 

@@ -15,11 +15,12 @@ public:
     Basico(int a)
     {
         //Arena
-        ataque = new Melee(10.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 1.0, 1.5, 5);
+        ataque = new Melee(10.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 1.0, 0.75, 5);
+        dano = 10.0;
         vida_max = 60.0;
         vida_actual = 60.0;
         velocidad = 0.5;
-        Hitbox = { 0.5 , 0.5 };
+        hitbox = new HitboxRectangular({ 0.5,  0.5 });
         cooldown = 5.0;
     }
     
@@ -27,10 +28,11 @@ public:
     {
         //Arena
 		ataque = new Melee(10.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 1.0, 1.5, 5);
+        dano = 10.0;
         vida_max = 60.0;
         vida_actual = 60.0;
         velocidad = 0.5;
-        Hitbox = { 1.0 , 1.0 };
+        hitbox = new HitboxRectangular({ 0.5,  0.5 });
 		cooldown = 5.0;
 
         //Tablero

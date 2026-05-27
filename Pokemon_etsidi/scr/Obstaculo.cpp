@@ -2,14 +2,21 @@
 #include <freeglut.h>
 #include "Colisiones.h"
 
+Vector2D Obstaculo::consultar_dim_hitbox() const
+{
+	HitboxRectangular* h = dynamic_cast<HitboxRectangular*>(hitbox);
+
+	return h->rectangulo;
+}
+
 // Metodos del obstaculo de piedra
 
 bool Obs_Piedra::interrumpir(Pokemon &personaje)
 {
 
-	if (Colisiones::colision(Hitbox, Posicion, personaje.consultar_hitbox(), personaje.consultar_posicion()))
+	if (Colisiones::colision(hitbox, personaje.consultar_hitbox()))
 	{
-		personaje.pos_arena = personaje.consultar_posicion() - personaje.dir_mov * personaje.velocidad;
+		personaje.hitbox->pos = personaje.consultar_posicion() - personaje.dir_mov * personaje.velocidad;
 		return true;
 	}
 
@@ -18,18 +25,8 @@ bool Obs_Piedra::interrumpir(Pokemon &personaje)
 
 void Obs_Piedra::dibujar()
 {
-	glTranslated(Posicion.x, Posicion.y, 0);
-	glDisable(GL_LIGHTING);
-	glBegin(GL_POLYGON);
 	glColor3ub(111, 67, 33);
-	glVertex3d(-Hitbox.x, -Hitbox.y, 0);
-	glVertex3d(-Hitbox.x, Hitbox.y, 0);
-	glColor3ub(111, 67, 33);
-	glVertex3d(Hitbox.x, Hitbox.y, 0);
-	glVertex3d(Hitbox.x, -Hitbox.y, 0);
-	glEnd();
-	glEnable(GL_LIGHTING);
-	glTranslated(-Posicion.x, -Posicion.y, 0);
+	hitbox->dibujar();
 }
 
 // Metodos del obstaculo de fuego
@@ -37,7 +34,7 @@ void Obs_Piedra::dibujar()
 bool Obs_Fuego::interrumpir(Pokemon &personaje)
 {
 
-	if (Colisiones::colision(Hitbox, Posicion, personaje.consultar_hitbox(), personaje.consultar_posicion()) 
+	if (Colisiones::colision(hitbox,personaje.consultar_hitbox()) 
 		&& personaje.consultar_estado() != EfectoEstado::Invulnerable)
 	{
 		personaje.modificar_estado(EfectoEstado::Quemadura, frames_fuego);
@@ -48,16 +45,6 @@ bool Obs_Fuego::interrumpir(Pokemon &personaje)
 
 void Obs_Fuego::dibujar()
 {
-	glTranslated(Posicion.x, Posicion.y, 0);
-	glDisable(GL_LIGHTING);
-	glBegin(GL_POLYGON);
 	glColor3ub(255, 0, 0);
-	glVertex3d(-Hitbox.x, -Hitbox.y, 0);
-	glVertex3d(-Hitbox.x, Hitbox.y, 0);
-	glColor3ub(255, 0, 0);
-	glVertex3d(Hitbox.x, Hitbox.y, 0);
-	glVertex3d(Hitbox.x, -Hitbox.y, 0);
-	glEnd();
-	glEnable(GL_LIGHTING);
-	glTranslated(-Posicion.x, -Posicion.y, 0);
+	hitbox->dibujar();
 }

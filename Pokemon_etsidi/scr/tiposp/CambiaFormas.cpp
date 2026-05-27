@@ -7,7 +7,7 @@ void CambiaFormas::cambiar_forma(Pokemon &enemigo)
 	velocidad = enemigo.consultar_vel();
 	dano = enemigo.consultar_dano();
 	cooldown = enemigo.consultar_cd();
-	Hitbox = enemigo.consultar_hitbox();
+	hitbox = enemigo.consultar_hitbox();
 
 	Rango *aux0 = dynamic_cast<Rango*>(enemigo.consultar_ataque());
 	Melee *aux1 = dynamic_cast<Melee*>(enemigo.consultar_ataque());
@@ -17,20 +17,18 @@ void CambiaFormas::cambiar_forma(Pokemon &enemigo)
 	{
 		Rango *aux = new Rango(*aux0);
 		ataque = aux;
-		cout << "rango";
 	}
 	else if (aux1 != nullptr)
 	{
 		Melee *aux = new Melee(*aux1);
 		ataque = aux;
-		cout << "melee";
 	}
 	else if (aux2 != nullptr)
 	{
 		Area *aux = new Area(*aux2);
 		ataque = aux;
-		cout << "area";
 	}
+
 }
 
 void CambiaFormas::atacar(Pokemon &objetivo)

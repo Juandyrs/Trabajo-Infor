@@ -19,7 +19,7 @@ public:
 		velocidad = 0.2;
 		dano = 20.0;
 		cooldown = 5;
-		Hitbox = { 1, 1 }; // Hitbox para prueba, hay que cambiarlo
+		hitbox = new HitboxRectangular({ 0.5,  0.5 });
 	}
 
 	Hechicero(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t, string s)
@@ -32,7 +32,7 @@ public:
 		velocidad = 0.2;
 		dano = 20.0;
 		cooldown = 5;
-		Hitbox = { 1, 1 }; // Hitbox para prueba, hay que cambiarlo
+		hitbox = new HitboxRectangular({ 0.5,  0.5 });
 
 		//Tablero
 		nombre = n;

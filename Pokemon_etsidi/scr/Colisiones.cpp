@@ -22,6 +22,13 @@ bool Colisiones::colision(double radio, Vector2D pos_r, Vector2D rect2, Vector2D
 
 }
 
+bool Colisiones::colision(const double r1, const Vector2D pos1, const double r2, const Vector2D pos2)
+{
+    Vector2D distancia = { abs(pos1.x - pos2.x), abs(pos1.y - pos2.y) };
+
+    return (distancia.modulo() < r1 + r2);
+}
+
 bool Colisiones::colision(Vector2D rect, Vector2D pos, Vector2D dir, Vector2D origen, int a)
 {
    double A{}, B{}, C{}; //Coeficientes de una recta generica
@@ -62,4 +69,73 @@ bool Colisiones::colision(Vector2D rect, Vector2D pos, Vector2D dir, Vector2D or
 
 	return cruza && adelante;
     
+}
+
+bool Colisiones::colision(const double r, const Vector2D pos, const Vector2D dir, const Vector2D origen, int a)
+{
+    Vector2D d = pos - origen;
+    double t = d * dir;
+    Vector2D Sep{};
+
+	if (t >= 0)
+	{
+        Vector2D p_cercano = origen + t * dir;
+	    
+        Sep = pos - p_cercano;
+	}
+	else Sep = pos - origen;
+
+    return Sep.modulo() < r;
+}
+
+bool Colisiones::colision(Hitbox *h1, Hitbox *h2)
+{
+    if (h1->consultar_tipo() == TipoHitbox::Rectangular && h2->consultar_tipo() == TipoHitbox::Rectangular)
+    {
+        auto aux = dynamic_cast<HitboxRectangular*> (h1);
+        auto aux1 = dynamic_cast<HitboxRectangular*> (h2);
+
+        return Colisiones::colision(aux->rectangulo, aux->pos, aux1->rectangulo, aux1->pos);
+    }
+    else if (h1->consultar_tipo() == TipoHitbox::Rectangular && h2->consultar_tipo() == TipoHitbox::Circular)
+    {
+        auto aux = dynamic_cast<HitboxRectangular*> (h1);
+        auto aux1 = dynamic_cast<HitboxCircular*> (h2);
+
+        return Colisiones::colision(aux1->radio, aux1->pos, aux->rectangulo, aux->pos);
+    }
+    else if (h1->consultar_tipo() == TipoHitbox::Circular && h2->consultar_tipo() == TipoHitbox::Rectangular)
+    {
+        auto aux1 = dynamic_cast<HitboxRectangular*> (h2);
+        auto aux = dynamic_cast<HitboxCircular*> (h1);
+
+        return Colisiones::colision(aux->radio, aux->pos, aux1->rectangulo, aux1->pos);
+    }
+    else if (h1->consultar_tipo() == TipoHitbox::Circular && h2->consultar_tipo() == TipoHitbox::Circular)
+    {
+        auto aux = dynamic_cast<HitboxCircular*> (h1);
+        auto aux1 = dynamic_cast<HitboxCircular*> (h2);
+
+        return Colisiones::colision(aux1->radio, aux1->pos, aux->radio, aux->pos);
+    }
+
+    return false;
+}
+
+bool Colisiones::colision(Hitbox *h1, const Vector2D dir, const Vector2D origen)
+{
+    if (h1->consultar_tipo() == TipoHitbox::Rectangular)
+    {
+        auto aux1 = dynamic_cast<HitboxRectangular*> (h1);
+
+        return Colisiones::colision(aux1->rectangulo, aux1->pos, dir, origen, 0);
+    }
+    else if (h1->consultar_tipo() == TipoHitbox::Circular)
+    {
+        auto aux1 = dynamic_cast<HitboxCircular*> (h1);
+
+        return Colisiones::colision(aux1->radio, aux1->pos, dir, origen, 0);
+    }
+
+    return false;
 }

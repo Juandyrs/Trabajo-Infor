@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Pokemon.h"
 #include "cmath"
 

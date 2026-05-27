@@ -15,6 +15,7 @@ class Juego
 	Tablero Mitablerito;
 	EstadoPantalla pantallaActual{ MENU };
 public:
+
 	Juego() = default;
 
 	void dibujar_Juego();

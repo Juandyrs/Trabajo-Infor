@@ -2,31 +2,32 @@
 
 #include "Vector2D.h"
 #include "Pokemon.h"
+#include "Hitbox.h"
 
 class Obstaculo
 {
 protected:
 
-	Vector2D Hitbox;
-	Vector2D Posicion;
+	Hitbox *hitbox;
 
 public:
 
 	Obstaculo()
-		: Hitbox(0, 0)
-		, Posicion(0, 0)
+		: hitbox()
 	{}
 
 	Obstaculo(Vector2D pos)
-		: Hitbox(0.5, 0.5)
-		, Posicion(pos)
+		: hitbox(new HitboxRectangular(Vector2D(0.5, 0.5), pos))
 	{}
+
+	friend ArenaCombate;
 
 	virtual bool interrumpir(Pokemon& personaje) = 0;
 	virtual void dibujar() = 0;
 
-	Vector2D consultar_hitbox() const { return Hitbox; }
-	Vector2D consultar_posicion() const { return Posicion; }
+	Hitbox* consultar_hitbox() const { return hitbox; }
+	Vector2D consultar_posicion() const { return hitbox->pos; }
+	Vector2D consultar_dim_hitbox() const; // Funciona porque todas son rectangulares
 };
 
 class Obs_Piedra :

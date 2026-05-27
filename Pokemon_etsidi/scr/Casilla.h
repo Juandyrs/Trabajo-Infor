@@ -1,5 +1,7 @@
 #pragma once
 #include "Pokemon.h"
+#include <freeglut.h>
+#include <ETSIDI.h>
 
 enum class TipoCasilla{clara,oscura,neutr,poder,aviso_neutro,aviso_claro,aviso_oscuro};
 
@@ -26,7 +28,7 @@ public:
 	int obtener_cambio() const { return cambio; }
 	void avanzar_ciclo();
 
-	void dibujar();
+	void dibujar(Pokemon* p= nullptr);
 
 };
 

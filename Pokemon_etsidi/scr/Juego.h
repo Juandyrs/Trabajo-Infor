@@ -14,6 +14,9 @@ class Juego
 	ArenaCombate Arena;
 	Tablero Mitablerito;
 	EstadoPantalla pantallaActual{ MENU };
+
+	
+	
 public:
 
 	Juego() = default;

@@ -68,58 +68,81 @@ void Juego::dibujar_Juego()
 		break;
 	}
 
-	case TABLERO:
+	case TABLERO: 
+	{
 
 
 
-		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glDisable(GL_LIGHTING);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-	
+
 		gluOrtho2D(-5.0, 65.0, -5.0, 65.0);
 
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // Fondo gris oscuro para el tablero
+
+		//Para que el tablero este por encima
+		glDisable(GL_DEPTH_TEST);
 		
-	
+
+		
+		static ETSIDI::Sprite Ladrillo("bin/fondos/ladrillo.png", 25.0f, 25.0f, 102.0f, 102.0f);
+		Ladrillo.draw();
+
+		static ETSIDI::Sprite Archon("bin/fondos/Arch.png", 20.0f, 55.0f, 40.0f, 20.f);
+		Archon.draw();
+		
+		glEnd();
+
 		Mitablerito.dibujar_casillas();
-		
+
 		// --- LEYENDA DEL TABLERO ---
-		
-		glColor3f(1.0f, 1.0f, 1.0f); // Texto blanco
+
+		glColor3f(0.0f, 0.0f, 0.0f); // Texto negro
+		glLineWidth(3.0f);
 		escribirCadena2D(47.0f, 40.0f, "LEYENDA:");
+		glLineWidth(1.0f);
 
 		// Casilla Clara
 		glColor3ub(235, 235, 225);
+		glLineWidth(3.0f);
 		glBegin(GL_QUADS); glVertex2f(47.0f, 36.0f); glVertex2f(49.0f, 36.0f); glVertex2f(49.0f, 38.0f); glVertex2f(47.0f, 38.0f); glEnd();
-		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 36.5f, "Clara");
+		glColor3f(0.0f, 0.0f, 0.0f); escribirCadena2D(50.0f, 36.5f, "Clara");
+		glLineWidth(1.0f);
 
 		// Casilla Oscura
 		glColor3ub(65, 65, 75);
+		glLineWidth(3.0f);
 		glBegin(GL_QUADS); glVertex2f(47.0f, 32.0f); glVertex2f(49.0f, 32.0f); glVertex2f(49.0f, 34.0f); glVertex2f(47.0f, 34.0f); glEnd();
-		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 32.5f, "Oscura");
+		glColor3f(0.0f, 0.0f, 0.0f); escribirCadena2D(50.0f, 32.5f, "Oscura");
+		glLineWidth(1.0f);
 
 		// Casilla Neutra
 		glColor3ub(140, 150, 160);
+		glLineWidth(3.0f);
 		glBegin(GL_QUADS); glVertex2f(47.0f, 28.0f); glVertex2f(49.0f, 28.0f); glVertex2f(49.0f, 30.0f); glVertex2f(47.0f, 30.0f); glEnd();
-		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 28.5f, "Neutra");
+		glColor3f(0.0f, 0.0f, 0.0f); escribirCadena2D(50.0f, 28.5f, "Neutra");
+		glLineWidth(1.0f);
 
 		// Casilla de Poder
 		glColor3ub(255, 215, 0);
+		glLineWidth(3.0f);
 		glBegin(GL_QUADS); glVertex2f(47.0f, 24.0f); glVertex2f(49.0f, 24.0f); glVertex2f(49.0f, 26.0f); glVertex2f(47.0f, 26.0f); glEnd();
-		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 24.5f, "Poder");
+		glColor3f(0.0f, 0.0f, 0.0f); escribirCadena2D(50.0f, 24.5f, "Poder");
+		glLineWidth(1.0f);
 
-		
+
 		glColor3ub(240, 170, 90); // Color aviso
+		glLineWidth(3.0f);
 		glBegin(GL_QUADS); glVertex2f(47.0f, 20.0f); glVertex2f(49.0f, 20.0f); glVertex2f(49.0f, 22.0f); glVertex2f(47.0f, 22.0f); glEnd();
-		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 20.5f, "Aviso (Cambio inminente)");
+		glColor3f(0.0f, 0.0f, 0.0f); escribirCadena2D(50.0f, 20.5f, "Aviso.Cambio");
+		glLineWidth(1.0f);
 
 
-		
 
+	}
 
 		break;
 

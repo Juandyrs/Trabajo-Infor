@@ -1,7 +1,7 @@
 #include "Tablero.h"
 #include <iostream>
 #include "Pokemon.h"
-#include "tiposp/Hechicero.h"    // ← añadir subcarpeta
+#include "tiposp/Hechicero.h"    
 #include "tiposp/Volador.h"
 #include "tiposp/Tanque.h"
 #include "tiposp/Distancia.h"
@@ -345,8 +345,7 @@ void Tablero::cambiarturno(){
 
 }
 
-	return 0;
-}
+
 
 
 

@@ -25,7 +25,8 @@ void Juego::dibujar_Juego()
 
 	switch (pantallaActual)
 	{
-	case MENU:
+	case MENU: {
+
 
 		glDisable(GL_LIGHTING);
 		glMatrixMode(GL_PROJECTION);
@@ -37,11 +38,24 @@ void Juego::dibujar_Juego()
 		glPushMatrix();
 		glLoadIdentity();
 
-		glClearColor(0.08f, 0.08f, 0.15f, 1.00f);
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		glColor3f(1.0f, 0.85f, 0.0f);
-		escribirCadena2D(3.2f, 6.5f, "=== POKETSIDI ===");
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+
+
+		static ETSIDI::Sprite titulo("bin/fondos/letras_poketsidi.png", 4.5f, 7.0f, 6.5f, 2.5f);
+		titulo.draw();
+
+		static ETSIDI::Sprite fondoPlaya("bin/fondos/fondo_menu.png", 4.5f, 4.5f, 9.0f, 9.0f);
+		fondoPlaya.draw();
+
+
+
+		glDisable(GL_BLEND);
 
 		glColor3f(1.0f, 1.0f, 1.0f);
 		escribirCadena2D(2.5f, 4.5f, "Pulsa [1] -> Jugador vs Jugador");
@@ -52,75 +66,77 @@ void Juego::dibujar_Juego()
 
 
 		break;
+	}
 
 	case TABLERO:
 
-		Mitablerito.tablerodibuja();
 
+
+		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glDisable(GL_LIGHTING);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+	
+		gluOrtho2D(-5.0, 65.0, -5.0, 65.0);
+
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // Fondo gris oscuro para el tablero
+		
+	
+		Mitablerito.dibujar_casillas();
+		
+		// --- LEYENDA DEL TABLERO ---
+		
+		glColor3f(1.0f, 1.0f, 1.0f); // Texto blanco
+		escribirCadena2D(47.0f, 40.0f, "LEYENDA:");
 
-		gluLookAt(0, 0, 15,  // posicion del ojo
-			0.0, 0, 0.0,				// hacia que punto mira  (0,0,0) 
-			0.0, 1, 0.0);
+		// Casilla Clara
+		glColor3ub(235, 235, 225);
+		glBegin(GL_QUADS); glVertex2f(47.0f, 36.0f); glVertex2f(49.0f, 36.0f); glVertex2f(49.0f, 38.0f); glVertex2f(47.0f, 38.0f); glEnd();
+		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 36.5f, "Clara");
 
-		glTranslated(-4.5, -4.5, 0);
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Fondo negro para los bordes
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		// Casilla Oscura
+		glColor3ub(65, 65, 75);
+		glBegin(GL_QUADS); glVertex2f(47.0f, 32.0f); glVertex2f(49.0f, 32.0f); glVertex2f(49.0f, 34.0f); glVertex2f(47.0f, 34.0f); glEnd();
+		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 32.5f, "Oscura");
 
-		for (int f = 0; f < 9; f++)
-		{
-			for (int c = 0; c < 9; c++) {
-				if ((f == 4 && c == 4) ||
-					(f == 0 && c == 4) || (f == 8 && c == 4) ||
-					(f == 4 && c == 0) || (f == 4 && c == 8))
-				{
-					glColor3f(0.5f, 0.0f, 0.5f); // Morado para puntos de poder
-				}
-				else if ((f + c) % 2 == 0) {
-					glColor3f(0.85f, 0.85f, 0.85f); // Casillas Claras
-				}
-				else {
-					glColor3f(0.18f, 0.18f, 0.18f); // Casillas Oscuras
-				}
+		// Casilla Neutra
+		glColor3ub(140, 150, 160);
+		glBegin(GL_QUADS); glVertex2f(47.0f, 28.0f); glVertex2f(49.0f, 28.0f); glVertex2f(49.0f, 30.0f); glVertex2f(47.0f, 30.0f); glEnd();
+		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 28.5f, "Neutra");
+
+		// Casilla de Poder
+		glColor3ub(255, 215, 0);
+		glBegin(GL_QUADS); glVertex2f(47.0f, 24.0f); glVertex2f(49.0f, 24.0f); glVertex2f(49.0f, 26.0f); glVertex2f(47.0f, 26.0f); glEnd();
+		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 24.5f, "Poder");
+
+		
+		glColor3ub(240, 170, 90); // Color aviso
+		glBegin(GL_QUADS); glVertex2f(47.0f, 20.0f); glVertex2f(49.0f, 20.0f); glVertex2f(49.0f, 22.0f); glVertex2f(47.0f, 22.0f); glEnd();
+		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 20.5f, "Aviso (Cambio inminente)");
 
 
-				glBegin(GL_QUADS);
-				glVertex3d(c, f, 0);
-				glVertex3d(c + 1, f, 0);
-				glVertex3d(c + 1, f + 1, 0);
-				glVertex3d(c, f + 1, 0);
-				glEnd();
+		
 
-				// para separar casillas
-				glColor3f(0.0f, 0.0f, 0.0f);
-				glBegin(GL_LINE_LOOP);
-				glVertex3d(c, f, 0);
-				glVertex3d(c + 1, f, 0);
-				glVertex3d(c + 1, f + 1, 0);
-				glVertex3d(c, f + 1, 0);
-				glEnd();
 
-			}
-		}
-
-		glMatrixMode(GL_PROJECTION);
-		glPopMatrix();
-		glMatrixMode(GL_MODELVIEW);
-		glPopMatrix();
-		glEnable(GL_LIGHTING);
-		glTranslated(-4.5, -4.5, 0);
 		break;
 
 	case ARENA:
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		gluPerspective(40.0, 800 / 600.0f, 0.1, 150);
+
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 
-		gluLookAt(0, 0, 15,  // posicion del ojo
-			0.0, 0, 0.0,				// hacia que punto mira  (0,0,0) 
+		gluLookAt(0, 0, 15,
+			0.0, 0, 0.0,
 			0.0, 1, 0.0);
 
 		Arena.dibuja_Personajes();
@@ -159,8 +175,27 @@ void Juego::mover_Juego(bool key[])
 
 		Mitablerito.imprimir(); //CADA VEZ QUE SALE DE LA ARENA REESCRIBE EL TABLERO
 
+		// movimiento cursor del tablero 
+
+		// Movimiento cursor
+		if (key['w'] || key['W']) { Mitablerito.mover_cursor(1, 0); key['w'] = key['W'] = false; }
+		if (key['s'] || key['S']) { Mitablerito.mover_cursor(-1, 0);  key['s'] = key['S'] = false; }
+		if (key['a'] || key['A']) { Mitablerito.mover_cursor(0, -1); key['a'] = key['A'] = false; }
+		if (key['d'] || key['D']) { Mitablerito.mover_cursor(0, 1);  key['d'] = key['D'] = false; }
+
+		// Seleccionamos con enter
+
+		if (key[13]) {
+			Pokemon* p = Mitablerito.seleccionar_cursor();
+			if (p != nullptr)
+				cout << "Pokemon: " << p->consultar_nombre() << "\n";
+			else
+				cout << "Casilla vacía\n";
+			key[13] = false;
+		}
+
 		//Para Probar la Arena
-		if (key['a'] || key['A'])
+		if (key['p'] || key['P'])
 		{
 			pantallaActual = ARENA;
 		}

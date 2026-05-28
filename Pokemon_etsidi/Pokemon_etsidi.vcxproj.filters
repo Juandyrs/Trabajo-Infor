@@ -75,6 +75,9 @@
     <ClCompile Include="scr\IA.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="scr\Hitbox.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="scr\Tablero.h">
@@ -138,6 +141,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="lib\ETSIDI.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\Hitbox.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -222,6 +228,9 @@
       <Filter>Archivos de recursos</Filter>
     </Image>
     <Image Include="bin\sprites\Negra\umbreon.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\sprites\Blanca\Prueba.png">
       <Filter>Archivos de recursos</Filter>
     </Image>
   </ItemGroup>

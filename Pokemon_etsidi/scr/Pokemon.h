@@ -86,6 +86,30 @@ public:
 		, sprite("")
 	{}
 
+	Pokemon(string n, Tipo tip1, Tipo tip2, Bando b, char c, TipoMovimiento mov, Vector2D pos_t, int nc, double v, double vel, double d, double cd, string s)
+		: nombre(n)
+		, tip1(tip1)
+		, tip2(tip2)
+		, equipo(b)
+		, estado(Estado::Vivo)
+		, simbolo(c)
+		, movimiento(mov)
+		, pos_tab(pos_t)
+		, numero_casillas(nc)
+		, atacando(false)
+		, efecto_estado(EfectoEstado::Ninguno)
+		, duracion_efecto(0)
+		, vida_max(v)
+		, vida_actual(v)
+		, velocidad(vel)
+		, dano(d)
+		, cooldown(cd)
+		, hitbox(new HitboxRectangular)
+		, dir_mov{ 0.0, 0.0 }
+		, ataque(nullptr)
+		, sprite(s)
+	{}
+
 	friend class ArenaCombate;
 	friend class Tablero;
 	friend class Obs_Piedra;

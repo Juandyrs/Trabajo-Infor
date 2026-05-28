@@ -5,7 +5,6 @@
 
 bool atk1_ini = false, atk2_ini = false;
 double cd1 = 0.0, cd2 = 0.0;
-Ataque *ataque1, *Ataque2;
 
 //Metodos de dibujo
 

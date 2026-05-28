@@ -167,8 +167,11 @@ void ArenaCombate::arena_combate()
 		atk2_ini = false;
 	}
 
-	if(equipo1->atacando) equipo1->atacando = !InteraccionArena::colision_ataques_arena(*this, *equipo1);
-	if(equipo2->atacando) equipo2->atacando = !InteraccionArena::colision_ataques_arena(*this, *equipo2);
+	if (equipo1->atacando) equipo1->atacando = !InteraccionArena::colisiona_ataques_obst(obstaculos, *equipo1->consultar_ataque());
+	if (equipo1->atacando) equipo1->atacando = !InteraccionArena::colision_ataques_arena(*this, *equipo1->consultar_ataque());
+
+	if (equipo2->atacando) equipo2->atacando = !InteraccionArena::colisiona_ataques_obst(obstaculos, *equipo2->consultar_ataque());
+	if (equipo2->atacando) equipo2->atacando = !InteraccionArena::colision_ataques_arena(*this, *equipo2->consultar_ataque());
 
 	equipo1->atacar(*equipo2);
 	equipo2->atacar(*equipo1);
@@ -215,7 +218,7 @@ void ArenaCombate::inicializa_obstaculos()
 		}
 
 		//Para evitar que un obstaculo se genere encima de otro obstaculo
-		for (int j = 0; j < obstaculos.obtener_Tamano(); j++)
+		for (int j = 0; j < obstaculos.size(); j++)
 		{
 			if (Colisiones::colision(temporal.consultar_hitbox(), obstaculos.obtener_Obstaculo(j).consultar_hitbox()))
 			{
@@ -226,7 +229,7 @@ void ArenaCombate::inicializa_obstaculos()
 
 		if (salir) continue;
 
-		obstaculos.agregar_Obstaculo(new Obs_Fuego(pos));
+		obstaculos.agregar_Obstaculo(new Obs_Piedra(pos));
 		i++;
 	}	
 }	

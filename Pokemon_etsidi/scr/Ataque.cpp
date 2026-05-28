@@ -41,7 +41,12 @@ bool Rango::colision_ataque(Pokemon &objetivo)
 
 void Melee::iniciar_ataque(Vector2D posicion, Vector2D dir)
 {
-	hitbox->pos = posicion;
+	double ang_ataque = dir.argumento();
+	HitboxRectangular* h = dynamic_cast<HitboxRectangular*>(hitbox);
+	HitboxRectangular* aux = new HitboxRectangular(*h);
+	Vector2D ataque_centro = posicion + Vector2D{ aux->rectangulo.x * cos(ang_ataque),  aux->rectangulo.y * sin(ang_ataque) };
+
+	hitbox->pos = ataque_centro;
 	dir_atk = dir;
 }
 
@@ -53,7 +58,7 @@ void Melee::atacar_dibujar()
 
 	HitboxRectangular* aux = dynamic_cast<HitboxRectangular*>(hitbox);
 
-	glTranslated(hitbox->pos.x + cos(ang_ataque)*aux->rectangulo.x, hitbox->pos.y + sin(ang_ataque) * aux->rectangulo.y, 0);
+	glTranslated(hitbox->pos.x, hitbox->pos.y, 0);
 	glRotated(ang_ataque * 180 / std::numbers::pi, 0, 0, 1);
 	glDisable(GL_LIGHTING);
 	glColor3ub(255, 0, 0);
@@ -65,18 +70,14 @@ void Melee::atacar_dibujar()
 	glEnd();
 	glEnable(GL_LIGHTING);
 	glRotated(-ang_ataque * 180 / std::numbers::pi, 0, 0, 1);
-	glTranslated(-(hitbox->pos.x + cos(ang_ataque) * aux->rectangulo.x), -(hitbox->pos.y + sin(ang_ataque) * aux->rectangulo.y), 0);
+	glTranslated(-hitbox->pos.x, -hitbox->pos.y, 0);
 }
 
 bool Melee::colision_ataque(Pokemon &objetivo)
 {
-	double ang_ataque = dir_atk.argumento();
 	static int frame = frame_ataque;
 	HitboxRectangular *h = dynamic_cast<HitboxRectangular*>(hitbox);
 	HitboxRectangular *aux = new HitboxRectangular(*h);
-	Vector2D ataque_centro = hitbox->pos + Vector2D{ aux->rectangulo.x * cos(ang_ataque),  aux->rectangulo.y * sin(ang_ataque) };
-
-	aux->pos = ataque_centro;
 
 	//Debido a que el ataque melee puede estar rotado hay ligeros errores en la colision, por mientras se deja como si no lo estuviera. Es suficientemente aceptable
 	if (Colisiones::colision(aux, objetivo.consultar_hitbox())

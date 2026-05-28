@@ -5,6 +5,7 @@
 
 bool atk1_ini = false, atk2_ini = false;
 double cd1 = 0.0, cd2 = 0.0;
+Ataque *ataque1, *Ataque2;
 
 //Metodos de dibujo
 
@@ -278,28 +279,26 @@ Pokemon* ArenaCombate::devolver_ganador()
 
 void ArenaCombate::mueve_personaje(bool key[])
 {
+	Vector2D dir1{ 0,0 };
 
-	if ((key['w']|| key['W']) && !(key['d'] || key['D']) && !(key['a'] || key['A'])) equipo1->mover_arena({ 0.0, 1.0 });
-	if ((key['s'] || key['S']) && !(key['d'] || key['D']) && !(key['a'] || key['A'])) equipo1->mover_arena({ 0.0, -1.0 });
-	if ((key['d'] || key['D']) && !(key['w'] || key['W']) && !(key['s'] || key['S'])) equipo1->mover_arena({ 1.0, 0.0 });
-	if ((key['a'] || key['A']) && !(key['w'] || key['W']) && !(key['s'] || key['S'])) equipo1->mover_arena({ -1.0, 0.0 });
-	if ((key['w'] || key['W']) && (key['d'] || key['D'])) equipo1->mover_arena({ sqrt(2) / 2, sqrt(2) / 2 });
-	if ((key['w'] || key['W']) && (key['a'] || key['A'])) equipo1->mover_arena({ -sqrt(2) / 2, sqrt(2) / 2 });
-	if ((key['s'] || key['S']) && (key['d'] || key['D'])) equipo1->mover_arena({ sqrt(2) / 2, -sqrt(2) / 2 });
-	if ((key['s'] || key['S']) && (key['a'] || key['A'])) equipo1->mover_arena({ -sqrt(2) / 2, -sqrt(2) / 2 });
+	if (key['w']|| key['W']) dir1 += { 0.0, 1.0 };
+	if (key['s'] || key['S']) dir1 += { 0.0, -1.0 };
+	if (key['d'] || key['D']) dir1 += { 1.0, 0.0 };
+	if (key['a'] || key['A']) dir1 += { -1.0, 0.0 };
 	if ((key['f'] || key['F']) && cd1 <= 0) atk1_ini = true;
-		
+	if (dir1.modulo() != 0) equipo1->mover_arena(dir1.unitario());
+
 	if (IA_activa) return;
 
-	if ((key['i'] || key['I']) && !(key['l'] || key['L']) && !(key['j'] || key['J'])) equipo2->mover_arena({ 0.0, 1.0 });
-	if ((key['k'] || key['K']) && !(key['l'] || key['L']) && !(key['j'] || key['J'])) equipo2->mover_arena({ 0.0, -1.0 });
-	if ((key['l'] || key['L']) && !(key['i'] || key['I']) && !(key['k'] || key['K'])) equipo2->mover_arena({ 1.0, 0.0 });
-	if ((key['j'] || key['J']) && !(key['i'] || key['I']) && !(key['k'] || key['K'])) equipo2->mover_arena({ -1.0, 0.0 });
-	if ((key['i'] || key['I']) && (key['l'] || key['L'])) equipo2->mover_arena({ sqrt(2) / 2, sqrt(2) / 2 });
-	if ((key['i'] || key['I']) && (key['j'] || key['J'])) equipo2->mover_arena({ -sqrt(2) / 2, sqrt(2) / 2 });
-	if ((key['k'] || key['K']) && (key['l'] || key['L'])) equipo2->mover_arena({ sqrt(2) / 2, -sqrt(2) / 2 });
-	if ((key['k'] || key['K']) && (key['j'] || key['J'])) equipo2->mover_arena({ -sqrt(2) / 2, -sqrt(2) / 2 });
+	Vector2D dir2{ 0,0 };
+
+	if (key['i'] || key['I']) dir2 += { 0.0, 1.0 };
+	if (key['k'] || key['K']) dir2 += { 0.0, -1.0 };
+	if (key['l'] || key['L']) dir2 += { 1.0, 0.0 };
+	if (key['j'] || key['J']) dir2 += { -1.0, 0.0 };
 	if ((key['h'] || key['H']) && cd2 <= 0) atk2_ini = true;
+	if (dir2.modulo() != 0) equipo2->mover_arena(dir2.unitario());
+
 }
  
 void ArenaCombate::resetear_Arena()

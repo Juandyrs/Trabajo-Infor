@@ -78,7 +78,7 @@ void Juego::dibujar_Juego()
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 	
-		gluOrtho2D(-5.0, 65.0, -5.0, 65.0);
+		gluOrtho2D(-5.0, 50.0, -5.0, 50.0);
 
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
@@ -87,6 +87,7 @@ void Juego::dibujar_Juego()
 	
 		Mitablerito.dibujar_casillas();
 		
+		/*
 		// --- LEYENDA DEL TABLERO ---
 		
 		glColor3f(1.0f, 1.0f, 1.0f); // Texto blanco
@@ -116,7 +117,7 @@ void Juego::dibujar_Juego()
 		glColor3ub(240, 170, 90); // Color aviso
 		glBegin(GL_QUADS); glVertex2f(47.0f, 20.0f); glVertex2f(49.0f, 20.0f); glVertex2f(49.0f, 22.0f); glVertex2f(47.0f, 22.0f); glEnd();
 		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 20.5f, "Aviso (Cambio inminente)");
-
+		*/
 
 		
 
@@ -172,7 +173,13 @@ void Juego::mover_Juego(bool key[])
 
 		Mitablerito.imprimir(); //CADA VEZ QUE SALE DE LA ARENA REESCRIBE EL TABLERO
 
-		// movimiento cursor del tablero 
+		//para probar el cambio de turno
+
+		if (key['n']) {
+			Mitablerito.cambiarturno();
+			Mitablerito.conteoturno();
+			key['n']  = false;
+		}
 
 		// Movimiento cursor
 		if (key['w'] || key['W']) { Mitablerito.mover_cursor(1, 0); key['w'] = key['W'] = false; }

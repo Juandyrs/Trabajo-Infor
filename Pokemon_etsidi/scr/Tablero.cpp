@@ -32,6 +32,8 @@ void Tablero::imprimir() {
 
 void Tablero::inicializar_tablero()
 {
+	srand(time(NULL));
+
 	for (int f = 0; f < 9; f++) {
 		for (int c = 0; c < 9; c++) {
 			casillas[f][c] = new Casilla();         // creamos la casilla en memoria
@@ -342,6 +344,12 @@ void Tablero::cambiarturno(){
 		Turnoactual = TURNO::JUGADOR2;
 	else
 		Turnoactual = TURNO::JUGADOR1;
+
+	//cambio las casillas cambiantes de tipo 
+
+	for (int f = 0; f < 9; f++)
+		for (int c = 0; c < 9; c++)
+			casillas[f][c]->avanzar_ciclo();
 
 }
 

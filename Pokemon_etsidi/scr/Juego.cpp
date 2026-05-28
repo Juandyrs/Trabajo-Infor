@@ -155,14 +155,37 @@ void Juego::dibujar_Juego()
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 
-		glColor3f(1.0f, 0.85f, 0.0f);
-		if (resultado == ResultadoJuego::GANADORENTRENADOR)
-			escribirCadena2D(1.5f, 5.5f, "VICTORIA DEL ENTRENADOR!");
-		else
-			escribirCadena2D(1.5f, 5.5f, "VICTORIA DEL TEAM ROCKET!");
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		glColor3f(1.0f, 1.0f, 1.0f);
-		escribirCadena2D(2.5f, 3.5f, "Pulsa [R] para volver al menu");
+		if (resultado == ResultadoJuego::GANADORENTRENADOR) {
+			static ETSIDI::Sprite fondoENT("bin/fondos/fondo_victoria_ENT.png", 4.5f, 4.5f, 9.0f, 9.0f); 
+			fondoENT.draw();
+		}
+		else {
+			static ETSIDI::Sprite fondoTR("bin/fondos/fondo_victoria_TR.png", 4.5f, 4.5f, 9.0f, 9.0f);
+			fondoTR.draw();
+		}
+
+		glDisable(GL_BLEND);
+
+	
+		
+
+		
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glColor4f(0.0f, 0.0f, 0.0f, 0.6f);
+		glBegin(GL_QUADS);
+		glVertex2f(1.5f, 8.5f);
+		glVertex2f(7.5f, 8.5f);
+		glVertex2f(7.5f, 9.0f);
+		glVertex2f(1.5f, 9.0f);
+		glEnd();
+		glDisable(GL_BLEND);
+
+		glColor3f(1.0f, 1.0f, 0.0f);
+		escribirCadena2D(1.8f, 8.6f, "Pulsa [R] para volver al menu");
 
 		break;
 
@@ -175,7 +198,7 @@ void Juego::mover_Juego(bool key[])
 {
 	//esto luego hay que quitarlo, ahora es para comprobar la pantalla de fin
 	if (key['v'] ) {
-		resultado = ResultadoJuego::GANADORENTRENADOR; 
+		resultado = ResultadoJuego::GANADORROCKET; 
 		pantallaActual = EstadoPantalla::FIN;
 		key['v'] = false;
 	}

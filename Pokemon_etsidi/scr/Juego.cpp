@@ -116,9 +116,9 @@ void Juego::dibujar_Juego()
 		
 		glColor3ub(240, 170, 90); // Color aviso
 		glBegin(GL_QUADS); glVertex2f(47.0f, 20.0f); glVertex2f(49.0f, 20.0f); glVertex2f(49.0f, 22.0f); glVertex2f(47.0f, 22.0f); glEnd();
-		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 20.5f, "Aviso (Cambio inminente)");
-		*/
+		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 20.5f, "Aviso (Cambio pronto)");
 
+		*/
 		
 
 
@@ -144,13 +144,41 @@ void Juego::dibujar_Juego()
 		Arena.dibuja_Arena();
 
 		break;
+
+	case FIN:
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glDisable(GL_LIGHTING);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		gluOrtho2D(0.0, 9.0, 0.0, 9.0);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+
+		glColor3f(1.0f, 0.85f, 0.0f);
+		if (resultado == ResultadoJuego::GANADORENTRENADOR)
+			escribirCadena2D(1.5f, 5.5f, "VICTORIA DEL ENTRENADOR!");
+		else
+			escribirCadena2D(1.5f, 5.5f, "VICTORIA DEL TEAM ROCKET!");
+
+		glColor3f(1.0f, 1.0f, 1.0f);
+		escribirCadena2D(2.5f, 3.5f, "Pulsa [R] para volver al menu");
+
+		break;
+
+
 	}
 
 }
 
 void Juego::mover_Juego(bool key[])
 {
-	//MENU
+	//esto luego hay que quitarlo, ahora es para comprobar la pantalla de fin
+	if (key['v'] ) {
+		resultado = ResultadoJuego::GANADORENTRENADOR; 
+		pantallaActual = EstadoPantalla::FIN;
+		key['v'] = false;
+	}
 
 	switch (pantallaActual)
 	{
@@ -182,10 +210,10 @@ void Juego::mover_Juego(bool key[])
 		}
 
 		// Movimiento cursor
-		if (key['w'] || key['W']) { Mitablerito.mover_cursor(1, 0); key['w'] = key['W'] = false; }
-		if (key['s'] || key['S']) { Mitablerito.mover_cursor(-1, 0);  key['s'] = key['S'] = false; }
-		if (key['a'] || key['A']) { Mitablerito.mover_cursor(0, -1); key['a'] = key['A'] = false; }
-		if (key['d'] || key['D']) { Mitablerito.mover_cursor(0, 1);  key['d'] = key['D'] = false; }
+		if (key['w'] ) { Mitablerito.mover_cursor(1, 0); key['w'] = key['W'] = false; }
+		if (key['s'] ) { Mitablerito.mover_cursor(-1, 0);  key['s'] = key['S'] = false; }
+		if (key['a'] ) { Mitablerito.mover_cursor(0, -1); key['a'] = key['A'] = false; }
+		if (key['d'] ) { Mitablerito.mover_cursor(0, 1);  key['d'] = key['D'] = false; }
 
 		// Seleccionamos con enter
 
@@ -199,7 +227,7 @@ void Juego::mover_Juego(bool key[])
 		}
 
 		//Para Probar la Arena
-		if (key['p'] || key['P'])
+		if (key['p'] )
 		{
 			pantallaActual = ARENA;
 		}
@@ -210,9 +238,19 @@ void Juego::mover_Juego(bool key[])
 
 		Arena.mueve_personaje(key);
 
-		if (key['t'] || key['T']) pantallaActual = TABLERO;
+		if (key['t'] ) pantallaActual = TABLERO;
 
 		break;
+
+	case FIN:
+		if (key['r']) {
+			pantallaActual = MENU;
+			resultado = ResultadoJuego::NOGANADOR;
+			key['r'] = false;
+		}
+		break;
+
+
 
 	}
 }
@@ -220,7 +258,8 @@ void Juego::mover_Juego(bool key[])
 
 void Juego::logica_Juego()
 {
-
+	comprobar_victoria();
+	//aqui hay que meter el avance de los turnos 
 }
 
 void Juego::jugar()
@@ -282,4 +321,25 @@ void Juego::arena_combate(Pokemon &equipo1, Pokemon &equipo2)
 
 	auto ganador = Arena.devolver_ganador();
 	if(ganador != nullptr) pantallaActual = TABLERO;
+}
+
+//para comprobaciones de victoria 
+
+void Juego::comprobar_victoria() {
+
+	// perder por quedarte sin pokemons
+	if (Mitablerito.quedan_piezas(Bando::Team_Rocket) == false)
+		resultado = ResultadoJuego::GANADORENTRENADOR;
+	else if (Mitablerito.quedan_piezas(Bando::Entrenador) == false)
+		resultado = ResultadoJuego::GANADORROCKET;
+
+	// ganar por conseguir los puntos de poder
+	else if (Mitablerito.controla_puntos_poder(Bando::Entrenador) == true)
+		resultado = ResultadoJuego::GANADORENTRENADOR;
+	else if (Mitablerito.controla_puntos_poder(Bando::Team_Rocket) == true)
+		resultado = ResultadoJuego::GANADORROCKET;
+
+	// si gana uno cambiamos a pantalla fin
+	if (resultado != ResultadoJuego::NOGANADOR)
+		pantallaActual = EstadoPantalla::FIN;
 }

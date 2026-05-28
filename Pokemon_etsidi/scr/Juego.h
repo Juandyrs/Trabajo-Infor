@@ -5,7 +5,10 @@
 #include "tiposp/Distancia.h"
 
 //distintos tableros
-enum EstadoPantalla { MENU, TABLERO, ARENA };
+enum EstadoPantalla { MENU, TABLERO, ARENA,FIN };
+enum class ResultadoJuego { NOGANADOR, GANADORENTRENADOR, GANADORROCKET };
+
+
 
 class Juego
 {
@@ -14,6 +17,8 @@ class Juego
 	ArenaCombate Arena;
 	Tablero Mitablerito;
 	EstadoPantalla pantallaActual{ MENU };
+	ResultadoJuego resultado{ ResultadoJuego::NOGANADOR};
+
 public:
 
 	Juego() = default;
@@ -23,6 +28,7 @@ public:
 	void logica_Juego();
 	void jugar();
 	void arena_combate(Pokemon& equipo1, Pokemon& equipo2);
+	void comprobar_victoria();
 
 };
 

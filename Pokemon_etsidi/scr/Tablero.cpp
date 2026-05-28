@@ -48,7 +48,7 @@ void Tablero::inicializar_tablero()
 	Pokemon* Alakazam = new Hechicero("Alakazam", Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno, { 4,0 }, "bin/sprites/Blanca/alakazam.png");
 	Pokemon* Gengar = new Hechicero("Gengar", Bando::Team_Rocket, Tipo::Fantasma, Tipo::Veneno, { 4,8 }, "bin/sprites/Negra/gengar.png");
 
-	
+
 
 	//VOLADORES
 	Pokemon* Charizard[2]{
@@ -110,14 +110,14 @@ void Tablero::inicializar_tablero()
 	};
 
 	//Cambiaforma
-	Pokemon* Ditto[2]{ 
+	Pokemon* Ditto[2]{
 	new CambiaFormas("Ditto",Bando::Team_Rocket,Tipo::Normal,Tipo::Ninguno,{3,8},"bin/sprites/Negra/ditto.png"),
-	new CambiaFormas("Ditto",Bando::Team_Rocket,Tipo::Normal,Tipo::Ninguno,{5,8},"bin/sprites/Negra/ditto.png")};
+	new CambiaFormas("Ditto",Bando::Team_Rocket,Tipo::Normal,Tipo::Ninguno,{5,8},"bin/sprites/Negra/ditto.png") };
 
 	//Fenix
-	Pokemon* Moltres[2] = { 
+	Pokemon* Moltres[2] = {
 		new Fenix("Moltres", Bando::Entrenador, Tipo::Fuego, Tipo::Volador,{5,0},"bin/sprites/Blanca/moltres.png"),
-		new Fenix("Moltres", Bando::Entrenador, Tipo::Fuego, Tipo::Volador,{3,0},"bin/sprites/Blanca/moltres.png")};
+		new Fenix("Moltres", Bando::Entrenador, Tipo::Fuego, Tipo::Volador,{3,0},"bin/sprites/Blanca/moltres.png") };
 
 
 
@@ -125,36 +125,53 @@ void Tablero::inicializar_tablero()
 
 	//Posicion Hechicero
 	colocar_pokemon(Alakazam->pos_tab.x, Alakazam->pos_tab.y, Alakazam);
+	cargar_pokemons(Alakazam);
 	colocar_pokemon(Gengar->pos_tab.x, Gengar->pos_tab.y, Gengar);
+	cargar_pokemons(Gengar);
 
 	//Posicion Volador
 	colocar_pokemon(Charizard[0]->pos_tab.x, Charizard[0]->pos_tab.y, Charizard[0]);
 	colocar_pokemon(Charizard[1]->pos_tab.x, Charizard[1]->pos_tab.y, Charizard[1]);
+	cargar_pokemons(Charizard[0]);
+	cargar_pokemons(Charizard[1]);
+
 	colocar_pokemon(Crobat[0]->pos_tab.x, Crobat[0]->pos_tab.y, Crobat[0]);
 	colocar_pokemon(Crobat[1]->pos_tab.x, Crobat[1]->pos_tab.y, Crobat[1]);
+	cargar_pokemons(Crobat[0]);
+	cargar_pokemons(Crobat[1]);
 
 	//Posicion Tanque
 	colocar_pokemon(Snorlax[0]->pos_tab.x, Snorlax[0]->pos_tab.y, Snorlax[0]);
 	colocar_pokemon(Snorlax[1]->pos_tab.x, Snorlax[1]->pos_tab.y, Snorlax[1]);
+	cargar_pokemons(Snorlax[0]);
+	cargar_pokemons(Snorlax[1]);
 	colocar_pokemon(Tyranitar[0]->pos_tab.x, Tyranitar[0]->pos_tab.y, Tyranitar[0]);
 	colocar_pokemon(Tyranitar[1]->pos_tab.x, Tyranitar[1]->pos_tab.y, Tyranitar[1]);
+	cargar_pokemons(Tyranitar[0]);
+	cargar_pokemons(Tyranitar[1]);
 
 
 	//Posicion Distancia
-	for (int i = 0; i < 4; i++) colocar_pokemon(Grovile[i]->pos_tab.x, Grovile[i]->pos_tab.y, Grovile[i]);
-	for (int i = 0; i < 4; i++) colocar_pokemon(Umbreon[i]->pos_tab.x, Umbreon[i]->pos_tab.y, Umbreon[i]);
+	for (int i = 0; i < 4; i++) { colocar_pokemon(Grovile[i]->pos_tab.x, Grovile[i]->pos_tab.y, Grovile[i]); cargar_pokemons(Grovile[i]); }
+	for (int i = 0; i < 4; i++) { colocar_pokemon(Umbreon[i]->pos_tab.x, Umbreon[i]->pos_tab.y, Umbreon[i]); cargar_pokemons(Umbreon[i]); }
 
 	//Posicion Basico
-	for (int i = 0; i < 7; i++) colocar_pokemon(Machomp[i]->pos_tab.x, Machomp[i]->pos_tab.y, Machomp[i]);
-	for (int i = 0; i < 7; i++) colocar_pokemon(Scraggy[i]->pos_tab.x, Scraggy[i]->pos_tab.y, Scraggy[i]);
+	for (int i = 0; i < 7; i++) { colocar_pokemon(Machomp[i]->pos_tab.x, Machomp[i]->pos_tab.y, Machomp[i]); cargar_pokemons(Machomp[i]); }
+	for (int i = 0; i < 7; i++) { colocar_pokemon(Scraggy[i]->pos_tab.x, Scraggy[i]->pos_tab.y, Scraggy[i]); cargar_pokemons(Scraggy[i]); }
+
 
 	//Posicion Cambiaforma
 	colocar_pokemon(Ditto[0]->pos_tab.x, Ditto[0]->pos_tab.y, Ditto[0]);
 	colocar_pokemon(Ditto[1]->pos_tab.x, Ditto[1]->pos_tab.y, Ditto[1]);
+	cargar_pokemons(Ditto[0]);
+	cargar_pokemons(Ditto[1]);
 
 	//Posicion Fenix
 	colocar_pokemon(Moltres[0]->pos_tab.x, Moltres[0]->pos_tab.y, Moltres[0]);
 	colocar_pokemon(Moltres[1]->pos_tab.x, Moltres[1]->pos_tab.y, Moltres[1]);
+	cargar_pokemons(Moltres[0]);
+	cargar_pokemons(Moltres[1]);
+
 }
 
 void Tablero::tablerodibuja() {
@@ -181,6 +198,7 @@ int Tablero::distancia(int fi, int ci, int ff, int cf) {
 bool Tablero::casillaocupada(int ff, int cf) {
 	if (matriz[ff][cf] != nullptr)
 			return true;
+			return false;
 	}
 
 bool Tablero::casillaaliado(int ff, int cf, Pokemon* p) {
@@ -391,4 +409,40 @@ bool Tablero::turnofinalizadoexito()
 	fichaSeleccionada = nullptr;
 	fichaYaSeleccionada = false;
 	return true;
+}
+
+
+bool Tablero::controla_puntos_poder(Bando b) {
+	int poder[5][2] = { {0,4},{4,0},{4,4},{4,8},{8,4} };
+	for (auto p : poder)
+		if (matriz[p[0]][p[1]] == nullptr ||
+			matriz[p[0]][p[1]]->obtener_bando() != b)
+			return false;
+	return true;
+}
+
+void Tablero::cargar_pokemons(Pokemon* p) {
+
+	if (p->obtener_bando() == Bando::Entrenador)
+		equipo_entrenador.push_back(p);
+	else
+		equipo_rocket.push_back(p);
+}
+
+bool Tablero::quedan_piezas(Bando b) {
+
+	if (b == Bando::Entrenador) {
+		for (auto p : equipo_entrenador)
+
+			if (p->consultar_estado() == Estado::Vivo)
+			return true;
+	}
+	else {
+		for (auto p : equipo_rocket)
+
+			if (p->consultar_estado() == Estado::Vivo)
+
+			return true;
+	}
+	return false;
 }

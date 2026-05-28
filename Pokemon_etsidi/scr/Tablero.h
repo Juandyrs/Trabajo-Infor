@@ -3,8 +3,10 @@
 #include "Pokemon.h"
 #include "cmath"
 #include "Casilla.h"
+#include <vector>
 enum class VENTAJA { JUGADOR, NADA, ROCKET }; //SERVIARÁ MAS ADELANTE PARA LOS MODOS Y VENTAJAS
 enum class TURNO {JUGADOR1, JUGADOR2};
+
 
 class Tablero
 {
@@ -14,7 +16,8 @@ class Tablero
 	int numeroturno = 1;
 	Pokemon* fichaSeleccionada = nullptr; //PARA LA FICHA SELECCIONADA
 	bool fichaYaSeleccionada = false; //SIRVE PARA SABER SI ESTA AGARRADA
-
+	vector <Pokemon*> equipo_entrenador; 
+	vector <Pokemon*> equipo_rocket; 
 
 	Casilla* casillas[9][9]={nullptr};
 	int cursor_f = 0, cursor_c = 0; //posicion del cursor del tablero
@@ -56,6 +59,14 @@ public:
 	Pokemon* seleccionar_cursor() { return matriz[cursor_f][cursor_c]; }
 	int obtener_cursor_f() const { return cursor_f; }
 	int obtener_cursor_c() const { return cursor_c; }
+
+	//para comprobar condiciones de victoria
+	bool controla_puntos_poder(Bando b); //victoria por puntos de poder
+	bool quedan_piezas(Bando b);         // victoria porque al otro no le quedan piezas
+
+	//para cargar los pokemons en sus respectivos vectores de cada bando
+
+	void cargar_pokemons(Pokemon* p);
 
 };
 

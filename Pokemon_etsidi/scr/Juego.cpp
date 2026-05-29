@@ -6,6 +6,7 @@
 #include "tiposp/Fenix.h"
 #include "tiposp/Hechicero.h"
 #include <ETSIDI.h>
+
 using namespace std; 
 
 //funciones para escribir en 2D freeglut
@@ -382,7 +383,7 @@ void Juego::jugar()
 
 	case ARENA:
 
-		arena_combate(*new Hechicero("Alakazam", Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno, { 4,0 }, "bin/sprites/Blanca/AlakazamS.png"),
+		arena_combate(*new Fenix("Moltres", Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno, { 4,0 }, "bin/sprites/Blanca/CharizardS.png"),
 			*new Hechicero("Alakazam", Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno, { 4,0 }, "bin/sprites/Blanca/AlakazamS.png"));
 
 		break;

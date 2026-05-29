@@ -41,6 +41,7 @@ public:
 	{
 		ataque = new Rango(20.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 0.5, 0.5);
 		hitbox = new HitboxRectangular({ 0.5,  0.5 });
+
 		sprites->setSize(1.2, 1.2);
 		sprites->setCenter(0.60, 0.55);
 	}

@@ -17,30 +17,13 @@ public:
 		ataque = new Rango(20.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 0.5, 0.25);
 		vida_max = 60.0;
 		vida_actual = 60.0;
-		velocidad = 0.25;
+		velocidad = 0.5;
 		dano = 20.0;
 		cooldown = 5;
 		hitbox = new HitboxRectangular({ 0.5,  0.5 });
-
-
 	}
 
 	Distancia(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t, string s)
-		: Pokemon(
-			  n        //Nombre
-			, tipo1
-			, tipo2
-			, b        //Bando
-			, 'D'
-			, TipoMovimiento::Tierra
-			, pos_t
-			, 3        //Numero de casilla
-			, 60.0    //Vida
-			, 0.2     //Velocidad
-			, 20.0    //Dano
-			, 5.0     //Cooldown
-			, s       //Ruta de imagen
-		)
 	{
 		// No se pueden inicializar miembros heredados en la lista de inicialización
 		//Arena
@@ -60,8 +43,6 @@ public:
 		pos_tab = pos_t;
 		simbolo = 'D';
 		sprite = s;
-		numero_casillas = 3;
-		movimiento = TipoMovimiento::Tierra;
 	}
 
 };

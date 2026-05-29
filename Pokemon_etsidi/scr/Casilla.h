@@ -7,14 +7,9 @@ enum class TipoCasilla{clara,oscura,neutr,poder,aviso_neutro,aviso_claro,aviso_o
 
 class Casilla
 {
-
-
-	friend class Tablero; 
-	friend class Cursor; 
-
 	int columna, fila;
 	TipoCasilla tipo;
-	Pokemon* personaje = nullptr;
+	Pokemon* personaje;
 	int cambio;
 
 public:
@@ -33,8 +28,7 @@ public:
 	int obtener_cambio() const { return cambio; }
 	void avanzar_ciclo();
 
-	void dibujarcasilla(Pokemon* p); 
+	void dibujar(Pokemon* p= nullptr);
 
-	
 };
 

@@ -86,30 +86,6 @@ public:
 		, sprite("")
 	{}
 
-	Pokemon(string n, Tipo tip1, Tipo tip2, Bando b, char c, TipoMovimiento mov, Vector2D pos_t, int nc, double v, double vel, double d, double cd, string s)
-		: nombre(n)
-		, tip1(tip1)
-		, tip2(tip2)
-		, equipo(b)
-		, estado(Estado::Vivo)
-		, simbolo(c)
-		, movimiento(mov)
-		, pos_tab(pos_t)
-		, numero_casillas(nc)
-		, atacando(false)
-		, efecto_estado(EfectoEstado::Ninguno)
-		, duracion_efecto(0)
-		, vida_max(v)
-		, vida_actual(v)
-		, velocidad(vel)
-		, dano(d)
-		, cooldown(cd)
-		, hitbox(new HitboxRectangular)
-		, dir_mov{ 0.0, 0.0 }
-		, ataque(nullptr)
-		, sprite(s)
-	{}
-
 	friend class ArenaCombate;
 	friend class Tablero;
 	friend class Obs_Piedra;
@@ -121,18 +97,15 @@ public:
 	void inicializa_mov(TipoMovimiento mov, int nu_ca);
 	
 	//TABLERO LOGICO 
-	char obtener_simbolo() const { return simbolo; }
+	char obtener_simbolo() { return simbolo; }
 
-	//Metodos Relacionados con el tablero y cursor
+	//Metodos Relacionados con el tablero
 	Bando obtener_bando() { return equipo; } //para el color de la ficha
 	string obtenersprite() { return sprite;  } //PARA PODER ENCONTRAR LA RUTA CON FACILIDAD EN EL DIBUJADO
 	TipoMovimiento obtenertipomovimiento() { return movimiento; }
-	int obtenerfila() { return pos_tab.x; }
-	int obtenercolumna() { return pos_tab.y; }
-	int obtenerncasillas() { return numero_casillas; }
 
 	//DIBUJADO
-	//void pokemondibuja(int f, int c);
+	void pokemondibuja(int f, int c);
 
 	//Metodos Relacionados con la Arena
 
@@ -151,8 +124,7 @@ public:
 	double consultar_vidamax() const { return vida_max; }
 	double consultar_cd() const { return cooldown; }
 	Ataque* consultar_ataque() const { return ataque; }
-	EfectoEstado consultar_efecto_estado() const { return efecto_estado; }
-	Estado consultar_estado() const { return estado; }
+	EfectoEstado consultar_estado() const { return efecto_estado; }
 	int consultar_duracion_estado() const { return duracion_efecto; }
 
 	virtual void atacar(Pokemon &objetivo);

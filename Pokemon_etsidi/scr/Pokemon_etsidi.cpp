@@ -82,7 +82,6 @@ void OnTimer(int value)
 	//código de animacion
 	
 	Archon.jugar();
-	Archon.animar();
 
 	//no borrar estas lineas
 	//indicamos que se vuelva a dibujar la pantalla, para que se vean los cambios

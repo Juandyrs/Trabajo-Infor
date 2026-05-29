@@ -28,7 +28,7 @@ bool Rango::colision_ataque(Pokemon &objetivo)
 	if (dir_atk.modulo() == 0) return false; // Si la dirección es un vector nulo, no se detecta colisión
 
 	if (Colisiones::colision(hitbox, objetivo.consultar_hitbox())
-		&& (objetivo.consultar_efecto_estado() != EfectoEstado::Invulnerable))
+		&& (objetivo.consultar_estado() != EfectoEstado::Invulnerable))
 	{
 		// Colisión detectada, aplicar daño al objetivo
 		objetivo.recibir_dano(dano);
@@ -41,12 +41,7 @@ bool Rango::colision_ataque(Pokemon &objetivo)
 
 void Melee::iniciar_ataque(Vector2D posicion, Vector2D dir)
 {
-	double ang_ataque = dir.argumento();
-	HitboxRectangular* h = dynamic_cast<HitboxRectangular*>(hitbox);
-	HitboxRectangular* aux = new HitboxRectangular(*h);
-	Vector2D ataque_centro = posicion + Vector2D{ aux->rectangulo.x * cos(ang_ataque),  aux->rectangulo.y * sin(ang_ataque) };
-
-	hitbox->pos = ataque_centro;
+	hitbox->pos = posicion;
 	dir_atk = dir;
 }
 
@@ -58,7 +53,7 @@ void Melee::atacar_dibujar()
 
 	HitboxRectangular* aux = dynamic_cast<HitboxRectangular*>(hitbox);
 
-	glTranslated(hitbox->pos.x, hitbox->pos.y, 0);
+	glTranslated(hitbox->pos.x + cos(ang_ataque)*aux->rectangulo.x, hitbox->pos.y + sin(ang_ataque) * aux->rectangulo.y, 0);
 	glRotated(ang_ataque * 180 / std::numbers::pi, 0, 0, 1);
 	glDisable(GL_LIGHTING);
 	glColor3ub(255, 0, 0);
@@ -70,18 +65,22 @@ void Melee::atacar_dibujar()
 	glEnd();
 	glEnable(GL_LIGHTING);
 	glRotated(-ang_ataque * 180 / std::numbers::pi, 0, 0, 1);
-	glTranslated(-hitbox->pos.x, -hitbox->pos.y, 0);
+	glTranslated(-(hitbox->pos.x + cos(ang_ataque) * aux->rectangulo.x), -(hitbox->pos.y + sin(ang_ataque) * aux->rectangulo.y), 0);
 }
 
 bool Melee::colision_ataque(Pokemon &objetivo)
 {
+	double ang_ataque = dir_atk.argumento();
 	static int frame = frame_ataque;
 	HitboxRectangular *h = dynamic_cast<HitboxRectangular*>(hitbox);
 	HitboxRectangular *aux = new HitboxRectangular(*h);
+	Vector2D ataque_centro = hitbox->pos + Vector2D{ aux->rectangulo.x * cos(ang_ataque),  aux->rectangulo.y * sin(ang_ataque) };
+
+	aux->pos = ataque_centro;
 
 	//Debido a que el ataque melee puede estar rotado hay ligeros errores en la colision, por mientras se deja como si no lo estuviera. Es suficientemente aceptable
 	if (Colisiones::colision(aux, objetivo.consultar_hitbox())
-		&& (objetivo.consultar_efecto_estado() != EfectoEstado::Invulnerable))
+		&& (objetivo.consultar_estado() != EfectoEstado::Invulnerable))
 	{
 		objetivo.recibir_dano(dano);
 		delete aux;
@@ -123,7 +122,7 @@ bool Area::colision_ataque(Pokemon& objetivo)
 	static int frame = frame_ataque;
 
 	if (Colisiones::colision(hitbox, objetivo.consultar_hitbox())
-		&& (frame % 10 == 0) && (objetivo.consultar_efecto_estado() != EfectoEstado::Invulnerable))
+		&& (frame % 10 == 0) && (objetivo.consultar_estado() != EfectoEstado::Invulnerable))
 	{
 		objetivo.recibir_dano(dano);
 	}

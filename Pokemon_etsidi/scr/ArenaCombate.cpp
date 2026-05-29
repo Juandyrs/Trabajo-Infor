@@ -10,15 +10,8 @@ double cd1 = 0.0, cd2 = 0.0;
 
 void ArenaCombate::dibuja_Arena()
 {
-	obstaculos.dibujar_Obstaculos();
-	dibuja_Personajes();
-	dibuja_Ataques();
-	dibuja_suelo();
-	dibuja_BarrasVida();
-}
 
-void ArenaCombate::dibuja_suelo()
-{
+	//Dibujar el suelo de la arena
 	glDisable(GL_LIGHTING);
 	glBegin(GL_POLYGON);
 	glColor3ub(255, 255, 0);
@@ -29,6 +22,7 @@ void ArenaCombate::dibuja_suelo()
 	glVertex3d(dimensiones_arena.x, -dimensiones_arena.y, 0);
 	glEnd();
 	glEnable(GL_LIGHTING);
+
 }
 
 void ArenaCombate::dibuja_Personajes()
@@ -140,10 +134,9 @@ void ArenaCombate::dibuja_Ataques()
 	}
 }
 
-
-void ArenaCombate::animaciones_arena()
+void ArenaCombate::dibuja_Obstaculos()
 {
-	obstaculos.animar();
+	obstaculos.dibujar_Obstaculos();
 }
 
 //Metodos de movimiento y ataque
@@ -168,11 +161,8 @@ void ArenaCombate::arena_combate()
 		atk2_ini = false;
 	}
 
-	if (equipo1->atacando) equipo1->atacando = !InteraccionArena::colisiona_ataques_obst(obstaculos, *equipo1->consultar_ataque());
-	if (equipo1->atacando) equipo1->atacando = !InteraccionArena::colision_ataques_arena(*this, *equipo1->consultar_ataque());
-
-	if (equipo2->atacando) equipo2->atacando = !InteraccionArena::colisiona_ataques_obst(obstaculos, *equipo2->consultar_ataque());
-	if (equipo2->atacando) equipo2->atacando = !InteraccionArena::colision_ataques_arena(*this, *equipo2->consultar_ataque());
+	if(equipo1->atacando) equipo1->atacando = !InteraccionArena::colision_ataques_arena(*this, *equipo1);
+	if(equipo2->atacando) equipo2->atacando = !InteraccionArena::colision_ataques_arena(*this, *equipo2);
 
 	equipo1->atacar(*equipo2);
 	equipo2->atacar(*equipo1);
@@ -219,7 +209,7 @@ void ArenaCombate::inicializa_obstaculos()
 		}
 
 		//Para evitar que un obstaculo se genere encima de otro obstaculo
-		for (int j = 0; j < obstaculos.size(); j++)
+		for (int j = 0; j < obstaculos.obtener_Tamano(); j++)
 		{
 			if (Colisiones::colision(temporal.consultar_hitbox(), obstaculos.obtener_Obstaculo(j).consultar_hitbox()))
 			{
@@ -264,63 +254,34 @@ void ArenaCombate::inicializa_Arena(Pokemon *t1, Pokemon *t2, bool ia)
 
 Pokemon* ArenaCombate::devolver_ganador()
 {
-	if (equipo1->vida_actual == 0)
-	{
-		equipo1->estado = Estado::Muerto;
-		return equipo2;
-	}
-	if (equipo2->vida_actual == 0)
-	{
-		equipo2->estado = Estado::Muerto;
-		return equipo1;
-	}
+	if (equipo1->vida_actual == 0) return equipo2;
+	if (equipo2->vida_actual == 0) return equipo1;
 	return nullptr;
 }
 
 void ArenaCombate::mueve_personaje(bool key[])
 {
-	Vector2D dir1{ 0,0 };
 
-	if (key['w']|| key['W']) dir1 += { 0.0, 1.0 };
-	if (key['s'] || key['S']) dir1 += { 0.0, -1.0 };
-	if (key['d'] || key['D']) dir1 += { 1.0, 0.0 };
-	if (key['a'] || key['A']) dir1 += { -1.0, 0.0 };
+	if ((key['w']|| key['W']) && !(key['d'] || key['D']) && !(key['a'] || key['A'])) equipo1->mover_arena({ 0.0, 1.0 });
+	if ((key['s'] || key['S']) && !(key['d'] || key['D']) && !(key['a'] || key['A'])) equipo1->mover_arena({ 0.0, -1.0 });
+	if ((key['d'] || key['D']) && !(key['w'] || key['W']) && !(key['s'] || key['S'])) equipo1->mover_arena({ 1.0, 0.0 });
+	if ((key['a'] || key['A']) && !(key['w'] || key['W']) && !(key['s'] || key['S'])) equipo1->mover_arena({ -1.0, 0.0 });
+	if ((key['w'] || key['W']) && (key['d'] || key['D'])) equipo1->mover_arena({ sqrt(2) / 2, sqrt(2) / 2 });
+	if ((key['w'] || key['W']) && (key['a'] || key['A'])) equipo1->mover_arena({ -sqrt(2) / 2, sqrt(2) / 2 });
+	if ((key['s'] || key['S']) && (key['d'] || key['D'])) equipo1->mover_arena({ sqrt(2) / 2, -sqrt(2) / 2 });
+	if ((key['s'] || key['S']) && (key['a'] || key['A'])) equipo1->mover_arena({ -sqrt(2) / 2, -sqrt(2) / 2 });
 	if ((key['f'] || key['F']) && cd1 <= 0) atk1_ini = true;
-	if (dir1.modulo() != 0) equipo1->mover_arena(dir1.unitario());
-
+		
 	if (IA_activa) return;
 
-	Vector2D dir2{ 0,0 };
-
-	if (key['i'] || key['I']) dir2 += { 0.0, 1.0 };
-	if (key['k'] || key['K']) dir2 += { 0.0, -1.0 };
-	if (key['l'] || key['L']) dir2 += { 1.0, 0.0 };
-	if (key['j'] || key['J']) dir2 += { -1.0, 0.0 };
+	if ((key['i'] || key['I']) && !(key['l'] || key['L']) && !(key['j'] || key['J'])) equipo2->mover_arena({ 0.0, 1.0 });
+	if ((key['k'] || key['K']) && !(key['l'] || key['L']) && !(key['j'] || key['J'])) equipo2->mover_arena({ 0.0, -1.0 });
+	if ((key['l'] || key['L']) && !(key['i'] || key['I']) && !(key['k'] || key['K'])) equipo2->mover_arena({ 1.0, 0.0 });
+	if ((key['j'] || key['J']) && !(key['i'] || key['I']) && !(key['k'] || key['K'])) equipo2->mover_arena({ -1.0, 0.0 });
+	if ((key['i'] || key['I']) && (key['l'] || key['L'])) equipo2->mover_arena({ sqrt(2) / 2, sqrt(2) / 2 });
+	if ((key['i'] || key['I']) && (key['j'] || key['J'])) equipo2->mover_arena({ -sqrt(2) / 2, sqrt(2) / 2 });
+	if ((key['k'] || key['K']) && (key['l'] || key['L'])) equipo2->mover_arena({ sqrt(2) / 2, -sqrt(2) / 2 });
+	if ((key['k'] || key['K']) && (key['j'] || key['J'])) equipo2->mover_arena({ -sqrt(2) / 2, -sqrt(2) / 2 });
 	if ((key['h'] || key['H']) && cd2 <= 0) atk2_ini = true;
-	if (dir2.modulo() != 0) equipo2->mover_arena(dir2.unitario());
-
 }
  
-void ArenaCombate::resetear_Arena()
-{
-	//Reinicio los obstaculos
-	obstaculos.eliminar_Contenido();
-
-	//Reinicio variables internas
-	atk1_ini = false;
-	atk2_ini = false;
-	cd1 = 0.0;
-	cd2 = 0.0;
-
-	//Reinicio ataque de pokemons y algunas estadisticas
-	equipo1->atacando = false;
-	equipo2->atacando = false;
-	equipo1->ataque->dano = equipo1->dano;
-	equipo2->ataque->dano = equipo2->dano;
-	equipo1->efecto_estado = EfectoEstado::Ninguno;
-	equipo2->efecto_estado = EfectoEstado::Ninguno;
-	equipo1->duracion_efecto = 0;
-	equipo2->duracion_efecto = 0;
-	equipo1->dir_mov = Vector2D{ 0.0,0.0 };
-	equipo2->dir_mov = Vector2D{ 0.0,0.0 };
-}

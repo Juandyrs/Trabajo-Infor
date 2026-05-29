@@ -2,10 +2,14 @@
 
 #include "Pokemon.h"
 #include "Ataque.h"
+#include "Hechizo.h"
 
 class Hechicero :
     public Pokemon
 {
+
+	Hechizo hechizos; 
+
 
 public:
 
@@ -24,7 +28,7 @@ public:
 
 	Hechicero(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t, string s)
 		: Pokemon(
-			  n        //Nombre
+			n        //Nombre
 			, tipo1
 			, tipo2
 			, b        //Bando
@@ -37,6 +41,7 @@ public:
 			, 10.0    //Dano
 			, 5.0     //Cooldown
 			, s       //Ruta de imagen
+			, 
 		)
 	{
 		ataque = new Rango(20.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 0.5, 0.5);

@@ -249,7 +249,7 @@ void ArenaCombate::limita_movimiento()
 	if (equipo2->hitbox->pos.y <= -dimensiones_arena.y) equipo2->hitbox->pos.y = -dimensiones_arena.y;
 }
 
-void ArenaCombate::inicializa_Arena(Pokemon *t1, Pokemon *t2, bool ia)
+void ArenaCombate::inicializa_Arena(Pokemon *t1, Pokemon *t2, bool ia, TipoCasilla casilla)
 {
 	IA_activa = ia;
 

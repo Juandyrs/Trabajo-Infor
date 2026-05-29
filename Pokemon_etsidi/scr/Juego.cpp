@@ -411,7 +411,7 @@ void Juego::arena_combate(Pokemon &equipo1, Pokemon &equipo2, TipoCasilla tipo)
 			p.cambiar_forma(equipo1);
 		}
 
-		Arena.inicializa_Arena(&equipo1, &equipo2, IA_activa);
+		Arena.inicializa_Arena(&equipo1, &equipo2, IA_activa, tipo);
 		IA::estado_arena = Estado_Arena::Buscar;
 		primera_vez = false;
 	}
@@ -463,7 +463,7 @@ void  Juego::actualizar_juego(double dt)
 void Juego::TableroArena() {
 	if (Mitablerito.arenabandera == true) {
 		pantallaActual = ARENA;
-		arena_combate(*Mitablerito.ataque, *Mitablerito.defensa, Mitablerito.casillaarena);
+		Arena.inicializa_Arena(Mitablerito.ataque, Mitablerito.defensa, false, Mitablerito.casillaarena);
 	}
 
 }

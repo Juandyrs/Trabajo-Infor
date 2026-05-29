@@ -4,6 +4,7 @@
 #include "Pokemon.h"
 #include "Obstaculo.h"
 #include "ListaObstaculos.h"
+#include "Casilla.h"
 
 class ArenaCombate
 {
@@ -55,7 +56,7 @@ public:
 	void limita_movimiento();
 
 	//Metodos de inicializacion y reseteo
-	void inicializa_Arena(Pokemon *t1, Pokemon *t2, bool ia);
+	void inicializa_Arena(Pokemon *t1, Pokemon *t2, bool ia, TipoCasilla casilla);
 	void resetear_Arena();
 	Pokemon* devolver_ganador();
 	void actualizar_arena(double dt);

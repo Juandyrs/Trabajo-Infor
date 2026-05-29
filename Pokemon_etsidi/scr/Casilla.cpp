@@ -1,4 +1,6 @@
 #include "Casilla.h"
+#include "Pokemon.h"
+#include "Tablero.h"
 
 void Casilla::inicializar(int f, int c) {
 
@@ -45,6 +47,8 @@ void Casilla::inicializar(int f, int c) {
 
 }
 
+
+
 void Casilla::avanzar_ciclo() {
 
 	if (cambio < 0) return;
@@ -64,7 +68,7 @@ void Casilla::avanzar_ciclo() {
 
 }
 
-void Casilla::dibujar(Pokemon* p) {
+void Casilla::dibujarcasilla(Pokemon* p){
 
     float lado = 5.0f; //tamano del lado del cuadrado
 
@@ -73,7 +77,7 @@ void Casilla::dibujar(Pokemon* p) {
     float x = columna * lado;
     float y = fila * lado;
 
-    
+
 
     //seleccionamos el color en funcion del estado de la casilla
 
@@ -119,7 +123,7 @@ void Casilla::dibujar(Pokemon* p) {
     glVertex2f(x + lado, y + lado);
     glVertex2f(x, y + lado);
     glEnd();
-
+    
     // Dibujar pokeball morada
     if (tipo == TipoCasilla::poder && p == nullptr) {
         ETSIDI::GLTexture tex = ETSIDI::getTexture("bin/sprites/masterball.png"); 
@@ -148,29 +152,47 @@ void Casilla::dibujar(Pokemon* p) {
     }
 
 
-    //dibujamos los pokemons
-
-    if (p != nullptr) {
+    //DESDE AQUI ES PARA LOS POKEMONs
+        if (p != nullptr) {
         ETSIDI::GLTexture tex = ETSIDI::getTexture(p->obtenersprite().c_str());
 
-      
+            float cx = x + lado * 0.5f;   
+            float cy = y + lado * 0.5f;   
 
-        if (tex.id != 0) {
-            float margen = 0.5f;
+            float escala = 0.45f;         //ESCALA, VA DE 0 a 1
+            float tamano = lado * escala;   
 
-            glDisable(GL_DEPTH_TEST);
+            glPushMatrix();
+
+            // Plano base
+            glPushMatrix();
+            glTranslatef(cx, cy, 0.52f);
+            glBegin(GL_QUADS);
+            glVertex3f(-tamano, -tamano, 0);
+            glVertex3f(tamano, -tamano, 0);
+            glVertex3f(tamano, tamano, 0);
+            glVertex3f(-tamano, tamano, 0);
+            glEnd();
+            glPopMatrix();
+
             glEnable(GL_TEXTURE_2D);
             glBindTexture(GL_TEXTURE_2D, tex.id);
             glEnable(GL_BLEND);
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-            glColor3ub(255, 255, 255);
+
+            glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture(p->obtenersprite().c_str()).id);
+
+            glPushMatrix();
+            glTranslatef(cx, cy, 0.53f);
 
             glBegin(GL_QUADS);
-            glTexCoord2f(0, 1); glVertex2f(x + margen, y + margen);
-            glTexCoord2f(1, 1); glVertex2f(x + lado - margen, y + margen);
-            glTexCoord2f(1, 0); glVertex2f(x + lado - margen, y + lado - margen);
-            glTexCoord2f(0, 0); glVertex2f(x + margen, y + lado - margen);
+            glTexCoord2f(0, 0); glVertex3f(-tamano, -tamano, 0);
+            glTexCoord2f(1, 0); glVertex3f(tamano, -tamano, 0);
+            glTexCoord2f(1, 1); glVertex3f(tamano, tamano, 0);
+            glTexCoord2f(0, 1); glVertex3f(-tamano, tamano, 0);
             glEnd();
+
+            glPopMatrix();
 
             glDisable(GL_BLEND);
             glDisable(GL_TEXTURE_2D);
@@ -179,4 +201,6 @@ void Casilla::dibujar(Pokemon* p) {
     }
 
 
-}
+            glPopMatrix();
+        }
+    }

@@ -51,49 +51,7 @@ void Pokemon::mover_arena(Vector2D dir)
 	hitbox->pos += dir_mov * velocidad;
 }
 
-void Pokemon::pokemondibuja(int f, int c) {
-	//NO HACE FALTA PASARLE EL PUNTERO DE POKEMON PARA SABER SI HAY ALGO POR QUE YA LO HACE LA FUNCION DE DIBUJADO DE TABLERO
-
-	glPushMatrix();
-
-	//TODO ESTO ES PARA LAS PANOS
-
-		//COLOCAR LOS PLANOS EN EL CENTRO DE LA CASILLA CORRESPONDIENTE
-	glPushMatrix();
-	glTranslatef(c + 0.5f, f + 0.5f, 0.51f); // justo encima de la casilla
-	glBegin(GL_QUADS);
-	glVertex3f(-0.45f, -0.45f, 0);
-	glVertex3f(0.45f, -0.45f, 0);
-	glVertex3f(0.45f, 0.45f, 0);
-	glVertex3f(-0.45f, 0.45f, 0);
-	glEnd();
-
-	glPopMatrix();
-
-
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-
-
-	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture(obtenersprite().c_str()).id);
-	glPushMatrix();
-	glTranslatef(c + 0.5f, f + 0.5f, 0.5f);  // encima del plano
-
-	glBegin(GL_QUADS);
-	glTexCoord2f(0, 0); glVertex3f(-0.45f, -0.45f, 0);
-	glTexCoord2f(1, 0); glVertex3f(0.45f, -0.45f, 0);
-	glTexCoord2f(1, 1); glVertex3f(0.45f, 0.45f, 0);
-	glTexCoord2f(0, 1); glVertex3f(-0.45f, 0.45f, 0);
-	glEnd();
-
-	glPopMatrix();
-
-	glDisable(GL_BLEND);
-	glDisable(GL_TEXTURE_2D);
-
-}
+//void Pokemon::pokemondibuja(int f, int c) {}
 
 Vector2D Pokemon::consultar_dim_hitbox() const
 {

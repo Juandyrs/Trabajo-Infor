@@ -37,8 +37,24 @@ public:
             , s        //Ruta de imagen
         )
     {
+        //Arena
 		ataque = new Rango(20.0, Vector2D{ 0.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 1.5, 0.25);
+        dano = 30;
+        vida_max = 60.0;
+        vida_actual = 60.0;
+        velocidad = 0.2;
         hitbox = new HitboxRectangular({ 0.5,  0.5 });
+
+        //Tablero
+        nombre = n;
+        equipo = b;
+        tip1 = tipo1;
+        tip2 = tipo2;
+        pos_tab = pos_t;
+        simbolo = 'V';
+        sprite = s;
+        numero_casillas = 3;
+        movimiento = TipoMovimiento::Vuelo;
     }
   
 };

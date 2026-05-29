@@ -123,13 +123,16 @@ public:
 	//TABLERO LOGICO 
 	char obtener_simbolo() const { return simbolo; }
 
-	//Metodos Relacionados con el tablero
-	Bando obtener_bando() const { return equipo; } //para el color de la ficha
-	string obtenersprite() const { return sprite;  } //PARA PODER ENCONTRAR LA RUTA CON FACILIDAD EN EL DIBUJADO
-	TipoMovimiento obtenertipomovimiento() const { return movimiento; }
+	//Metodos Relacionados con el tablero y cursor
+	Bando obtener_bando() { return equipo; } //para el color de la ficha
+	string obtenersprite() { return sprite;  } //PARA PODER ENCONTRAR LA RUTA CON FACILIDAD EN EL DIBUJADO
+	TipoMovimiento obtenertipomovimiento() { return movimiento; }
+	int obtenerfila() { return pos_tab.x; }
+	int obtenercolumna() { return pos_tab.y; }
+	int obtenerncasillas() { return numero_casillas; }
 
 	//DIBUJADO
-	void pokemondibuja(int f, int c);
+	//void pokemondibuja(int f, int c);
 
 	//Metodos Relacionados con la Arena
 

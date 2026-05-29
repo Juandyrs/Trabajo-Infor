@@ -3,6 +3,8 @@
 #include "Pokemon.h"
 #include "cmath"
 #include "Casilla.h"
+#include "Cursor.h"
+
 #include <vector>
 enum class VENTAJA { JUGADOR, NADA, ROCKET }; //SERVIARÁ MAS ADELANTE PARA LOS MODOS Y VENTAJAS
 enum class TURNO {JUGADOR1, JUGADOR2};
@@ -10,6 +12,7 @@ enum class TURNO {JUGADOR1, JUGADOR2};
 
 class Tablero
 {
+	friend class Cursor;
 
 	Pokemon* matriz[9][9] = { nullptr }; //Creo la matriz 9x9 de punteros a pokemons (VACIA) SE LLENA EN LA INICIALIZACIÓN
 	TURNO Turnoactual;
@@ -19,23 +22,32 @@ class Tablero
 	vector <Pokemon*> equipo_entrenador; 
 	vector <Pokemon*> equipo_rocket; 
 
+	//LOGICA MOVIMIENTOS
+	Pokemon* fichaseleccionada = nullptr; //PARA LA FICHA SELECCIONADA
+	bool fichayaseleccionada = false; //SIRVE PARA SABER SI ESTA AGARRADA
+	int Movimientosrestantes = 0; 
+	Cursor cursor;
 	Casilla* casillas[9][9]={nullptr};
 	int cursor_f = 0, cursor_c = 0; //posicion del cursor del tablero
 
 public:
 
 	void colocar_pokemon(int f, int c, Pokemon* p) { matriz[f][c] = p; } // no se puede poner &p puesto que p ya es un puntero a pokemon 
+	
+
+	Tablero() = default;
 	void dibujar_casillas();
-	void imprimir();
+void imprimir();
 	void inicializar_tablero();
 	//para leer el tablero en 2D
 	Pokemon* get_pokemon(int f, int c) { return matriz[f][c]; }
 
 	//DIBUJARSE A SI MISMO Y A LOS POKEMONS O CASILLAS CORRESPONDIENTES
 	void tablerodibuja();
+	void dibujar_tableroyfichas();
 
 	//SON PARA VER LAS CONDICIONES DE MOVIMIENTO DEL TABLERO
-	int distancia(int fi, int ci, int ff ,int cf);
+	int distanciarecorrida(int fi, int ci, int ff ,int cf);
 	bool casillaocupada(int ff, int cf);
 	bool casillaaliado(int ff, int cf, Pokemon* p);
 	bool casillaenemigo(int ff, int cf, Pokemon* p);
@@ -50,8 +62,7 @@ public:
 	void cambiarturno(); 
 	void conteoturno(); 
 	bool preparacioncombate(); //PARA PASARLE LOS PUNTEROS A JUEGO Y QUE SE INICIALICE LA ARENA Y CAMBIE DE TABLERO A ARENA
-	bool turnofinalizadoexito(); //VA A SER DONDE MOVER FICHA DETECTE TRUE Y HAGA EL CONTEO Y EL CAMBIO DE TURNO.
-
+	void turnofinalizadoexito(); //VA A SER DONDE MOVER FICHA DETECTE TRUE Y HAGA EL CONTEO Y EL CAMBIO DE TURNO.
 
 	//para mover el cursor y sacar el pokemon que esta en esa casilla 
 
@@ -64,8 +75,12 @@ public:
 	bool controla_puntos_poder(Bando b); //victoria por puntos de poder
 	bool quedan_piezas(Bando b);         // victoria porque al otro no le quedan piezas
 
+	//TABLERO MUEVE (FUNCION GLOBAL PARA PASAR A JUEGO)
+	void tableromueve(bool key[]);
 	//para cargar los pokemons en sus respectivos vectores de cada bando
 
+	void cogerpieza(bool key[]);
+	void soltarpieza(bool key[]);
 	void cargar_pokemons(Pokemon* p);
 
 };

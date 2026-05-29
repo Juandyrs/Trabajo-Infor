@@ -85,7 +85,7 @@ void Juego::dibujar_Juego()
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // Fondo gris oscuro para el tablero
 		
 	
-		Mitablerito.dibujar_casillas();
+		Mitablerito.tablerodibuja();
 		
 		/*
 		// --- LEYENDA DEL TABLERO ---
@@ -119,6 +119,7 @@ void Juego::dibujar_Juego()
 		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 20.5f, "Aviso (Cambio pronto)");
 
 		*/
+
 		
 
 
@@ -142,6 +143,7 @@ void Juego::dibujar_Juego()
 
 
 		Arena.dibuja_Arena();
+		Arena.dibuja_BarrasVida();
 
 		break;
 
@@ -161,7 +163,7 @@ void Juego::dibujar_Juego()
 		if (resultado == ResultadoJuego::GANADORENTRENADOR) {
 			static ETSIDI::Sprite fondoENT("bin/fondos/fondo_victoria_ENT.png", 4.5f, 4.5f, 9.0f, 9.0f); 
 			fondoENT.draw();
-		}
+	}
 		else {
 			static ETSIDI::Sprite fondoTR("bin/fondos/fondo_victoria_TR.png", 4.5f, 4.5f, 9.0f, 9.0f);
 			fondoTR.draw();
@@ -190,7 +192,7 @@ void Juego::dibujar_Juego()
 		break;
 
 
-	}
+}
 
 }
 
@@ -223,34 +225,10 @@ void Juego::mover_Juego(bool key[])
 	case TABLERO:
 
 		Mitablerito.imprimir(); //CADA VEZ QUE SALE DE LA ARENA REESCRIBE EL TABLERO
-
-		//para probar el cambio de turno
-
-		if (key['n']) {
-			Mitablerito.cambiarturno();
-			Mitablerito.conteoturno();
-			key['n']  = false;
-		}
-
-		// Movimiento cursor
-		if (key['w'] ) { Mitablerito.mover_cursor(1, 0); key['w'] = key['W'] = false; }
-		if (key['s'] ) { Mitablerito.mover_cursor(-1, 0);  key['s'] = key['S'] = false; }
-		if (key['a'] ) { Mitablerito.mover_cursor(0, -1); key['a'] = key['A'] = false; }
-		if (key['d'] ) { Mitablerito.mover_cursor(0, 1);  key['d'] = key['D'] = false; }
-
-		// Seleccionamos con enter
-
-		if (key[13]) {
-			Pokemon* p = Mitablerito.seleccionar_cursor();
-			if (p != nullptr)
-				cout << "Pokemon: " << p->consultar_nombre() << "\n";
-			else
-				cout << "Casilla vacía\n";
-			key[13] = false;
-		}
+		Mitablerito.tableromueve(key);
 
 		//Para Probar la Arena
-		if (key['p'] )
+		if (key['p'] || key['P'])
 		{
 			pantallaActual = ARENA;
 		}
@@ -261,9 +239,7 @@ void Juego::mover_Juego(bool key[])
 
 		Arena.mueve_personaje(key);
 
-		if (key['t'] ) pantallaActual = TABLERO;
-
-		break;
+		if (key['t'] || key['T']) pantallaActual = TABLERO;
 
 	case FIN:
 		if (key['r']) {

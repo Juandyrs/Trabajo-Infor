@@ -9,6 +9,7 @@
 #include "tiposp/Fenix.h"
 #include "tiposp/CambiaFormas.h"
 #include "ArenaCombate.h"
+#include "Casilla.h"	
 #include <cmath>
 
 using namespace std;
@@ -41,6 +42,8 @@ void Tablero::inicializar_tablero()
 		}
 	}
 
+	cursor.inicializarcursor(4, 4);
+
 	Turnoactual = TURNO::JUGADOR1;
 
 	//Hechiceros
@@ -48,7 +51,7 @@ void Tablero::inicializar_tablero()
 	Pokemon* Alakazam = new Hechicero("Alakazam", Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno, { 4,0 }, "bin/sprites/Blanca/alakazam.png");
 	Pokemon* Gengar = new Hechicero("Gengar", Bando::Team_Rocket, Tipo::Fantasma, Tipo::Veneno, { 4,8 }, "bin/sprites/Negra/gengar.png");
 
-
+	
 
 	//VOLADORES
 	Pokemon* Charizard[2]{
@@ -110,14 +113,14 @@ void Tablero::inicializar_tablero()
 	};
 
 	//Cambiaforma
-	Pokemon* Ditto[2]{
+	Pokemon* Ditto[2]{ 
 	new CambiaFormas("Ditto",Bando::Team_Rocket,Tipo::Normal,Tipo::Ninguno,{3,8},"bin/sprites/Negra/ditto.png"),
-	new CambiaFormas("Ditto",Bando::Team_Rocket,Tipo::Normal,Tipo::Ninguno,{5,8},"bin/sprites/Negra/ditto.png") };
+	new CambiaFormas("Ditto",Bando::Team_Rocket,Tipo::Normal,Tipo::Ninguno,{5,8},"bin/sprites/Negra/ditto.png")};
 
 	//Fenix
-	Pokemon* Moltres[2] = {
+	Pokemon* Moltres[2] = { 
 		new Fenix("Moltres", Bando::Entrenador, Tipo::Fuego, Tipo::Volador,{5,0},"bin/sprites/Blanca/moltres.png"),
-		new Fenix("Moltres", Bando::Entrenador, Tipo::Fuego, Tipo::Volador,{3,0},"bin/sprites/Blanca/moltres.png") };
+		new Fenix("Moltres", Bando::Entrenador, Tipo::Fuego, Tipo::Volador,{3,0},"bin/sprites/Blanca/moltres.png")};
 
 
 
@@ -174,25 +177,25 @@ void Tablero::inicializar_tablero()
 
 }
 
-void Tablero::tablerodibuja() {
+void Tablero::dibujar_tableroyfichas() {
+	for (int f = 0; f < 9; f++) {
+		for (int c = 0; c < 9; c++) {
 
-	for (int f = 0; f < 9; f++)
-	{
-		for (int c = 0; c < 9; c++)
-		{
-			Pokemon* p = matriz[f][c];
-
-			if (p != nullptr)
-			{
-				p->pokemondibuja(f, c);   //EL POKEMONCITO SE DIBUJA A SI MISMO QUE MONO
-			}
+			casillas[f][c]->dibujarcasilla(matriz[f][c]);
 		}
 	}
 }
 
-int Tablero::distancia(int fi, int ci, int ff, int cf) {
 
-	return abs(fi - ff) + abs(ci - cf); //COMPRUEBA EL NUMERO MÁXIMO DE CASILLAS QUE RECORRE LA FICHILLA
+void Tablero::tablerodibuja() { 
+	dibujar_tableroyfichas();
+	cursor.dibujarcursor();
+
+}
+
+int Tablero::distanciarecorrida(int fi, int ci, int ff, int cf) {
+
+	return abs(fi - ff) + abs(ci - cf); //COMPRUEBA EL NUMERO DE CASILLAS QUE RECORRE LA FICHILLA
 }
 
 bool Tablero::casillaocupada(int ff, int cf) {
@@ -236,7 +239,7 @@ bool Tablero::movimientoTerrestre(Pokemon* p, int fi, int ci, int ff, int cf) {
 
 		int pasos = std::max(abs(distanciafilas), abs(distanciacolumnas)); //TE DA EL MAYOR DE LOS DOS PARA VER CUANTAS CUADRICULAS VAS A PASAR
 
-		return true;
+	return true; 
 	}
 
 bool Tablero::movimientoVolador(Pokemon* p, int fi, int ci, int ff, int cf) {
@@ -262,63 +265,25 @@ bool Tablero::movimientoTipoValido(Pokemon* p, int fi, int ci, int ff, int cf) {
 		return movimientoPsiquico(p, fi, ci, ff, cf);
 
 	default:
-		return false;
+		return true;
 	}
 }
 
-int Tablero::movimientovalido(Pokemon* p, int nx, int ny) {
-
-	return nx; 
-}
-
-void Tablero::seleccionficha(int f, int c){
-	Pokemon* p = matriz[f][c]; //PILLA EL POKEMON DE LA FILA Y COLUMNA
-
-	//NO FICHA NO TRABAJO
-	if (p == nullptr)
-		return;
-
-	//FICHA NO ES DEL TURNO ACTUAL A TOMAR POR SACO (ES LA CONVERSIÓN DE LAS LISTAS A ENTEROS COMO HICE ANTERIORMENTE EN MOVER FICHA)
-	if (static_cast<int>(p->equipo) != static_cast<int>(Turnoactual))
-		return;
-
-	//SE SELECCIONA LA FICHA
-	fichaSeleccionada = p;
-	fichaYaSeleccionada = true;
-}
-
-bool Tablero::moverficha(Pokemon* p, int ff, int cf)
+int Tablero::movimientovalido(Pokemon* p, int ff, int cf)
 {
 
-	if (p == nullptr || static_cast<int>(Turnoactual) != static_cast<int>(p->equipo)) //VER SI LA PIEZA PERTENCE AL TURNO o NO
-		return false; 
-	//COMO ENTRENADOR y JUGADOR 1 VALEN 1 y ROCKET Y JUGADOR 2 valen 2 se pueden pasar a enteros para programar, es bastante improvisado, pero funciona de momento
+//CASILLA VACIA
+	if (!casillaocupada(ff, cf))
+		return 1;
 
-	int movimiento = movimientovalido(p, ff, cf); //COMPROBAR MOVIMIENTO
-	//0  INvalido
-	//1  VACIO
-	//2  ENEMIGO
+	else if (casillaocupada(ff, cf)) {
+		//CASILLA ALIADO
+		if (casillaaliado(ff, cf, p))
+			return 3;
 
-	if (movimiento == 0)
-		return false;
-
-	if (movimiento == 1) //CASILLA VACIA Y MOVIMIENTO VALIDO
-	{
-		//QUITARLO DE LA MATRIZ DE PUNTEROS POR QUE SE HA PODIDO MOVER
-		matriz[(int)p->pos_tab.x][(int)p->pos_tab.y] = nullptr; //PONGO EL INT POR QUE EL MALDITO VECTOR 2D ES DE DOUBLES Y MATRIZ SOLO ADMITE ENTEROS COMO POSICIONES
-
-		//COLOCARLO EN LA NUEVA CASILLA
-		matriz[ff][cf] = p;
-
-		//ACTUALIZAR POSICION EN TABLERO LOGICO
-		p->pos_tab.x = ff;
-		p->pos_tab.y = cf;
-
-		//CAMBIO DE TURNO
-		conteoturno(); 
-		cambiarturno();
-
-		return true; // SE HA MOVIDO CORRECTAMENTE
+		//CASILLA ENEMIGO
+		if (casillaenemigo(ff, cf, p))
+			return 2;
 	}
 
 	//if (movimiento == 2)
@@ -363,25 +328,51 @@ void Tablero::cambiarturno(){
 	else
 		Turnoactual = TURNO::JUGADOR1;
 
+}
+
+
+void Tablero::turnofinalizadoexito()
+{
+	cambiarturno();
+	conteoturno();   // numeroturno++
+}
+
+
 	//cambio las casillas cambiantes de tipo 
 
 	for (int f = 0; f < 9; f++)
 		for (int c = 0; c < 9; c++)
 			casillas[f][c]->avanzar_ciclo();
+//TABLERO MUEVE 
 
+void Tablero::tableromueve(bool key[]) {
+	cursor.Cursormover(key, matriz);
+	cogerpieza(key);
+	soltarpieza(key); 
 }
 
 
+//COGER PIEZA
 
+void Tablero::cogerpieza(bool key[]) {
 
+	int f = cursor.fila;
+	int c = cursor.columna;
 
+	if (key['e']) {
+		if (cursor.cursorllevaficha() == false) {
+			//NO TIENE FICHA EL CURSOR
+			if (matriz[f][c] != nullptr && ((int)matriz[f][c]->equipo) == int(Turnoactual)) {
+				cursor.cursorpillaficha(matriz[f][c]);
+				ETSIDI::play("bin/sonidos/sonidopoke.wav");
+				matriz[f][c] = nullptr;       //VACIAR ESA CASILLA
 void Tablero::dibujar_casillas() {
 
 	for (int f = 0; f < 9; f++) {
 		for (int c = 0; c < 9; c++) {
 			(*casillas[f][c]).dibujar(matriz[f][c]);
+			}
 		}
-	}
 
 	// dibujamos el cursor
 	float lado = 5.0f;
@@ -401,7 +392,7 @@ void Tablero::dibujar_casillas() {
 	glDisable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
 
-}
+	}
 bool Tablero::turnofinalizadoexito()
 {
 	cambiarturno();
@@ -411,7 +402,14 @@ bool Tablero::turnofinalizadoexito()
 	return true;
 }
 
+	//SOLTAR PIEZA
 
+void Tablero::soltarpieza(bool key[]) {
+
+	int f = cursor.fila;
+	int c = cursor.columna;
+
+	if (key['z']) {
 bool Tablero::controla_puntos_poder(Bando b) {
 	int poder[5][2] = { {0,4},{4,0},{4,4},{4,8},{8,4} };
 	for (auto p : poder)
@@ -420,29 +418,48 @@ bool Tablero::controla_puntos_poder(Bando b) {
 			return false;
 	return true;
 }
-
+	
 void Tablero::cargar_pokemons(Pokemon* p) {
 
+		if (cursor.cursorllevaficha() == true) {
+			if (cursor.actualdistancia == 0) { //SI SE HA MOVIDO DE SU CASILLA PERO VUELVE GASTA EL TURNO
+				matriz[cursor.fi][cursor.ci] = cursor.obtenerfichacursor();
+				cursor.cursorsueltaficha();
+				ETSIDI::play("bin/sonidos/sonidopoke.wav");
+				return;
 	if (p->obtener_bando() == Bando::Entrenador)
 		equipo_entrenador.push_back(p);
 	else
 		equipo_rocket.push_back(p);
-}
-
+			}
+			
 bool Tablero::quedan_piezas(Bando b) {
 
+			if (casillaocupada(f, c) && !casillaaliado(f, c, cursor.obtenerfichacursor())) { //CASILLA OCUPADA ESTA AL REVES, ACTUA ASI
 	if (b == Bando::Entrenador) {
 		for (auto p : equipo_entrenador)
 
+				if (casillaenemigo(f, c, cursor.obtenerfichacursor())) {
+					// ENEMIGO → lógica de combate/arena
+					return;
 			if (p->consultar_estado() == Estado::Vivo)
 			return true;
-	}
+				}
 	else {
 		for (auto p : equipo_rocket)
 
 			if (p->consultar_estado() == Estado::Vivo)
 
+				// Casilla libre
+				matriz[f][c] = cursor.obtenerfichacursor(); //COLOCA EN VACIA
+				cursor.cursorsueltaficha();
+				ETSIDI::play("bin/sonidos/sonidopoke.wav");
+				turnofinalizadoexito();
+			}
+			//ALIADO NO LO PONGO POR QUE NO ME HACE FALTA DE MOMENTO
+		}
 			return true;
 	}
+	
 	return false;
 }

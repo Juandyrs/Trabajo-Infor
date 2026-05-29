@@ -366,6 +366,7 @@ void Juego::logica_Juego()
 {
 	comprobar_victoria();
 	//aqui hay que meter el avance de los turnos 
+
 }
 
 void Juego::jugar()
@@ -377,20 +378,18 @@ void Juego::jugar()
 	case TABLERO:
 
 		logica_Juego();
+		TableroArena();
 
 		break;
 
 	case ARENA:
-
-		arena_combate(*new Hechicero("Alakazam", Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno, { 4,0 }, "bin/sprites/Blanca/AlakazamS.png"),
-			*new Hechicero("Alakazam", Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno, { 4,0 }, "bin/sprites/Blanca/AlakazamS.png"));
-
+		ArenaTablero();
 		break;
 	}
 
 }
 
-void Juego::arena_combate(Pokemon &equipo1, Pokemon &equipo2)
+void Juego::arena_combate(Pokemon &equipo1, Pokemon &equipo2, TipoCasilla tipo)
 {
 	static bool primera_vez = true;
 
@@ -458,4 +457,40 @@ void  Juego::animar()
 void  Juego::actualizar_juego(double dt)
 {
 	if (pantallaActual == EstadoPantalla::ARENA) Arena.actualizar_arena(dt);
+}
+
+void Juego::TableroArena() {
+	if (Mitablerito.arenabandera == true) {
+		pantallaActual = ARENA;
+		arena_combate(*Mitablerito.ataque, *Mitablerito.defensa, Mitablerito.casillaarena);
+	}
+
+}
+
+void Juego::ArenaTablero() {
+
+	Pokemon* ganador = Arena.devolver_ganador();
+
+	if (ganador == nullptr)
+		return; 
+
+//RECUPERAR LA POSICION POR QUE CURSOR DESAPARECE Y APARECE
+	int f = Mitablerito.filaCombate;
+	int c = Mitablerito.columnaCombate;
+
+//COLOCAR AL CANADOR
+	Mitablerito.matriz[f][c] = ganador;
+
+//BORRAR EL RESTO DE COSAS				//SI ESTAS COSAS VAN BIEN LAS ENCAPSULARE DENTRO DE TABLERO
+	Mitablerito.ataque = nullptr;
+	Mitablerito.defensa = nullptr;
+	Mitablerito.arenabandera = false;
+
+	Arena.resetear_Arena();
+
+	//VOLVER AL TABLERO
+	pantallaActual = TABLERO;
+
+	Mitablerito.turnofinalizadoexito();
+
 }

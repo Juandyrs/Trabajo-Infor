@@ -122,14 +122,14 @@ void Cursor::Cursormover(bool key[], Pokemon* matriz[9][9]) {
     if (fila < 0) fila = 0;
     if (fila > 8) fila = 8;
 
- 
+
     if (llevaficha == false) return;
-   
+
 
     //PARA MOVIMIENTOS TERRESTRES
 
-    if (llevaficha == true){
-        
+    if (llevaficha == true) {
+
         actualdistancia = abs(fi - fila) + abs(ci - columna);
 
         if (actualdistancia > maxdistancia) {
@@ -137,20 +137,34 @@ void Cursor::Cursormover(bool key[], Pokemon* matriz[9][9]) {
             columna = abscolumna;
         }
 
-        
+
         if (Tipomov == TipoMovimiento::Tierra) {
-            if (matriz[fila][columna] != nullptr) {
+
+            Pokemon* destino = (matriz[fila][columna]);
+
+
+            if (destino == nullptr) //VACIO SE PERMITE PASAR, LO QUE TENIAMOS PUEstO ANTES
+                return;
+
+
+            if (destino->obtener_bando() == fichaencursor->obtener_bando()) { //ALIADO NO TE DEJA PASAR, ES LO QUE TENIAMOS ANTES
                 fila = absfila;
                 columna = abscolumna;
+                return;
+            }
+
+
+            if (destino->obtener_bando() != fichaencursor->obtener_bando()) { //SI ES ENEMIGA SE QUEDA PARA PELEAR; LAS FICHAN NO PUEDEN HUIR NO SON COBARDES JAJAJ, SOLO SI SON TERRESTRES LAS OTAS PASAN POR ENCIMA, ADEMAS SE LE PERMITE VOLVER A LA DE PARTIDA SI ESTA AL LADO
+
+                maxdistancia = 0; //BLOQUEAR EN LA CASILLA (DEJARIA VOLVER A LA DE SALIDA SI ESTA AL LADO)
+
+
+                return;
             }
         }
+
     }
 
 
 
-}
-
-
-void Cursor::distancialactual() {
-    actualdistancia = fi + fila;
 }

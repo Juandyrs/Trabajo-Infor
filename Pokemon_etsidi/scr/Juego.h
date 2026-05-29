@@ -27,10 +27,12 @@ public:
 	void mover_Juego(bool key[]);
 	void logica_Juego();
 	void jugar();
-	void arena_combate(Pokemon& equipo1, Pokemon& equipo2);
+	void arena_combate(Pokemon& equipo1, Pokemon& equipo2, TipoCasilla tipo);
 	void comprobar_victoria();
 	void animar();
 	void actualizar_juego(double dt);
+	void TableroArena();
+	void ArenaTablero();
 
 };
 

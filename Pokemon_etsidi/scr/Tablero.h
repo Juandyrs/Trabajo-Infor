@@ -61,10 +61,18 @@ void imprimir();
 	void seleccionficha(int f, int c); //PARA SELECCIONAR LA FICHA
 	void cambiarturno(); 
 	void conteoturno(); 
-	bool preparacioncombate(); //PARA PASARLE LOS PUNTEROS A JUEGO Y QUE SE INICIALICE LA ARENA Y CAMBIE DE TABLERO A ARENA
 	void turnofinalizadoexito(); //VA A SER DONDE MOVER FICHA DETECTE TRUE Y HAGA EL CONTEO Y EL CAMBIO DE TURNO.
 
 	//para mover el cursor y sacar el pokemon que esta en esa casilla 
+
+	//COMBATE, PASAR LOS PUNTEROS AL EXTERIOR (JUEGO)
+	Pokemon* ataque = nullptr;
+	Pokemon* defensa = nullptr;
+	TipoCasilla casillaarena;
+	void cargadatosarena();
+	int filaCombate;
+	int columnaCombate;
+	bool arenabandera = false;
 
 	
 

@@ -175,6 +175,9 @@ void Tablero::inicializar_tablero()
 	cargar_pokemons(Moltres[0]);
 	cargar_pokemons(Moltres[1]);
 
+	imprimir();
+
+
 }
 
 void Tablero::dibujar_tableroyfichas() {
@@ -377,42 +380,59 @@ void Tablero::soltarpieza(bool key[]) {
 
 	if (key['z']) {
 
+		if (cursor.cursorllevaficha()) {
 
-		if (cursor.cursorllevaficha() == true) {
-			if (cursor.actualdistancia == 0) { //SI SE HA MOVIDO DE SU CASILLA PERO VUELVE GASTA EL TURNO
+			//VOLVER A LA DE PARTIDA SIN GASTAR MOV
+			if (cursor.actualdistancia == 0) {
 				matriz[cursor.fi][cursor.ci] = cursor.obtenerfichacursor();
 				cursor.cursorsueltaficha();
 				ETSIDI::play("sonidos/impacto.wav");
+				imprimir();
 				return;
 			}
 
+			///ENEMIGA y COMBATE
+			if (casillaenemigo(f, c, cursor.obtenerfichacursor())) {
 
-			if (!casillaocupada(f, c) && !casillaaliado(f, c, cursor.obtenerfichacursor())) { //CASILLA OCUPADA ESTA AL REVES, ACTUA ASI
+				ETSIDI::play("sonidos/impacto.wav");
 
-				if (casillaenemigo(f, c, cursor.obtenerfichacursor())) {
-					// ENEMIGO → lógica de combate/arena
-					return;
-				}
+				cargadatosarena();
+				cursor.cursorsueltaficha();
+				arenabandera = true;
+				turnofinalizadoexito();
+				imprimir();
 
-				// Casilla libre
-				matriz[f][c] = cursor.obtenerfichacursor(); //COLOCA EN VACIA
+				return;
+			}
+
+	//VACIA
+			if (!casillaocupada(f, c)) {
+
+				matriz[f][c] = cursor.obtenerfichacursor();
 				cursor.cursorsueltaficha();
 				ETSIDI::play("sonidos/impacto.wav");
 				turnofinalizadoexito();
+				imprimir();
+
+				return;
 			}
-			//ALIADO NO LO PONGO POR QUE NO ME HACE FALTA DE MOMENTO
+
+		//ALIADA
+			if (casillaaliado(f, c, cursor.obtenerfichacursor())) {
+				return;
+			}
 		}
 	}
 
 	if (key['q']) {
 		cout << cursor.actualdistancia << "\n";
 		cout << cursor.maxdistancia << "\n";
-		cout << cursor.ci<<cursor.fi << "\n";
+		cout << cursor.ci << cursor.fi << "\n";
 		cout << cursor.columna << cursor.fila << "\n";
 		cout << cursor.llevaficha;
+		cout << arenabandera;
 	}
 }
-
 
 
 
@@ -450,4 +470,13 @@ bool Tablero::quedan_piezas(Bando b) {
 				return true;
 	}
 	return false;
+}
+
+
+void Tablero::cargadatosarena() {
+	defensa = matriz[cursor.fila][cursor.columna];
+	ataque = cursor.obtenerfichacursor();
+	casillaarena = (casillas[cursor.fila][cursor.columna])->obtener_tipo();
+	filaCombate = cursor.fila;
+	columnaCombate = cursor.columna;
 }

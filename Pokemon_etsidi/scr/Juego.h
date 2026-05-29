@@ -5,7 +5,7 @@
 #include "tiposp/Distancia.h"
 
 //distintos tableros
-enum EstadoPantalla { MENU, TABLERO, ARENA,FIN };
+enum EstadoPantalla { MENU, TABLERO, ARENA,FIN,HECHIZOS };
 enum class ResultadoJuego { NOGANADOR, GANADORENTRENADOR, GANADORROCKET };
 
 

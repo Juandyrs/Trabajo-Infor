@@ -71,24 +71,23 @@ void Juego::dibujar_Juego()
 	case TABLERO:
 
 
-
 		
+		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glDisable(GL_LIGHTING);
+		glDisable(GL_TEXTURE_2D); 
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-	
 		gluOrtho2D(-5.0, 50.0, -5.0, 50.0);
 
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // Fondo gris oscuro para el tablero
-		
-	
+
 		Mitablerito.tablerodibuja();
 		
+		
 		/*
-		// --- LEYENDA DEL TABLERO ---
+		// leyenda
 		
 		glColor3f(1.0f, 1.0f, 1.0f); // Texto blanco
 		escribirCadena2D(47.0f, 40.0f, "LEYENDA:");
@@ -192,6 +191,85 @@ void Juego::dibujar_Juego()
 		break;
 
 
+	case HECHIZOS:
+	{
+		
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		glDisable(GL_LIGHTING);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		gluOrtho2D(-5.0, 50.0, -5.0, 50.0);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+
+		Mitablerito.tablerodibuja();
+
+		glDisable(GL_DEPTH_TEST);
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glDisable(GL_TEXTURE_2D);
+		glColor4f(0.0f, 0.0f, 0.0f, 0.7f);
+		glBegin(GL_QUADS);
+		glVertex2f(-5.0f, -5.0f); glVertex2f(65.0f, -5.0f);
+		glVertex2f(65.0f, 65.0f); glVertex2f(-5.0f, 65.0f);
+		glEnd();
+
+		glDisable(GL_BLEND);
+		glColor3f(0.0f, 0.0f, 0.0f);
+		glBegin(GL_QUADS);
+		glVertex2f(4.5f, 1.5f); glVertex2f(40.5f, 1.5f);
+		glVertex2f(40.5f, 43.5f); glVertex2f(4.5f, 43.5f);
+		glEnd();
+
+		glLineWidth(3.0f);
+		glColor3f(1.0f, 0.8f, 0.0f);
+		glBegin(GL_LINE_LOOP);
+		glVertex2f(4.5f, 1.5f); glVertex2f(40.5f, 1.5f);
+		glVertex2f(40.5f, 43.5f); glVertex2f(4.5f, 43.5f);
+		glEnd();
+
+		
+		glDisable(GL_TEXTURE_2D);
+		glColor3f(1.0f, 0.8f, 0.0f);
+		escribirCadena2D(10.0f, 40.0f, "LIBRO DE HECHIZOS (Selecciona 1-7)");
+
+		
+		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glColor3f(1.0f, 1.0f, 1.0f);
+
+		static ETSIDI::Sprite ico1("bin/sprites/Iconos/teleport.png", 9.0f, 35.0f, 3.5f, 3.5f); ico1.draw();
+		static ETSIDI::Sprite ico2("bin/sprites/Iconos/curar.png", 9.0f, 30.0f, 3.5f, 3.5f); ico2.draw();
+		static ETSIDI::Sprite ico3("bin/sprites/Iconos/shiftime.png", 9.0f, 25.0f, 3.5f, 3.5f); ico3.draw();
+		static ETSIDI::Sprite ico4("bin/sprites/Iconos/exchange.png", 9.0f, 20.0f, 3.5f, 3.5f); ico4.draw();
+		static ETSIDI::Sprite ico5("bin/sprites/Iconos/elemental.png", 9.0f, 15.0f, 3.5f, 3.5f); ico5.draw();
+		static ETSIDI::Sprite ico6("bin/sprites/Iconos/revivir.png", 9.0f, 10.0f, 3.5f, 3.5f); ico6.draw();
+		static ETSIDI::Sprite ico7("bin/sprites/Iconos/imprison.png", 9.0f, 5.0f, 3.5f, 3.5f); ico7.draw();
+
+		glDisable(GL_BLEND);
+		glDisable(GL_TEXTURE_2D);
+
+		glColor3f(1.0f, 1.0f, 1.0f);
+		escribirCadena2D(12.5f, 34.5f, "1. Teletransporte - Mover aliado");
+		escribirCadena2D(12.5f, 29.5f, "2. Curar - Sanar vida completa");
+		escribirCadena2D(12.5f, 24.5f, "3. Cambiar Tiempo - Altera casillas");
+		escribirCadena2D(12.5f, 19.5f, "4. Intercambiar - Cambiar 2 piezas");
+		escribirCadena2D(12.5f, 14.5f, "5. Invocar Elemental");
+		escribirCadena2D(12.5f, 9.5f, "6. Resucitar - Revivir aliado");
+		escribirCadena2D(12.5f, 4.5f, "7. Encarcelar - Bloquear enemigo");
+
+		glColor3f(0.7f, 0.7f, 0.7f);
+		escribirCadena2D(34.0f, 3.0f, "[H] Volver");
+
+		glEnable(GL_DEPTH_TEST);
+
+		break;
+	}
+
+
 }
 
 }
@@ -224,13 +302,31 @@ void Juego::mover_Juego(bool key[])
 
 	case TABLERO:
 
-		Mitablerito.imprimir(); //CADA VEZ QUE SALE DE LA ARENA REESCRIBE EL TABLERO
+		//Mitablerito.imprimir(); //CADA VEZ QUE SALE DE LA ARENA REESCRIBE EL TABLERO
 		Mitablerito.tableromueve(key);
 
 		//Para Probar la Arena
 		if (key['p'] || key['P'])
 		{
 			pantallaActual = ARENA;
+		}
+
+
+		//para probar el menu de hechizos 
+
+		if (key['h'] || key['H']) {
+
+			Pokemon* p = Mitablerito.get_pokemon(Mitablerito.cursor.fila, Mitablerito.cursor.columna);
+			if (p != nullptr) {
+				string nombre = p->consultar_nombre();
+				if (nombre == "Alakazam" || nombre == "Gengar") {
+					pantallaActual = HECHIZOS;
+				}
+				else {
+					cout << "El Pokemon " << nombre << " no puede usar hechizos." << endl;
+				}
+			}
+			key['h'] = key['H'] = false;
 		}
 
 		break;
@@ -249,6 +345,15 @@ void Juego::mover_Juego(bool key[])
 			key['r'] = false;
 		}
 		break;
+
+	case HECHIZOS:
+		
+		if (key['h']) {
+			pantallaActual = TABLERO;
+			key['h'] = false;
+		}
+		break;
+
 
 
 

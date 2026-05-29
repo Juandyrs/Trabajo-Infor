@@ -13,6 +13,7 @@ enum class TURNO {JUGADOR1, JUGADOR2};
 class Tablero
 {
 	friend class Cursor;
+	friend class Juego;
 
 	Pokemon* matriz[9][9] = { nullptr }; //Creo la matriz 9x9 de punteros a pokemons (VACIA) SE LLENA EN LA INICIALIZACIÓN
 	TURNO Turnoactual;

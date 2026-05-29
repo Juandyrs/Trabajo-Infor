@@ -3,7 +3,8 @@
 
 class Cursor
 {
-	friend class Tablero; 
+	friend class Tablero;
+	friend class Juego;
 
 	
 

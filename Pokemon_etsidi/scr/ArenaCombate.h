@@ -14,6 +14,7 @@ class ArenaCombate
 	Pokemon *equipo1, *equipo2;
 	ListaObstaculos obstaculos;
 	bool IA_activa{};
+	TipoCasilla tipocasi;
 
 public:
 	

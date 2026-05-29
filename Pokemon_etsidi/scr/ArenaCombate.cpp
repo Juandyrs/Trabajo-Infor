@@ -2,6 +2,7 @@
 #include <freeglut.h>
 #include "Colisiones.h"
 #include "InteraccionArena.h"
+#include <ETSIDI.h>
 
 bool atk1_ini = false, atk2_ini = false;
 double cd1 = 0.0, cd2 = 0.0;
@@ -20,14 +21,32 @@ void ArenaCombate::dibuja_Arena()
 void ArenaCombate::dibuja_suelo()
 {
 	glDisable(GL_LIGHTING);
-	glBegin(GL_POLYGON);
-	glColor3ub(255, 255, 0);
-	glVertex3d(-dimensiones_arena.x, -dimensiones_arena.y, 0);
-	glVertex3d(-dimensiones_arena.x, dimensiones_arena.y, 0);
-	glColor3ub(0, 255, 0);
-	glVertex3d(dimensiones_arena.x, dimensiones_arena.y, 0);
-	glVertex3d(dimensiones_arena.x, -dimensiones_arena.y, 0);
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glColor3f(1.0f, 1.0f, 1.0f);
+
+	
+	const char* ruta;
+
+	if (tipocasi == TipoCasilla::clara)
+		ruta = "bin/fondos/fondo_claro.png";
+	else if (tipocasi == TipoCasilla::oscura)
+		ruta = "bin/fondos/fondo_oscuro.png";
+	else
+		ruta = "bin/fondos/fondo_neutro.png"; 
+
+	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture(ruta).id);
+
+	glBegin(GL_QUADS);
+	glTexCoord2f(0, 0); glVertex3d(-dimensiones_arena.x, -dimensiones_arena.y, 0);
+	glTexCoord2f(0, 1); glVertex3d(-dimensiones_arena.x, dimensiones_arena.y, 0);
+	glTexCoord2f(1, 1); glVertex3d(dimensiones_arena.x, dimensiones_arena.y, 0);
+	glTexCoord2f(1, 0); glVertex3d(dimensiones_arena.x, -dimensiones_arena.y, 0);
 	glEnd();
+
+	glDisable(GL_BLEND);
+	glDisable(GL_TEXTURE_2D);
 	glEnable(GL_LIGHTING);
 }
 
@@ -252,6 +271,7 @@ void ArenaCombate::limita_movimiento()
 void ArenaCombate::inicializa_Arena(Pokemon *t1, Pokemon *t2, bool ia, TipoCasilla casilla)
 {
 	IA_activa = ia;
+	tipocasi = casilla;
 
 	equipo1 = t1;
 	equipo2 = t2;

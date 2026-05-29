@@ -9,6 +9,7 @@ class InteraccionArena
 public:
 
 	static void aplicar_Efectos(Pokemon &personaje);
-	static bool colision_ataques_arena(ArenaCombate &obj, Pokemon &p);
+	static bool colision_ataques_arena(ArenaCombate &obj, Ataque &p);
+	static bool colisiona_ataques_obst(ListaObstaculos &obs, Ataque &p);
 };
 

@@ -23,6 +23,21 @@ public:
     }
 
     Fenix(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t, string s)
+        : Pokemon(
+              n        //Nombre
+            , tipo1
+            , tipo2
+            , b        //Bando
+            , 'F'
+            , TipoMovimiento::Vuelo
+            , pos_t
+            , 3        //Numero de casilla
+            , 60.0    //Vida
+            , 0.2     //Velocidad
+            , 5    //Dano
+            , 5.0     //Cooldown
+            , s        //Ruta de imagen
+        )
     {
         //Atributos arena
 		ataque = new Area(5.0, Vector2D{ 0.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 1.5, 60);
@@ -42,6 +57,8 @@ public:
         pos_tab = pos_t;
         simbolo = 'F';
         sprite = s;
+        numero_casillas = 4;
+        movimiento = TipoMovimiento::Vuelo;
 
 	}
 

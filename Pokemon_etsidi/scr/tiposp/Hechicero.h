@@ -23,6 +23,21 @@ public:
 	}
 
 	Hechicero(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t, string s)
+		: Pokemon(
+			  n        //Nombre
+			, tipo1
+			, tipo2
+			, b        //Bando
+			, 'H'
+			, TipoMovimiento::Teletransporte
+			, pos_t
+			, 3        //Numero de casilla
+			, 60.0    //Vida
+			, 0.5     //Velocidad
+			, 10.0    //Dano
+			, 5.0     //Cooldown
+			, s       //Ruta de imagen
+		)
 	{
 		// No se pueden inicializar miembros heredados en la lista de inicialización
 		//Arena
@@ -42,8 +57,12 @@ public:
 		pos_tab = pos_t;
 		simbolo = 'H';
 		sprite = s;
+		numero_casillas = 3;
+		movimiento = TipoMovimiento::Teletransporte;
+
 
 	}
+
 
     
 

@@ -2,6 +2,8 @@
 #include <freeglut.h>
 #include "Colisiones.h"
 #include "InteraccionArena.h"
+#include "CambiaFormas.h"
+#include "IA.h"
 #include <ETSIDI.h>
 
 bool atk1_ini = false, atk2_ini = false;
@@ -279,6 +281,21 @@ void ArenaCombate::inicializa_Arena(Pokemon *t1, Pokemon *t2, bool ia, TipoCasil
 	equipo1->hitbox->pos = { -dimensiones_arena.x + 2, 0 };
 	equipo2->hitbox->pos = { dimensiones_arena.x - 2, 0 };
 
+	if (typeid(equipo1) == typeid(CambiaFormas))
+	{
+		//Se accede al pokemon como cambiaformas
+		CambiaFormas &p = dynamic_cast<CambiaFormas&>(*equipo1);
+		p.cambiar_forma(*equipo2);
+	}
+
+	else if (typeid(equipo2) == typeid(CambiaFormas))
+	{
+		CambiaFormas &p = dynamic_cast<CambiaFormas&>(*equipo2);
+		p.cambiar_forma(*equipo1);
+	}
+
+	IA::estado_arena = Estado_Arena::Buscar;
+	
 	inicializa_obstaculos();
 }
 
@@ -349,6 +366,19 @@ void ArenaCombate::resetear_Arena()
 	equipo2->duracion_efecto = 0;
 	equipo1->dir_mov = Vector2D{ 0.0,0.0 };
 	equipo2->dir_mov = Vector2D{ 0.0,0.0 };
+
+	if (typeid(equipo1) == typeid(CambiaFormas))
+	{
+		//Se accede al pokemon como cambiaformas
+		CambiaFormas &p = dynamic_cast<CambiaFormas&>(*equipo1);
+		p.forma_original();
+	}
+
+	else if (typeid(equipo2) == typeid(CambiaFormas))
+	{
+		CambiaFormas& p = dynamic_cast<CambiaFormas&>(*equipo2);
+		p.forma_original();
+	}
 }
 
 void ArenaCombate::actualizar_arena(double dt)

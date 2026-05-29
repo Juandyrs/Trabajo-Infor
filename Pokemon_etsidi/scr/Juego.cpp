@@ -307,13 +307,6 @@ void Juego::mover_Juego(bool key[])
 		//Mitablerito.imprimir(); //CADA VEZ QUE SALE DE LA ARENA REESCRIBE EL TABLERO
 		Mitablerito.tableromueve(key);
 
-		//Para Probar la Arena
-		if (key['p'] || key['P'])
-		{
-			pantallaActual = ARENA;
-		}
-
-
 		//para probar el menu de hechizos 
 
 		if (key['h'] || key['H']) {
@@ -388,49 +381,11 @@ void Juego::jugar()
 		break;
 
 	case ARENA:
+
 		ArenaTablero();
 		break;
 	}
 
-}
-
-void Juego::arena_combate(Pokemon &equipo1, Pokemon &equipo2, TipoCasilla tipo)
-{
-	static bool primera_vez = true;
-
-	if(primera_vez) 
-	{
-		//Solo uno de los dos equipos puede tener un cambia formas
-		//Se identifica si uno de los dos es un cambiaformas
-		if (typeid(equipo1) == typeid(CambiaFormas))
-		{
-			//Se accede al pokemon como cambiaformas
-			CambiaFormas &p = dynamic_cast<CambiaFormas&>(equipo1);
-			p.cambiar_forma(equipo2);
-		}  
-		 
-		if (typeid(equipo2) == typeid(CambiaFormas))
-		{
-			CambiaFormas &p = dynamic_cast<CambiaFormas&>(equipo2);
-			p.cambiar_forma(equipo1);
-		}
-
-		Arena.inicializa_Arena(&equipo1, &equipo2, IA_activa, tipo);
-		IA::estado_arena = Estado_Arena::Buscar;
-		primera_vez = false;
-	}
-
-	Arena.arena_combate();
-	Arena.interaccion_obstaculos();
-	Arena.limita_movimiento();
-
-	if (IA_activa) 
-	{
-		IA::IA_Combate_Arena(Arena);
-	}
-
-	auto ganador = Arena.devolver_ganador();
-	if(ganador != nullptr) pantallaActual = TABLERO;
 }
 
 //para comprobaciones de victoria 
@@ -475,6 +430,12 @@ void Juego::TableroArena() {
 void Juego::ArenaTablero() {
 
 	Pokemon* ganador = Arena.devolver_ganador();
+
+	Arena.arena_combate();
+	Arena.interaccion_obstaculos();
+	Arena.limita_movimiento();
+
+	if (IA_activa) IA::IA_Combate_Arena(Arena);
 
 	if (ganador == nullptr)
 		return; 

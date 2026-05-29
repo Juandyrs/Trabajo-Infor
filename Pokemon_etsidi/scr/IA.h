@@ -17,6 +17,7 @@ class IA
 public:
 
 	friend class Juego;
+	friend class ArenaCombate;
 
 	static void IA_Tablero(Tablero &tablero);
 	static void IA_Combate_Arena(ArenaCombate &arena);

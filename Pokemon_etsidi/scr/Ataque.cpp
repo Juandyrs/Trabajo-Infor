@@ -42,6 +42,7 @@ Ataque* Rango::clonar() const
 	Rango* copia = new Rango();
 	copia->hitbox = hitbox->clonar();
 	copia->vel_proyectil = vel_proyectil;
+	copia->dano = dano;
 	return copia;
 }
 //Metodos de ataque melee
@@ -116,6 +117,7 @@ Ataque* Melee::clonar() const
 	Melee* copia = new Melee();
 	copia->hitbox = hitbox->clonar();
 	copia->frame_ataque = frame_ataque;
+	copia->dano = dano;
 	return copia;
 }
 
@@ -162,5 +164,6 @@ Ataque* Area::clonar() const
 	Area* copia = new Area();
 	copia->hitbox = hitbox->clonar();
 	copia->frame_ataque = frame_ataque;
+	copia->dano = dano;
 	return copia;
 }

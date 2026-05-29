@@ -387,7 +387,7 @@ void Tablero::soltarpieza(bool key[]) {
 			}
 
 
-			if (casillaocupada(f, c) && !casillaaliado(f, c, cursor.obtenerfichacursor())) { //CASILLA OCUPADA ESTA AL REVES, ACTUA ASI
+			if (!casillaocupada(f, c) && !casillaaliado(f, c, cursor.obtenerfichacursor())) { //CASILLA OCUPADA ESTA AL REVES, ACTUA ASI
 
 				if (casillaenemigo(f, c, cursor.obtenerfichacursor())) {
 					// ENEMIGO → lógica de combate/arena
@@ -409,6 +409,7 @@ void Tablero::soltarpieza(bool key[]) {
 		cout << cursor.maxdistancia << "\n";
 		cout << cursor.ci<<cursor.fi << "\n";
 		cout << cursor.columna << cursor.fila << "\n";
+		cout << cursor.llevaficha;
 	}
 }
 

@@ -16,7 +16,7 @@ void Cursor::dibujarcursor() {
 
     float lado = 5.0f;
     float x = columna * lado; //ESTAN AL REVES POR QUE SI NO EL MOVIMIENTO SALE INVERTIDO :p
-    float y = fila * lado;
+    float y = (8 - fila) * lado;
 
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
@@ -58,16 +58,7 @@ void Cursor::dibujarcursor() {
 
         glPushMatrix();
 
-        // Plano base
-        glPushMatrix();
-        glTranslatef(cx, cy, 0.52f);
-        glBegin(GL_QUADS);
-        glVertex3f(-tamano, -tamano, 0);
-        glVertex3f(tamano, -tamano, 0);
-        glVertex3f(tamano, tamano, 0);
-        glVertex3f(-tamano, tamano, 0);
-        glEnd();
-        glPopMatrix();
+        glDisable(GL_LIGHTING);
 
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
@@ -79,10 +70,10 @@ void Cursor::dibujarcursor() {
         glTranslatef(cx, cy, 0.53f);
 
         glBegin(GL_QUADS);
-        glTexCoord2f(0, 0); glVertex3f(-tamano, -tamano, 0);
-        glTexCoord2f(1, 0); glVertex3f(tamano, -tamano, 0);
-        glTexCoord2f(1, 1); glVertex3f(tamano, tamano, 0);
-        glTexCoord2f(0, 1); glVertex3f(-tamano, tamano, 0);
+        glTexCoord2f(0, 1); glVertex3f(-tamano, -tamano, 0);
+        glTexCoord2f(1, 1); glVertex3f(tamano, -tamano, 0);
+        glTexCoord2f(1, 0); glVertex3f(tamano, tamano, 0);
+        glTexCoord2f(0, 0); glVertex3f(-tamano, tamano, 0);
         glEnd();
 
         glPopMatrix();
@@ -122,8 +113,8 @@ void Cursor::Cursormover(bool key[], Pokemon* matriz[9][9]) {
     if (key['a'] || key['A']) columna--;
 
     else if (key['d'] || key['D']) columna++;
-    else if (key['w'] || key['W']) fila++;
-    else if (key['s'] || key['S']) fila--;
+    else if (key['s'] || key['S']) fila++;
+    else if (key['w'] || key['W']) fila--;
 
     if (columna < 0) columna = 0;
     if (columna > 8) columna = 8;

@@ -75,7 +75,7 @@ void Casilla::dibujarcasilla(Pokemon* p){
     //calculamos la esquina superior izquierda y de ahi dibujamos el cuadrado
 
     float x = columna * lado;
-    float y = fila * lado;
+    float y = (8 - fila) * lado;
 
 
 
@@ -164,16 +164,7 @@ void Casilla::dibujarcasilla(Pokemon* p){
 
             glPushMatrix();
 
-            // Plano base
-            glPushMatrix();
-            glTranslatef(cx, cy, 0.52f);
-            glBegin(GL_QUADS);
-            glVertex3f(-tamano, -tamano, 0);
-            glVertex3f(tamano, -tamano, 0);
-            glVertex3f(tamano, tamano, 0);
-            glVertex3f(-tamano, tamano, 0);
-            glEnd();
-            glPopMatrix();
+            glDisable(GL_LIGHTING);
 
             glEnable(GL_TEXTURE_2D);
             glBindTexture(GL_TEXTURE_2D, tex.id);
@@ -186,10 +177,10 @@ void Casilla::dibujarcasilla(Pokemon* p){
             glTranslatef(cx, cy, 0.53f);
 
             glBegin(GL_QUADS);
-            glTexCoord2f(0, 0); glVertex3f(-tamano, -tamano, 0);
-            glTexCoord2f(1, 0); glVertex3f(tamano, -tamano, 0);
-            glTexCoord2f(1, 1); glVertex3f(tamano, tamano, 0);
-            glTexCoord2f(0, 1); glVertex3f(-tamano, tamano, 0);
+            glTexCoord2f(0, 1); glVertex3f(-tamano, -tamano, 0); 
+            glTexCoord2f(1, 1); glVertex3f(tamano, -tamano, 0);  
+            glTexCoord2f(1, 0); glVertex3f(tamano, tamano, 0);   
+            glTexCoord2f(0, 0); glVertex3f(-tamano, tamano, 0);  
             glEnd();
 
             glPopMatrix();

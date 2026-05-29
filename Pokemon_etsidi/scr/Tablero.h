@@ -23,12 +23,11 @@ class Tablero
 	vector <Pokemon*> equipo_rocket; 
 
 	//LOGICA MOVIMIENTOS
-	Pokemon* fichaseleccionada = nullptr; //PARA LA FICHA SELECCIONADA
-	bool fichayaseleccionada = false; //SIRVE PARA SABER SI ESTA AGARRADA
+	
 	int Movimientosrestantes = 0; 
 	Cursor cursor;
 	Casilla* casillas[9][9]={nullptr};
-	int cursor_f = 0, cursor_c = 0; //posicion del cursor del tablero
+	
 
 public:
 
@@ -36,7 +35,7 @@ public:
 	
 
 	Tablero() = default;
-	void dibujar_casillas();
+	
 void imprimir();
 	void inicializar_tablero();
 	//para leer el tablero en 2D
@@ -56,7 +55,7 @@ void imprimir();
 	bool movimientoVolador(Pokemon* p, int fi, int ci, int ff, int cf);
 	bool movimientoPsiquico(Pokemon* p, int fi, int ci, int ff, int cf);
 	int movimientovalido(Pokemon* p, int nx, int ny); //LO HE HECHO CON INT PARA QUE DIGA POR QUE PUEDE O NO PUEDE MOVER 0 es invalido, 1 es vacio, 2 enemigo, 3 aliado 
-	bool moverficha(Pokemon* p, int ff, int cf); //ES LO QUE DICE SI LA FICHA SE HA PODIDO MOVER Y SI LO HACE O NO
+	
 	void revivirficha(Pokemon* p, int x, int y); //REVIVIR FICHA COMO INDICA EL NOMBRE
 	void seleccionficha(int f, int c); //PARA SELECCIONAR LA FICHA
 	void cambiarturno(); 
@@ -66,10 +65,7 @@ void imprimir();
 
 	//para mover el cursor y sacar el pokemon que esta en esa casilla 
 
-	void mover_cursor(int df, int dc) {cursor_f = max(0, min(8, cursor_f + df)); cursor_c = max(0, min(8, cursor_c + dc));}
-	Pokemon* seleccionar_cursor() { return matriz[cursor_f][cursor_c]; }
-	int obtener_cursor_f() const { return cursor_f; }
-	int obtener_cursor_c() const { return cursor_c; }
+	
 
 	//para comprobar condiciones de victoria
 	bool controla_puntos_poder(Bando b); //victoria por puntos de poder

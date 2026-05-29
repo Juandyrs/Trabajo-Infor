@@ -321,14 +321,21 @@ void Tablero::conteoturno() {
 	if (Turnoactual == TURNO::JUGADOR2)
 		numeroturno++;
 }
-void Tablero::cambiarturno(){
-	// Cambiar turno
+void Tablero::cambiarturno() {
 	if (Turnoactual == TURNO::JUGADOR1)
 		Turnoactual = TURNO::JUGADOR2;
 	else
 		Turnoactual = TURNO::JUGADOR1;
 
+	for (int f = 0; f < 9; f++)   // ← AÑADIR
+		for (int c = 0; c < 9; c++)
+			casillas[f][c]->avanzar_ciclo();
 }
+
+
+
+
+
 
 	//cambio las casillas cambiantes de tipo 
 
@@ -385,21 +392,22 @@ bool Tablero::controla_puntos_poder(Bando b) {
 }
 	
 void Tablero::cargar_pokemons(Pokemon* p) {
-
-	if (cursor.cursorllevaficha() == true) {
-		if (cursor.actualdistancia == 0) { //SI SE HA MOVIDO DE SU CASILLA PERO VUELVE GASTA EL TURNO
-			matriz[cursor.fi][cursor.ci] = cursor.obtenerfichacursor();
-			cursor.cursorsueltaficha();
-			ETSIDI::play("bin/sonidos/sonidopoke.wav");
-			return;
-			if (p->obtener_bando() == Bando::Entrenador)
-				equipo_entrenador.push_back(p);
-			else
-				equipo_rocket.push_back(p);
-		}
-	}
+	if (p->obtener_bando() == Bando::Entrenador)
+		equipo_entrenador.push_back(p);
+	else
+		equipo_rocket.push_back(p);
 }
 			
 bool Tablero::quedan_piezas(Bando b) {
-	return true;
+	if (b == Bando::Entrenador) {
+		for (auto p : equipo_entrenador)
+			if (p->consultar_estado() == Estado::Vivo)
+				return true;
+	}
+	else {
+		for (auto p : equipo_rocket)
+			if (p->consultar_estado() == Estado::Vivo)
+				return true;
+	}
+	return false;
 }

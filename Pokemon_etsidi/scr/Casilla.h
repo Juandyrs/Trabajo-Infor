@@ -7,8 +7,10 @@ enum class TipoCasilla{clara,oscura,neutr,poder,aviso_neutro,aviso_claro,aviso_o
 
 class Casilla
 {
-	friend class tablero; 
-	friend class cursor; 
+
+
+	friend class Tablero; 
+	friend class Cursor; 
 
 	int columna, fila;
 	TipoCasilla tipo;

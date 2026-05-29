@@ -240,6 +240,7 @@ void Juego::mover_Juego(bool key[])
 		Arena.mueve_personaje(key);
 
 		if (key['t'] || key['T']) pantallaActual = TABLERO;
+		break;
 
 	case FIN:
 		if (key['r']) {

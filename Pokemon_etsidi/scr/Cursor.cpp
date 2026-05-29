@@ -160,8 +160,6 @@ void Cursor::Cursormover(bool key[], Pokemon* matriz[9][9]) {
 }
 
 
-
 void Cursor::distancialactual() {
-
     actualdistancia = fi + fila;
 }

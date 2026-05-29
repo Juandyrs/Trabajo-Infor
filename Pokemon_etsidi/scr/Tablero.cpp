@@ -327,7 +327,7 @@ void Tablero::cambiarturno() {
 	else
 		Turnoactual = TURNO::JUGADOR1;
 
-	for (int f = 0; f < 9; f++)   // ← AÑADIR
+	for (int f = 0; f < 9; f++)   
 		for (int c = 0; c < 9; c++)
 			casillas[f][c]->avanzar_ciclo();
 }
@@ -369,18 +369,57 @@ void Tablero::cogerpieza(bool key[]) {
 		}
 	}
 }
+//SOLTAR PIEZA
+void Tablero::soltarpieza(bool key[]) {
+
+	int f = cursor.fila;
+	int c = cursor.columna;
+
+	if (key['z']) {
+
+
+		if (cursor.cursorllevaficha() == true) {
+			if (cursor.actualdistancia == 0) { //SI SE HA MOVIDO DE SU CASILLA PERO VUELVE GASTA EL TURNO
+				matriz[cursor.fi][cursor.ci] = cursor.obtenerfichacursor();
+				cursor.cursorsueltaficha();
+				ETSIDI::play("sonidos/impacto.wav");
+				return;
+			}
+
+
+			if (casillaocupada(f, c) && !casillaaliado(f, c, cursor.obtenerfichacursor())) { //CASILLA OCUPADA ESTA AL REVES, ACTUA ASI
+
+				if (casillaenemigo(f, c, cursor.obtenerfichacursor())) {
+					// ENEMIGO → lógica de combate/arena
+					return;
+				}
+
+				// Casilla libre
+				matriz[f][c] = cursor.obtenerfichacursor(); //COLOCA EN VACIA
+				cursor.cursorsueltaficha();
+				ETSIDI::play("sonidos/impacto.wav");
+				turnofinalizadoexito();
+			}
+			//ALIADO NO LO PONGO POR QUE NO ME HACE FALTA DE MOMENTO
+		}
+	}
+
+	if (key['q']) {
+		cout << cursor.actualdistancia << "\n";
+		cout << cursor.maxdistancia << "\n";
+		cout << cursor.ci<<cursor.fi << "\n";
+		cout << cursor.columna << cursor.fila << "\n";
+	}
+}
+
+
+
 
 void Tablero::turnofinalizadoexito()
 {
 	cambiarturno();
 	conteoturno();   // numeroturno++
-	fichaSeleccionada = nullptr;
-	fichaYaSeleccionada = false;
 }
-
-	//SOLTAR PIEZA
-
-
 
 bool Tablero::controla_puntos_poder(Bando b) {
 	int poder[5][2] = { {0,4},{4,0},{4,4},{4,8},{8,4} };

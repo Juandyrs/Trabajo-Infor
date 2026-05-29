@@ -190,6 +190,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="scr\Cursor.cpp" />
+    <ClCompile Include="scr\Hechizo.cpp" />
     <ClCompile Include="scr\Hitbox.cpp" />
     <ClCompile Include="scr\IA.cpp" />
     <ClCompile Include="scr\InteraccionArena.cpp" />
@@ -214,6 +215,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="scr\Cursor.h" />
+    <ClInclude Include="scr\Hechizo.h" />
     <ClInclude Include="scr\Hitbox.h" />
     <ClInclude Include="lib\ETSIDI.h" />
     <ClInclude Include="scr\IA.h" />

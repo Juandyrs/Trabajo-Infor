@@ -25,7 +25,29 @@ bool Obs_Piedra::interrumpir(Pokemon &personaje)
 
 void Obs_Piedra::dibujar()
 {
-	glColor3ub(111, 67, 33);
+	HitboxRectangular *aux = dynamic_cast<HitboxRectangular*>(hitbox);
+
+	glTranslated(hitbox->pos.x, hitbox->pos.y, 0);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("bin/sprites/Obstaculos/ObsPiedra.png").id);
+	glDisable(GL_LIGHTING);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glEnable(GL_ALPHA_TEST);
+	glBegin(GL_QUADS);
+	glColor3f(1, 1, 1);
+	glTexCoord2d(0, 0); glVertex2d(aux->rectangulo.x, aux->rectangulo.y);
+	glTexCoord2d(1, 0); glVertex2d(-aux->rectangulo.x, aux->rectangulo.y);
+	glTexCoord2d(1, 1); glVertex2d(-aux->rectangulo.x, -aux->rectangulo.y);
+	glTexCoord2d(0, 1); glVertex2d(aux->rectangulo.x, -aux->rectangulo.y);
+	glEnd();
+	glDisable(GL_ALPHA_TEST);
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_BLEND);
+	glEnable(GL_LIGHTING);
+	glTranslated(-hitbox->pos.x, -hitbox->pos.y, 0);
+	glPopMatrix();
 	hitbox->dibujar();
 }
 
@@ -35,7 +57,7 @@ bool Obs_Fuego::interrumpir(Pokemon &personaje)
 {
 
 	if (Colisiones::colision(hitbox,personaje.consultar_hitbox()) 
-		&& personaje.consultar_estado() != EfectoEstado::Invulnerable)
+		&& personaje.consultar_efecto_estado() != EfectoEstado::Invulnerable)
 	{
 		personaje.modificar_estado(EfectoEstado::Quemadura, frames_fuego);
 		return true;
@@ -45,6 +67,8 @@ bool Obs_Fuego::interrumpir(Pokemon &personaje)
 
 void Obs_Fuego::dibujar()
 {
-	glColor3ub(255, 0, 0);
-	hitbox->dibujar();
+	glPushMatrix();
+	glTranslated(hitbox->pos.x + 0.18, hitbox->pos.y - 0.30, 0.0);
+	sprite.draw();
+	glPopMatrix();
 }

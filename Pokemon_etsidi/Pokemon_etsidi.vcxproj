@@ -189,6 +189,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="scr\Cursor.cpp" />
     <ClCompile Include="scr\Hitbox.cpp" />
     <ClCompile Include="scr\IA.cpp" />
     <ClCompile Include="scr\InteraccionArena.cpp" />
@@ -212,6 +213,7 @@
     <ClCompile Include="scr\tiposp\Tanque.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="scr\Cursor.h" />
     <ClInclude Include="scr\Hitbox.h" />
     <ClInclude Include="lib\ETSIDI.h" />
     <ClInclude Include="scr\IA.h" />

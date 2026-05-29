@@ -9,6 +9,7 @@
 #include "tiposp/Fenix.h"
 #include "tiposp/CambiaFormas.h"
 #include "ArenaCombate.h"
+#include "Casilla.h"	
 #include <cmath>
 
 using namespace std;
@@ -32,12 +33,16 @@ void Tablero::imprimir() {
 
 void Tablero::inicializar_tablero()
 {
+	srand(time(NULL));
+
 	for (int f = 0; f < 9; f++) {
 		for (int c = 0; c < 9; c++) {
 			casillas[f][c] = new Casilla();         // creamos la casilla en memoria
 			casillas[f][c]->inicializar(f, c);      // la inicializamos
 		}
 	}
+
+	cursor.inicializarcursor(4, 4);
 
 	Turnoactual = TURNO::JUGADOR1;
 
@@ -123,62 +128,80 @@ void Tablero::inicializar_tablero()
 
 	//Posicion Hechicero
 	colocar_pokemon(Alakazam->pos_tab.x, Alakazam->pos_tab.y, Alakazam);
+	cargar_pokemons(Alakazam);
 	colocar_pokemon(Gengar->pos_tab.x, Gengar->pos_tab.y, Gengar);
+	cargar_pokemons(Gengar);
 
 	//Posicion Volador
 	colocar_pokemon(Charizard[0]->pos_tab.x, Charizard[0]->pos_tab.y, Charizard[0]);
 	colocar_pokemon(Charizard[1]->pos_tab.x, Charizard[1]->pos_tab.y, Charizard[1]);
+	cargar_pokemons(Charizard[0]);
+	cargar_pokemons(Charizard[1]);
+
 	colocar_pokemon(Crobat[0]->pos_tab.x, Crobat[0]->pos_tab.y, Crobat[0]);
 	colocar_pokemon(Crobat[1]->pos_tab.x, Crobat[1]->pos_tab.y, Crobat[1]);
+	cargar_pokemons(Crobat[0]);
+	cargar_pokemons(Crobat[1]);
 
 	//Posicion Tanque
 	colocar_pokemon(Snorlax[0]->pos_tab.x, Snorlax[0]->pos_tab.y, Snorlax[0]);
 	colocar_pokemon(Snorlax[1]->pos_tab.x, Snorlax[1]->pos_tab.y, Snorlax[1]);
+	cargar_pokemons(Snorlax[0]);
+	cargar_pokemons(Snorlax[1]);
 	colocar_pokemon(Tyranitar[0]->pos_tab.x, Tyranitar[0]->pos_tab.y, Tyranitar[0]);
 	colocar_pokemon(Tyranitar[1]->pos_tab.x, Tyranitar[1]->pos_tab.y, Tyranitar[1]);
+	cargar_pokemons(Tyranitar[0]);
+	cargar_pokemons(Tyranitar[1]);
 
 
 	//Posicion Distancia
-	for (int i = 0; i < 4; i++) colocar_pokemon(Grovile[i]->pos_tab.x, Grovile[i]->pos_tab.y, Grovile[i]);
-	for (int i = 0; i < 4; i++) colocar_pokemon(Umbreon[i]->pos_tab.x, Umbreon[i]->pos_tab.y, Umbreon[i]);
+	for (int i = 0; i < 4; i++) { colocar_pokemon(Grovile[i]->pos_tab.x, Grovile[i]->pos_tab.y, Grovile[i]); cargar_pokemons(Grovile[i]); }
+	for (int i = 0; i < 4; i++) { colocar_pokemon(Umbreon[i]->pos_tab.x, Umbreon[i]->pos_tab.y, Umbreon[i]); cargar_pokemons(Umbreon[i]); }
 
 	//Posicion Basico
-	for (int i = 0; i < 7; i++) colocar_pokemon(Machomp[i]->pos_tab.x, Machomp[i]->pos_tab.y, Machomp[i]);
-	for (int i = 0; i < 7; i++) colocar_pokemon(Scraggy[i]->pos_tab.x, Scraggy[i]->pos_tab.y, Scraggy[i]);
+	for (int i = 0; i < 7; i++) { colocar_pokemon(Machomp[i]->pos_tab.x, Machomp[i]->pos_tab.y, Machomp[i]); cargar_pokemons(Machomp[i]); }
+	for (int i = 0; i < 7; i++) { colocar_pokemon(Scraggy[i]->pos_tab.x, Scraggy[i]->pos_tab.y, Scraggy[i]); cargar_pokemons(Scraggy[i]); }
+
 
 	//Posicion Cambiaforma
 	colocar_pokemon(Ditto[0]->pos_tab.x, Ditto[0]->pos_tab.y, Ditto[0]);
 	colocar_pokemon(Ditto[1]->pos_tab.x, Ditto[1]->pos_tab.y, Ditto[1]);
+	cargar_pokemons(Ditto[0]);
+	cargar_pokemons(Ditto[1]);
 
 	//Posicion Fenix
 	colocar_pokemon(Moltres[0]->pos_tab.x, Moltres[0]->pos_tab.y, Moltres[0]);
 	colocar_pokemon(Moltres[1]->pos_tab.x, Moltres[1]->pos_tab.y, Moltres[1]);
+	cargar_pokemons(Moltres[0]);
+	cargar_pokemons(Moltres[1]);
+
 }
 
-void Tablero::tablerodibuja() {
+void Tablero::dibujar_tableroyfichas() {
+	for (int f = 0; f < 9; f++) {
+		for (int c = 0; c < 9; c++) {
 
-	for (int f = 0; f < 9; f++)
-	{
-		for (int c = 0; c < 9; c++)
-		{
-			Pokemon* p = matriz[f][c];
-
-			if (p != nullptr)
-			{
-				p->pokemondibuja(f, c);   //EL POKEMONCITO SE DIBUJA A SI MISMO QUE MONO
-			}
+			casillas[f][c]->dibujarcasilla(matriz[f][c]);
 		}
 	}
 }
 
-int Tablero::distancia(int fi, int ci, int ff, int cf) {
 
-	return abs(fi - ff) + abs(ci - cf); //COMPRUEBA EL NUMERO MÁXIMO DE CASILLAS QUE RECORRE LA FICHILLA
+void Tablero::tablerodibuja() { 
+	dibujar_tableroyfichas();
+	cursor.dibujarcursor();
+
+}
+
+int Tablero::distanciarecorrida(int fi, int ci, int ff, int cf) {
+
+	return abs(fi - ff) + abs(ci - cf); //COMPRUEBA EL NUMERO DE CASILLAS QUE RECORRE LA FICHILLA
 }
 
 bool Tablero::casillaocupada(int ff, int cf) {
 	if (matriz[ff][cf] != nullptr)
 			return true;
+			return false;
 	}
 
 bool Tablero::casillaaliado(int ff, int cf, Pokemon* p) {
@@ -216,7 +239,7 @@ bool Tablero::movimientoTerrestre(Pokemon* p, int fi, int ci, int ff, int cf) {
 
 		int pasos = std::max(abs(distanciafilas), abs(distanciacolumnas)); //TE DA EL MAYOR DE LOS DOS PARA VER CUANTAS CUADRICULAS VAS A PASAR
 
-		return true;
+	return true; 
 	}
 
 bool Tablero::movimientoVolador(Pokemon* p, int fi, int ci, int ff, int cf) {
@@ -242,63 +265,25 @@ bool Tablero::movimientoTipoValido(Pokemon* p, int fi, int ci, int ff, int cf) {
 		return movimientoPsiquico(p, fi, ci, ff, cf);
 
 	default:
-		return false;
+		return true;
 	}
 }
 
-int Tablero::movimientovalido(Pokemon* p, int nx, int ny) {
-
-	return nx; 
-}
-
-void Tablero::seleccionficha(int f, int c){
-	Pokemon* p = matriz[f][c]; //PILLA EL POKEMON DE LA FILA Y COLUMNA
-
-	//NO FICHA NO TRABAJO
-	if (p == nullptr)
-		return;
-
-	//FICHA NO ES DEL TURNO ACTUAL A TOMAR POR SACO (ES LA CONVERSIÓN DE LAS LISTAS A ENTEROS COMO HICE ANTERIORMENTE EN MOVER FICHA)
-	if (static_cast<int>(p->equipo) != static_cast<int>(Turnoactual))
-		return;
-
-	//SE SELECCIONA LA FICHA
-	fichaSeleccionada = p;
-	fichaYaSeleccionada = true;
-}
-
-bool Tablero::moverficha(Pokemon* p, int ff, int cf)
+int Tablero::movimientovalido(Pokemon* p, int ff, int cf)
 {
 
-	if (p == nullptr || static_cast<int>(Turnoactual) != static_cast<int>(p->equipo)) //VER SI LA PIEZA PERTENCE AL TURNO o NO
-		return false; 
-	//COMO ENTRENADOR y JUGADOR 1 VALEN 1 y ROCKET Y JUGADOR 2 valen 2 se pueden pasar a enteros para programar, es bastante improvisado, pero funciona de momento
+//CASILLA VACIA
+	if (!casillaocupada(ff, cf))
+		return 1;
 
-	int movimiento = movimientovalido(p, ff, cf); //COMPROBAR MOVIMIENTO
-	//0  INvalido
-	//1  VACIO
-	//2  ENEMIGO
+	else if (casillaocupada(ff, cf)) {
+		//CASILLA ALIADO
+		if (casillaaliado(ff, cf, p))
+			return 3;
 
-	if (movimiento == 0)
-		return false;
-
-	if (movimiento == 1) //CASILLA VACIA Y MOVIMIENTO VALIDO
-	{
-		//QUITARLO DE LA MATRIZ DE PUNTEROS POR QUE SE HA PODIDO MOVER
-		matriz[(int)p->pos_tab.x][(int)p->pos_tab.y] = nullptr; //PONGO EL INT POR QUE EL MALDITO VECTOR 2D ES DE DOUBLES Y MATRIZ SOLO ADMITE ENTEROS COMO POSICIONES
-
-		//COLOCARLO EN LA NUEVA CASILLA
-		matriz[ff][cf] = p;
-
-		//ACTUALIZAR POSICION EN TABLERO LOGICO
-		p->pos_tab.x = ff;
-		p->pos_tab.y = cf;
-
-		//CAMBIO DE TURNO
-		conteoturno(); 
-		cambiarturno();
-
-		return true; // SE HA MOVIDO CORRECTAMENTE
+		//CASILLA ENEMIGO
+		if (casillaenemigo(ff, cf, p))
+			return 2;
 	}
 
 	//if (movimiento == 2)
@@ -336,51 +321,133 @@ void Tablero::conteoturno() {
 	if (Turnoactual == TURNO::JUGADOR2)
 		numeroturno++;
 }
-void Tablero::cambiarturno(){
-	// Cambiar turno
+void Tablero::cambiarturno() {
 	if (Turnoactual == TURNO::JUGADOR1)
 		Turnoactual = TURNO::JUGADOR2;
 	else
 		Turnoactual = TURNO::JUGADOR1;
 
+	for (int f = 0; f < 9; f++)   
+		for (int c = 0; c < 9; c++)
+			casillas[f][c]->avanzar_ciclo();
 }
 
 
 
 
 
-void Tablero::dibujar_casillas() {
 
-	for (int f = 0; f < 9; f++) {
-		for (int c = 0; c < 9; c++) {
-			(*casillas[f][c]).dibujar(matriz[f][c]);
+	//cambio las casillas cambiantes de tipo 
+
+	//for (int f = 0; f < 9; f++)
+		//for (int c = 0; c < 9; c++)
+		//	casillas[f][c]->avanzar_ciclo();
+//TABLERO MUEVE 
+
+void Tablero::tableromueve(bool key[]) {
+	cursor.Cursormover(key, matriz);
+	cogerpieza(key);
+	soltarpieza(key); 
+}
+
+
+//COGER PIEZA
+
+void Tablero::cogerpieza(bool key[]) {
+
+	int f = cursor.fila;
+	int c = cursor.columna;
+
+	if (key['e']) {
+		if (cursor.cursorllevaficha() == false) {
+			//NO TIENE FICHA EL CURSOR
+			if (matriz[f][c] != nullptr && ((int)matriz[f][c]->equipo) == int(Turnoactual)) {
+				cursor.cursorpillaficha(matriz[f][c]);
+				ETSIDI::play("bin/sonidos/sonidopoke.wav");
+				matriz[f][c] = nullptr;       //VACIAR ESA CASILLA
+			}
+		}
+	}
+}
+//SOLTAR PIEZA
+void Tablero::soltarpieza(bool key[]) {
+
+	int f = cursor.fila;
+	int c = cursor.columna;
+
+	if (key['z']) {
+
+
+		if (cursor.cursorllevaficha() == true) {
+			if (cursor.actualdistancia == 0) { //SI SE HA MOVIDO DE SU CASILLA PERO VUELVE GASTA EL TURNO
+				matriz[cursor.fi][cursor.ci] = cursor.obtenerfichacursor();
+				cursor.cursorsueltaficha();
+				ETSIDI::play("sonidos/impacto.wav");
+				return;
+			}
+
+
+			if (!casillaocupada(f, c) && !casillaaliado(f, c, cursor.obtenerfichacursor())) { //CASILLA OCUPADA ESTA AL REVES, ACTUA ASI
+
+				if (casillaenemigo(f, c, cursor.obtenerfichacursor())) {
+					// ENEMIGO → lógica de combate/arena
+					return;
+				}
+
+				// Casilla libre
+				matriz[f][c] = cursor.obtenerfichacursor(); //COLOCA EN VACIA
+				cursor.cursorsueltaficha();
+				ETSIDI::play("sonidos/impacto.wav");
+				turnofinalizadoexito();
+			}
+			//ALIADO NO LO PONGO POR QUE NO ME HACE FALTA DE MOMENTO
 		}
 	}
 
-	// dibujamos el cursor
-	float lado = 5.0f;
-	float x = cursor_c * lado;
-	float y = cursor_f * lado;
-
-	glDisable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glColor4ub(255, 255, 0, 100); 
-	glBegin(GL_QUADS);
-	glVertex2f(x, y);
-	glVertex2f(x + lado, y);
-	glVertex2f(x + lado, y + lado);
-	glVertex2f(x, y + lado);
-	glEnd();
-	glDisable(GL_BLEND);
-	glEnable(GL_DEPTH_TEST);
-
+	if (key['q']) {
+		cout << cursor.actualdistancia << "\n";
+		cout << cursor.maxdistancia << "\n";
+		cout << cursor.ci<<cursor.fi << "\n";
+		cout << cursor.columna << cursor.fila << "\n";
+		cout << cursor.llevaficha;
+	}
 }
-bool Tablero::turnofinalizadoexito()
+
+
+
+
+void Tablero::turnofinalizadoexito()
 {
 	cambiarturno();
 	conteoturno();   // numeroturno++
-	fichaSeleccionada = nullptr;
-	fichaYaSeleccionada = false;
+}
+
+bool Tablero::controla_puntos_poder(Bando b) {
+	int poder[5][2] = { {0,4},{4,0},{4,4},{4,8},{8,4} };
+	for (auto p : poder)
+		if (matriz[p[0]][p[1]] == nullptr ||
+			matriz[p[0]][p[1]]->obtener_bando() != b)
+			return false;
 	return true;
+}
+	
+void Tablero::cargar_pokemons(Pokemon* p) {
+	if (p->obtener_bando() == Bando::Entrenador)
+		equipo_entrenador.push_back(p);
+	else
+		equipo_rocket.push_back(p);
+}
+			
+bool Tablero::quedan_piezas(Bando b) {
+	if (b == Bando::Entrenador) {
+		for (auto p : equipo_entrenador)
+			if (p->consultar_estado() == Estado::Vivo)
+				return true;
+	}
+	else {
+		for (auto p : equipo_rocket)
+			if (p->consultar_estado() == Estado::Vivo)
+				return true;
+	}
+	return false;
 }

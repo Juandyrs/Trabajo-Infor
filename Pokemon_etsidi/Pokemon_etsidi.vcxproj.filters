@@ -1,228 +1,88 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Archivos de origen">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Archivos de encabezado">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Archivos de recursos">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="scr\Hitbox.cpp" />
+    <ClCompile Include="scr\IA.cpp" />
+    <ClCompile Include="scr\InteraccionArena.cpp" />
+    <ClCompile Include="scr\ListaObstaculos.cpp" />
+    <ClCompile Include="scr\Colisiones.cpp" />
+    <ClCompile Include="scr\Ataque.cpp" />
+    <ClCompile Include="scr\Obstaculo.cpp" />
+    <ClCompile Include="scr\tiposp\CambiaFormas.cpp" />
+    <ClCompile Include="scr\tiposp\Fenix.cpp" />
+    <ClCompile Include="scr\tiposp\Basico.cpp" />
+    <ClCompile Include="scr\tiposp\Distancia.cpp" />
+    <ClCompile Include="scr\tiposp\Hechicero.cpp" />
+    <ClCompile Include="scr\ArenaCombate.cpp" />
+    <ClCompile Include="scr\Casilla.cpp" />
+    <ClCompile Include="scr\Juego.cpp" />
+    <ClCompile Include="scr\Pokemon.cpp" />
+    <ClCompile Include="scr\Pokemon_etsidi.cpp" />
+    <ClCompile Include="scr\Tablero.cpp" />
+    <ClCompile Include="scr\Vector2D.cpp" />
+    <ClCompile Include="scr\tiposp\Volador.cpp" />
+    <ClCompile Include="scr\tiposp\Tanque.cpp" />
+    <ClCompile Include="scr\Cursor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="scr\Tablero.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="scr\Pokemon.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="scr\Juego.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="scr\Casilla.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="scr\ArenaCombate.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="scr\Pokemon_etsidi.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="scr\Vector2D.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="scr\tiposp\Hechicero.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="scr\tiposp\Volador.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="scr\tiposp\Tanque.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="scr\tiposp\Distancia.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="scr\tiposp\Basico.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="scr\tiposp\Fenix.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="scr\tiposp\CambiaFormas.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="scr\Ataque.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="scr\Obstaculo.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="scr\Colisiones.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="scr\ListaObstaculos.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="scr\InteraccionArena.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="scr\IA.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
+    <ClInclude Include="scr\Hitbox.h" />
+    <ClInclude Include="lib\ETSIDI.h" />
+    <ClInclude Include="scr\IA.h" />
+    <ClInclude Include="scr\InteraccionArena.h" />
+    <ClInclude Include="scr\ListaObstaculos.h" />
+    <ClInclude Include="scr\Colisiones.h" />
+    <ClInclude Include="scr\Ataque.h" />
+    <ClInclude Include="scr\Obstaculo.h" />
+    <ClInclude Include="scr\tiposp\CambiaFormas.h" />
+    <ClInclude Include="scr\tiposp\Fenix.h" />
+    <ClInclude Include="scr\tiposp\Basico.h" />
+    <ClInclude Include="scr\tiposp\Distancia.h" />
+    <ClInclude Include="scr\tiposp\Hechicero.h" />
+    <ClInclude Include="lib\freeglut.h" />
+    <ClInclude Include="scr\ArenaCombate.h" />
+    <ClInclude Include="scr\Casilla.h" />
+    <ClInclude Include="scr\Juego.h" />
+    <ClInclude Include="scr\Pokemon.h" />
+    <ClInclude Include="scr\Tablero.h" />
+    <ClInclude Include="scr\Vector2D.h" />
+    <ClInclude Include="scr\tiposp\Volador.h" />
+    <ClInclude Include="scr\tiposp\Tanque.h" />
+    <ClInclude Include="scr\Cursor.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="scr\Tablero.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="scr\Pokemon.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="scr\Juego.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="scr\Casilla.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="scr\ArenaCombate.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\freeglut.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="scr\Vector2D.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="scr\tiposp\Hechicero.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="scr\tiposp\Volador.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="scr\tiposp\Tanque.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="scr\tiposp\Distancia.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="scr\tiposp\Basico.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="scr\tiposp\Fenix.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="scr\tiposp\CambiaFormas.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="scr\Ataque.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="scr\Obstaculo.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="scr\Colisiones.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="scr\ListaObstaculos.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="scr\InteraccionArena.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="scr\IA.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="lib\ETSIDI.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
+    <Library Include="lib\ETSIDI.lib" />
+    <Library Include="lib\freeglut.lib" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="bin\sprites\Blanca\alakazam.png" />
+    <Image Include="bin\sprites\Blanca\charizard.png" />
+    <Image Include="bin\sprites\Blanca\leafeon.png" />
+    <Image Include="bin\sprites\Blanca\machop.png" />
+    <Image Include="bin\sprites\Blanca\moltres.png" />
+    <Image Include="bin\sprites\Blanca\snorlax.png" />
+    <Image Include="bin\sprites\Negra\crobat.png" />
+    <Image Include="bin\sprites\Negra\ditto.png" />
+    <Image Include="bin\sprites\Negra\gengar.png" />
+    <Image Include="bin\sprites\Negra\scraggy.png" />
+    <Image Include="bin\sprites\Negra\tyranitar.png" />
+    <Image Include="bin\sprites\Negra\umbreon.png" />
+    <Image Include="sprites\Blanca\alakazam.png" />
+    <Image Include="sprites\Blanca\charizard.png" />
+    <Image Include="sprites\Blanca\leafeon.png" />
+    <Image Include="sprites\Blanca\machop.png" />
+    <Image Include="sprites\Blanca\moltres.png" />
+    <Image Include="sprites\Blanca\snorlax.png" />
+    <Image Include="sprites\Negra\crobat.png" />
+    <Image Include="sprites\Negra\ditto.png" />
+    <Image Include="sprites\Negra\gengar.png" />
+    <Image Include="sprites\Negra\scraggy.png" />
+    <Image Include="sprites\Negra\tyranitar.png" />
+    <Image Include="sprites\Negra\umbreon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\ETSIDI.dll" />
+    <None Include="bin\fmodL.dll" />
     <None Include="bin\freeglut.dll" />
     <None Include="bin\Pokemon_etsidi.exe" />
-    <None Include="bin\fmodL.dll" />
-    <None Include="bin\ETSIDI.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="lib\freeglut.lib" />
-    <Library Include="lib\ETSIDI.lib" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="sprites\Blanca\alakazam.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="sprites\Blanca\charizard.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="sprites\Blanca\leafeon.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="sprites\Blanca\machop.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="sprites\Blanca\moltres.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="sprites\Blanca\snorlax.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="sprites\Negra\crobat.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="sprites\Negra\ditto.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="sprites\Negra\gengar.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="sprites\Negra\scraggy.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="sprites\Negra\tyranitar.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="sprites\Negra\umbreon.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="bin\sprites\Blanca\alakazam.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="bin\sprites\Blanca\charizard.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="bin\sprites\Blanca\leafeon.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="bin\sprites\Blanca\machop.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="bin\sprites\Blanca\moltres.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="bin\sprites\Blanca\snorlax.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="bin\sprites\Negra\crobat.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="bin\sprites\Negra\ditto.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="bin\sprites\Negra\gengar.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="bin\sprites\Negra\scraggy.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="bin\sprites\Negra\tyranitar.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
-    <Image Include="bin\sprites\Negra\umbreon.png">
-      <Filter>Archivos de recursos</Filter>
-    </Image>
   </ItemGroup>
 </Project>

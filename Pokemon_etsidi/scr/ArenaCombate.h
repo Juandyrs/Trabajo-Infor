@@ -12,7 +12,7 @@ class ArenaCombate
 	Vector2D dimensiones_arena{4.5, 4.5};
 	Pokemon *equipo1, *equipo2;
 	ListaObstaculos obstaculos;
-	bool IA_activa{}; // Es true por ahora para probar la Ia
+	bool IA_activa{};
 
 public:
 	
@@ -40,10 +40,12 @@ public:
 
 	//Metodos de dibujo
 	void dibuja_Arena();
+	void dibuja_suelo();
 	void dibuja_Personajes();
 	void dibuja_BarrasVida();
 	void dibuja_Ataques();
-	void dibuja_Obstaculos();
+
+	void animaciones_arena();
 
 	//Metodos de movimiento y ataque
 	void arena_combate();
@@ -54,7 +56,8 @@ public:
 
 	//Metodos de inicializacion y reseteo
 	void inicializa_Arena(Pokemon *t1, Pokemon *t2, bool ia);
-
+	void resetear_Arena();
 	Pokemon* devolver_ganador();
+
 };
 

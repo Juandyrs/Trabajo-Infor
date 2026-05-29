@@ -278,21 +278,21 @@ void ArenaCombate::inicializa_Arena(Pokemon *t1, Pokemon *t2, bool ia, TipoCasil
 	equipo1 = t1;
 	equipo2 = t2;
 
-	equipo1->hitbox->pos = { -dimensiones_arena.x + 2, 0 };
-	equipo2->hitbox->pos = { dimensiones_arena.x - 2, 0 };
-
-	if (typeid(equipo1) == typeid(CambiaFormas))
+	if (typeid(*equipo1) == typeid(CambiaFormas))
 	{
 		//Se accede al pokemon como cambiaformas
 		CambiaFormas &p = dynamic_cast<CambiaFormas&>(*equipo1);
 		p.cambiar_forma(*equipo2);
 	}
 
-	else if (typeid(equipo2) == typeid(CambiaFormas))
+	if (typeid(*equipo2) == typeid(CambiaFormas))
 	{
 		CambiaFormas &p = dynamic_cast<CambiaFormas&>(*equipo2);
 		p.cambiar_forma(*equipo1);
 	}
+
+	equipo1->hitbox->pos = { -dimensiones_arena.x + 2, 0 };
+	equipo2->hitbox->pos = { dimensiones_arena.x - 2, 0 };
 
 	IA::estado_arena = Estado_Arena::Buscar;
 	

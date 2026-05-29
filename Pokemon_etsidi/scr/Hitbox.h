@@ -24,6 +24,7 @@ struct Hitbox
 
 	virtual TipoHitbox consultar_tipo() const = 0; //No tiene sentido que exista un objeto de tipo hitbox 
 	virtual void dibujar() = 0;
+	virtual Hitbox* clonar() const = 0 ;
 };
 
 struct HitboxRectangular: public Hitbox
@@ -49,6 +50,7 @@ struct HitboxRectangular: public Hitbox
 	TipoHitbox consultar_tipo() const override { return TipoHitbox::Rectangular; }
 	Vector2D consultar_posicion() const { return pos; }
 	void dibujar() override;
+	Hitbox* clonar() const override { return new HitboxRectangular(rectangulo); }
 };
 
 struct HitboxCircular : public Hitbox
@@ -73,4 +75,5 @@ struct HitboxCircular : public Hitbox
 
 	TipoHitbox consultar_tipo() const override { return TipoHitbox::Circular; }
 	void dibujar() override;
+	Hitbox* clonar() const override {	return new HitboxCircular(radio); }
 };

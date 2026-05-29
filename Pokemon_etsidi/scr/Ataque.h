@@ -38,6 +38,7 @@ public:
 	virtual void atacar_dibujar() = 0;
 	virtual bool colision_ataque(Pokemon &objetivo) = 0;
 	virtual Hitbox* consultar_hitbox() { return hitbox; }
+	virtual Ataque* clonar() const = 0;
 };
 
 class Rango :
@@ -67,6 +68,7 @@ public:
 	void atacar_dibujar() override;
 	void mueve_ataque() override { hitbox->pos += vel_proyectil; }
     bool colision_ataque(Pokemon &objetivo) override;
+	virtual Ataque* clonar() const override;
 };
 
 class Melee :
@@ -97,6 +99,7 @@ public:
 	void atacar_dibujar() override;
 	void mueve_ataque() override {} // Para evitar errores, el ataque melee no se mueve, por ahora
 	bool colision_ataque(Pokemon &objetivo) override;
+	virtual Ataque* clonar() const override;
 };
 
 class Area :
@@ -105,6 +108,13 @@ class Area :
 	int frame_ataque{};
 
 public:
+
+	Area()
+		: Ataque()
+		, frame_ataque{ 0 }
+	{
+		hitbox = new HitboxCircular();
+	}
 
 	Area(double d, Vector2D dir, Vector2D pos, double radio, int frame)
 		: Ataque(dir, pos, d)
@@ -119,4 +129,5 @@ public:
 	void atacar_dibujar() override;
 	void mueve_ataque() override {} // Para evitar errores, el ataque de Area no se mueve, por ahora
 	bool colision_ataque(Pokemon &objetivo) override;
+	virtual Ataque* clonar() const override;
 };

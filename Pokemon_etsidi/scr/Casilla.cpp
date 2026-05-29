@@ -198,9 +198,5 @@ void Casilla::dibujarcasilla(Pokemon* p){
             glDisable(GL_TEXTURE_2D);
             glEnable(GL_DEPTH_TEST);
         }
-    }
+}
 
-
-            glPopMatrix();
-        }
-    }

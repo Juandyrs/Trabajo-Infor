@@ -330,19 +330,11 @@ void Tablero::cambiarturno(){
 
 }
 
-
-void Tablero::turnofinalizadoexito()
-{
-	cambiarturno();
-	conteoturno();   // numeroturno++
-}
-
-
 	//cambio las casillas cambiantes de tipo 
 
-	for (int f = 0; f < 9; f++)
-		for (int c = 0; c < 9; c++)
-			casillas[f][c]->avanzar_ciclo();
+	//for (int f = 0; f < 9; f++)
+		//for (int c = 0; c < 9; c++)
+		//	casillas[f][c]->avanzar_ciclo();
 //TABLERO MUEVE 
 
 void Tablero::tableromueve(bool key[]) {
@@ -366,50 +358,23 @@ void Tablero::cogerpieza(bool key[]) {
 				cursor.cursorpillaficha(matriz[f][c]);
 				ETSIDI::play("bin/sonidos/sonidopoke.wav");
 				matriz[f][c] = nullptr;       //VACIAR ESA CASILLA
-void Tablero::dibujar_casillas() {
-
-	for (int f = 0; f < 9; f++) {
-		for (int c = 0; c < 9; c++) {
-			(*casillas[f][c]).dibujar(matriz[f][c]);
 			}
 		}
-
-	// dibujamos el cursor
-	float lado = 5.0f;
-	float x = cursor_c * lado;
-	float y = cursor_f * lado;
-
-	glDisable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glColor4ub(255, 255, 0, 100); 
-	glBegin(GL_QUADS);
-	glVertex2f(x, y);
-	glVertex2f(x + lado, y);
-	glVertex2f(x + lado, y + lado);
-	glVertex2f(x, y + lado);
-	glEnd();
-	glDisable(GL_BLEND);
-	glEnable(GL_DEPTH_TEST);
-
 	}
-bool Tablero::turnofinalizadoexito()
+}
+
+void Tablero::turnofinalizadoexito()
 {
 	cambiarturno();
 	conteoturno();   // numeroturno++
 	fichaSeleccionada = nullptr;
 	fichaYaSeleccionada = false;
-	return true;
 }
 
 	//SOLTAR PIEZA
 
-void Tablero::soltarpieza(bool key[]) {
 
-	int f = cursor.fila;
-	int c = cursor.columna;
 
-	if (key['z']) {
 bool Tablero::controla_puntos_poder(Bando b) {
 	int poder[5][2] = { {0,4},{4,0},{4,4},{4,8},{8,4} };
 	for (auto p : poder)
@@ -421,45 +386,20 @@ bool Tablero::controla_puntos_poder(Bando b) {
 	
 void Tablero::cargar_pokemons(Pokemon* p) {
 
-		if (cursor.cursorllevaficha() == true) {
-			if (cursor.actualdistancia == 0) { //SI SE HA MOVIDO DE SU CASILLA PERO VUELVE GASTA EL TURNO
-				matriz[cursor.fi][cursor.ci] = cursor.obtenerfichacursor();
-				cursor.cursorsueltaficha();
-				ETSIDI::play("bin/sonidos/sonidopoke.wav");
-				return;
-	if (p->obtener_bando() == Bando::Entrenador)
-		equipo_entrenador.push_back(p);
-	else
-		equipo_rocket.push_back(p);
-			}
+	if (cursor.cursorllevaficha() == true) {
+		if (cursor.actualdistancia == 0) { //SI SE HA MOVIDO DE SU CASILLA PERO VUELVE GASTA EL TURNO
+			matriz[cursor.fi][cursor.ci] = cursor.obtenerfichacursor();
+			cursor.cursorsueltaficha();
+			ETSIDI::play("bin/sonidos/sonidopoke.wav");
+			return;
+			if (p->obtener_bando() == Bando::Entrenador)
+				equipo_entrenador.push_back(p);
+			else
+				equipo_rocket.push_back(p);
+		}
+	}
+}
 			
 bool Tablero::quedan_piezas(Bando b) {
-
-			if (casillaocupada(f, c) && !casillaaliado(f, c, cursor.obtenerfichacursor())) { //CASILLA OCUPADA ESTA AL REVES, ACTUA ASI
-	if (b == Bando::Entrenador) {
-		for (auto p : equipo_entrenador)
-
-				if (casillaenemigo(f, c, cursor.obtenerfichacursor())) {
-					// ENEMIGO → lógica de combate/arena
-					return;
-			if (p->consultar_estado() == Estado::Vivo)
-			return true;
-				}
-	else {
-		for (auto p : equipo_rocket)
-
-			if (p->consultar_estado() == Estado::Vivo)
-
-				// Casilla libre
-				matriz[f][c] = cursor.obtenerfichacursor(); //COLOCA EN VACIA
-				cursor.cursorsueltaficha();
-				ETSIDI::play("bin/sonidos/sonidopoke.wav");
-				turnofinalizadoexito();
-			}
-			//ALIADO NO LO PONGO POR QUE NO ME HACE FALTA DE MOMENTO
-		}
-			return true;
-	}
-	
-	return false;
+	return true;
 }

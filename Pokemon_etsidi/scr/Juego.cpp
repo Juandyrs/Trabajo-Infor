@@ -318,14 +318,18 @@ void Juego::mover_Juego(bool key[])
 
 		if (key['h'] || key['H']) {
 
-			Pokemon* p = Mitablerito.get_pokemon(Mitablerito.cursor.fila, Mitablerito.cursor.columna);
-			if (p != nullptr) {
-				string nombre = p->consultar_nombre();
-				if (nombre == "Alakazam" || nombre == "Gengar") {
+			int f = Mitablerito.cursor.fila;
+			int c = Mitablerito.cursor.columna;
+			Pokemon* p = Mitablerito.matriz[f][c];
+
+			//comparamos 
+			if (p != nullptr && p->obtener_simbolo() == 'H') {
+				bool turnito =
+					(Mitablerito.Turnoactual == TURNO::JUGADOR1 && p->obtener_bando() == Bando::Entrenador) ||
+					(Mitablerito.Turnoactual == TURNO::JUGADOR2 && p->obtener_bando() == Bando::Team_Rocket);
+
+				if (turnito) {
 					pantallaActual = HECHIZOS;
-				}
-				else {
-					cout << "El Pokemon " << nombre << " no puede usar hechizos." << endl;
 				}
 			}
 			key['h'] = key['H'] = false;

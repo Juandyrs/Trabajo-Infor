@@ -10,7 +10,7 @@ double cd1 = 0.0, cd2 = 0.0;
 
 void ArenaCombate::dibuja_Arena()
 {
-	dibuja_Obstaculos();
+	obstaculos.dibujar_Obstaculos();
 	dibuja_Personajes();
 	dibuja_Ataques();
 	dibuja_suelo();
@@ -140,9 +140,10 @@ void ArenaCombate::dibuja_Ataques()
 	}
 }
 
-void ArenaCombate::dibuja_Obstaculos()
+
+void ArenaCombate::animaciones_arena()
 {
-	obstaculos.dibujar_Obstaculos();
+	obstaculos.animar();
 }
 
 //Metodos de movimiento y ataque
@@ -229,7 +230,7 @@ void ArenaCombate::inicializa_obstaculos()
 
 		if (salir) continue;
 
-		obstaculos.agregar_Obstaculo(new Obs_Piedra(pos));
+		obstaculos.agregar_Obstaculo(new Obs_Fuego(pos));
 		i++;
 	}	
 }	

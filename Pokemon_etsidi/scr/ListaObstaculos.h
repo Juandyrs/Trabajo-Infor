@@ -22,6 +22,7 @@ public:
     bool interrumpir_Obstaculos(Pokemon &personaje);
 	void eliminar_Contenido();
 	Obstaculo& obtener_Obstaculo(int index) { return *lista[index]; }
+    void animar() { for (auto obstaculo : lista) obstaculo->animar(); }
 
 	int size() const { return static_cast<int>(lista.size()); }
     auto begin() const { return lista.begin(); }

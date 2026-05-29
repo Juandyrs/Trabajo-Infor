@@ -44,7 +44,8 @@ public:
 	void dibuja_Personajes();
 	void dibuja_BarrasVida();
 	void dibuja_Ataques();
-	void dibuja_Obstaculos();
+
+	void animaciones_arena();
 
 	//Metodos de movimiento y ataque
 	void arena_combate();

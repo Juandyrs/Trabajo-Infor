@@ -3,6 +3,7 @@
 #include "Vector2D.h"
 #include "Pokemon.h"
 #include "Hitbox.h"
+#include <ETSIDI.h>
 
 class Obstaculo
 {
@@ -31,6 +32,7 @@ public:
 
 	virtual bool interrumpir(Pokemon& personaje) = 0;
 	virtual void dibujar() = 0;
+	virtual void animar() = 0;
 
 	Hitbox* consultar_hitbox() const { return hitbox; }
 	Vector2D consultar_posicion() const { return hitbox->pos; }
@@ -52,19 +54,26 @@ public:
 
 	bool interrumpir(Pokemon &personaje) override;
 	void dibujar() override;
+	void animar() override {};
 };
 
 class Obs_Fuego :
 	public Obstaculo
 {
 	int frames_fuego{ 100 };
+	ETSIDI::SpriteSequence sprite;
 
 public:
 
 	Obs_Fuego(Vector2D pos)
 		: Obstaculo(pos, false)
-	{}
+		, sprite("bin/sprites/Obstaculos/ObsFuego.png", 5, 1, 50)
+	{
+		sprite.setSize(1.0, 1.2);
+		sprite.setCenter(0.70, 0.20);
+	}
 
-	bool interrumpir(Pokemon &personaje) override;
+	bool interrumpir(Pokemon& personaje) override;
 	void dibujar() override;
+	void animar() override {sprite.loop();}
 };

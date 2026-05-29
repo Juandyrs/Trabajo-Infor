@@ -366,3 +366,8 @@ void Juego::comprobar_victoria() {
 	if (resultado != ResultadoJuego::NOGANADOR)
 		pantallaActual = EstadoPantalla::FIN;
 }
+
+void  Juego::animar()
+{
+	if (pantallaActual == EstadoPantalla::ARENA) Arena.animaciones_arena();
+}

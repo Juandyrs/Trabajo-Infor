@@ -91,12 +91,14 @@ void Pokemon::dibujar_pokemon()
 			sprites->setState(estado, false);
 		}
 
-		int ultimo_frame = estado + columna_spr - 1;
+		int ultimo_frame = estado + columna_spr;
 		if (sprites->getState() >= ultimo_frame) sprites->setState(estado, false);
 	}
 
 	//Dibujo del sprite
 	glPushMatrix();
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTranslated(hitbox->pos.x, hitbox->pos.y, 0.0);
 	sprites->draw();
 	glPopMatrix();

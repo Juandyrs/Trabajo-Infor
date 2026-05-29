@@ -6,6 +6,7 @@
 #include "tiposp/Fenix.h"
 #include "tiposp/Hechicero.h"
 #include <ETSIDI.h>
+
 using namespace std; 
 
 //funciones para escribir en 2D freeglut

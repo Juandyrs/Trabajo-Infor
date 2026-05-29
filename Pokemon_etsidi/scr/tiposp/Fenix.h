@@ -33,14 +33,17 @@ public:
             , pos_t
             , 3        //Numero de casilla
             , 60.0    //Vida
-            , 0.2     //Velocidad
+            , 0.8     //Velocidad
             , 5    //Dano
             , 5.0     //Cooldown
             , s        //Ruta de imagen
         )
     {
-		ataque = new Area(5.0, Vector2D{ 0.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 1.5, 60);
+		ataque = new Area(5.0, Vector2D{ 0.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 0.5, 60);
         hitbox = new HitboxRectangular({ 0.5,  0.5 });
+
+        sprites->setSize(1.5, 1.5);
+        sprites->setCenter(0.75, 0.75);
 	}
 
 

@@ -36,28 +36,26 @@ void ArenaCombate::dibuja_Personajes()
 	//PlaceHolders hay que cambiarlos
 	if (equipo1->vida_actual > 0)
 	{
+		// Personaje real, placeholder, hay que cambiarlo
+		glPushMatrix();
+		equipo1->dibujar_pokemon();
+		glPopMatrix();
+
 		// Para probar hitbox, temporal hasta que se prueben todos las colisiones
 		glColor3ub(0, 255, 255);
 		equipo1->hitbox->dibujar();
-
-		// Personaje real, placeholder, hay que cambiarlo
-		glColor3ub(255, 255, 0);
-		glTranslated(equipo1->hitbox->pos.x, equipo1->hitbox->pos.y, 0);
-		glutSolidSphere(0.5, 20, 20);
-		glTranslated(-equipo1->hitbox->pos.x, -equipo1->hitbox->pos.y, 0);
 	}
 
 	if(equipo2->vida_actual > 0)
 	{
+		// Personaje real, placeholder, hay que cambiarlo
+		glPushMatrix();
+		equipo2->dibujar_pokemon();
+		glPopMatrix();
+
 		// Para probar hitbox, temporal hasta que se prueben todos las colisiones
 		glColor3ub(0, 255, 255);
 		equipo2->hitbox->dibujar();
-
-		// Personaje real, placeholder, hay que cambiarlo
-		glColor3ub(0, 255, 0);
-		glTranslated(equipo2->hitbox->pos.x, equipo2->hitbox->pos.y, 0);
-		glutSolidSphere(0.5, 20, 20);
-		glTranslated(-equipo2->hitbox->pos.x, -equipo2->hitbox->pos.y, 0);
 		
 	}
 
@@ -144,6 +142,8 @@ void ArenaCombate::dibuja_Ataques()
 void ArenaCombate::animaciones_arena()
 {
 	obstaculos.animar();
+	equipo1->animar_pokemon();
+	equipo2->animar_pokemon();
 }
 
 //Metodos de movimiento y ataque
@@ -281,12 +281,15 @@ void ArenaCombate::mueve_personaje(bool key[])
 {
 	Vector2D dir1{ 0,0 };
 
-	if (key['w']|| key['W']) dir1 += { 0.0, 1.0 };
+	if (key['w'] || key['W']) dir1 += { 0.0, 1.0 };
 	if (key['s'] || key['S']) dir1 += { 0.0, -1.0 };
 	if (key['d'] || key['D']) dir1 += { 1.0, 0.0 };
 	if (key['a'] || key['A']) dir1 += { -1.0, 0.0 };
+
+	if (dir1.modulo() != 0.0) equipo1->modificar_dir(dir1.unitario());
+	else equipo1->modificar_dir({ 0.0, 0.0 });
+
 	if ((key['f'] || key['F']) && cd1 <= 0) atk1_ini = true;
-	if (dir1.modulo() != 0) equipo1->mover_arena(dir1.unitario());
 
 	if (IA_activa) return;
 
@@ -296,8 +299,11 @@ void ArenaCombate::mueve_personaje(bool key[])
 	if (key['k'] || key['K']) dir2 += { 0.0, -1.0 };
 	if (key['l'] || key['L']) dir2 += { 1.0, 0.0 };
 	if (key['j'] || key['J']) dir2 += { -1.0, 0.0 };
+
+	if (dir2.modulo() != 0.0) equipo2->modificar_dir(dir2.unitario());
+	else equipo2->modificar_dir({ 0.0, 0.0 });
+
 	if ((key['h'] || key['H']) && cd2 <= 0) atk2_ini = true;
-	if (dir2.modulo() != 0) equipo2->mover_arena(dir2.unitario());
 
 }
  
@@ -323,4 +329,10 @@ void ArenaCombate::resetear_Arena()
 	equipo2->duracion_efecto = 0;
 	equipo1->dir_mov = Vector2D{ 0.0,0.0 };
 	equipo2->dir_mov = Vector2D{ 0.0,0.0 };
+}
+
+void ArenaCombate::actualizar_arena(double dt)
+{
+	equipo1->mover_arena(dt);
+	equipo2->mover_arena(dt);
 }

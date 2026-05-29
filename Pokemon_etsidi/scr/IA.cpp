@@ -121,7 +121,7 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 		}
 
 		posiciones_anterior[0] = arena.equipo2->hitbox->pos;
-		arena.equipo2->mover_arena(mejor_movimiento.unitario());
+		arena.equipo2->modificar_dir(mejor_movimiento.unitario());
 
 		if (distancia.modulo() < 1.0)	return true;
 	}
@@ -162,7 +162,7 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 		for (int i = 19; i >= 1; i--) posiciones_anterior[i] = posiciones_anterior[i - 1];
 
 		posiciones_anterior[0] = arena.equipo2->hitbox->pos;
-		arena.equipo2->mover_arena(mejor_movimiento.unitario());
+		arena.equipo2->modificar_dir(mejor_movimiento.unitario());
 
 		if (Colisiones::colision(arena.equipo1->hitbox, mejor_movimiento, arena.equipo2->hitbox->pos)) return true;
 	}

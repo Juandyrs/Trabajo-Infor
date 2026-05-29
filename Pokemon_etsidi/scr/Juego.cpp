@@ -4,6 +4,7 @@
 #include <freeglut.h>
 #include "tiposp/CambiaFormas.h"
 #include "tiposp/Fenix.h"
+#include "tiposp/Hechicero.h"
 #include <ETSIDI.h>
 using namespace std; 
 
@@ -381,8 +382,8 @@ void Juego::jugar()
 
 	case ARENA:
 
-		arena_combate(*new Distancia(1),
-			*new Basico(1));
+		arena_combate(*new Hechicero("Alakazam", Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno, { 4,0 }, "bin/sprites/Blanca/AlakazamS.png"),
+			*new Hechicero("Alakazam", Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno, { 4,0 }, "bin/sprites/Blanca/AlakazamS.png"));
 
 		break;
 	}
@@ -452,4 +453,9 @@ void Juego::comprobar_victoria() {
 void  Juego::animar()
 {
 	if (pantallaActual == EstadoPantalla::ARENA) Arena.animaciones_arena();
+}
+
+void  Juego::actualizar_juego(double dt)
+{
+	if (pantallaActual == EstadoPantalla::ARENA) Arena.actualizar_arena(dt);
 }

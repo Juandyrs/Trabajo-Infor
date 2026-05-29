@@ -58,6 +58,7 @@ public:
 	void inicializa_Arena(Pokemon *t1, Pokemon *t2, bool ia);
 	void resetear_Arena();
 	Pokemon* devolver_ganador();
+	void actualizar_arena(double dt);
 
 };
 

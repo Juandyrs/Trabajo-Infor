@@ -30,6 +30,7 @@ public:
 	void arena_combate(Pokemon& equipo1, Pokemon& equipo2);
 	void comprobar_victoria();
 	void animar();
+	void actualizar_juego(double dt);
 
 };
 

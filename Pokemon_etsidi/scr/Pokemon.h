@@ -4,6 +4,7 @@
 #include "Ataque.h"
 #include "Vector2D.h"
 #include "Hitbox.h"
+#include <ETSIDI.h>
 
 using namespace std;
 
@@ -39,7 +40,9 @@ protected:
 	Tipo tip1, tip2;
 	Bando equipo;
 	Estado estado;
-	string sprite; //VA A SER LA RUTA HACIA 
+	string sprite; //VA A SER LA RUTA HACIA
+	ETSIDI::SpriteSequence* sprites;
+	bool moviendo;
 
 	//Atributos del Tablero
 	char simbolo;
@@ -84,6 +87,8 @@ public:
 		, dir_mov{ 0.0, 0.0 }
 		, ataque(nullptr)
 		, sprite("")
+		, sprites(nullptr)
+		, moviendo(false)
 	{}
 
 	Pokemon(string n, Tipo tip1, Tipo tip2, Bando b, char c, TipoMovimiento mov, Vector2D pos_t, int nc, double v, double vel, double d, double cd, string s)
@@ -108,6 +113,8 @@ public:
 		, dir_mov{ 0.0, 0.0 }
 		, ataque(nullptr)
 		, sprite(s)
+		, sprites(new ETSIDI::SpriteSequence(s.c_str(), 3, 5))
+		, moviendo(false)
 	{}
 
 	friend class ArenaCombate;
@@ -133,6 +140,8 @@ public:
 
 	//DIBUJADO
 	//void pokemondibuja(int f, int c);
+	void dibujar_pokemon();
+	void animar_pokemon();
 
 	//Metodos Relacionados con la Arena
 
@@ -140,6 +149,7 @@ public:
 	void recibir_dano(double cantidad);
 	void modificar_posicion(Vector2D nueva_pos) { hitbox->pos = nueva_pos; }
 	void modificar_estado(EfectoEstado nuevo_estado, int duracion) { efecto_estado = nuevo_estado; duracion_efecto = duracion; }
+	void modificar_dir(Vector2D dir) { dir_mov = dir; }
 
 	Hitbox* consultar_hitbox() const { return hitbox; }
 	Vector2D consultar_dim_hitbox() const;// Sirve por que todas son rectangulares
@@ -156,7 +166,7 @@ public:
 	int consultar_duracion_estado() const { return duracion_efecto; }
 
 	virtual void atacar(Pokemon &objetivo);
-	void mover_arena(Vector2D dir);
+	void mover_arena(double dt);
 	Vector2D siguiente_posicion(const Vector2D dir) const { return hitbox->pos + dir * velocidad; }
 	
 };

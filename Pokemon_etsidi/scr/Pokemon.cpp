@@ -45,13 +45,67 @@ void Pokemon::atacar(Pokemon& objetivo)
 
 }
 
-void Pokemon::mover_arena(Vector2D dir)
+void Pokemon::mover_arena(double dt)
 {
-	dir_mov = dir;
-	hitbox->pos += dir_mov * velocidad;
+	if (dir_mov == Vector2D(0.0, 0.0)) return;
+
+	hitbox->pos += dir_mov * velocidad * dt;
 }
 
 //void Pokemon::pokemondibuja(int f, int c) {}
+
+void Pokemon::dibujar_pokemon()
+{
+	int fila{ 0 };
+	int columna_spr{ 3 };
+
+	//Logica del estado del sprite
+	cout << dir_mov << endl;
+
+	if (dir_mov == Vector2D(0.0, -1.0)) fila = 0;
+	if (dir_mov == Vector2D(0.0, 1.0)) fila = 1;
+	if (dir_mov == Vector2D(-1.0, 0.0)) fila = 2;
+	if (dir_mov == Vector2D(1.0, 0.0)) fila = -2;
+	if (dir_mov == Vector2D(-sqrt(2) / 2, -sqrt(2) / 2)) fila = 3;
+	if (dir_mov == Vector2D(sqrt(2) / 2, -sqrt(2) / 2)) fila = -3;
+	if (dir_mov == Vector2D(-sqrt(2) / 2, sqrt(2) / 2)) fila = 4;
+	if (dir_mov == Vector2D(sqrt(2) / 2, sqrt(2) / 2)) fila = -4;
+
+	if (fila > 0) sprites->flip(false, false);
+	if (fila < 0) sprites->flip(true, false);
+
+	//Para mantener la animacion de la direccion de movimiento
+	unsigned int estado = 3 * abs(fila);
+
+	if (dir_mov == Vector2D(0.0, 0.0))
+	{
+		if (moviendo) moviendo = false;
+		sprites->setState(0);
+	}
+	else
+	{
+		if (!moviendo || (sprites->getState() < estado || sprites->getState() >= estado + columna_spr))
+		{
+			moviendo = true;
+			sprites->setState(estado);
+			sprites->setState(estado, false);
+		}
+
+		int ultimo_frame = estado + columna_spr - 1;
+		if (sprites->getState() >= ultimo_frame) sprites->setState(estado, false);
+	}
+
+	//Dibujo del sprite
+	glPushMatrix();
+	glTranslated(hitbox->pos.x, hitbox->pos.y, 0.0);
+	sprites->draw();
+	glPopMatrix();
+}
+
+void Pokemon::animar_pokemon()
+{
+	sprites->loop();
+}
 
 Vector2D Pokemon::consultar_dim_hitbox() const
 {

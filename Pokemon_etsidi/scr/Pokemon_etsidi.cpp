@@ -4,6 +4,9 @@
 #include <iostream>
 #include <freeglut.h>
 #include "Juego.h"
+#include <chrono>
+
+using namespace std::chrono;
 
 using std::vector;
 
@@ -75,14 +78,26 @@ void OnKeyboardUp(unsigned char key, int x_t, int y_t)
 
 	keys[key] = false;
 
+	Archon.mover_Juego(keys);
+
+	//indicamos que se vuelva a dibujar la pantalla, para que se vean los cambios
+	glutPostRedisplay();
 }
 
 void OnTimer(int value)
 {
+	// calcular dt real entre llamadas usando std::chrono
+	static auto last = high_resolution_clock::now();
+	auto now = high_resolution_clock::now();
+	duration<double> elapsed = now - last;
+	double dt = elapsed.count();
+	last = now;
+
 	//código de animacion
-	
+
 	Archon.jugar();
 	Archon.animar();
+	Archon.actualizar_juego(dt);
 
 	//no borrar estas lineas
 	//indicamos que se vuelva a dibujar la pantalla, para que se vean los cambios

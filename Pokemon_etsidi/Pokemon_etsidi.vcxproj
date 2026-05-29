@@ -212,6 +212,7 @@
     <ClCompile Include="scr\Vector2D.cpp" />
     <ClCompile Include="scr\tiposp\Volador.cpp" />
     <ClCompile Include="scr\tiposp\Tanque.cpp" />
+    <ClCompile Include="scr\Textos.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="scr\Cursor.h" />
@@ -238,6 +239,7 @@
     <ClInclude Include="scr\Vector2D.h" />
     <ClInclude Include="scr\tiposp\Volador.h" />
     <ClInclude Include="scr\tiposp\Tanque.h" />
+    <ClInclude Include="scr\Textos.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\ETSIDI.dll" />

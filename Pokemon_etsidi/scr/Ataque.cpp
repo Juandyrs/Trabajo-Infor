@@ -37,6 +37,14 @@ bool Rango::colision_ataque(Pokemon &objetivo)
 
 	return false;
 }
+Ataque* Rango::clonar() const
+{
+	Rango* copia = new Rango();
+	copia->hitbox = hitbox->clonar();
+	copia->vel_proyectil = vel_proyectil;
+	copia->dano = dano;
+	return copia;
+}
 //Metodos de ataque melee
 
 void Melee::iniciar_ataque(Vector2D posicion, Vector2D dir)
@@ -104,6 +112,15 @@ bool Melee::colision_ataque(Pokemon &objetivo)
 	return false;
 }
 
+Ataque* Melee::clonar() const
+{
+	Melee* copia = new Melee();
+	copia->hitbox = hitbox->clonar();
+	copia->frame_ataque = frame_ataque;
+	copia->dano = dano;
+	return copia;
+}
+
 //Metodos de ataque area
 
 void Area::iniciar_ataque(Vector2D posicion, Vector2D dir)
@@ -140,4 +157,13 @@ bool Area::colision_ataque(Pokemon& objetivo)
 	frame -= 1;
 
 	return false;
+}
+
+Ataque* Area::clonar() const
+{
+	Area* copia = new Area();
+	copia->hitbox = hitbox->clonar();
+	copia->frame_ataque = frame_ataque;
+	copia->dano = dano;
+	return copia;
 }

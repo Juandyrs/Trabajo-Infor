@@ -60,7 +60,6 @@ void Pokemon::dibujar_pokemon()
 	int columna_spr{ 3 };
 
 	//Logica del estado del sprite
-	cout << dir_mov << endl;
 
 	if (dir_mov == Vector2D(0.0, -1.0)) fila = 0;
 	if (dir_mov == Vector2D(0.0, 1.0)) fila = 1;

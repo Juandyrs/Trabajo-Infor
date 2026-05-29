@@ -7,34 +7,19 @@ void CambiaFormas::cambiar_forma(Pokemon &enemigo)
 	velocidad = enemigo.consultar_vel();
 	dano = enemigo.consultar_dano();
 	cooldown = enemigo.consultar_cd();
-	hitbox = enemigo.consultar_hitbox();
+	hitbox = new HitboxRectangular(enemigo.consultar_dim_hitbox());
 
-	Rango *aux0 = dynamic_cast<Rango*>(enemigo.consultar_ataque());
-	Melee *aux1 = dynamic_cast<Melee*>(enemigo.consultar_ataque());
-	Area *aux2 = dynamic_cast<Area*>(enemigo.consultar_ataque());
+	ataque = enemigo.consultar_ataque()->clonar();
 
-	if (aux0 != nullptr)
-	{
-		Rango *aux = new Rango(*aux0);
-		ataque = aux;
-	}
-	else if (aux1 != nullptr)
-	{
-		Melee *aux = new Melee(*aux1);
-		ataque = aux;
-	}
-	else if (aux2 != nullptr)
-	{
-		Area *aux = new Area(*aux2);
-		ataque = aux;
-	}
-
+	std::cout << enemigo.consultar_ataque()->consultar_hitbox() << '\n';
+	std::cout << ataque->consultar_hitbox() << '\n';
 }
 
 void CambiaFormas::forma_original()
 {
 	nombre = nombre_original;
 	delete ataque;
+	delete hitbox;
 }
 
 void CambiaFormas::atacar(Pokemon &objetivo)

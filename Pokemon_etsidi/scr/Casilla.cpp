@@ -171,9 +171,12 @@ void Casilla::dibujarcasilla(Pokemon* p){
             glEnable(GL_BLEND);
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-            glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture(p->obtenersprite().c_str()).id);
+            glColor3f(1.0f, 1.0f, 1.0f); 
 
             glPushMatrix();
+
+
+
             glTranslatef(cx, cy, 0.53f);
 
             glBegin(GL_QUADS);

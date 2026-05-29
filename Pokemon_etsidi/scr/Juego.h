@@ -3,6 +3,7 @@
 #include "Tablero.h"
 #include "tiposp/Basico.h"
 #include "tiposp/Distancia.h"
+#include "Textos.h"
 
 //distintos tableros
 enum EstadoPantalla { MENU, TABLERO, ARENA,FIN,HECHIZOS };

@@ -24,6 +24,7 @@
     <ClCompile Include="scr\tiposp\Tanque.cpp" />
     <ClCompile Include="scr\Cursor.cpp" />
     <ClCompile Include="scr\Hechizo.cpp" />
+    <ClCompile Include="scr\Textos.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="scr\Hitbox.h" />
@@ -50,6 +51,7 @@
     <ClInclude Include="scr\tiposp\Tanque.h" />
     <ClInclude Include="scr\Cursor.h" />
     <ClInclude Include="scr\Hechizo.h" />
+    <ClInclude Include="scr\Textos.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\ETSIDI.lib" />

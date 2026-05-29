@@ -4,8 +4,10 @@
 #include "cmath"
 #include "Casilla.h"
 #include "Cursor.h"
-
+#include "Tablero.h"
 #include <vector>
+#include "Textos.h"
+
 enum class VENTAJA { JUGADOR, NADA, ROCKET }; //SERVIARÁ MAS ADELANTE PARA LOS MODOS Y VENTAJAS
 enum class TURNO {JUGADOR1, JUGADOR2};
 
@@ -42,9 +44,10 @@ void imprimir();
 	//para leer el tablero en 2D
 	Pokemon* get_pokemon(int f, int c) { return matriz[f][c]; }
 
-	//DIBUJARSE A SI MISMO Y A LOS POKEMONS O CASILLAS CORRESPONDIENTES
+	//DIBUJARSE A SI MISMO Y A LOS POKEMONS O CASILLAS CORRESPONDIENTES o menu de hechizos
 	void tablerodibuja();
 	void dibujar_tableroyfichas();
+	void dibujar_menu_hechizos();
 
 	//SON PARA VER LAS CONDICIONES DE MOVIMIENTO DEL TABLERO
 	int distanciarecorrida(int fi, int ci, int ff ,int cf);
@@ -88,5 +91,7 @@ void imprimir();
 	void soltarpieza(bool key[]);
 	void cargar_pokemons(Pokemon* p);
 
+
+	
 };
 

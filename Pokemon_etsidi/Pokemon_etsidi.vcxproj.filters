@@ -36,6 +36,12 @@
     <ClCompile Include="Tipos_Pokemon.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="scr\Hitbox.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="scr\Cursor.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Tablero.h">
@@ -56,5 +62,154 @@
     <ClInclude Include="Tipos_Pokemon.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+<<<<<<< Updated upstream
+=======
+    <ClInclude Include="scr\Vector2D.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\tiposp\Hechicero.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\tiposp\Volador.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\tiposp\Tanque.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\tiposp\Distancia.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\tiposp\Basico.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\tiposp\Fenix.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\tiposp\CambiaFormas.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\Ataque.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\Obstaculo.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\Colisiones.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\ListaObstaculos.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\InteraccionArena.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\IA.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\ETSIDI.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\Hitbox.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="scr\Cursor.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\freeglut.dll" />
+    <None Include="bin\Pokemon_etsidi.exe" />
+    <None Include="bin\fmodL.dll" />
+    <None Include="bin\ETSIDI.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\freeglut.lib" />
+    <Library Include="lib\ETSIDI.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="sprites\Blanca\alakazam.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Blanca\charizard.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Blanca\leafeon.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Blanca\machop.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Blanca\moltres.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Blanca\snorlax.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Negra\crobat.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Negra\ditto.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Negra\gengar.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Negra\scraggy.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Negra\tyranitar.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="sprites\Negra\umbreon.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\sprites\Blanca\alakazam.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\sprites\Blanca\charizard.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\sprites\Blanca\leafeon.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\sprites\Blanca\machop.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\sprites\Blanca\moltres.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\sprites\Blanca\snorlax.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\sprites\Negra\crobat.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\sprites\Negra\ditto.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\sprites\Negra\gengar.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\sprites\Negra\scraggy.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\sprites\Negra\tyranitar.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\sprites\Negra\umbreon.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="bin\sprites\pokeball.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\..\..\Desktop\pokemons_png\sonidopoke.wav">
+      <Filter>Archivos de recursos</Filter>
+    </Media>
+    <Media Include="bin\sonidos\sonidopoke.wav">
+      <Filter>Archivos de recursos</Filter>
+    </Media>
+>>>>>>> Stashed changes
   </ItemGroup>
 </Project>

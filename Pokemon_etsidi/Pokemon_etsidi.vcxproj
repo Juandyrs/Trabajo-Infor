@@ -182,6 +182,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+<<<<<<< Updated upstream
     <ClCompile Include="ArenaCombate.cpp" />
     <ClCompile Include="Casilla.cpp" />
     <ClCompile Include="Juego.cpp" />
@@ -197,6 +198,96 @@
     <ClInclude Include="Pokemon.h" />
     <ClInclude Include="Tablero.h" />
     <ClInclude Include="Tipos_Pokemon.h" />
+=======
+    <ClCompile Include="scr\Cursor.cpp" />
+    <ClCompile Include="scr\Hitbox.cpp" />
+    <ClCompile Include="scr\IA.cpp" />
+    <ClCompile Include="scr\InteraccionArena.cpp" />
+    <ClCompile Include="scr\ListaObstaculos.cpp" />
+    <ClCompile Include="scr\Colisiones.cpp" />
+    <ClCompile Include="scr\Ataque.cpp" />
+    <ClCompile Include="scr\Obstaculo.cpp" />
+    <ClCompile Include="scr\tiposp\CambiaFormas.cpp" />
+    <ClCompile Include="scr\tiposp\Fenix.cpp" />
+    <ClCompile Include="scr\tiposp\Basico.cpp" />
+    <ClCompile Include="scr\tiposp\Distancia.cpp" />
+    <ClCompile Include="scr\tiposp\Hechicero.cpp" />
+    <ClCompile Include="scr\ArenaCombate.cpp" />
+    <ClCompile Include="scr\Casilla.cpp" />
+    <ClCompile Include="scr\Juego.cpp" />
+    <ClCompile Include="scr\Pokemon.cpp" />
+    <ClCompile Include="scr\Pokemon_etsidi.cpp" />
+    <ClCompile Include="scr\Tablero.cpp" />
+    <ClCompile Include="scr\Vector2D.cpp" />
+    <ClCompile Include="scr\tiposp\Volador.cpp" />
+    <ClCompile Include="scr\tiposp\Tanque.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="scr\Cursor.h" />
+    <ClInclude Include="scr\Hitbox.h" />
+    <ClInclude Include="lib\ETSIDI.h" />
+    <ClInclude Include="scr\IA.h" />
+    <ClInclude Include="scr\InteraccionArena.h" />
+    <ClInclude Include="scr\ListaObstaculos.h" />
+    <ClInclude Include="scr\Colisiones.h" />
+    <ClInclude Include="scr\Ataque.h" />
+    <ClInclude Include="scr\Obstaculo.h" />
+    <ClInclude Include="scr\tiposp\CambiaFormas.h" />
+    <ClInclude Include="scr\tiposp\Fenix.h" />
+    <ClInclude Include="scr\tiposp\Basico.h" />
+    <ClInclude Include="scr\tiposp\Distancia.h" />
+    <ClInclude Include="scr\tiposp\Hechicero.h" />
+    <ClInclude Include="lib\freeglut.h" />
+    <ClInclude Include="scr\ArenaCombate.h" />
+    <ClInclude Include="scr\Casilla.h" />
+    <ClInclude Include="scr\Juego.h" />
+    <ClInclude Include="scr\Pokemon.h" />
+    <ClInclude Include="scr\Tablero.h" />
+    <ClInclude Include="scr\Vector2D.h" />
+    <ClInclude Include="scr\tiposp\Volador.h" />
+    <ClInclude Include="scr\tiposp\Tanque.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\ETSIDI.dll" />
+    <None Include="bin\fmodL.dll" />
+    <None Include="bin\freeglut.dll" />
+    <None Include="bin\Pokemon_etsidi.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\ETSIDI.lib" />
+    <Library Include="lib\freeglut.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="bin\sprites\Blanca\alakazam.png" />
+    <Image Include="bin\sprites\Blanca\charizard.png" />
+    <Image Include="bin\sprites\Blanca\leafeon.png" />
+    <Image Include="bin\sprites\Blanca\machop.png" />
+    <Image Include="bin\sprites\Blanca\moltres.png" />
+    <Image Include="bin\sprites\Blanca\snorlax.png" />
+    <Image Include="bin\sprites\Negra\crobat.png" />
+    <Image Include="bin\sprites\Negra\ditto.png" />
+    <Image Include="bin\sprites\Negra\gengar.png" />
+    <Image Include="bin\sprites\Negra\scraggy.png" />
+    <Image Include="bin\sprites\Negra\tyranitar.png" />
+    <Image Include="bin\sprites\Negra\umbreon.png" />
+    <Image Include="bin\sprites\pokeball.png" />
+    <Image Include="sprites\Blanca\alakazam.png" />
+    <Image Include="sprites\Blanca\charizard.png" />
+    <Image Include="sprites\Blanca\leafeon.png" />
+    <Image Include="sprites\Blanca\machop.png" />
+    <Image Include="sprites\Blanca\moltres.png" />
+    <Image Include="sprites\Blanca\snorlax.png" />
+    <Image Include="sprites\Negra\crobat.png" />
+    <Image Include="sprites\Negra\ditto.png" />
+    <Image Include="sprites\Negra\gengar.png" />
+    <Image Include="sprites\Negra\scraggy.png" />
+    <Image Include="sprites\Negra\tyranitar.png" />
+    <Image Include="sprites\Negra\umbreon.png" />
+>>>>>>> Stashed changes
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\..\..\Desktop\pokemons_png\sonidopoke.wav" />
+    <Media Include="bin\sonidos\sonidopoke.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

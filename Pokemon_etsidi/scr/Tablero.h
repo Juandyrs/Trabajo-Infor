@@ -8,6 +8,8 @@
 #include <vector>
 #include "Textos.h"
 
+using namespace std;
+
 enum class VENTAJA { JUGADOR, NADA, ROCKET }; //SERVIARÁ MAS ADELANTE PARA LOS MODOS Y VENTAJAS
 enum class TURNO {JUGADOR1, JUGADOR2};
 
@@ -31,12 +33,14 @@ class Tablero
 	Cursor cursor;
 	Casilla* casillas[9][9]={nullptr};
 	
-	//para el menu de hechizos
+	//para hechizos y su menu
 
 	bool menu_hechizos_abierto = false; 
 	int hechizo_cargado = 0;
 	int f_hechicero = 0; 
 	int c_hechicero = 0;
+	Pokemon* p_revivir = nullptr;
+	int estado_hechizo = 1;
 
 public:
 
@@ -91,15 +95,16 @@ void imprimir();
 
 	//TABLERO MUEVE (FUNCION GLOBAL PARA PASAR A JUEGO)
 	void tableromueve(bool key[]);
-	//para cargar los pokemons en sus respectivos vectores de cada bando
+	//para cargar los pokemons en sus respectivos vectores de cada bando y obtener los muertos 
 
 	void cogerpieza(bool key[]);
 	void soltarpieza(bool key[]);
 	void cargar_pokemons(Pokemon* p);
-
+	vector <Pokemon*> obtener_pokemons_muertos_detu_bando();
 
 	//para lanzar los hechizos
 	bool lanzar_hechizo(int id_hechizo, int f, int c);
+
 	
 };
 

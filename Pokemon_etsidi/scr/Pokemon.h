@@ -167,6 +167,7 @@ public:
 	Estado consultar_estado() const { return estado; }
 	int consultar_duracion_estado() const { return duracion_efecto; }
 	Vector2D consultar_dir() const { return dir_mov; }
+	void cambiar_estado(Estado e) { estado = e; }
 
 	virtual void atacar(Pokemon &objetivo);
 	void mover_arena(double dt);

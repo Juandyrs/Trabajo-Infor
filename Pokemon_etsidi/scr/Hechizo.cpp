@@ -11,3 +11,13 @@ bool Hechizo::llamar_curar(Pokemon* objetivo) {
 	return false;    //este no se aplica si no queda de ese hechizo o no se ha apuntado a ningun pokemon 
 
 }
+
+bool Hechizo::llamar_revivir() {
+	if (Revivir) {
+		std::cout << "¡Hechizo de revivir aplicado!" << std::endl;
+		Revivir = false; 
+		return true;
+	}
+	std::cout << "¡Hechizo de revivir NO aplicado!" << std::endl;
+	return false;
+}

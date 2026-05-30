@@ -56,6 +56,6 @@ public:
 
     // para gestionar los hechizos 
 	Hechizo& libro_hechizos() { return hechizos; }
-
+	
 };
 

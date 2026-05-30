@@ -17,6 +17,8 @@ public:
 
     //metodos que realizan los hechizos
     bool llamar_curar(Pokemon* objetivo);
+    bool llamar_revivir();
+
 
 
     void gastarteletransporte() { Teletransporte = false; }

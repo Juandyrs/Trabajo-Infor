@@ -42,6 +42,6 @@ public:
 
 
 	//MOVIMIENTO DE CURSOR
-	void Cursormover(bool key[], Pokemon* matriz[9][9]);
+	void Cursormover(bool key[], Pokemon* matriz[9][9], int hechizo);
 };
 

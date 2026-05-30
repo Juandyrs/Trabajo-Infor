@@ -122,6 +122,7 @@ public:
 	string consultar_nombre() const { return nombre; }
 	double consultar_vel() const { return velocidad; }
 	double consultar_vida() const { return vida_actual; }
+	double modificar_vida() { return vida_actual; };
 	double consultar_dano() const { return dano; }
 	double consultar_vidamax() const { return vida_max; }
 	double consultar_cd() const { return cooldown; }

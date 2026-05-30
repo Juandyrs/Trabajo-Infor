@@ -23,6 +23,24 @@ public:
 	}
 
 	Hechicero(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t, string s)
+<<<<<<< Updated upstream
+=======
+		: Pokemon(
+			n        //Nombre
+			, tipo1
+			, tipo2
+			, b        //Bando
+			, 'H'
+			, TipoMovimiento::Teletransporte
+			, pos_t
+			, 3        //Numero de casilla
+			, 60.0    //Vida
+			, 0.5     //Velocidad
+			, 10.0    //Dano
+			, 5.0     //Cooldown
+			, s       //Ruta de imagen
+		)
+>>>>>>> Stashed changes
 	{
 		// No se pueden inicializar miembros heredados en la lista de inicialización
 		//Arena
@@ -49,7 +67,9 @@ public:
 	}
 
 
-    
+	Hechizo& modificarHechizos() { return hechizos; } //PARA MODIFICAR SU VALOR
+	const Hechizo& verHechizos() const { return hechizos; } //PARA LEERLO SI ES TruE O FALSE h->getHechizos().gastacurar() se ve asi en tablero es la gracia de esto
+
 
 };
 

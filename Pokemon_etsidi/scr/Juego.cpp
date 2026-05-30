@@ -143,7 +143,6 @@ void Juego::dibujar_Juego()
 		Arena.dibuja_Ataques();
 		Arena.dibuja_Obstaculos();
 		Arena.dibuja_Arena();
-		Arena.dibuja_BarrasVida();
 
 		break;
 	}
@@ -176,11 +175,14 @@ void Juego::mover_Juego(bool key[])
 		Mitablerito.imprimir(); //CADA VEZ QUE SALE DE LA ARENA REESCRIBE EL TABLERO
 		Mitablerito.tableromueve(key);
 
+<<<<<<< Updated upstream
 		//Para Probar la Arena
 		if (key['p'] || key['P'])
 		{
 			pantallaActual = ARENA;
 		}
+=======
+>>>>>>> Stashed changes
 
 		break;
 
@@ -192,6 +194,16 @@ void Juego::mover_Juego(bool key[])
 
 		break;
 
+<<<<<<< Updated upstream
+=======
+	case FIN:
+		if (key['r']) {
+			pantallaActual = MENU;
+			resultado = ResultadoJuego::NOGANADOR;
+			key['r'] = false;
+		}
+		break;
+>>>>>>> Stashed changes
 	}
 }
 

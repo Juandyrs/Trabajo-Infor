@@ -114,7 +114,7 @@ void Cursor::cursorsueltaficha() {
     maxdistancia = 0;
 }
 
-void Cursor::Cursormover(bool key[], Pokemon* matriz[9][9]) {
+void Cursor::Cursormover(bool key[], Pokemon* matriz[9][9], int hechizo) {
 
     int absfila = fila;
     int abscolumna = columna;
@@ -140,7 +140,7 @@ void Cursor::Cursormover(bool key[], Pokemon* matriz[9][9]) {
     if (llevaficha == true){
         
         actualdistancia = abs(fi - fila) + abs(ci - columna);
-
+        if (hechizo != 1) {
         if (actualdistancia > maxdistancia) {
             fila = absfila;
             columna = abscolumna;
@@ -151,6 +151,7 @@ void Cursor::Cursormover(bool key[], Pokemon* matriz[9][9]) {
             if (matriz[fila][columna] != nullptr) {
                 fila = absfila;
                 columna = abscolumna;
+            }
             }
         }
     }

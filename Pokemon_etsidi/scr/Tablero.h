@@ -18,6 +18,9 @@ class Tablero
 {
 	friend class Cursor;
 	friend class Juego;
+	friend class IA;
+
+	bool IA_activa{ false };
 
 	Pokemon* matriz[9][9] = { nullptr }; //Creo la matriz 9x9 de punteros a pokemons (VACIA) SE LLENA EN LA INICIALIZACIÓN
 	TURNO Turnoactual;
@@ -45,14 +48,12 @@ class Tablero
 public:
 
 	void colocar_pokemon(int f, int c, Pokemon* p) { matriz[f][c] = p; } // no se puede poner &p puesto que p ya es un puntero a pokemon 
-	
 
 	Tablero() = default;
 	
 void imprimir();
 	void inicializar_tablero();
 	//para leer el tablero en 2D
-	Pokemon* get_pokemon(int f, int c) { return matriz[f][c]; }
 
 	//DIBUJARSE A SI MISMO Y A LOS POKEMONS O CASILLAS CORRESPONDIENTES o menu de hechizos
 	void tablerodibuja();
@@ -104,5 +105,6 @@ void imprimir();
 	//MENU HECHIZOS
 	void hechizosmueve(bool key[]);
 	
+	void habilitar_IA() { IA_activa = true; }
 };
 

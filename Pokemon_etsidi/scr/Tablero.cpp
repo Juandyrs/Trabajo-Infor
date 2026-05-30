@@ -316,8 +316,9 @@ void Tablero::hechizosmueve(bool key[]) {
 
 //TABLERO MUEVE 
 
-void Tablero::tableromueve(bool key[]) {
-
+void Tablero::tableromueve(bool key[]) 
+{
+	if (IA_activa && Turnoactual == TURNO::JUGADOR2) return;
 	hechizosmueve(key);
 	cursor.Cursormover(key, matriz);
 	cogerpieza(key);
@@ -333,10 +334,7 @@ void Tablero::cogerpieza(bool key[]) {
 	int f = cursor.fila;
 	int c = cursor.columna;
 
-
-
-
-	if (key['e']) {
+	if (key['e'] || key['E']) {
 		if (cursor.cursorllevaficha() == false) {
 			//NO TIENE FICHA EL CURSOR
 
@@ -361,7 +359,7 @@ void Tablero::soltarpieza(bool key[]) {
 	int c = cursor.columna;
 	Pokemon* p = cursor.obtenerfichacursor();
 
-	if (key['z']) {
+	if (key['z'] || key['Z']) {
 
 		if (cursor.cursorllevaficha()) {
 
@@ -457,7 +455,7 @@ void Tablero::soltarpieza(bool key[]) {
 		}
 	}
 
-	if (key['q']) {
+	if (key['q'] || key['Q']) {
 		cout << cursor.actualdistancia << "\n";
 		cout << cursor.maxdistancia << "\n";
 		cout << cursor.ci << cursor.fi << "\n";

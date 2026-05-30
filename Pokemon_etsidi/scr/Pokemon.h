@@ -171,7 +171,7 @@ public:
 
 	virtual void atacar(Pokemon &objetivo);
 	void mover_arena(double dt);
-	Vector2D siguiente_posicion(const Vector2D dir) const { return hitbox->pos + dir * velocidad; }
+	Vector2D siguiente_posicion(const Vector2D dir, const double dt) const { return hitbox->pos + dir * velocidad * dt; }
 	
 	//para el hechizo de cura
 	void cura_max() { vida_actual = vida_max; }

@@ -270,13 +270,20 @@ void ArenaCombate::limita_movimiento()
 	if (equipo2->hitbox->pos.y <= -dimensiones_arena.y) equipo2->hitbox->pos.y = -dimensiones_arena.y;
 }
 
-void ArenaCombate::inicializa_Arena(Pokemon *t1, Pokemon *t2, bool ia, TipoCasilla casilla)
+void ArenaCombate::inicializa_Arena(Pokemon *t1, Pokemon *t2, TipoCasilla casilla)
 {
-	IA_activa = ia;
 	tipocasi = casilla;
 
-	equipo1 = t1;
-	equipo2 = t2;
+	if (t1->obtener_bando() == Bando::Entrenador)
+	{
+		equipo1 = t1;
+		equipo2 = t2;
+	}
+	else
+	{
+		equipo1 = t2;
+		equipo2 = t1;
+	}
 
 	if (typeid(*equipo1) == typeid(CambiaFormas))
 	{

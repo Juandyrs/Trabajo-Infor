@@ -31,23 +31,6 @@ void Cursor::dibujarcursor() {
     glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
 
-  //  glEnable(GL_TEXTURE_2D);
-   // glEnable(GL_BLEND);
-   // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-   // glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("bin/sprites/pokeball.png"));
-
-    //glPushMatrix();
-    //glTranslatef(x, y, 0.53f);
-
-   // glBegin(GL_QUADS);
-   // glTexCoord2f(0, 0); glVertex3f(-lado, -lado, 0);
-   // glTexCoord2f(1, 0); glVertex3f(lado, -lado, 0);
-   // glTexCoord2f(1, 1); glVertex3f(lado, lado, 0);
-//glTexCoord2f(0, 1); glVertex3f(-lado, lado, 0);
-   // glEnd();
-
-
     if (fichaencursor != nullptr && Tipomov != TipoMovimiento::Teletransporte ) { //EL PSIQUICO SE TELETRANSPORTA O LO QUE ES LO MISMO, NO SE DIBUJA CON EL CURSOR
 
         float cx = x + lado * 0.5f;
@@ -106,7 +89,6 @@ void Cursor::Cursormover(bool key[], Pokemon* matriz[9][9]) {
     int abscolumna = columna;
 
     if (key['a'] || key['A']) columna--;
-
     else if (key['d'] || key['D']) columna++;
     else if (key['s'] || key['S']) fila++;
     else if (key['w'] || key['W']) fila--;
@@ -117,9 +99,7 @@ void Cursor::Cursormover(bool key[], Pokemon* matriz[9][9]) {
     if (fila < 0) fila = 0;
     if (fila > 8) fila = 8;
 
-
     if (llevaficha == false) return;
-
 
     //PARA MOVIMIENTOS TERRESTRES
 
@@ -135,7 +115,7 @@ void Cursor::Cursormover(bool key[], Pokemon* matriz[9][9]) {
 
         if (Tipomov == TipoMovimiento::Tierra) {
 
-            Pokemon* destino = (matriz[fila][columna]);
+            Pokemon* destino = matriz[fila][columna];
 
 
             if (destino == nullptr) //VACIO SE PERMITE PASAR, LO QUE TENIAMOS PUEstO ANTES
@@ -159,7 +139,16 @@ void Cursor::Cursormover(bool key[], Pokemon* matriz[9][9]) {
         }
 
     }
+}
 
-
+void Cursor::mod_fila()
+{
+    fila++;
 
 }
+
+void Cursor::mod_columna()
+{
+
+}
+

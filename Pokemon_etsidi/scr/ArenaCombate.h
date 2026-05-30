@@ -11,7 +11,7 @@ class ArenaCombate
 	Vector2D dimensiones_arena{4.5, 4.5};
 	Pokemon *equipo1, *equipo2;
 	ListaObstaculos obstaculos;
-	bool IA_activa{};
+	bool IA_activa{false};
 	TipoCasilla tipocasi;
 
 public:
@@ -57,10 +57,11 @@ public:
 	void limita_movimiento();
 
 	//Metodos de inicializacion y reseteo
-	void inicializa_Arena(Pokemon *t1, Pokemon *t2, bool ia, TipoCasilla casilla);
+	void inicializa_Arena(Pokemon *t1, Pokemon *t2, TipoCasilla casilla);
 	void resetear_Arena();
 	Pokemon* devolver_ganador();
 	void actualizar_arena(double dt);
+	void habilitar_IA() { IA_activa = true; }
 
 };
 

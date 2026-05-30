@@ -60,6 +60,8 @@ void Melee::iniciar_ataque(Vector2D posicion, Vector2D dir)
 
 void Melee::atacar_dibujar()
 {
+	if (dir_atk.modulo() == 0) return; // Si la dirección es un vector nulo, no se dibuja el ataque
+
 	double ang_ataque = dir_atk.argumento();
 
 	//Placeholder, hay que cambiarlo
@@ -83,6 +85,8 @@ void Melee::atacar_dibujar()
 
 bool Melee::colision_ataque(Pokemon &objetivo)
 {
+	if (dir_atk.modulo() == 0) return false; // Si la dirección es un vector nulo, no se dibuja el ataque
+
 	static int frame = frame_ataque;
 	HitboxRectangular *h = dynamic_cast<HitboxRectangular*>(hitbox);
 	HitboxRectangular *aux = new HitboxRectangular(*h);

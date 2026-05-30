@@ -12,8 +12,17 @@ using std::max_element;
 extern bool atk2_ini;
 extern double cd2;
 
-void IA::IA_Tablero(Tablero& tablero)
+extern bool keys[];
+
+void IA::IA_Tablero(Tablero &tablero)
 {
+	if (tablero.Turnoactual != TURNO::JUGADOR2) return;
+
+	//tablero.cursor.Cursormover("W");
+
+	tablero.cursor.fila++;
+	tablero.cogerpieza(keys);
+	tablero.soltarpieza(keys);
 
 }
 
@@ -78,6 +87,8 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 	Vector2D mejor_movimiento{ 0,0 };
 	static vector <Vector2D>  posiciones_anterior(20);
 
+	arena.equipo2->modificar_dir(Vector2D(0.0, 0.0));
+
 	//Los personajes cuerpo a cuerpo y los de ataque en area  se comportan de manera similar.
 	if (typeid(*arena.equipo2->ataque) == typeid(Melee) || typeid(*arena.equipo2->ataque) == typeid(Area))
 	{
@@ -87,7 +98,7 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 
 		for (int i = 0; i < 8; i++)
 		{
-			puntos[i] = arena.equipo2->siguiente_posicion(movimientos[i]);
+			puntos[i] = arena.equipo2->siguiente_posicion(movimientos[i], dt);
 			aux.hitbox->pos = puntos[i];
 			d_aux = arena.equipo1->consultar_posicion() - aux.hitbox->pos;
 
@@ -134,7 +145,7 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 
 		for (int i = 0; i < 8; i++)
 		{
-			puntos[i] = arena.equipo2->siguiente_posicion(movimientos[i]);
+			puntos[i] = arena.equipo2->siguiente_posicion(movimientos[i], dt);
 			aux.hitbox->pos = puntos[i];
 			d_aux = arena.equipo1->consultar_posicion() - aux.hitbox->pos;
 

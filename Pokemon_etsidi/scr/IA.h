@@ -13,6 +13,7 @@ enum class Estado_Arena
 class IA
 {
 	inline static Estado_Arena estado_arena = Estado_Arena::Buscar;
+	inline static double dt;
 
 public:
 

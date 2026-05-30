@@ -5,8 +5,7 @@ class Cursor
 {
 	friend class Tablero;
 	friend class Juego;
-
-	
+	friend class IA;
 
 	int columna, fila;
 	bool llevaficha = false;       //SI LLEVA ALGO
@@ -27,6 +26,7 @@ public:
 	void inicializarcursor(int f, int c);
 
 	//ESPECIFICAS DE CURSOR
+
 	//COSAS INTERNAS Y CARGA DE DATOS DE LA FICHA SELECCIONADA
 	void cursorpillaficha(Pokemon* p);
 	void cursorsueltaficha();
@@ -38,5 +38,7 @@ public:
 
 	//MOVIMIENTO DE CURSOR
 	void Cursormover(bool key[], Pokemon* matriz[9][9]);
+	void mod_fila();
+	void mod_columna();
 };
 

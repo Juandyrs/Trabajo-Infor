@@ -96,6 +96,7 @@ void OnTimer(int value)
 	//código de animacion
 
 	Archon.jugar();
+	Archon.IA_juego();
 	Archon.animar();
 	Archon.actualizar_juego(dt);
 

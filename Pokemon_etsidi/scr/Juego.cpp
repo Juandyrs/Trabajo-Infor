@@ -166,6 +166,8 @@ void Juego::mover_Juego(bool key[])
 		}
 		else if (key['2']) {
 			IA_activa = true;
+			Mitablerito.habilitar_IA();
+			Arena.habilitar_IA();
 			pantallaActual = TABLERO;
 			Mitablerito.inicializar_tablero();
 			ETSIDI::stopMusica();
@@ -179,15 +181,12 @@ void Juego::mover_Juego(bool key[])
 		//Mitablerito.imprimir(); //CADA VEZ QUE SALE DE LA ARENA REESCRIBE EL TABLERO
 		Mitablerito.tableromueve(key);
 
-		
-
 		break;
 
 	case ARENA:
 
 		Arena.mueve_personaje(key);
 
-		if (key['t'] || key['T']) pantallaActual = TABLERO;
 		break;
 
 	case FIN:
@@ -197,9 +196,6 @@ void Juego::mover_Juego(bool key[])
 			key['r'] = false;
 		}
 		break;
-
-
-
 
 	}
 }
@@ -261,13 +257,15 @@ void  Juego::animar()
 
 void  Juego::actualizar_juego(double dt)
 {
+	if (IA_activa) IA::dt = dt;
+
 	if (pantallaActual == EstadoPantalla::ARENA) Arena.actualizar_arena(dt);
 }
 
 void Juego::TableroArena() {
 	if (Mitablerito.arenabandera == true) {
 		pantallaActual = ARENA;
-		Arena.inicializa_Arena(Mitablerito.ataque, Mitablerito.defensa, false, Mitablerito.casillaarena);
+		Arena.inicializa_Arena(Mitablerito.ataque, Mitablerito.defensa, Mitablerito.casillaarena);
 		ETSIDI::stopMusica();
 		ETSIDI::playMusica("bin/sonidos/musica_arena.mp3", true);
 	}
@@ -280,8 +278,6 @@ void Juego::ArenaTablero() {
 
 	Arena.arena_combate();
 	Arena.limita_movimiento();
-
-	if (IA_activa) IA::IA_Combate_Arena(Arena);
 
 	if (ganador == nullptr)
 		return; 
@@ -306,4 +302,15 @@ void Juego::ArenaTablero() {
 
 	pantallaActual = TABLERO;
 
+	Mitablerito.turnofinalizadoexito();
+
+}
+
+void Juego::IA_juego()
+{
+	if (!IA_activa) return;
+
+	if (pantallaActual == EstadoPantalla::TABLERO) IA::IA_Tablero(Mitablerito);
+
+	if(pantallaActual == EstadoPantalla::ARENA) IA::IA_Combate_Arena(Arena);
 }

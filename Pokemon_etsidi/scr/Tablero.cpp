@@ -120,9 +120,15 @@ void Tablero::dibujar_tableroyfichas() {
 
 
 void Tablero::tablerodibuja() { 
+	
+	
+
+	
+
 	dibujar_tableroyfichas();
 	cursor.dibujarcursor();
-
+	dibujar_fondo_tablero();
+	imprimir_turno();
 
 	//llamo al menu de hechizos si se ha pulsado la H
 	if (menu_hechizos_abierto) {
@@ -686,4 +692,70 @@ vector<Pokemon*> Tablero::obtener_pokemons_muertos_detu_bando() {
 		}
 	}
 	return muertos;
+}
+
+
+void Tablero::dibujar_fondo_tablero() {
+	
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glDisable(GL_LIGHTING);
+	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("bin/fondos/fondo_tablero.png").id);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0, 0); glVertex2f(-5.0f, -5.0f);
+	glTexCoord2f(1, 0); glVertex2f(50.0f, -5.0f);
+	glTexCoord2f(1, 1); glVertex2f(50.0f, 50.0f);
+	glTexCoord2f(0, 1); glVertex2f(-5.0f, 50.0f);
+	glEnd();
+	glDisable(GL_BLEND);
+	glDisable(GL_TEXTURE_2D);
+
+}
+
+
+
+
+void Tablero::imprimir_turno() {
+	glDisable(GL_LIGHTING);
+	glDisable(GL_DEPTH_TEST);
+
+	
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glColor4f(0.0f, 0.0f, 0.0f, 0.8f);
+	glBegin(GL_QUADS);
+	glVertex2f(-5.0f, 46.0f);
+	glVertex2f(50.0f, 46.0f);
+	glVertex2f(50.0f, 52.0f);
+	glVertex2f(-5.0f, 52.0f);
+	glEnd();
+	glDisable(GL_BLEND);
+
+	if (Turnoactual == TURNO::JUGADOR1) {
+		glColor3f(1.0f, 1.0f, 1.0f);
+		Textos::escribirCadena2D(12.0f, -2.5f, "TURNO: Entrenador (Jugador Claro)");
+	}
+	else {
+		glColor3f(0.8f, 0.0f, 0.0f);
+		Textos::escribirCadena2D(12.0f, -2.5f, "TURNO: Team Rocket (Jugador Oscuro)");
+	}
+
+	
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glColor4f(0.0f, 0.0f, 0.0f, 0.8f);
+	glBegin(GL_QUADS);
+	glVertex2f(-5.0f, -10.0f);
+	glVertex2f(50.0f, -10.0f);
+	glVertex2f(50.0f, -4.0f);
+	glVertex2f(-5.0f, -4.0f);
+	glEnd();
+	glDisable(GL_BLEND);
+
+	glColor3f(1.0f, 1.0f, 0.8f);
+	Textos::escribirCadena2D(-3.0f, -8.0f, "[E] Coger/Lanzar  [Z] Soltar  [H] Hechizos (Con cursor encima del Hechicero)");
+
+	glEnable(GL_DEPTH_TEST);
 }

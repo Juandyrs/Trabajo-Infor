@@ -74,6 +74,7 @@ bool Hechizo::llamar_bloqueo(Pokemon* p) {
     return false;
 }
 
+
 bool Hechizo::llamar_revivir() {
 	if (Revivir) {
 		std::cout << "¡Hechizo de revivir aplicado!" << std::endl;

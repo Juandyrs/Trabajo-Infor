@@ -67,7 +67,7 @@ void Juego::dibujar_Juego()
 		glDisable(GL_TEXTURE_2D); 
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		gluOrtho2D(-5.0, 50.0, -5.0, 50.0);
+		gluOrtho2D(-15.0, 65.0, -10.0, 52.0);
 
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();

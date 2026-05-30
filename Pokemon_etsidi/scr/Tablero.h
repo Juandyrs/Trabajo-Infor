@@ -81,7 +81,8 @@ void imprimir();
 	int columnaCombate;
 	bool arenabandera = false;
 
-	
+	void imprimir_turno();
+	void dibujar_fondo_tablero();
 
 	//para comprobar condiciones de victoria
 	bool controla_puntos_poder(Bando b); //victoria por puntos de poder

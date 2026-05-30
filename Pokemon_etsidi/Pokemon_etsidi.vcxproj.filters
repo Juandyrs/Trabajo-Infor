@@ -109,6 +109,42 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< Updated upstream
+=======
+    <Image Include="bin\sprites\Blanca\alakazam.png" />
+    <Image Include="bin\sprites\Blanca\charizard.png" />
+    <Image Include="bin\sprites\Blanca\leafeon.png" />
+    <Image Include="bin\sprites\Blanca\machop.png" />
+    <Image Include="bin\sprites\Blanca\moltres.png" />
+    <Image Include="bin\sprites\Blanca\snorlax.png" />
+    <Image Include="bin\sprites\Negra\crobat.png" />
+    <Image Include="bin\sprites\Negra\ditto.png" />
+    <Image Include="bin\sprites\Negra\gengar.png" />
+    <Image Include="bin\sprites\Negra\scraggy.png" />
+    <Image Include="bin\sprites\Negra\tyranitar.png" />
+    <Image Include="bin\sprites\Negra\umbreon.png" />
+    <Image Include="sprites\Blanca\alakazam.png" />
+    <Image Include="sprites\Blanca\charizard.png" />
+    <Image Include="sprites\Blanca\leafeon.png" />
+    <Image Include="sprites\Blanca\machop.png" />
+    <Image Include="sprites\Blanca\moltres.png" />
+    <Image Include="sprites\Blanca\snorlax.png" />
+    <Image Include="sprites\Negra\crobat.png" />
+    <Image Include="sprites\Negra\ditto.png" />
+    <Image Include="sprites\Negra\gengar.png" />
+    <Image Include="sprites\Negra\scraggy.png" />
+    <Image Include="sprites\Negra\tyranitar.png" />
+    <Image Include="sprites\Negra\umbreon.png" />
+    <Image Include="bin\casillas\amarilla.png" />
+    <Image Include="bin\casillas\blanca.png" />
+    <Image Include="bin\casillas\gris.png" />
+    <Image Include="bin\casillas\negra.png" />
+    <Image Include="bin\casillas\morada.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\ETSIDI.dll" />
+    <None Include="bin\fmodL.dll" />
+>>>>>>> Stashed changes
     <None Include="bin\freeglut.dll" />
     <None Include="bin\Pokemon_etsidi.exe" />
   </ItemGroup>

@@ -19,7 +19,7 @@ public:
     void eliminar_Obstaculo(int index);
     void dibujar_Obstaculos() { for (auto obstaculo : lista) obstaculo->dibujar(); }
     double distancia_obstaculo_cercano(Pokemon &personaje);
-    bool interrumpir_Obstaculos(Pokemon &personaje);
+    bool interrumpir_Obstaculos(Pokemon &personaje, double dt);
 	void eliminar_Contenido();
 	Obstaculo& obtener_Obstaculo(int index) { return *lista[index]; }
     void animar() { for (auto obstaculo : lista) obstaculo->animar(); }

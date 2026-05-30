@@ -132,8 +132,31 @@ void Tablero::tablerodibuja() {
 
 	if (hechizo_cargado > 0 && (menu_hechizos_abierto==0)) {
 		glDisable(GL_TEXTURE_2D);
-		glColor3f(1.0f, 0.5f, 0.0f); 
-		Textos::escribirCadena2D(-4.0f, 47.0f, "HECHIZO CARGADO: Pulsa [E] para lanzar o [H] para cancelar");
+		glColor3f(1.0f, 0.5f, 0.0f);
+
+		if (hechizo_cargado == 6 && estado_hechizo == 1) {
+			Textos::escribirCadena2D(-4.0f, 47.0f, "REVIVIR (Paso 1): Elige a quien revivir con [1, 2...]");
+
+			vector<Pokemon*> muertos_temp = obtener_pokemons_muertos_detu_bando();
+
+			if (muertos_temp.empty()) {
+				glColor3f(1.0f, 0.0f, 0.0f); 
+				Textos::escribirCadena2D(-4.0f, 43.0f, "¡No hay ningun pokemon muerto en tu equipo! Pulsa [H] para cancelar.");
+			}
+			else {
+				glColor3f(1.0f, 1.0f, 1.0f); 
+				for (int i = 0; i < muertos_temp.size(); i++) {
+					string texto = to_string(i + 1) + ". " + muertos_temp[i]->consultar_nombre();
+					Textos::escribirCadena2D(-4.0f, 42.0f - (i * 3.0f), texto.c_str());
+				}
+			}
+		}
+		else if (hechizo_cargado == 6 && estado_hechizo == 2) {
+			Textos::escribirCadena2D(-4.0f, 47.0f, "REVIVIR (Paso 2): Mueve el cursor a una CASILLA VACIA y pulsa [E]");
+		}
+		else {
+			Textos::escribirCadena2D(-4.0f, 47.0f, "MODO APUNTAR: Pulsa [E] para lanzar o [H] para cancelar");
+		}
 	}
 
 
@@ -213,7 +236,13 @@ void Tablero::hechizosmueve(bool key[]) {
 			if (key[c]) {
 				hechizo_cargado = c - '0'; // con esto convertimos del numero en ascii a numeros del 1 al 7, porque obtenemos distancias  a traves de la resta
 				menu_hechizos_abierto = false; //cerramos el menu
+				estado_hechizo = 1;
 				key[c] = false;
+
+				if (hechizo_cargado == 6) {
+					p_revivir = nullptr;
+				}
+
 				return;
 			}
 		}
@@ -222,6 +251,31 @@ void Tablero::hechizosmueve(bool key[]) {
 
 	//una vez tenemos el hechizo seleccionado
 	if (hechizo_cargado > 0) {
+
+
+		//si nos encontramos con el hechizo 6 cargado y estamos en el estado de hechizo 1
+		if (hechizo_cargado == 6 && estado_hechizo == 1) {
+
+			vector<Pokemon*> muertos_temp = obtener_pokemons_muertos_detu_bando();
+
+			if (muertos_temp.empty()) {
+				if (key['h'] || key['H']) { hechizo_cargado = 0; key['h'] = key['H'] = false; }
+			}
+			else {
+				for (int i = 0; i < muertos_temp.size(); i++) {
+					char tecla = '1' + i;
+					if (key[tecla]) {
+						p_revivir = muertos_temp[i];
+						estado_hechizo = 2; 
+						key[tecla] = false;
+					}
+				}
+			}
+			if (key['h'] || key['H']) { hechizo_cargado = 0; estado_hechizo = 1; key['h'] = key['H'] = false; }
+			return; 
+		}
+
+
 
 		cursor.Cursormover(key, matriz); //ahora ya si se puede mover el cursor
 
@@ -588,6 +642,24 @@ bool Tablero::lanzar_hechizo(int no_hechizo, int f, int c) {
 		cout << "No se puede intercambiar o el hechizo esta gastado." << endl;
 		return false;
 
+	case 6: // revivir
+		if (matriz[f][c] == nullptr && p_revivir != nullptr) {
+			if (magia.llamar_revivir()) { 
+
+				matriz[f][c] = p_revivir; // nos colocamos al pokemon
+
+				p_revivir->cura_max(); // vida al maximo
+				p_revivir->cambiar_estado(Estado::Vivo); // cambiamos el estado a vivo
+
+				p_revivir->modificar_posicion(Vector2D(c, f)); //tenemos que modificarle la posicion al pokemon
+				return true;
+			}
+		}
+		else {
+			cout << "Fallo: ¡Debes revivirlo en una casilla vacía!" << endl;
+		}
+		return false;
+
 		case 7: //BLOQUEO
 			if (casillaenemigo(f, c, mago)) {
 				if (magia.llamar_bloqueo(objetivo)) {
@@ -599,4 +671,21 @@ bool Tablero::lanzar_hechizo(int no_hechizo, int f, int c) {
 			return false;
 
 	}
+
+	return false;
+}
+
+vector<Pokemon*> Tablero::obtener_pokemons_muertos_detu_bando() {
+	vector<Pokemon*> muertos;
+	Pokemon* mago = matriz[f_hechicero][c_hechicero];
+
+	if (mago != nullptr) {
+		std::vector<Pokemon*>& mi_equipo = (mago->obtener_bando() == Bando::Entrenador) ? equipo_entrenador : equipo_rocket;
+		for (Pokemon* p : mi_equipo) {
+			if (p->consultar_estado() == Estado::Muerto) {
+				muertos.push_back(p);
+			}
+		}
+	}
+	return muertos;
 }

@@ -36,7 +36,7 @@ public:
             , pos_t
             , 3        //Numero de casilla
             , 60.0    //Vida
-            , 0.5     //Velocidad
+            , 2.0     //Velocidad
             , 10.0    //Dano
             , 5.0     //Cooldown
             , s        //Ruta de imagen

@@ -204,12 +204,10 @@ void ArenaCombate::arena_combate()
 
 }
 
-void ArenaCombate::interaccion_obstaculos()
+void ArenaCombate::interaccion_obstaculos(double dt)
 {
-	static bool team1_inter = false, team2_inter = false;
-
-	obstaculos.interrumpir_Obstaculos(*equipo1);
-	obstaculos.interrumpir_Obstaculos(*equipo2);
+	obstaculos.interrumpir_Obstaculos(*equipo1, dt);
+	obstaculos.interrumpir_Obstaculos(*equipo2, dt);
 }
 
 void ArenaCombate::inicializa_obstaculos()
@@ -251,7 +249,9 @@ void ArenaCombate::inicializa_obstaculos()
 
 		if (salir) continue;
 
-		obstaculos.agregar_Obstaculo(new Obs_Fuego(pos));
+		if(tipocasi == TipoCasilla::clara) obstaculos.agregar_Obstaculo(new Obs_Arbusto(pos));
+		else if (tipocasi == TipoCasilla::oscura) obstaculos.agregar_Obstaculo(new Obs_Fuego(pos));
+		else obstaculos.agregar_Obstaculo(new Obs_Piedra(pos));
 		i++;
 	}	
 }	
@@ -385,4 +385,6 @@ void ArenaCombate::actualizar_arena(double dt)
 {
 	equipo1->mover_arena(dt);
 	equipo2->mover_arena(dt);
+
+	interaccion_obstaculos(dt);
 }

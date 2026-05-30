@@ -161,11 +161,15 @@ void Juego::mover_Juego(bool key[])
 			IA_activa = false;
 			pantallaActual = TABLERO;
 			Mitablerito.inicializar_tablero();
+			ETSIDI::stopMusica();
+			ETSIDI::playMusica("bin/sonidos/musica_tablero.mp3", true); 
 		}
 		else if (key['2']) {
 			IA_activa = true;
 			pantallaActual = TABLERO;
 			Mitablerito.inicializar_tablero();
+			ETSIDI::stopMusica();
+			ETSIDI::playMusica("bin/sonidos/musica_tablero.mp3", true); 
 		}
 
 		break;
@@ -264,6 +268,8 @@ void Juego::TableroArena() {
 	if (Mitablerito.arenabandera == true) {
 		pantallaActual = ARENA;
 		Arena.inicializa_Arena(Mitablerito.ataque, Mitablerito.defensa, false, Mitablerito.casillaarena);
+		ETSIDI::stopMusica();
+		ETSIDI::playMusica("bin/sonidos/musica_arena.mp3", true);
 	}
 
 }
@@ -273,7 +279,6 @@ void Juego::ArenaTablero() {
 	Pokemon* ganador = Arena.devolver_ganador();
 
 	Arena.arena_combate();
-	Arena.interaccion_obstaculos();
 	Arena.limita_movimiento();
 
 	if (IA_activa) IA::IA_Combate_Arena(Arena);
@@ -296,6 +301,9 @@ void Juego::ArenaTablero() {
 	Arena.resetear_Arena();
 
 	//VOLVER AL TABLERO
+	ETSIDI::stopMusica();
+	ETSIDI::playMusica("bin/sonidos/musica_tablero.mp3", true);
+
 	pantallaActual = TABLERO;
 
 }

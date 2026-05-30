@@ -30,7 +30,7 @@ public:
 	friend ArenaCombate;
 	friend InteraccionArena;
 
-	virtual bool interrumpir(Pokemon& personaje) = 0;
+	virtual bool interrumpir(Pokemon& personaje, double dt) = 0;
 	virtual void dibujar() = 0;
 	virtual void animar() = 0;
 
@@ -52,7 +52,7 @@ public:
 	{}
 	
 
-	bool interrumpir(Pokemon &personaje) override;
+	bool interrumpir(Pokemon &personaje, double dt) override;
 	void dibujar() override;
 	void animar() override {};
 };
@@ -73,7 +73,29 @@ public:
 		sprite.setCenter(0.70, 0.20);
 	}
 
-	bool interrumpir(Pokemon& personaje) override;
+	bool interrumpir(Pokemon& personaje, double dt) override;
 	void dibujar() override;
 	void animar() override {sprite.loop();}
+};
+
+class Obs_Arbusto :
+	public Obstaculo
+{
+	double reducir_vel;
+	ETSIDI::SpriteSequence sprite;
+
+public:
+
+	Obs_Arbusto(Vector2D pos)
+		: Obstaculo(pos, false)
+		, reducir_vel(1.0)
+		, sprite("bin/sprites/Obstaculos/ObsFuego.png", 5, 1, 50)
+	{
+		sprite.setSize(1.0, 1.2);
+		sprite.setCenter(0.70, 0.20);
+	}
+
+	bool interrumpir(Pokemon &personaje, double dt) override;
+	void dibujar() override;
+	void animar() override {};
 };

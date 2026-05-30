@@ -41,7 +41,7 @@ protected:
 	Bando equipo;
 	Estado estado;
 	string sprite; //VA A SER LA RUTA HACIA
-	ETSIDI::SpriteSequence* sprites;
+	ETSIDI::SpriteSequence *sprites;
 	bool moviendo;
 	Vector2D centro_s{ 0,0 };
 	Vector2D set_s{ 0,0 };
@@ -121,7 +121,6 @@ public:
 
 	friend class ArenaCombate;
 	friend class Tablero;
-	friend class Obs_Piedra;
 	friend class InteraccionArena;
 	friend class IA;
 
@@ -167,6 +166,8 @@ public:
 	EfectoEstado consultar_efecto_estado() const { return efecto_estado; }
 	Estado consultar_estado() const { return estado; }
 	int consultar_duracion_estado() const { return duracion_efecto; }
+	Vector2D consultar_dir() const { return dir_mov; }
+	void cambiar_estado(Estado e) { estado = e; }
 
 	virtual void atacar(Pokemon &objetivo);
 	void mover_arena(double dt);

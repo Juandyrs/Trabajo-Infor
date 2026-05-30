@@ -26,6 +26,8 @@ public:
     void restaurarbloqueo(Pokemon* p) { p->restablecermovimiento(movoriginal, casillasoriginal); }
     bool llamar_intercambio(Pokemon* p);
     bool llamar_bloqueo(Pokemon* p);
+    bool llamar_revivir();
+
 
 
     void gastarteletransporte() { Teletransporte = false; }

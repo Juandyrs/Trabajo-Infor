@@ -6,7 +6,7 @@
 #include "Textos.h"
 
 //distintos tableros
-enum EstadoPantalla { MENU, TABLERO, ARENA,FIN,HECHIZOS };
+enum EstadoPantalla { MENU, TABLERO, ARENA,FIN };
 enum class ResultadoJuego { NOGANADOR, GANADORENTRENADOR, GANADORROCKET };
 
 

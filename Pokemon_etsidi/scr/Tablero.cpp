@@ -123,6 +123,14 @@ void Tablero::tablerodibuja() {
 	dibujar_tableroyfichas();
 	cursor.dibujarcursor();
 
+
+	//llamo al menu de hechizos si se ha pulsado la H
+	if (menu_hechizos_abierto) {
+		dibujar_menu_hechizos(); 
+	}
+
+
+
 }
 
 int Tablero::distanciarecorrida(int fi, int ci, int ff, int cf) {
@@ -277,6 +285,33 @@ void Tablero::cambiarturno() {
 //TABLERO MUEVE 
 
 void Tablero::tableromueve(bool key[]) {
+
+	//comprobamos que el menu este abierto, si está abierto 
+	if (menu_hechizos_abierto) {
+		if (key['h'] || key['H']) { 
+			menu_hechizos_abierto = false;
+			key['h'] = false;
+		}
+		return; //con este return no spermite que no se pueda mover el cursor si tenemos el menu abierto 
+	}
+
+
+// si queremos abrir el menu
+	if (key['h'] || key['H']) {
+		Pokemon* p = matriz[cursor.fila][cursor.columna];
+		if (p != nullptr && p->obtener_simbolo() == 'H') {
+			bool turnito =
+				(Turnoactual == TURNO::JUGADOR1 && p->obtener_bando() == Bando::Entrenador) ||
+				(Turnoactual == TURNO::JUGADOR2 && p->obtener_bando() == Bando::Team_Rocket);
+
+			if (turnito) {
+				menu_hechizos_abierto = true; 
+			}
+		}
+		key['h'] = key['H'] = false;
+	}
+
+
 	cursor.Cursormover(key, matriz);
 	cogerpieza(key);
 	soltarpieza(key); 
@@ -412,19 +447,9 @@ void Tablero::cargadatosarena() {
 
 void Tablero::dibujar_menu_hechizos() {
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	glDisable(GL_LIGHTING);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluOrtho2D(-5.0, 50.0, -5.0, 50.0);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-
-
 	glDisable(GL_DEPTH_TEST);
 
+	
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glDisable(GL_TEXTURE_2D);
@@ -434,6 +459,7 @@ void Tablero::dibujar_menu_hechizos() {
 	glVertex2f(65.0f, 65.0f); glVertex2f(-5.0f, 65.0f);
 	glEnd();
 
+	
 	glDisable(GL_BLEND);
 	glColor3f(0.0f, 0.0f, 0.0f);
 	glBegin(GL_QUADS);
@@ -441,6 +467,7 @@ void Tablero::dibujar_menu_hechizos() {
 	glVertex2f(40.5f, 43.5f); glVertex2f(4.5f, 43.5f);
 	glEnd();
 
+	
 	glLineWidth(3.0f);
 	glColor3f(1.0f, 0.8f, 0.0f);
 	glBegin(GL_LINE_LOOP);
@@ -448,18 +475,15 @@ void Tablero::dibujar_menu_hechizos() {
 	glVertex2f(40.5f, 43.5f); glVertex2f(4.5f, 43.5f);
 	glEnd();
 
-
+//ponemos el titulo
 	glDisable(GL_TEXTURE_2D);
 	glColor3f(1.0f, 0.8f, 0.0f);
-	
 	Textos::escribirCadena2D(10.0f, 40.0f, "LIBRO DE HECHIZOS (Selecciona 1-7)");
 
-
+	//dibujamos los sprites
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glColor3f(1.0f, 1.0f, 1.0f);
-
 	static ETSIDI::Sprite ico1("bin/sprites/Iconos/teleport.png", 9.0f, 35.0f, 3.5f, 3.5f); ico1.draw();
 	static ETSIDI::Sprite ico2("bin/sprites/Iconos/curar.png", 9.0f, 30.0f, 3.5f, 3.5f); ico2.draw();
 	static ETSIDI::Sprite ico3("bin/sprites/Iconos/shiftime.png", 9.0f, 25.0f, 3.5f, 3.5f); ico3.draw();
@@ -468,21 +492,20 @@ void Tablero::dibujar_menu_hechizos() {
 	static ETSIDI::Sprite ico6("bin/sprites/Iconos/revivir.png", 9.0f, 10.0f, 3.5f, 3.5f); ico6.draw();
 	static ETSIDI::Sprite ico7("bin/sprites/Iconos/imprison.png", 9.0f, 5.0f, 3.5f, 3.5f); ico7.draw();
 
+	//leyendas de los hechizos
 	glDisable(GL_BLEND);
 	glDisable(GL_TEXTURE_2D);
-
 	glColor3f(1.0f, 1.0f, 1.0f);
 	Textos::escribirCadena2D(12.5f, 34.5f, "1. Teletransporte - Mover aliado");
-	Textos::escribirCadena2D(12.5f, 29.5f, "2. Curar - Sanar vida completa");
+	Textos::escribirCadena2D(12.5f, 29.5f, "2. Curar - Curar vida completa");
 	Textos::escribirCadena2D(12.5f, 24.5f, "3. Cambiar Tiempo - Altera casillas");
 	Textos::escribirCadena2D(12.5f, 19.5f, "4. Intercambiar - Cambiar 2 piezas");
 	Textos::escribirCadena2D(12.5f, 14.5f, "5. Invocar Elemental");
-	Textos::escribirCadena2D(12.5f, 9.5f, "6. Resucitar - Revivir aliado");
+	Textos::escribirCadena2D(12.5f, 9.5f, "6. Revivir - Revivir aliado");
 	Textos::escribirCadena2D(12.5f, 4.5f, "7. Encarcelar - Bloquear enemigo");
 
 	glColor3f(0.7f, 0.7f, 0.7f);
 	Textos::escribirCadena2D(34.0f, 3.0f, "[H] Volver");
 
 	glEnable(GL_DEPTH_TEST);
-
 }

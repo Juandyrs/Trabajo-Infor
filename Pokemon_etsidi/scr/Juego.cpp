@@ -189,12 +189,7 @@ void Juego::dibujar_Juego()
 
 void Juego::mover_Juego(bool key[])
 {
-	//esto luego hay que quitarlo, ahora es para comprobar la pantalla de fin
-	if (key['v'] ) {
-		resultado = ResultadoJuego::GANADORROCKET; 
-		pantallaActual = EstadoPantalla::FIN;
-		key['v'] = false;
-	}
+	
 
 	switch (pantallaActual)
 	{
@@ -218,28 +213,7 @@ void Juego::mover_Juego(bool key[])
 		//Mitablerito.imprimir(); //CADA VEZ QUE SALE DE LA ARENA REESCRIBE EL TABLERO
 		Mitablerito.tableromueve(key);
 
-		//para probar el menu de hechizos 
-
 		
-
-		if (key['h'] || key['H']) {
-
-			int f = Mitablerito.cursor.fila;
-			int c = Mitablerito.cursor.columna;
-			Pokemon* p = Mitablerito.matriz[f][c];
-
-			//comparamos 
-			if (p != nullptr && p->obtener_simbolo() == 'H') {
-				bool turnito =
-					(Mitablerito.Turnoactual == TURNO::JUGADOR1 && p->obtener_bando() == Bando::Entrenador) ||
-					(Mitablerito.Turnoactual == TURNO::JUGADOR2 && p->obtener_bando() == Bando::Team_Rocket);
-
-				if (turnito) {
-					Mitablerito.dibujar_menu_hechizos();
-				}
-			}
-			key['h'] = key['H'] = false;
-		}
 
 		break;
 
@@ -255,14 +229,6 @@ void Juego::mover_Juego(bool key[])
 			pantallaActual = MENU;
 			resultado = ResultadoJuego::NOGANADOR;
 			key['r'] = false;
-		}
-		break;
-
-	case HECHIZOS:
-		
-		if (key['h']) {
-			pantallaActual = TABLERO;
-			key['h'] = false;
 		}
 		break;
 

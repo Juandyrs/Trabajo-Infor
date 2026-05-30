@@ -31,6 +31,11 @@ class Tablero
 	Cursor cursor;
 	Casilla* casillas[9][9]={nullptr};
 	
+	//para el menu de hechizos
+
+	bool menu_hechizos_abierto = false; 
+	int hechizo_cargado = 0;
+
 
 public:
 

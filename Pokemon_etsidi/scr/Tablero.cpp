@@ -371,7 +371,7 @@ void Tablero::soltarpieza(bool key[]) {
 
 		if (cursor.cursorllevaficha()) {
 
-			if (p->obtenertipomovimiento() == TipoMovimiento::Teletransporte) {
+			if (p->obtenertipomovimiento() == TipoMovimiento::Hechizo) {
 
 				Pokemon* poke_lanzador = matriz[f_hechicero][c_hechicero];
 				Hechicero* mago = static_cast<Hechicero*>(poke_lanzador);
@@ -404,7 +404,7 @@ void Tablero::soltarpieza(bool key[]) {
 			if (cursor.actualdistancia == 0) {
 
 				
-				if (p->obtenertipomovimiento() == TipoMovimiento::Teletransporte) {
+				if (p->obtenertipomovimiento() == TipoMovimiento::Hechizo) {
 					Pokemon* poke_lanzador = matriz[f_hechicero][c_hechicero];
 					Hechicero* mago = static_cast<Hechicero*>(poke_lanzador);
 					Hechizo& magia = mago->libro_hechizos();
@@ -422,7 +422,7 @@ void Tablero::soltarpieza(bool key[]) {
 			if (casillaenemigo(f, c, p)) {
 
 
-				if (p->obtenertipomovimiento() == TipoMovimiento::Teletransporte) {
+				if (p->obtenertipomovimiento() == TipoMovimiento::Hechizo) {
 					Pokemon* poke_lanzador = matriz[f_hechicero][c_hechicero];
 					Hechicero* mago = static_cast<Hechicero*>(poke_lanzador);
 					Hechizo& magia = mago->libro_hechizos();
@@ -441,7 +441,7 @@ void Tablero::soltarpieza(bool key[]) {
 			// VACIA
 			if (!casillaocupada(f, c)) {
 
-				if (p->obtenertipomovimiento() == TipoMovimiento::Teletransporte) {
+				if (p->obtenertipomovimiento() == TipoMovimiento::Hechizo) {
 					Pokemon* poke_lanzador = matriz[f_hechicero][c_hechicero];
 					Hechicero* mago = static_cast<Hechicero*>(poke_lanzador);
 					Hechizo& magia = mago->libro_hechizos();
@@ -461,16 +461,6 @@ void Tablero::soltarpieza(bool key[]) {
 				return;
 			}
 		}
-	}
-
-	if (key['q'] || key['Q']) {
-		cout << cursor.actualdistancia << "\n";
-		cout << cursor.maxdistancia << "\n";
-		cout << cursor.ci << cursor.fi << "\n";
-		cout << cursor.columna << cursor.fila << "\n";
-		cout << cursor.llevaficha << "\n";
-		cout << arenabandera << "\n";
-		cout << (int)cursor.obtenerfichacursor()->obtenertipomovimiento() << "\n";
 	}
 }
 

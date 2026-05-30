@@ -141,27 +141,27 @@ void Tablero::tablerodibuja() {
 		glColor3f(1.0f, 0.5f, 0.0f);
 
 		if (hechizo_cargado == 6 && estado_hechizo == 1) {
-			Textos::escribirCadena2D(-4.0f, 47.0f, "REVIVIR (Paso 1): Elige a quien revivir con [1, 2...]");
+			Textos::escribirCadena2DPequena(2.0f, 50.5f, "REVIVIR (Paso 1): Elige a quien revivir con [1, 2...]");
 
 			vector<Pokemon*> muertos_temp = obtener_pokemons_muertos_detu_bando();
 
 			if (muertos_temp.empty()) {
 				glColor3f(1.0f, 0.0f, 0.0f); 
-				Textos::escribirCadena2D(-4.0f, 43.0f, "¡No hay ningun pokemon muerto en tu equipo! Pulsa [H] para cancelar.");
+				Textos::escribirCadena2DPequena(2.0f, 48.0f, "¡No hay ningun pokemon muerto en tu equipo! Pulsa [H] para cancelar.");
 			}
 			else {
 				glColor3f(1.0f, 1.0f, 1.0f); 
 				for (int i = 0; i < muertos_temp.size(); i++) {
 					string texto = to_string(i + 1) + ". " + muertos_temp[i]->consultar_nombre();
-					Textos::escribirCadena2D(-4.0f, 42.0f - (i * 3.0f), texto.c_str());
+					Textos::escribirCadena2DPequena(2.0f, 45.0f - (i * 2.0f), texto.c_str());
 				}
 			}
 		}
 		else if (hechizo_cargado == 6 && estado_hechizo == 2) {
-			Textos::escribirCadena2D(-4.0f, 47.0f, "REVIVIR (Paso 2): Mueve el cursor a una CASILLA VACIA y pulsa [E]");
+			Textos::escribirCadena2DPequena(2.0f, 50.5f, "REVIVIR (Paso 2): Mueve el cursor a una CASILLA VACIA y pulsa [E]");
 		}
 		else {
-			Textos::escribirCadena2D(-4.0f, 47.0f, "MODO APUNTAR: Pulsa [E] para lanzar o [H] para cancelar");
+			Textos::escribirCadena2DPequena(2.0f, 50.5f, "MODO APUNTAR: Pulsa [E] para lanzar o [H] para cancelar");
 		}
 	}
 
@@ -556,7 +556,7 @@ void Tablero::dibujar_menu_hechizos() {
 //ponemos el titulo
 	glDisable(GL_TEXTURE_2D);
 	glColor3f(1.0f, 0.8f, 0.0f);
-	Textos::escribirCadena2D(10.0f, 40.0f, "LIBRO DE HECHIZOS (Selecciona 1-7)");
+	Textos::escribirCadena2D(8.0f, 40.0f, "LIBRO DE HECHIZOS (Selecciona 1-7)");
 
 	//dibujamos los sprites
 	glEnable(GL_TEXTURE_2D);
@@ -574,16 +574,16 @@ void Tablero::dibujar_menu_hechizos() {
 	glDisable(GL_BLEND);
 	glDisable(GL_TEXTURE_2D);
 	glColor3f(1.0f, 1.0f, 1.0f);
-	Textos::escribirCadena2D(12.5f, 34.5f, "1. Teletransporte - Mover aliado");
-	Textos::escribirCadena2D(12.5f, 29.5f, "2. Curar - Curar vida completa");
-	Textos::escribirCadena2D(12.5f, 24.5f, "3. Cambiar Tiempo - Altera casillas");
-	Textos::escribirCadena2D(12.5f, 19.5f, "4. Intercambiar - Cambiar 2 piezas");
-	Textos::escribirCadena2D(12.5f, 14.5f, "5. Invocar Elemental");
-	Textos::escribirCadena2D(12.5f, 9.5f, "6. Revivir - Revivir aliado");
-	Textos::escribirCadena2D(12.5f, 4.5f, "7. Encarcelar - Bloquear enemigo");
+	Textos::escribirCadena2D(9.5f, 34.5f, "1. Teletransporte - Mover aliado");
+	Textos::escribirCadena2D(9.5f, 29.5f, "2. Curar - Curar vida completa");
+	Textos::escribirCadena2D(9.5f, 24.5f, "3. Cambiar Tiempo - Altera casillas");
+	Textos::escribirCadena2D(9.5f, 19.5f, "4. Intercambiar - Cambiar 2 piezas");
+	Textos::escribirCadena2D(9.5f, 14.5f, "5. Invocar Elemental");
+	Textos::escribirCadena2D(9.5f, 9.5f, "6. Revivir - Revivir aliado");
+	Textos::escribirCadena2D(9.5f, 4.5f, "7. Encarcelar - Bloquear enemigo");
 
 	glColor3f(0.7f, 0.7f, 0.7f);
-	Textos::escribirCadena2D(34.0f, 3.0f, "[H] Volver");
+	Textos::escribirCadena2D(32.0f, 3.0f, "[H] Volver");
 
 	glEnable(GL_DEPTH_TEST);
 }
@@ -733,13 +733,17 @@ void Tablero::imprimir_turno() {
 	glEnd();
 	glDisable(GL_BLEND);
 
-	if (Turnoactual == TURNO::JUGADOR1) {
-		glColor3f(1.0f, 1.0f, 1.0f);
-		Textos::escribirCadena2D(12.0f, -2.5f, "TURNO: Entrenador (Jugador Claro)");
-	}
-	else {
-		glColor3f(0.8f, 0.0f, 0.0f);
-		Textos::escribirCadena2D(12.0f, -2.5f, "TURNO: Team Rocket (Jugador Oscuro)");
+
+
+	if (hechizo_cargado == 0) { 
+		if (Turnoactual == TURNO::JUGADOR1) {
+			glColor3f(1.0f, 1.0f, 1.0f); 
+			Textos::escribirCadena2DPequena(12.5f, -2.5f, "TURNO: Entrenador (Jugador Claro)");
+		}
+		else {
+			glColor3f(1.0f, 0.3f, 0.3f); 
+			Textos::escribirCadena2DPequena(12.5f, -2.5f, "TURNO: Team Rocket (Jugador Oscuro)");
+		}
 	}
 
 	
@@ -754,8 +758,10 @@ void Tablero::imprimir_turno() {
 	glEnd();
 	glDisable(GL_BLEND);
 
+	
 	glColor3f(1.0f, 1.0f, 0.8f);
-	Textos::escribirCadena2D(-3.0f, -8.0f, "[E] Coger/Lanzar  [Z] Soltar  [H] Hechizos (Con cursor encima del Hechicero)");
+	
+	Textos::escribirCadena2DPequena(-4.0f, -7.5f, "[E] Coger/Lanzar  [Z] Soltar  [H] Hechizos (Cursor encima del Hechicero)");
 
 	glEnable(GL_DEPTH_TEST);
 }

@@ -12,8 +12,15 @@
 #include "Casilla.h"	
 #include <cmath>
 #include <ETSIDI.h>
+#include <fstream>
+#include <string>
+#include "Inicializador.h"
 
 using namespace std;
+using std::ifstream;
+using std::getline;
+using std::stod;
+using std::stoi;
 
 void Tablero::imprimir() {
 	cout << "\nTABLERO POKEMON\n";
@@ -47,138 +54,59 @@ void Tablero::inicializar_tablero()
 
 	Turnoactual = TURNO::JUGADOR1;
 
-	//Hechiceros
+	//Inicializacion de las piezas
 
-	Pokemon* Alakazam = new Hechicero("Alakazam", Bando::Entrenador, Tipo::Psiquico, Tipo::Ninguno, { 4,0 }, "bin/sprites/Blanca/alakazam.png");
-	Pokemon* Gengar = new Hechicero("Gengar", Bando::Team_Rocket, Tipo::Fantasma, Tipo::Veneno, { 4,8 }, "bin/sprites/Negra/gengar.png");
+	ifstream inicializa("piezas.txt");
 
+	if (!inicializa.is_open())	return; // Avisa si no se puede abrir el fichero
+
+	string linea;
+
+	while (std::getline(inicializa, linea)) {
+		// Ignorar líneas vacías
+		if (linea.empty()) continue;
+
+		std::stringstream ss(linea);
+		std::string rol, nombre, bando, tipo1, tipo2, xStr, yStr, spriteRuta, xsStr, ysStr, xcStr, ycStr, xhStr, yhStr;
+
+		// Leer cada campo separado por comas
+		getline(ss, rol, ',');
+		getline(ss, nombre, ',');
+		getline(ss, bando, ',');
+		getline(ss, tipo1, ',');
+		getline(ss, tipo2, ',');
+		getline(ss, xStr, ',');
+		getline(ss, yStr, ',');
+		getline(ss, spriteRuta, ',');
+		getline(ss, xsStr, ',');
+		getline(ss, ysStr, ',');
+		getline(ss, xcStr, ',');
+		getline(ss, ycStr, ',');
+		getline(ss, xhStr, ',');
+		getline(ss, yhStr, ',');
+
+		// Convertir coordenadas de string a entero
+		int x = stoi(xStr);
+		int y = stoi(yStr);
+		double xs = stod(xsStr);
+		double ys = stod(ysStr);
+		double xc = stod(xcStr);
+		double yc = stod(ycStr);
+		double xh = stod(xhStr);
+		double yh = stod(yhStr);
+
+		auto nuevoPokemon = Inicializador::CrearPokemon(rol, nombre, bando, tipo1, tipo2, x, y, spriteRuta, xs, ys, xc, yc, xh, yh);
+
+		// Si se creó correctamente, lo añadimos a nuestro vector del tablero
+		if (nuevoPokemon != nullptr && nuevoPokemon->obtener_bando() == Bando::Entrenador) equipo_entrenador.push_back(nuevoPokemon);
+		else if (nuevoPokemon != nullptr && nuevoPokemon->obtener_bando() == Bando::Team_Rocket) equipo_rocket.push_back(nuevoPokemon);
+	}
+
+	for (auto e : equipo_entrenador) colocar_pokemon(e->pos_tab.x, e->pos_tab.y, e);
+	for (auto e : equipo_rocket) colocar_pokemon(e->pos_tab.x, e->pos_tab.y, e);
 	
-
-	//VOLADORES
-	Pokemon* Charizard[2]{
-		new Volador("Charizard",Bando::Entrenador,Tipo::Fuego, Tipo::Volador,{2,0}, "bin/sprites/Blanca/charizard.png"),
-		new Volador("Charizard",Bando::Entrenador,Tipo::Fuego, Tipo::Volador,{6,0}, "bin/sprites/Blanca/charizard.png")
-	};
-
-	Pokemon* Crobat[2]{
-		new Volador("Crobat",Bando::Team_Rocket,Tipo::Volador, Tipo::Veneno,{2,8}, "bin/sprites/Negra/crobat.png"),
-		new Volador("Crobat",Bando::Team_Rocket,Tipo::Volador, Tipo::Veneno,{6,8}, "bin/sprites/Negra/crobat.png")
-	};
-
-	//Tanques 
-	Pokemon* Snorlax[2]{
-		new Tanque("Snorlax",Bando::Entrenador,Tipo::Normal,Tipo::Ninguno,{0,0}, "bin/sprites/Blanca/snorlax.png"),
-		new Tanque("Snorlax",Bando::Entrenador,Tipo::Normal,Tipo::Ninguno,{8,0},"bin/sprites/Blanca/snorlax.png"),
-	};
-	Pokemon* Tyranitar[2]{
-		new Tanque("Tyranitar",Bando::Team_Rocket,Tipo::Tierra,Tipo::Siniestro,{0,8}, "bin/sprites/Negra/tyranitar.png"),
-		new Tanque("Tyranitar",Bando::Team_Rocket,Tipo::Tierra,Tipo::Siniestro,{8,8}, "bin/sprites/Negra/tyranitar.png"),
-	};
-
-	//Distancia
-	Pokemon* Grovile[4] = {
-		new Distancia("Grovile",Bando::Entrenador,Tipo::Planta,Tipo::Ninguno,{0,1}, "bin/sprites/Blanca/leafeon.png"),
-		new Distancia("Grovile",Bando::Entrenador,Tipo::Planta,Tipo::Ninguno,{1,0}, "bin/sprites/Blanca/leafeon.png"),
-		new Distancia("Grovile",Bando::Entrenador,Tipo::Planta,Tipo::Ninguno,{7,0}, "bin/sprites/Blanca/leafeon.png"),
-		new Distancia("Grovile",Bando::Entrenador,Tipo::Planta,Tipo::Ninguno,{8,1}, "bin/sprites/Blanca/leafeon.png")
-
-	};
-
-	Pokemon* Umbreon[4] = {
-		new Distancia("Umbreon",Bando::Team_Rocket,Tipo::Siniestro,Tipo::Ninguno,{0,7}, "bin/sprites/Negra/umbreon.png"),
-		new Distancia("Umbreon",Bando::Team_Rocket,Tipo::Siniestro,Tipo::Ninguno,{1,8}, "bin/sprites/Negra/umbreon.png"),
-		new Distancia("Umbreon",Bando::Team_Rocket,Tipo::Siniestro,Tipo::Ninguno,{7,8}, "bin/sprites/Negra/umbreon.png"),
-		new Distancia("Umbreon",Bando::Team_Rocket,Tipo::Siniestro,Tipo::Ninguno,{8,7}, "bin/sprites/Negra/umbreon.png")
-
-	};
-
-	//Basico
-	Pokemon* Machomp[7] = {
-		new Basico("Machomp", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{1,1}, "bin/sprites/Blanca/machop.png"),
-		new Basico("Machomp", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{2,1}, "bin/sprites/Blanca/machop.png"),
-		new Basico("Machomp", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{3,1}, "bin/sprites/Blanca/machop.png"),
-		new Basico("Machomp", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{4,1}, "bin/sprites/Blanca/machop.png"),
-		new Basico("Machomp", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{5,1}, "bin/sprites/Blanca/machop.png"),
-		new Basico("Machomp", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{6,1}, "bin/sprites/Blanca/machop.png"),
-		new Basico("Machomp", Bando::Entrenador, Tipo::Lucha, Tipo::Ninguno,{7,1},"bin/sprites/Blanca/machop.png")
-	};
-
-	Pokemon* Scraggy[7] = {
-	new	Basico("Scraggy", Bando::Team_Rocket, Tipo::Lucha, Tipo::Siniestro,{1,7},"bin/sprites/Negra/scraggy.png"),
-		new Basico("Scraggy", Bando::Team_Rocket, Tipo::Lucha, Tipo::Siniestro,{2,7},"bin/sprites/Negra/scraggy.png"),
-		new Basico("Scraggy", Bando::Team_Rocket, Tipo::Lucha, Tipo::Siniestro,{3,7}, "bin/sprites/Negra/scraggy.png"),
-		new Basico("Scraggy", Bando::Team_Rocket, Tipo::Lucha, Tipo::Siniestro,{4,7}, "bin/sprites/Negra/scraggy.png"),
-		new Basico("Scraggy", Bando::Team_Rocket, Tipo::Lucha, Tipo::Siniestro,{5,7},"bin/sprites/Negra/scraggy.png"),
-	new	Basico("Scraggy", Bando::Team_Rocket, Tipo::Lucha, Tipo::Siniestro,{6,7},"bin/sprites/Negra/scraggy.png"),
-	new Basico("Scraggy", Bando::Team_Rocket, Tipo::Lucha, Tipo::Siniestro,{7,7},"bin/sprites/Negra/scraggy.png")
-	};
-
-	//Cambiaforma
-	Pokemon* Ditto[2]{ 
-	new CambiaFormas("Ditto",Bando::Team_Rocket,Tipo::Normal,Tipo::Ninguno,{3,8},"bin/sprites/Negra/ditto.png"),
-	new CambiaFormas("Ditto",Bando::Team_Rocket,Tipo::Normal,Tipo::Ninguno,{5,8},"bin/sprites/Negra/ditto.png")};
-
-	//Fenix
-	Pokemon* Moltres[2] = { 
-		new Fenix("Moltres", Bando::Entrenador, Tipo::Fuego, Tipo::Volador,{5,0},"bin/sprites/Blanca/moltres.png"),
-		new Fenix("Moltres", Bando::Entrenador, Tipo::Fuego, Tipo::Volador,{3,0},"bin/sprites/Blanca/moltres.png")};
-
-
-
-	//Colocacion en tablero
-
-	//Posicion Hechicero
-	colocar_pokemon(Alakazam->pos_tab.x, Alakazam->pos_tab.y, Alakazam);
-	cargar_pokemons(Alakazam);
-	colocar_pokemon(Gengar->pos_tab.x, Gengar->pos_tab.y, Gengar);
-	cargar_pokemons(Gengar);
-
-	//Posicion Volador
-	colocar_pokemon(Charizard[0]->pos_tab.x, Charizard[0]->pos_tab.y, Charizard[0]);
-	colocar_pokemon(Charizard[1]->pos_tab.x, Charizard[1]->pos_tab.y, Charizard[1]);
-	cargar_pokemons(Charizard[0]);
-	cargar_pokemons(Charizard[1]);
-
-	colocar_pokemon(Crobat[0]->pos_tab.x, Crobat[0]->pos_tab.y, Crobat[0]);
-	colocar_pokemon(Crobat[1]->pos_tab.x, Crobat[1]->pos_tab.y, Crobat[1]);
-	cargar_pokemons(Crobat[0]);
-	cargar_pokemons(Crobat[1]);
-
-	//Posicion Tanque
-	colocar_pokemon(Snorlax[0]->pos_tab.x, Snorlax[0]->pos_tab.y, Snorlax[0]);
-	colocar_pokemon(Snorlax[1]->pos_tab.x, Snorlax[1]->pos_tab.y, Snorlax[1]);
-	cargar_pokemons(Snorlax[0]);
-	cargar_pokemons(Snorlax[1]);
-	colocar_pokemon(Tyranitar[0]->pos_tab.x, Tyranitar[0]->pos_tab.y, Tyranitar[0]);
-	colocar_pokemon(Tyranitar[1]->pos_tab.x, Tyranitar[1]->pos_tab.y, Tyranitar[1]);
-	cargar_pokemons(Tyranitar[0]);
-	cargar_pokemons(Tyranitar[1]);
-
-
-	//Posicion Distancia
-	for (int i = 0; i < 4; i++) { colocar_pokemon(Grovile[i]->pos_tab.x, Grovile[i]->pos_tab.y, Grovile[i]); cargar_pokemons(Grovile[i]); }
-	for (int i = 0; i < 4; i++) { colocar_pokemon(Umbreon[i]->pos_tab.x, Umbreon[i]->pos_tab.y, Umbreon[i]); cargar_pokemons(Umbreon[i]); }
-
-	//Posicion Basico
-	for (int i = 0; i < 7; i++) { colocar_pokemon(Machomp[i]->pos_tab.x, Machomp[i]->pos_tab.y, Machomp[i]); cargar_pokemons(Machomp[i]); }
-	for (int i = 0; i < 7; i++) { colocar_pokemon(Scraggy[i]->pos_tab.x, Scraggy[i]->pos_tab.y, Scraggy[i]); cargar_pokemons(Scraggy[i]); }
-
-
-	//Posicion Cambiaforma
-	colocar_pokemon(Ditto[0]->pos_tab.x, Ditto[0]->pos_tab.y, Ditto[0]);
-	colocar_pokemon(Ditto[1]->pos_tab.x, Ditto[1]->pos_tab.y, Ditto[1]);
-	cargar_pokemons(Ditto[0]);
-	cargar_pokemons(Ditto[1]);
-
-	//Posicion Fenix
-	colocar_pokemon(Moltres[0]->pos_tab.x, Moltres[0]->pos_tab.y, Moltres[0]);
-	colocar_pokemon(Moltres[1]->pos_tab.x, Moltres[1]->pos_tab.y, Moltres[1]);
-	cargar_pokemons(Moltres[0]);
-	cargar_pokemons(Moltres[1]);
-
+	inicializa.close();
 	imprimir();
-
-
 }
 
 void Tablero::dibujar_tableroyfichas() {

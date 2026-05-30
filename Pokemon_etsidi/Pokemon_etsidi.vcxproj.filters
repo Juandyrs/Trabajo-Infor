@@ -25,6 +25,7 @@
     <ClCompile Include="scr\Cursor.cpp" />
     <ClCompile Include="scr\Hechizo.cpp" />
     <ClCompile Include="scr\Textos.cpp" />
+    <ClCompile Include="scr\Inicializador.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="scr\Hitbox.h" />
@@ -52,6 +53,7 @@
     <ClInclude Include="scr\Cursor.h" />
     <ClInclude Include="scr\Hechizo.h" />
     <ClInclude Include="scr\Textos.h" />
+    <ClInclude Include="scr\Inicializador.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\ETSIDI.lib" />

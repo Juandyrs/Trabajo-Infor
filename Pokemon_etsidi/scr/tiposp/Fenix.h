@@ -22,7 +22,7 @@ public:
         hitbox = new HitboxRectangular({ 0.5,  0.5 });
     }
 
-    Fenix(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t, string s)
+    Fenix(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t, string s, Vector2D centro = { 0,0 }, Vector2D set = { 0,0 }, Vector2D hit = { 0,0 })
         : Pokemon(
               n        //Nombre
             , tipo1
@@ -42,8 +42,8 @@ public:
 		ataque = new Area(5.0, Vector2D{ 0.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 0.5, 60);
         hitbox = new HitboxRectangular({ 0.5,  0.5 });
 
-        sprites->setSize(1.5, 1.5);
-        sprites->setCenter(0.75, 0.75);
+        sprites->setSize(set.x, set.y);
+        sprites->setCenter(centro.x, centro.y);
 	}
 
 

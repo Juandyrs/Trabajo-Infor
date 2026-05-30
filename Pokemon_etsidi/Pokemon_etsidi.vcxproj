@@ -189,6 +189,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="scr\Inicializador.cpp" />
     <ClCompile Include="scr\Cursor.cpp" />
     <ClCompile Include="scr\Hechizo.cpp" />
     <ClCompile Include="scr\Hitbox.cpp" />
@@ -215,6 +216,7 @@
     <ClCompile Include="scr\Textos.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="scr\Inicializador.h" />
     <ClInclude Include="scr\Cursor.h" />
     <ClInclude Include="scr\Hechizo.h" />
     <ClInclude Include="scr\Hitbox.h" />

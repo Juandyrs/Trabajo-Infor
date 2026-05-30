@@ -25,7 +25,7 @@ public:
 
 	}
 
-	Distancia(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t, string s)
+	Distancia(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t, string s, Vector2D centro = { 0,0 }, Vector2D set = { 0,0 }, Vector2D hit = { 0,0 })
 		: Pokemon(
 			  n        //Nombre
 			, tipo1
@@ -44,8 +44,9 @@ public:
 	{
 		ataque = new Rango(20.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 0.5, 0.5);
 		hitbox = new HitboxRectangular({ 0.5,  0.5 });
-		sprites->setSize(1.2, 1.2);
-		sprites->setCenter(0.60, 0.55);
+
+		sprites->setSize(set.x, set.y);
+		sprites->setCenter(centro.x, centro.y);
 	}
 
 };

@@ -20,7 +20,7 @@ public:
 
     }
 
-    CambiaFormas(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t, string s)
+    CambiaFormas(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t, string s, Vector2D centro = { 0,0 }, Vector2D set = { 0,0 }, Vector2D hit = { 0,0 })
         : Pokemon(
               n        //Nombre
             , tipo1
@@ -39,6 +39,9 @@ public:
         , nombre_original(n)
     {
         hitbox = new HitboxRectangular({ 0.5,  0.5 });
+
+        sprites->setSize(set.x, set.y);
+        sprites->setCenter(centro.x, centro.y);
     }
 
     void cambiar_forma(Pokemon &enemigo);

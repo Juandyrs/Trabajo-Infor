@@ -18,7 +18,7 @@ enum class Tipo {Tierra, Agua, Fuego,
 };
 
 enum class TipoMovimiento {
-	Tierra, Vuelo, Teletransporte, Hechizo
+	Tierra, Vuelo, Teletransporte, Hechizo, Cambio
 };
 enum class Estado {
 	Vivo, Muerto
@@ -179,6 +179,7 @@ public:
 //HECHIZO TELETRANSPORTE
 	void teletransporte() {	movimiento = TipoMovimiento::Hechizo;	numero_casillas = 999;	}
 	void restablecermovimiento(TipoMovimiento mov, int casillas) { movimiento = mov; numero_casillas = casillas; }
+	void cambio(){ movimiento = TipoMovimiento::Cambio;	numero_casillas = 999; }
 
 //HECHIZO CAMBIO POSICION
 	void cambioposicion(double posx, double posy) { pos_tab.x = posx, pos_tab.y = posy; }

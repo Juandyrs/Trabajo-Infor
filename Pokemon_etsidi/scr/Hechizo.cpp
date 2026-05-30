@@ -44,7 +44,7 @@ bool Hechizo::llamar_intercambio(Pokemon* p) {
         casillasoriginal = p->obtenerncasillas();
 
       //MODO TELETRANSPORTE PARA PODER MOVERTE BIEN
-        p->teletransporte();
+        p->cambio();
 
         std::cout << "¡Hechizo de intercambio activado!" << std::endl;
         Intercambio = false;
@@ -73,7 +73,6 @@ bool Hechizo::llamar_bloqueo(Pokemon* p) {
     std::cout << "¡Hechizo de bloqueo NO aplicado!" << std::endl;
     return false;
 }
-
 
 bool Hechizo::llamar_revivir() {
 	if (Revivir) {

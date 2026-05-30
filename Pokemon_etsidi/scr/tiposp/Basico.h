@@ -19,7 +19,7 @@ public:
         dano = 10.0;
         vida_max = 60.0;
         vida_actual = 60.0;
-        velocidad = 0.5;
+        velocidad = 2.0;
         hitbox = new HitboxRectangular({ 0.5,  0.5 });
         cooldown = 5.0;
        

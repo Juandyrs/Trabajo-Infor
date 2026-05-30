@@ -254,6 +254,11 @@
     <Library Include="lib\freeglut.lib" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="bin\casillas\amarilla.png" />
+    <Image Include="bin\casillas\blanca.png" />
+    <Image Include="bin\casillas\gris.png" />
+    <Image Include="bin\casillas\morada.png" />
+    <Image Include="bin\casillas\negra.png" />
     <Image Include="bin\sprites\Blanca\alakazam.png" />
     <Image Include="bin\sprites\Blanca\charizard.png" />
     <Image Include="bin\sprites\Blanca\leafeon.png" />

@@ -71,6 +71,7 @@ void Casilla::avanzar_ciclo() {
 void Casilla::dibujarcasilla(Pokemon* p){
 
     float lado = 5.0f; //tamano del lado del cuadrado
+    float margen = 0.00f;
 
     //calculamos la esquina superior izquierda y de ahi dibujamos el cuadrado
 
@@ -79,51 +80,54 @@ void Casilla::dibujarcasilla(Pokemon* p){
 
 
 
-    //seleccionamos el color en funcion del estado de la casilla
+    switch (tipo)
+    {
+    case TipoCasilla::clara:          //BLANCO
+        glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("bin/casillas/blanca.png").id);
+        break;
 
-    switch (tipo) {
-    case TipoCasilla::clara:
-        glColor3ub(235, 235, 225); // Gris muy claro
+    case TipoCasilla::oscura:         //NEGRO
+        glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("bin/casillas/negra.png").id);
         break;
-    case TipoCasilla::oscura:
-        glColor3ub(65, 65, 75);    // Gris oscuro 
+
+    case TipoCasilla::neutr:         //GRIS
+        glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("bin/casillas/gris.png").id);
         break;
-    case TipoCasilla::neutr:
-        glColor3ub(140, 150, 160); // Gris medio
+
+    case TipoCasilla::poder:          //PODER
+        glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("bin/casillas/morada.png").id);
         break;
-    case TipoCasilla::poder:
-        glColor3ub(255, 215, 0);   // Dorado 
-        break;
-    case TipoCasilla::aviso_claro:
-        glColor3ub(240, 170, 90);  // Naranja 
-        break;
+
+    case TipoCasilla::aviso_claro:    //AMARILLO
     case TipoCasilla::aviso_oscuro:
-        glColor3ub(240, 170, 90);   // Rojo apagado 
-        break;
     case TipoCasilla::aviso_neutro:
-        glColor3ub(240, 170, 90); // Verde apagado 
+        glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("bin/casillas/amarilla.png").id);
         break;
     }
 
-    //dibujamos el cuadrado indicando los vertices
+
+
+    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glColor3ub(255, 255, 255);
 
     glBegin(GL_QUADS);
-    glVertex2f(x, y);
-    glVertex2f(x + lado, y);
-    glVertex2f(x + lado, y + lado);
-    glVertex2f(x, y + lado);
+    glTexCoord2f(0, 1); glVertex2f(x + margen, y + margen);
+    glTexCoord2f(1, 1); glVertex2f(x + lado - margen, y + margen);
+    glTexCoord2f(1, 0); glVertex2f(x + lado - margen, y + lado - margen);
+    glTexCoord2f(0, 0); glVertex2f(x + margen, y + lado - margen);
     glEnd();
 
-    //dibujamos el marco de la casilla
-    glLineWidth(1.5f);
-    glColor3ub(0, 0, 0);
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(x, y);
-    glVertex2f(x + lado, y);
-    glVertex2f(x + lado, y + lado);
-    glVertex2f(x, y + lado);
-    glEnd();
+    glDisable(GL_BLEND);
+    glDisable(GL_TEXTURE_2D);
+    glEnable(GL_DEPTH_TEST);
+
+ 
     
+
+
     // Dibujar pokeball morada
     if (tipo == TipoCasilla::poder && p == nullptr) {
         ETSIDI::GLTexture tex = ETSIDI::getTexture("bin/sprites/masterball.png"); 

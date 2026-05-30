@@ -307,8 +307,6 @@ void Juego::ArenaTablero() {
 	ETSIDI::playMusica("bin/sonidos/musica_tablero.mp3", true);
 
 	pantallaActual = TABLERO;
-
-
 }
 
 void Juego::IA_juego()

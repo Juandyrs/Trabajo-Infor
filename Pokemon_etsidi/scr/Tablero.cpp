@@ -141,13 +141,10 @@ void Tablero::dibujar_tableroyfichas() {
 
 void Tablero::tablerodibuja() { 
 	
-	
-
-	
-
+	dibujar_fondo_tablero();
 	dibujar_tableroyfichas();
 	cursor.dibujarcursor();
-	dibujar_fondo_tablero();
+	
 	imprimir_turno();
 
 	//llamo al menu de hechizos si se ha pulsado la H

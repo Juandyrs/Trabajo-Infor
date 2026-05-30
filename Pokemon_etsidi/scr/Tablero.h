@@ -51,7 +51,8 @@ public:
 
 	Tablero() = default;
 	
-void imprimir();
+    void imprimir();
+	void reiniciar_tablero();
 	void inicializar_tablero();
 	//para leer el tablero en 2D
 
@@ -105,7 +106,9 @@ void imprimir();
 
 	//MENU HECHIZOS
 	void hechizosmueve(bool key[]);
-	
 	void habilitar_IA() { IA_activa = true; }
+
+
+
 };
 

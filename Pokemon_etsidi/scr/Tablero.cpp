@@ -39,6 +39,26 @@ void Tablero::imprimir() {
 	}
 }
 
+void Tablero::reiniciar_tablero()
+{
+	numeroturno = 1;
+	Turnoactual = TURNO::JUGADOR1;
+
+	for (auto e : equipo_entrenador) delete e;
+	for (auto e : equipo_rocket) delete e;
+
+	for (int i = 0; i < 9; i++)
+	{
+		for (int j = 0; j < 9; j++) matriz[i][j] = nullptr;
+	}
+
+	equipo_entrenador.clear();
+	equipo_rocket.clear();
+	estado_hechizo = 1;
+
+	cursor.resetear_cursor();
+}
+
 void Tablero::inicializar_tablero()
 {
 	srand(time(NULL));

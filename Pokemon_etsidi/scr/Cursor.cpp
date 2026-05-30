@@ -159,3 +159,13 @@ void Cursor::mod_columna(bool sumar)
     if (columna > 8) columna = 8;
 }
 
+void Cursor::resetear_cursor()
+{
+    llevaficha = false;
+    fichaencursor = nullptr;
+    llevaficha = false;
+    actualdistancia = 0;
+    actualmaxdistancia = 0;
+}
+
+

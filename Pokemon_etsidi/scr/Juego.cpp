@@ -190,6 +190,7 @@ void Juego::mover_Juego(bool key[])
 		break;
 
 	case FIN:
+
 		if (key['r']) {
 			pantallaActual = MENU;
 			resultado = ResultadoJuego::NOGANADOR;
@@ -247,7 +248,12 @@ void Juego::comprobar_victoria() {
 
 	// si gana uno cambiamos a pantalla fin
 	if (resultado != ResultadoJuego::NOGANADOR)
+	{
+		//Se resetean todos los elementos del tablero por si se quiere empezar otra partida
+		Mitablerito.reiniciar_tablero();
 		pantallaActual = EstadoPantalla::FIN;
+	}
+		
 }
 
 void  Juego::animar()

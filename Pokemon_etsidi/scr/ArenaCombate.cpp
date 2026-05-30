@@ -298,6 +298,9 @@ void ArenaCombate::inicializa_Arena(Pokemon *t1, Pokemon *t2, TipoCasilla casill
 		p.cambiar_forma(*equipo1);
 	}
 
+	if (tipocasi == TipoCasilla::clara) equipo1->ataque->dano *= 1.5;
+	else if (tipocasi == TipoCasilla::oscura) equipo2->ataque->dano *= 1.5;
+
 	equipo1->hitbox->pos = { -dimensiones_arena.x + 2, 0 };
 	equipo2->hitbox->pos = { dimensiones_arena.x - 2, 0 };
 

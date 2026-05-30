@@ -13,16 +13,115 @@ extern bool atk2_ini;
 extern double cd2;
 
 extern bool keys[];
+int i{};
 
 void IA::IA_Tablero(Tablero &tablero)
 {
+
 	if (tablero.Turnoactual != TURNO::JUGADOR2) return;
 
-	//tablero.cursor.Cursormover("W");
+	int& c = tablero.cursor.columna;
+	int& f = tablero.cursor.fila;
 
-	tablero.cursor.fila++;
-	tablero.cogerpieza(keys);
-	tablero.soltarpieza(keys);
+	static int c_agarrar{}, f_agarrar{};
+	static int c_soltar{}, f_soltar{};
+
+	switch (estado_tablero)
+	{
+	case Estado_Tablero::Pensar:
+
+		tiempo += dt;
+		if (tiempo >= tiempo_pensar) estado_tablero = Estado_Tablero::Actuar;
+
+		break;
+
+	case Estado_Tablero::Decidir:
+
+		c_agarrar = rand() % 9;
+		f_agarrar = rand() % 9;
+		c_soltar = rand() % 9;
+		f_soltar = rand() % 9;
+
+		if (tablero.matriz[f_agarrar][c_agarrar] == nullptr) return;
+		if (tablero.matriz[f_agarrar][c_agarrar]->equipo != Bando::Team_Rocket) return;
+		if ((tablero.matriz[f_soltar][c_soltar] != nullptr) && (tablero.matriz[f_soltar][c_soltar]->equipo == Bando::Team_Rocket)) return;
+
+
+		cout << c_agarrar << "," << f_agarrar << endl;
+		cout << c_soltar << "," << f_soltar << endl;
+
+		estado_tablero = Estado_Tablero::Pensar;
+		tiempo = 0.0;
+
+		break;
+
+	case Estado_Tablero::Actuar:
+
+		if (!sujetada)
+		{
+			if (c > c_agarrar) tablero.cursor.mod_columna(false);
+			else if (c < c_agarrar) tablero.cursor.mod_columna(true);
+
+			if (f > f_agarrar) tablero.cursor.mod_fila(false);
+			else if (f < f_agarrar) tablero.cursor.mod_fila(true);
+
+
+			if (f == f_agarrar && c == c_agarrar)
+			{
+				tablero.cursor.cursorpillaficha(tablero.matriz[f][c]);
+				ETSIDI::play("bin/sonidos/sonidopoke.wav");
+				tablero.matriz[f][c] = nullptr;       //VACIAR ESA CASILLA
+				sujetada = true;
+			}
+		}
+		else
+		{
+			if (c > c_soltar) tablero.cursor.mod_columna(false);
+			else if (c < c_soltar) tablero.cursor.mod_columna(true);
+
+			if (f > f_soltar) tablero.cursor.mod_fila(false);
+			else if (f < f_soltar) tablero.cursor.mod_fila(true);
+
+
+			if (f == f_soltar && c == c_soltar)
+			{
+
+				/// ENEMIGA y COMBATE
+				if (tablero.casillaenemigo(f, c, tablero.cursor.fichaencursor)) {
+
+					ETSIDI::play("sonidos/impacto.wav");
+					tablero.cargadatosarena();
+					tablero.cursor.cursorsueltaficha();
+					tablero.arenabandera = true;
+					tablero.turnofinalizadoexito();
+					tablero.imprimir();
+					estado_tablero = Estado_Tablero::Decidir;
+					sujetada = false;
+					return;
+				}
+
+				// VACIA
+				if (!tablero.casillaocupada(f, c))
+				{
+
+					tablero.matriz[f][c] = tablero.cursor.fichaencursor;
+					tablero.cursor.cursorsueltaficha();
+					ETSIDI::play("sonidos/impacto.wav");
+					tablero.turnofinalizadoexito();
+					tablero.imprimir();
+					estado_tablero = Estado_Tablero::Decidir;
+					sujetada = false;
+					return;
+				}
+
+			}
+		}
+
+		estado_tablero = Estado_Tablero::Pensar;
+		tiempo = 0.0;
+
+		break;
+	}
 
 }
 

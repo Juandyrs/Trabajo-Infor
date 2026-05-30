@@ -141,14 +141,21 @@ void Cursor::Cursormover(bool key[], Pokemon* matriz[9][9]) {
     }
 }
 
-void Cursor::mod_fila()
+void Cursor::mod_fila(bool sumar)
 {
-    fila++;
+    if (sumar) fila++;
+    else fila--;
 
+    if (fila < 0) fila = 0;
+    if (fila > 8) fila = 8;
 }
 
-void Cursor::mod_columna()
+void Cursor::mod_columna(bool sumar)
 {
+    if (sumar) columna++;
+    else columna--;
 
+    if (columna < 0) columna = 0;
+    if (columna > 8) columna = 8;
 }
 

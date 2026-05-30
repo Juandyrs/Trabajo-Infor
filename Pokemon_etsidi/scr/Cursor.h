@@ -38,7 +38,7 @@ public:
 
 	//MOVIMIENTO DE CURSOR
 	void Cursormover(bool key[], Pokemon* matriz[9][9]);
-	void mod_fila();
-	void mod_columna();
+	void mod_fila(bool sumar);
+	void mod_columna(bool sumar);
 };
 

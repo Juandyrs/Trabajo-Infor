@@ -357,6 +357,8 @@ void Tablero::cogerpieza(bool key[]) {
 			}
 		}
 	}
+
+
 }
 //SOLTAR PIEZA
 void Tablero::soltarpieza(bool key[]) {

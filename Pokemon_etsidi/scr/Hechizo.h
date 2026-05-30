@@ -1,4 +1,6 @@
 #pragma once
+#include "Pokemon.h"
+
 class Hechizo
 {
 	bool Teletransporte = true;
@@ -12,6 +14,10 @@ public:
     bool puedecurar() const { return Curar; }
     bool puedevloquear() const { return Bloquear; }
     bool puedeRevivir() const { return Revivir; }
+
+    //metodos que realizan los hechizos
+    bool llamar_curar(Pokemon* objetivo);
+
 
     void gastarteletransporte() { Teletransporte = false; }
     void gastracurar() { Curar = false; }

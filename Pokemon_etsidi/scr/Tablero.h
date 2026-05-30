@@ -35,7 +35,8 @@ class Tablero
 
 	bool menu_hechizos_abierto = false; 
 	int hechizo_cargado = 0;
-
+	int f_hechicero = 0; 
+	int c_hechicero = 0;
 
 public:
 
@@ -97,6 +98,8 @@ void imprimir();
 	void cargar_pokemons(Pokemon* p);
 
 
+	//para lanzar los hechizos
+	bool lanzar_hechizo(int id_hechizo, int f, int c);
 	
 };
 

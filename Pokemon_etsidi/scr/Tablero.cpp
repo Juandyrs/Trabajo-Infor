@@ -130,6 +130,13 @@ void Tablero::tablerodibuja() {
 	}
 
 
+	if (hechizo_cargado > 0 && (menu_hechizos_abierto==0)) {
+		glDisable(GL_TEXTURE_2D);
+		glColor3f(1.0f, 0.5f, 0.0f); 
+		Textos::escribirCadena2D(-4.0f, 47.0f, "HECHIZO CARGADO: Pulsa [E] para lanzar o [H] para cancelar");
+	}
+
+
 
 }
 
@@ -286,17 +293,48 @@ void Tablero::cambiarturno() {
 
 void Tablero::tableromueve(bool key[]) {
 
-	//comprobamos que el menu este abierto, si está abierto 
+	//si tenemos el menu abierto, bloqueamos el resto de acciones para no poder mover el cursor de mientras
 	if (menu_hechizos_abierto) {
-		if (key['h'] || key['H']) { 
+		if (key['h'] || key['H']) {
 			menu_hechizos_abierto = false;
-			key['h'] = false;
+			key['h'] = key['H'] = false;
+			return;
 		}
-		return; //con este return no spermite que no se pueda mover el cursor si tenemos el menu abierto 
+
+		//con el menu de hechizos abierto, recogemos el numero del hechizo que el usuario quiere utilizar
+		for (char c = '1'; c <= '7'; c++) {
+			if (key[c]) {
+				hechizo_cargado = c - '0'; // con esto convertimos del numero en ascii a numeros del 1 al 7, porque obtenemos distancias  a traves de la resta
+				menu_hechizos_abierto = false; //cerramos el menu
+				key[c] = false;
+				return;
+			}
+		}
+		return;
 	}
 
+	//una vez tenemos el hechizo seleccionado
+	if (hechizo_cargado > 0) {
 
-// si queremos abrir el menu
+		cursor.Cursormover(key, matriz); //ahora ya si se puede mover el cursor
+
+		if (key['e'] || key['E']) { //comprobamos si va todo bien y el hechizo se ha podido ejecutar bien.
+			bool ok_hechizo = lanzar_hechizo(hechizo_cargado, cursor.fila, cursor.columna);
+			if (ok_hechizo) {
+				hechizo_cargado = 0; //resetamos el hechizo cargado 
+				turnofinalizadoexito(); //damos por acabado el turno
+			}
+			key['e'] = key['E'] = false;
+		}
+
+		if (key['h'] || key['H']) { // para cancelar el hechizo
+			hechizo_cargado = 0;
+			key['h'] = key['H'] = false;
+		}
+		return; //bloqueamos el mover las piezas
+	}
+
+	//ahora vemos si tenemos el cursor sobre el hechicero y es nuetro turno
 	if (key['h'] || key['H']) {
 		Pokemon* p = matriz[cursor.fila][cursor.columna];
 		if (p != nullptr && p->obtener_simbolo() == 'H') {
@@ -305,12 +343,13 @@ void Tablero::tableromueve(bool key[]) {
 				(Turnoactual == TURNO::JUGADOR2 && p->obtener_bando() == Bando::Team_Rocket);
 
 			if (turnito) {
-				menu_hechizos_abierto = true; 
+				menu_hechizos_abierto = true; //se abre el menu desde tablero dibuja
+				f_hechicero = cursor.fila;
+				c_hechicero = cursor.columna;
 			}
 		}
 		key['h'] = key['H'] = false;
 	}
-
 
 	cursor.Cursormover(key, matriz);
 	cogerpieza(key);
@@ -508,4 +547,48 @@ void Tablero::dibujar_menu_hechizos() {
 	Textos::escribirCadena2D(34.0f, 3.0f, "[H] Volver");
 
 	glEnable(GL_DEPTH_TEST);
+}
+
+bool Tablero::lanzar_hechizo(int no_hechizo, int f, int c) {
+
+	Pokemon* objetivo = matriz[f][c]; // al que tenemos en el objetivo para curar
+
+	//necesitamos guardarnos las coordenadas del hechicero para saber quien lo lannza
+	Pokemon* poke_lanzador = matriz[f_hechicero][c_hechicero];
+
+	//comprobamos que el lanzador sea un hechicero
+	if (poke_lanzador == nullptr || poke_lanzador->obtener_simbolo() != 'H') {
+		return false;
+	}
+
+	//habiendo comprobado que es un hechicero, ahora podemos tratar el pokemon como un hechicero y usar su libro de chizos
+	Hechicero* mago = static_cast<Hechicero*>(poke_lanzador);
+
+	//miramos en su libro de hechizos
+	Hechizo& magia = mago->libro_hechizos();
+
+	
+	switch (no_hechizo) {
+	case 2: //cura
+		if (casillaaliado(f, c, mago)) { //comprobamos que cure a un aliado
+			if (magia.llamar_curar(objetivo)) { // como es un bool nos sirve para saber si se ha ejectuado bien, y dentro de ese bool que esta en hechizos, llamamos a la verdadera funcion de curar
+				return true;
+			}
+		}
+		cout << "No se puede curar o el hechizo esta gastado." << endl;
+		return false;
+
+	case 3: //cambio tiempo del tablero
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				casillas[i][j]->avanzar_ciclo();
+			}
+		}
+		return true;
+
+	case 7: // para encarcelar
+		return false;
+	}
+
+	return false;
 }

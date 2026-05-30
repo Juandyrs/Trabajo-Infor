@@ -54,10 +54,27 @@ void Pokemon::mover_arena(double dt)
 
 //void Pokemon::pokemondibuja(int f, int c) {}
 
+void Pokemon::dibujar_pokemon(int a)
+{
+	sprites->setSize(set_s.x * 5, set_s.y * 5);
+	sprites->setCenter(centro_s.x * 5, centro_s.y * 5);
+
+	glPushMatrix();
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	sprites->draw();
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glPopMatrix();
+}
+
 void Pokemon::dibujar_pokemon()
 {
 	int fila{ 0 };
 	int columna_spr{ 3 };
+
+	sprites->setSize(set_s.x, set_s.y);
+	sprites->setCenter(centro_s.x, centro_s.y);
 
 	//Logica del estado del sprite
 
@@ -100,6 +117,8 @@ void Pokemon::dibujar_pokemon()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTranslated(hitbox->pos.x, hitbox->pos.y, 0.0);
 	sprites->draw();
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glPopMatrix();
 }
 

@@ -42,6 +42,9 @@ public:
 
         sprites->setSize(set.x, set.y);
         sprites->setCenter(centro.x, centro.y);
+
+        centro_s = centro;
+        set_s = set;
     }
 
     void cambiar_forma(Pokemon &enemigo);

@@ -43,6 +43,8 @@ protected:
 	string sprite; //VA A SER LA RUTA HACIA
 	ETSIDI::SpriteSequence* sprites;
 	bool moviendo;
+	Vector2D centro_s{ 0,0 };
+	Vector2D set_s{ 0,0 };
 
 	//Atributos del Tablero
 	char simbolo;
@@ -140,6 +142,7 @@ public:
 
 	//DIBUJADO
 	//void pokemondibuja(int f, int c);
+	void dibujar_pokemon(int a);
 	void dibujar_pokemon();
 	void animar_pokemon();
 

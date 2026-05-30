@@ -64,24 +64,19 @@ void Cursor::dibujarcursor() {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture(fichaencursor->obtenersprite().c_str()).id);
+        glColor3f(1.0f, 1.0f, 1.0f);
 
         glPushMatrix();
+
         glTranslatef(cx, cy, 0.53f);
 
-        glBegin(GL_QUADS);
-        glTexCoord2f(0, 1); glVertex3f(-tamano, -tamano, 0);
-        glTexCoord2f(1, 1); glVertex3f(tamano, -tamano, 0);
-        glTexCoord2f(1, 0); glVertex3f(tamano, tamano, 0);
-        glTexCoord2f(0, 0); glVertex3f(-tamano, tamano, 0);
-        glEnd();
+        fichaencursor->dibujar_pokemon(0);
 
         glPopMatrix();
 
         glDisable(GL_BLEND);
         glDisable(GL_TEXTURE_2D);
-
-        glPopMatrix();
+        glEnable(GL_DEPTH_TEST);
     }
 }
 

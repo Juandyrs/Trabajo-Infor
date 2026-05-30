@@ -154,7 +154,6 @@ void Casilla::dibujarcasilla(Pokemon* p){
 
     //DESDE AQUI ES PARA LOS POKEMONs
         if (p != nullptr) {
-        ETSIDI::GLTexture tex = ETSIDI::getTexture(p->obtenersprite().c_str());
 
             float cx = x + lado * 0.5f;   
             float cy = y + lado * 0.5f;   
@@ -167,7 +166,6 @@ void Casilla::dibujarcasilla(Pokemon* p){
             glDisable(GL_LIGHTING);
 
             glEnable(GL_TEXTURE_2D);
-            glBindTexture(GL_TEXTURE_2D, tex.id);
             glEnable(GL_BLEND);
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -179,12 +177,7 @@ void Casilla::dibujarcasilla(Pokemon* p){
 
             glTranslatef(cx, cy, 0.53f);
 
-            glBegin(GL_QUADS);
-            glTexCoord2f(0, 1); glVertex3f(-tamano, -tamano, 0); 
-            glTexCoord2f(1, 1); glVertex3f(tamano, -tamano, 0);  
-            glTexCoord2f(1, 0); glVertex3f(tamano, tamano, 0);   
-            glTexCoord2f(0, 0); glVertex3f(-tamano, tamano, 0);  
-            glEnd();
+            p->dibujar_pokemon(0);
 
             glPopMatrix();
 

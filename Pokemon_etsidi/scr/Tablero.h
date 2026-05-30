@@ -60,14 +60,7 @@ void imprimir();
 	bool casillaocupada(int ff, int cf);
 	bool casillaaliado(int ff, int cf, Pokemon* p);
 	bool casillaenemigo(int ff, int cf, Pokemon* p);
-	bool movimientoTipoValido(Pokemon* p, int fi, int ci, int ff, int cf); //DETERMINA SI LOS MOVIMIENTOS SON VALIDOS
-	bool movimientoTerrestre(Pokemon* p, int fi, int ci, int ff, int cf);
-	bool movimientoVolador(Pokemon* p, int fi, int ci, int ff, int cf);
-	bool movimientoPsiquico(Pokemon* p, int fi, int ci, int ff, int cf);
-	int movimientovalido(Pokemon* p, int nx, int ny); //LO HE HECHO CON INT PARA QUE DIGA POR QUE PUEDE O NO PUEDE MOVER 0 es invalido, 1 es vacio, 2 enemigo, 3 aliado 
 	
-	void revivirficha(Pokemon* p, int x, int y); //REVIVIR FICHA COMO INDICA EL NOMBRE
-	void seleccionficha(int f, int c); //PARA SELECCIONAR LA FICHA
 	void cambiarturno(); 
 	void conteoturno(); 
 	void turnofinalizadoexito(); //VA A SER DONDE MOVER FICHA DETECTE TRUE Y HAGA EL CONTEO Y EL CAMBIO DE TURNO.
@@ -91,15 +84,22 @@ void imprimir();
 
 	//TABLERO MUEVE (FUNCION GLOBAL PARA PASAR A JUEGO)
 	void tableromueve(bool key[]);
-	//para cargar los pokemons en sus respectivos vectores de cada bando
 
+	
+
+	//MOVIMIENTO PIEZAS TABLERO
 	void cogerpieza(bool key[]);
 	void soltarpieza(bool key[]);
+
+	//para cargar los pokemons en sus respectivos vectores de cada bando
 	void cargar_pokemons(Pokemon* p);
 
 
 	//para lanzar los hechizos
 	bool lanzar_hechizo(int id_hechizo, int f, int c);
+
+	//MENU HECHIZOS
+	void hechizosmueve(bool key[]);
 	
 };
 

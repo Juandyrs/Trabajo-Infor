@@ -298,6 +298,4 @@ void Juego::ArenaTablero() {
 	//VOLVER AL TABLERO
 	pantallaActual = TABLERO;
 
-	Mitablerito.turnofinalizadoexito();
-
 }

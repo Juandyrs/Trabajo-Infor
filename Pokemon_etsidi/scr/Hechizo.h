@@ -7,6 +7,10 @@ class Hechizo
 	bool Curar = true;
 	bool Bloquear = true; 
 	bool Revivir = true; 
+    bool Intercambio = true;
+    Pokemon* pieza_bloqueada = nullptr;
+    TipoMovimiento movoriginal;
+    int casillasoriginal;
 
 public: 
 
@@ -17,6 +21,11 @@ public:
 
     //metodos que realizan los hechizos
     bool llamar_curar(Pokemon* objetivo);
+    bool llamar_teletransporte(Pokemon* objetivo);
+    void restaurarmovimiento(Pokemon* p) { p->restablecermovimiento(movoriginal, casillasoriginal);}
+    void restaurarbloqueo(Pokemon* p) { p->restablecermovimiento(movoriginal, casillasoriginal); }
+    bool llamar_intercambio(Pokemon* p);
+    bool llamar_bloqueo(Pokemon* p);
 
 
     void gastarteletransporte() { Teletransporte = false; }

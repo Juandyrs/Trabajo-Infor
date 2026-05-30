@@ -27,17 +27,12 @@ public:
 	void inicializarcursor(int f, int c);
 
 	//ESPECIFICAS DE CURSOR
-
-
 	//COSAS INTERNAS Y CARGA DE DATOS DE LA FICHA SELECCIONADA
 	void cursorpillaficha(Pokemon* p);
 	void cursorsueltaficha();
 
 	bool cursorllevaficha() const { return llevaficha; } 
 	Pokemon* obtenerfichacursor() const { return fichaencursor; }
-	int obtenerMovimientoRestante() const { return maxdistancia; }
-
-
 
 
 

@@ -175,6 +175,13 @@ public:
 	//para el hechizo de cura
 	void cura_max() { vida_actual = vida_max; }
 
+//HECHIZO TELETRANSPORTE
+	void teletransporte() {	movimiento = TipoMovimiento::Teletransporte;	numero_casillas = 999;	}
+	void restablecermovimiento(TipoMovimiento mov, int casillas) { movimiento = mov; numero_casillas = casillas; }
+
+//HECHIZO CAMBIO POSICION
+	void cambioposicion(double posx, double posy) { pos_tab.x = posx, pos_tab.y = posy; }
+
 };
 
 //El dano con el tiempo se aplicara cada 10 frames

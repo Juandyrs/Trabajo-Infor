@@ -179,119 +179,26 @@ bool Tablero::casillaenemigo(int ff, int cf, Pokemon* p) {
 
 }
 
-bool Tablero::movimientoTerrestre(Pokemon* p, int fi, int ci, int ff, int cf) {
-
-		int distanciafilas = ff - fi; //VER SI SE MUEVE DE IZQ A DERECHA
-		int distanciacolumnas = cf - ci; //LO MISMO
-
-		int pasos = std::max(abs(distanciafilas), abs(distanciacolumnas)); //TE DA EL MAYOR DE LOS DOS PARA VER CUANTAS CUADRICULAS VAS A PASAR
-
-	return true; 
-	}
-
-bool Tablero::movimientoVolador(Pokemon* p, int fi, int ci, int ff, int cf) {
-	return true; //SIEMPRE PUEDE EJECUTAR EL MOVIMIENTO, por lo menos por ahora
-
-}
-bool Tablero::movimientoPsiquico(Pokemon* p, int fi, int ci, int ff, int cf) {
-	return true; //LO MISMO QUE VOLADOR
-
-}
-
-bool Tablero::movimientoTipoValido(Pokemon* p, int fi, int ci, int ff, int cf) {
-
-	switch (p->obtenertipomovimiento())
-	{
-	case TipoMovimiento::Tierra:
-		return movimientoTerrestre(p, fi, ci, ff, cf);
-
-	case TipoMovimiento::Vuelo:
-		return movimientoVolador(p, fi, ci, ff, cf);
-
-	case TipoMovimiento::Teletransporte:
-		return movimientoPsiquico(p, fi, ci, ff, cf);
-
-	default:
-		return true;
-	}
-}
-
-int Tablero::movimientovalido(Pokemon* p, int ff, int cf)
-{
-
-//CASILLA VACIA
-	if (!casillaocupada(ff, cf))
-		return 1;
-
-	else if (casillaocupada(ff, cf)) {
-		//CASILLA ALIADO
-		if (casillaaliado(ff, cf, p))
-			return 3;
-
-		//CASILLA ENEMIGO
-		if (casillaenemigo(ff, cf, p))
-			return 2;
-	}
-
-	//if (movimiento == 2)
-	//{
-		//Pokemon* enemigo = matriz[ff][cf];
-
-		//Arena.inicializa_Arena(p, enemigo, false);  
-
-		//Pokemon* ganador = Arena.devolver_ganador();
-
-		//matriz[p->pos_tab.x][p->pos_tab.y] = nullptr;
-
-		//if (ganador == p)
-		//{
-	
-		//	matriz[ff][cf] = p;
-		//	p->pos_tab.x = ff;
-		//	p->pos_tab.y = cf;
-	//	}
-	//	else
-	//	{
-		//EL QUE ESTABA EN LA CASILLA SE QUEDA EL OTRO DE MOMENTO DESAPARECE HASTA QUE CREE UN VECTOR DE MUERTOS O ALGO ASI 
-	//	}
-
-	//	conteoturno();
-	//	cambiarturno();
-
-	//	return true;
-	//}
-
-	//return false;
-}
-
 void Tablero::conteoturno() {
-	if (Turnoactual == TURNO::JUGADOR2)
+	if (Turnoactual == TURNO::JUGADOR2) {
 		numeroturno++;
+
+	}
 }
 void Tablero::cambiarturno() {
 	if (Turnoactual == TURNO::JUGADOR1)
 		Turnoactual = TURNO::JUGADOR2;
-	else
+	else {
 		Turnoactual = TURNO::JUGADOR1;
-
-	for (int f = 0; f < 9; f++)   
-		for (int c = 0; c < 9; c++)
-			casillas[f][c]->avanzar_ciclo();
+		for (int f = 0; f < 9; f++)
+			for (int c = 0; c < 9; c++)
+				casillas[f][c]->avanzar_ciclo();
+	}
 }
 
 
 
-
-
-
-	//cambio las casillas cambiantes de tipo 
-
-	//for (int f = 0; f < 9; f++)
-		//for (int c = 0; c < 9; c++)
-		//	casillas[f][c]->avanzar_ciclo();
-//TABLERO MUEVE 
-
-void Tablero::tableromueve(bool key[]) {
+void Tablero::hechizosmueve(bool key[]) {
 
 	//si tenemos el menu abierto, bloqueamos el resto de acciones para no poder mover el cursor de mientras
 	if (menu_hechizos_abierto) {
@@ -322,7 +229,7 @@ void Tablero::tableromueve(bool key[]) {
 			bool ok_hechizo = lanzar_hechizo(hechizo_cargado, cursor.fila, cursor.columna);
 			if (ok_hechizo) {
 				hechizo_cargado = 0; //resetamos el hechizo cargado 
-				turnofinalizadoexito(); //damos por acabado el turno
+
 			}
 			key['e'] = key['E'] = false;
 		}
@@ -350,10 +257,18 @@ void Tablero::tableromueve(bool key[]) {
 		}
 		key['h'] = key['H'] = false;
 	}
+}
 
+
+//TABLERO MUEVE 
+
+void Tablero::tableromueve(bool key[]) {
+
+	hechizosmueve(key);
 	cursor.Cursormover(key, matriz);
 	cogerpieza(key);
 	soltarpieza(key); 
+
 }
 
 
@@ -364,10 +279,20 @@ void Tablero::cogerpieza(bool key[]) {
 	int f = cursor.fila;
 	int c = cursor.columna;
 
+
+
+
 	if (key['e']) {
 		if (cursor.cursorllevaficha() == false) {
 			//NO TIENE FICHA EL CURSOR
-			if (matriz[f][c] != nullptr && ((int)matriz[f][c]->equipo) == int(Turnoactual)) {
+
+
+			if (matriz[f][c] != nullptr &&  matriz[f][c]->obtenerncasillas() == 0) { //LAS BLOQUEADAS
+				std::cout << "La pieza esta bloqueada y no puede moverse." << std::endl;
+				return;
+			}
+
+			if (matriz[f][c] != nullptr && ((int)matriz[f][c]->equipo) == int(Turnoactual)) { //RESTO DE PIEZAS DEL TURNO
 				cursor.cursorpillaficha(matriz[f][c]);
 				ETSIDI::play("bin/sonidos/sonidopoke.wav");
 				matriz[f][c] = nullptr;       //VACIAR ESA CASILLA
@@ -380,48 +305,99 @@ void Tablero::soltarpieza(bool key[]) {
 
 	int f = cursor.fila;
 	int c = cursor.columna;
+	Pokemon* p = cursor.obtenerfichacursor();
 
 	if (key['z']) {
 
 		if (cursor.cursorllevaficha()) {
 
-			//VOLVER A LA DE PARTIDA SIN GASTAR MOV
-			if (cursor.actualdistancia == 0) {
-				matriz[cursor.fi][cursor.ci] = cursor.obtenerfichacursor();
+			if (p->obtenertipomovimiento() == TipoMovimiento::Teletransporte) {
+
+				Pokemon* poke_lanzador = matriz[f_hechicero][c_hechicero];
+				Hechicero* mago = static_cast<Hechicero*>(poke_lanzador);
+				Hechizo& magia = mago->libro_hechizos();
+
+				//VACIA NO PERMITIDO
+				if (!casillaocupada(f, c)) {
+					std::cout << "No se puede intercambiar con una casilla vacía." << std::endl;
+					return;
+				}
+
+				//INTERCAMBIO
+				Pokemon* objetivo = matriz[f][c];
+
+				//RESTAURAR EL MOVIMIENTO AL QUE TENIA ANTES, QUITAR LO DE TELETRANSPORTE
+				magia.restaurarmovimiento(p);
+
+				// Intercambio real
+				matriz[f][c] = p;                      //CAMBIO
+				matriz[cursor.fi][cursor.ci] = objetivo; //CAMBIADA
+
 				cursor.cursorsueltaficha();
-				ETSIDI::play("sonidos/impacto.wav");
+				turnofinalizadoexito();
 				imprimir();
 				return;
 			}
 
-			///ENEMIGA y COMBATE
-			if (casillaenemigo(f, c, cursor.obtenerfichacursor())) {
+
+			//VOLVER A LA DE PARTIDA SIN GASTAR MOV
+			if (cursor.actualdistancia == 0) {
+
+				
+				if (p->obtenertipomovimiento() == TipoMovimiento::Teletransporte) {
+					Pokemon* poke_lanzador = matriz[f_hechicero][c_hechicero];
+					Hechicero* mago = static_cast<Hechicero*>(poke_lanzador);
+					Hechizo& magia = mago->libro_hechizos();
+					magia.restaurarmovimiento(p);
+				}
+
+				matriz[cursor.fi][cursor.ci] = p;
+				ETSIDI::play("sonidos/impacto.wav");
+				imprimir();
+				cursor.cursorsueltaficha();
+				return;
+			}
+
+			/// ENEMIGA y COMBATE
+			if (casillaenemigo(f, c, p)) {
+
+
+				if (p->obtenertipomovimiento() == TipoMovimiento::Teletransporte) {
+					Pokemon* poke_lanzador = matriz[f_hechicero][c_hechicero];
+					Hechicero* mago = static_cast<Hechicero*>(poke_lanzador);
+					Hechizo& magia = mago->libro_hechizos();
+					magia.restaurarmovimiento(p);
+				}
 
 				ETSIDI::play("sonidos/impacto.wav");
-
 				cargadatosarena();
 				cursor.cursorsueltaficha();
 				arenabandera = true;
 				turnofinalizadoexito();
 				imprimir();
-
 				return;
 			}
 
-	//VACIA
+			// VACIA
 			if (!casillaocupada(f, c)) {
 
-				matriz[f][c] = cursor.obtenerfichacursor();
+				if (p->obtenertipomovimiento() == TipoMovimiento::Teletransporte) {
+					Pokemon* poke_lanzador = matriz[f_hechicero][c_hechicero];
+					Hechicero* mago = static_cast<Hechicero*>(poke_lanzador);
+					Hechizo& magia = mago->libro_hechizos();
+					magia.restaurarmovimiento(p);
+				}
+
+				matriz[f][c] = p;
 				cursor.cursorsueltaficha();
 				ETSIDI::play("sonidos/impacto.wav");
 				turnofinalizadoexito();
 				imprimir();
-
 				return;
 			}
 
-		//ALIADA
-			if (casillaaliado(f, c, cursor.obtenerfichacursor())) {
+			// ALIADA
+			if (casillaaliado(f, c, p)) {
 				return;
 			}
 		}
@@ -432,8 +408,9 @@ void Tablero::soltarpieza(bool key[]) {
 		cout << cursor.maxdistancia << "\n";
 		cout << cursor.ci << cursor.fi << "\n";
 		cout << cursor.columna << cursor.fila << "\n";
-		cout << cursor.llevaficha;
-		cout << arenabandera;
+		cout << cursor.llevaficha << "\n";
+		cout << arenabandera << "\n";
+		cout << (int)cursor.obtenerfichacursor()->obtenertipomovimiento() << "\n";
 	}
 }
 
@@ -443,8 +420,12 @@ void Tablero::turnofinalizadoexito()
 {
 	cambiarturno();
 	conteoturno();   // numeroturno++
-}
 
+	Pokemon* poke_lanzador = matriz[f_hechicero][c_hechicero];
+	Hechicero* mago = dynamic_cast<Hechicero*>(poke_lanzador);
+	Hechizo& magia = mago->libro_hechizos();
+
+}
 bool Tablero::controla_puntos_poder(Bando b) {
 	int poder[5][2] = { {0,4},{4,0},{4,4},{4,8},{8,4} };
 	for (auto p : poder)
@@ -523,13 +504,13 @@ void Tablero::dibujar_menu_hechizos() {
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 	glColor3f(1.0f, 1.0f, 1.0f);
-	static ETSIDI::Sprite ico1("bin/sprites/Iconos/teleport.png", 9.0f, 35.0f, 3.5f, 3.5f); ico1.draw();
-	static ETSIDI::Sprite ico2("bin/sprites/Iconos/curar.png", 9.0f, 30.0f, 3.5f, 3.5f); ico2.draw();
-	static ETSIDI::Sprite ico3("bin/sprites/Iconos/shiftime.png", 9.0f, 25.0f, 3.5f, 3.5f); ico3.draw();
-	static ETSIDI::Sprite ico4("bin/sprites/Iconos/exchange.png", 9.0f, 20.0f, 3.5f, 3.5f); ico4.draw();
-	static ETSIDI::Sprite ico5("bin/sprites/Iconos/elemental.png", 9.0f, 15.0f, 3.5f, 3.5f); ico5.draw();
-	static ETSIDI::Sprite ico6("bin/sprites/Iconos/revivir.png", 9.0f, 10.0f, 3.5f, 3.5f); ico6.draw();
-	static ETSIDI::Sprite ico7("bin/sprites/Iconos/imprison.png", 9.0f, 5.0f, 3.5f, 3.5f); ico7.draw();
+	//static ETSIDI::Sprite ico1("bin/sprites/Iconos/teleport.png", 9.0f, 35.0f, 3.5f, 3.5f); ico1.draw();
+	//static ETSIDI::Sprite ico2("bin/sprites/Iconos/curar.png", 9.0f, 30.0f, 3.5f, 3.5f); ico2.draw();
+	//static ETSIDI::Sprite ico3("bin/sprites/Iconos/shiftime.png", 9.0f, 25.0f, 3.5f, 3.5f); ico3.draw();
+	//static ETSIDI::Sprite ico4("bin/sprites/Iconos/exchange.png", 9.0f, 20.0f, 3.5f, 3.5f); ico4.draw();
+	//static ETSIDI::Sprite ico5("bin/sprites/Iconos/elemental.png", 9.0f, 15.0f, 3.5f, 3.5f); ico5.draw();
+	//static ETSIDI::Sprite ico6("bin/sprites/Iconos/revivir.png", 9.0f, 10.0f, 3.5f, 3.5f); ico6.draw();
+	//static ETSIDI::Sprite ico7("bin/sprites/Iconos/imprison.png", 9.0f, 5.0f, 3.5f, 3.5f); ico7.draw();
 
 	//leyendas de los hechizos
 	glDisable(GL_BLEND);
@@ -567,7 +548,7 @@ bool Tablero::lanzar_hechizo(int no_hechizo, int f, int c) {
 	//miramos en su libro de hechizos
 	Hechizo& magia = mago->libro_hechizos();
 
-	
+
 	switch (no_hechizo) {
 	case 2: //cura
 		if (casillaaliado(f, c, mago)) { //comprobamos que cure a un aliado
@@ -586,9 +567,36 @@ bool Tablero::lanzar_hechizo(int no_hechizo, int f, int c) {
 		}
 		return true;
 
-	case 7: // para encarcelar
-		return false;
-	}
+	case 1:
+		if (casillaaliado(f, c, mago)) {
+			if (magia.llamar_teletransporte(objetivo)) {
+				return false;
+			}
+		}
 
-	return false;
+		cout << "No se puede aplicar teletransporte o el hechizo esta gastado." << endl;
+		return false;
+
+
+		case 4: //CAMBIO PIEZAS
+		if (casillaaliado(f, c, mago)) {
+			if (magia.llamar_teletransporte(objetivo)) {
+				return true;
+			}
+		}
+
+		cout << "No se puede intercambiar o el hechizo esta gastado." << endl;
+		return false;
+
+		case 7: //BLOQUEO
+			if (casillaenemigo(f, c, mago)) {
+				if (magia.llamar_bloqueo(objetivo)) {
+					return false; 
+				}
+			}
+
+			cout << "No se puede bloquear o el hechizo está gastado." << endl;
+			return false;
+
+	}
 }

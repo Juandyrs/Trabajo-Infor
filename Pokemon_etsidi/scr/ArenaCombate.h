@@ -8,8 +8,6 @@
 
 class ArenaCombate
 {
-
-
 	Vector2D dimensiones_arena{4.5, 4.5};
 	Pokemon *equipo1, *equipo2;
 	ListaObstaculos obstaculos;
@@ -22,16 +20,18 @@ public:
 		: equipo1(new Pokemon())
 		, equipo2(new Pokemon())
 		, IA_activa(false)
+		, tipocasi(TipoCasilla::neutr)
 	{
 		equipo1->hitbox->pos = { -dimensiones_arena.x + 2, 0 };
 		equipo2->hitbox->pos = { dimensiones_arena.x - 2, 0 };
 	}
 
 
-	ArenaCombate(Pokemon *t1, Pokemon *t2, bool ia)
+	ArenaCombate(Pokemon *t1, Pokemon *t2, bool ia, TipoCasilla tip)
 		: equipo1(t1)
 		, equipo2(t2)
 		, IA_activa(ia)
+		, tipocasi(tip)
 	{
 		equipo1->hitbox->pos = { -dimensiones_arena.x + 2, 0 };
 		equipo2->hitbox->pos = { dimensiones_arena.x - 2, 0 };
@@ -51,7 +51,7 @@ public:
 
 	//Metodos de movimiento y ataque
 	void arena_combate();
-	void interaccion_obstaculos();
+	void interaccion_obstaculos(double dt);
 	void inicializa_obstaculos();
 	void mueve_personaje(bool key[]);
 	void limita_movimiento();

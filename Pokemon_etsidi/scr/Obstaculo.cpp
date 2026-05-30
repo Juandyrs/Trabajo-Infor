@@ -11,12 +11,15 @@ Vector2D Obstaculo::consultar_dim_hitbox() const
 
 // Metodos del obstaculo de piedra
 
-bool Obs_Piedra::interrumpir(Pokemon &personaje)
+bool Obs_Piedra::interrumpir(Pokemon &personaje, double dt)
 {
 
 	if (Colisiones::colision(hitbox, personaje.consultar_hitbox()))
 	{
-		personaje.hitbox->pos = personaje.consultar_posicion() - personaje.dir_mov * personaje.velocidad;
+		Vector2D paso_atras = personaje.consultar_dir() * personaje.consultar_vel() * dt;
+		Vector2D posicion_antigua = personaje.consultar_posicion() - paso_atras;
+		personaje.modificar_posicion(posicion_antigua);
+
 		return true;
 	}
 
@@ -48,12 +51,11 @@ void Obs_Piedra::dibujar()
 	glEnable(GL_LIGHTING);
 	glTranslated(-hitbox->pos.x, -hitbox->pos.y, 0);
 	glPopMatrix();
-	hitbox->dibujar();
 }
 
 // Metodos del obstaculo de fuego
 
-bool Obs_Fuego::interrumpir(Pokemon &personaje)
+bool Obs_Fuego::interrumpir(Pokemon &personaje, double dt)
 {
 
 	if (Colisiones::colision(hitbox,personaje.consultar_hitbox()) 
@@ -72,3 +74,47 @@ void Obs_Fuego::dibujar()
 	sprite.draw();
 	glPopMatrix();
 }
+
+//Metodos del obstaculo arbusto
+
+bool Obs_Arbusto::interrumpir(Pokemon &personaje, double dt)
+{
+	if (Colisiones::colision(hitbox, personaje.consultar_hitbox())
+		&& personaje.consultar_efecto_estado() != EfectoEstado::Invulnerable)
+	{
+		Vector2D aux = personaje.consultar_posicion() - personaje.consultar_dir() * reducir_vel * dt;
+		personaje.modificar_posicion(aux);
+
+		return true;
+	}
+
+	return false;
+}
+
+void Obs_Arbusto::dibujar()
+{
+	HitboxRectangular* aux = dynamic_cast<HitboxRectangular*>(hitbox);
+
+	glTranslated(hitbox->pos.x, hitbox->pos.y, 0);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("bin/sprites/Obstaculos/ObsArbusto.png").id);
+	glDisable(GL_LIGHTING);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glEnable(GL_ALPHA_TEST);
+	glBegin(GL_QUADS);
+	glColor3f(1, 1, 1);
+	glTexCoord2d(0, 0); glVertex2d(aux->rectangulo.x, aux->rectangulo.y);
+	glTexCoord2d(1, 0); glVertex2d(-aux->rectangulo.x, aux->rectangulo.y);
+	glTexCoord2d(1, 1); glVertex2d(-aux->rectangulo.x, -aux->rectangulo.y);
+	glTexCoord2d(0, 1); glVertex2d(aux->rectangulo.x, -aux->rectangulo.y);
+	glEnd();
+	glDisable(GL_ALPHA_TEST);
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_BLEND);
+	glEnable(GL_LIGHTING);
+	glTranslated(-hitbox->pos.x, -hitbox->pos.y, 0);
+	glPopMatrix();
+}
+

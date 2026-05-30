@@ -49,13 +49,13 @@ double ListaObstaculos::distancia_obstaculo_cercano(Pokemon &personaje)
 	else return 0.0;
 }
 
-bool ListaObstaculos::interrumpir_Obstaculos(Pokemon& personaje)
+bool ListaObstaculos::interrumpir_Obstaculos(Pokemon& personaje, double dt)
 {
 	bool aux{ false };
 
 	for (auto obstaculo : lista)
 	{
-		if(obstaculo->interrumpir(personaje)) aux = true;
+		if(obstaculo->interrumpir(personaje, dt)) aux = true;
 	}
 
 	return aux;

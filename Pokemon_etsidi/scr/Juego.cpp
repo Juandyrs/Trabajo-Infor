@@ -273,7 +273,6 @@ void Juego::ArenaTablero() {
 	Pokemon* ganador = Arena.devolver_ganador();
 
 	Arena.arena_combate();
-	Arena.interaccion_obstaculos();
 	Arena.limita_movimiento();
 
 	if (IA_activa) IA::IA_Combate_Arena(Arena);

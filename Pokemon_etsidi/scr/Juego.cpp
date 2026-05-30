@@ -64,7 +64,7 @@ void Juego::dibujar_Juego()
 		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glDisable(GL_LIGHTING);
-		glDisable(GL_TEXTURE_2D); 
+		glDisable(GL_TEXTURE_2D);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		gluOrtho2D(-15.0, 65.0, -10.0, 52.0);

@@ -60,7 +60,7 @@ void Juego::dibujar_Juego()
 	case TABLERO:
 
 
-		
+		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 		glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glDisable(GL_LIGHTING);
@@ -73,43 +73,6 @@ void Juego::dibujar_Juego()
 		glLoadIdentity();
 
 		Mitablerito.tablerodibuja();
-		
-		
-		/*
-		// leyenda
-		
-		glColor3f(1.0f, 1.0f, 1.0f); // Texto blanco
-		escribirCadena2D(47.0f, 40.0f, "LEYENDA:");
-
-		// Casilla Clara
-		glColor3ub(235, 235, 225);
-		glBegin(GL_QUADS); glVertex2f(47.0f, 36.0f); glVertex2f(49.0f, 36.0f); glVertex2f(49.0f, 38.0f); glVertex2f(47.0f, 38.0f); glEnd();
-		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 36.5f, "Clara");
-
-		// Casilla Oscura
-		glColor3ub(65, 65, 75);
-		glBegin(GL_QUADS); glVertex2f(47.0f, 32.0f); glVertex2f(49.0f, 32.0f); glVertex2f(49.0f, 34.0f); glVertex2f(47.0f, 34.0f); glEnd();
-		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 32.5f, "Oscura");
-
-		// Casilla Neutra
-		glColor3ub(140, 150, 160);
-		glBegin(GL_QUADS); glVertex2f(47.0f, 28.0f); glVertex2f(49.0f, 28.0f); glVertex2f(49.0f, 30.0f); glVertex2f(47.0f, 30.0f); glEnd();
-		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 28.5f, "Neutra");
-
-		// Casilla de Poder
-		glColor3ub(255, 215, 0);
-		glBegin(GL_QUADS); glVertex2f(47.0f, 24.0f); glVertex2f(49.0f, 24.0f); glVertex2f(49.0f, 26.0f); glVertex2f(47.0f, 26.0f); glEnd();
-		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 24.5f, "Poder");
-
-		
-		glColor3ub(240, 170, 90); // Color aviso
-		glBegin(GL_QUADS); glVertex2f(47.0f, 20.0f); glVertex2f(49.0f, 20.0f); glVertex2f(49.0f, 22.0f); glVertex2f(47.0f, 22.0f); glEnd();
-		glColor3f(1.0f, 1.0f, 1.0f); escribirCadena2D(50.0f, 20.5f, "Aviso (Cambio pronto)");
-
-		*/
-
-		
-
 
 		break;
 
@@ -131,7 +94,6 @@ void Juego::dibujar_Juego()
 
 
 		Arena.dibuja_Arena();
-		Arena.dibuja_BarrasVida();
 
 		break;
 

@@ -36,7 +36,7 @@ void Juego::dibujar_Juego()
 
 
 
-		static ETSIDI::Sprite titulo("bin/fondos/letras_poketsidi.png", 4.5f, 7.0f, 6.5f, 2.5f);
+		static ETSIDI::Sprite titulo("bin/fondos/letras_poketsidi.png", 4.5f, 7.6f, 6.5f, 2.5f);
 		titulo.draw();
 
 		static ETSIDI::Sprite fondoPlaya("bin/fondos/fondo_menu.png", 4.5f, 4.5f, 9.0f, 9.0f);
@@ -47,11 +47,10 @@ void Juego::dibujar_Juego()
 		glDisable(GL_BLEND);
 
 		glColor3f(1.0f, 1.0f, 1.0f);
-		Textos::escribirCadena2D(2.5f, 4.5f, "Pulsa [1] -> Jugador vs Jugador");
-		Textos::escribirCadena2D(2.5f, 3.5f, "Pulsa [2] -> Jugador vs IA");
+		Textos::escribirCadena2D(1.5f, 0.5f, "Pulsa [1] -> Jugador vs Jugador");
+		Textos::escribirCadena2D(5.3f, 0.5f, "Pulsa [2] -> Jugador vs IA");
 
-		glColor3f(0.5f, 0.7f, 1.0f);
-		Textos::escribirCadena2D(2.1f, 1.5f, "Selecciona una opcion en el teclado");
+	
 
 
 		break;
@@ -157,6 +156,11 @@ void Juego::mover_Juego(bool key[])
 	{
 	case MENU:
 
+		if ((musica_menu_iniciada==0)) {
+			ETSIDI::playMusica("bin/sonidos/musica_menu.mp3", true);
+			musica_menu_iniciada = true; 
+		}
+	
 		if (key['1']) {
 			IA_activa = false;
 			pantallaActual = TABLERO;
@@ -194,6 +198,8 @@ void Juego::mover_Juego(bool key[])
 		if (key['r']) {
 			pantallaActual = MENU;
 			resultado = ResultadoJuego::NOGANADOR;
+			ETSIDI::stopMusica(); 
+			musica_menu_iniciada = false;
 			key['r'] = false;
 		}
 		break;

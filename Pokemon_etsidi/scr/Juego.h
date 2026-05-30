@@ -19,6 +19,7 @@ class Juego
 	Tablero Mitablerito;
 	EstadoPantalla pantallaActual{ MENU };
 	ResultadoJuego resultado{ ResultadoJuego::NOGANADOR};
+	bool musica_menu_iniciada{ false };
 
 public:
 

@@ -325,10 +325,17 @@ void Tablero::hechizosmueve(bool key[]) {
 void Tablero::tableromueve(bool key[]) 
 {
 	if (IA_activa && Turnoactual == TURNO::JUGADOR2) return;
-	hechizosmueve(key);
-	cursor.Cursormover(key, matriz);
-	cogerpieza(key);
-	soltarpieza(key); 
+
+	
+	if (hechizo_cargado > 0 || menu_hechizos_abierto) {
+		hechizosmueve(key);
+	}
+	else {
+		hechizosmueve(key); 
+		cursor.Cursormover(key, matriz);
+		cogerpieza(key);
+		soltarpieza(key);
+	}
 
 }
 

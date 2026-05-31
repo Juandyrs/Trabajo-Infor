@@ -276,6 +276,12 @@ void  Juego::actualizar_juego(double dt)
 {
 	if (IA_activa) IA::dt = dt;
 
+	Pokemon* p = Mitablerito.matriz[Mitablerito.f_hechicero][Mitablerito.c_hechicero];
+	if (p != nullptr && p->obtener_simbolo() == 'H') {
+		Hechicero* mago = static_cast<Hechicero*>(p);
+		mago->libro_hechizos().actualiza_t((float)dt);
+	}
+
 	if (pantallaActual == EstadoPantalla::ARENA) Arena.actualizar_arena(dt);
 }
 

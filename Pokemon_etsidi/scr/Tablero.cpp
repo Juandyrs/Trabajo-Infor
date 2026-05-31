@@ -146,6 +146,16 @@ void Tablero::tablerodibuja() {
 	
 	imprimir_turno();
 
+
+	Pokemon* poke_lanzador = matriz[f_hechicero][c_hechicero];
+	if (poke_lanzador != nullptr && poke_lanzador->obtener_simbolo() == 'H') {
+		Hechicero* mago = static_cast<Hechicero*>(poke_lanzador);
+		mago->libro_hechizos().dibuja_errores();
+	}
+
+
+
+
 	//llamo al menu de hechizos si se ha pulsado la H
 	if (menu_hechizos_abierto) {
 		dibujar_menu_hechizos(); 
@@ -619,12 +629,14 @@ bool Tablero::lanzar_hechizo(int no_hechizo, int f, int c) {
 		return false;
 
 	case 3: //cambio tiempo del tablero
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				casillas[i][j]->avanzar_ciclo();
-			}
+		if (magia.puedecambiartiempo()) { 
+			for (int i = 0; i < 9; i++)
+				for (int j = 0; j < 9; j++)
+					casillas[i][j]->avanzar_ciclo();
+			magia.gastar_cambiartiempo(); 
+			return true;
 		}
-		return true;
+		return false;
 
 	case 1: //teletransporte
 

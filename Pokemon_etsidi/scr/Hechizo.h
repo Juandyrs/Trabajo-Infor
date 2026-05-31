@@ -1,6 +1,8 @@
 #pragma once
 #include "Pokemon.h"
 #include "Textos.h"
+#include "Tablero.h"
+#include "Juego.h"
 
 class Hechizo
 {
@@ -14,7 +16,7 @@ class Hechizo
     int casillasoriginal;
     int mensaje_error{ 0 };     // donde 0 es ninguno, 1 es ya usado, y 2 es no anadido
     float t_error{ 0.0f };
-
+    bool Cambiartiempo = true;
 
 public: 
 
@@ -32,7 +34,8 @@ public:
     bool llamar_bloqueo(Pokemon* p);
     bool llamar_revivir();
 
-
+    bool puedecambiartiempo() const { return Cambiartiempo; }
+    void gastar_cambiartiempo() { Cambiartiempo = false; }
 
     void actualiza_t(float t); 
     void dibuja_errores();

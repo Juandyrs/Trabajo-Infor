@@ -814,7 +814,6 @@ void Tablero::dibujarestadisticas() {
 		char buffer[128];
 
 		ETSIDI::setTextColor(1, 1, 1);
-		ETSIDI::setFont("fuentes/PokemonClassic.ttf", 15);
 
 		string tipo;
 		switch (p->obtenertipomovimiento()) {

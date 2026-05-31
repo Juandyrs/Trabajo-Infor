@@ -308,6 +308,11 @@
   <ItemGroup>
     <Font Include="bin\fuentes\PokemonClassic.ttf" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="bin\sonidos\Distancia.wav" />
+    <Media Include="bin\sonidos\Melee.wav" />
+    <Media Include="bin\sonidos\Volador.wav" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

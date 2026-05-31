@@ -95,6 +95,7 @@ void IA::IA_Tablero(Tablero &tablero)
 
 			if (f == f_soltar && c == c_soltar)
 			{
+				tablero.cursor.obtenerfichacursor()->sprites->setState(0, false);
 
 				/// ENEMIGA y COMBATE
 				if (tablero.casillaenemigo(f, c, tablero.cursor.fichaencursor)) {

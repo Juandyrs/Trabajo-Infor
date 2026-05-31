@@ -142,6 +142,7 @@ void Tablero::tablerodibuja() {
 	
 	dibujar_fondo_tablero();
 	dibujar_tableroyfichas();
+	movimientopiezassprite();
 	cursor.dibujarcursor();
 	
 	if (cursor.cursorllevaficha()) dibujar_mov_posibles();
@@ -193,11 +194,6 @@ void Tablero::tablerodibuja() {
 
 
 
-}
-
-int Tablero::distanciarecorrida(int fi, int ci, int ff, int cf) {
-
-	return abs(fi - ff) + abs(ci - cf); //COMPRUEBA EL NUMERO DE CASILLAS QUE RECORRE LA FICHILLA
 }
 
 bool Tablero::casillaocupada(int ff, int cf) {
@@ -403,7 +399,7 @@ void Tablero::soltarpieza(bool key[]) {
 	if (key['z'] || key['Z']) {
 
 		if (cursor.cursorllevaficha()) {
-
+			p->sprites->setState(0, false);
 			
 			if (p->obtenertipomovimiento() == TipoMovimiento::Cambio) {
 
@@ -442,7 +438,6 @@ void Tablero::soltarpieza(bool key[]) {
 				}
 				matriz[f][c] = p;
 				cursor.cursorsueltaficha();
-				ETSIDI::play("sonidos/impacto.wav");
 				imprimir();
 				return;
 			}
@@ -456,7 +451,6 @@ void Tablero::soltarpieza(bool key[]) {
 					magia.restaurarmovimiento(p); 
 				}
 
-				ETSIDI::play("sonidos/impacto.wav");
 				cargadatosarena();
 				cursor.cursorsueltaficha();
 				arenabandera = true;
@@ -476,7 +470,6 @@ void Tablero::soltarpieza(bool key[]) {
 
 				matriz[f][c] = p;
 				cursor.cursorsueltaficha();
-				ETSIDI::play("sonidos/impacto.wav");
 				turnofinalizadoexito(); 
 				imprimir();
 				return;
@@ -646,7 +639,7 @@ bool Tablero::lanzar_hechizo(int no_hechizo, int f, int c) {
 
 	case 1: //teletransporte
 
-		if (casillaaliado(f, c, mago)) {
+		if (casillaaliado(f, c, mago) && objetivo->obtenertipomovimiento() != TipoMovimiento::Teletransporte) {
 			if (magia.llamar_teletransporte(objetivo)) {
 				cursor.cursorpillaficha(objetivo); 
 				matriz[f][c] = nullptr;            
@@ -658,7 +651,7 @@ bool Tablero::lanzar_hechizo(int no_hechizo, int f, int c) {
 
 
 		case 4: //CAMBIO PIEZAS
-		if (casillaaliado(f, c, mago)) {
+		if (casillaaliado(f, c, mago) && objetivo->obtenertipomovimiento() != TipoMovimiento::Teletransporte) {
 			if (magia.llamar_intercambio(objetivo)) {
 				return true;
 			}
@@ -768,10 +761,10 @@ void Tablero::imprimir_turno() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glColor4f(0.0f, 0.0f, 0.0f, 0.8f);
 	glBegin(GL_QUADS);
-	glVertex2f(-5.0f, 44.0f);
-	glVertex2f(50.0f, 44.0f);
-	glVertex2f(50.0f, 55.0f);
-	glVertex2f(-5.0f, 55.0f);
+	glVertex2f(-5.0f, 46.0f);
+	glVertex2f(50.0f, 46.0f);
+	glVertex2f(50.0f, 52.0f);
+	glVertex2f(-5.0f, 52.0f);
 	glEnd();
 	glDisable(GL_BLEND);
 
@@ -827,7 +820,7 @@ void Tablero::dibujarestadisticas() {
 		switch (p->obtenertipomovimiento()) {
 		case TipoMovimiento::Tierra:        tipo = "Tierra";   break;
 		case TipoMovimiento::Vuelo:         tipo = "Aire";     break;
-		case TipoMovimiento::Teletransporte: tipo = "Psico";   break;
+		case TipoMovimiento::Teletransporte: tipo = "Teletransporte";   break;
 		default:                            tipo = "Hechizo";  break;
 		}
 
@@ -916,4 +909,36 @@ void Tablero::actualiza(double dt) {
 		}
 	}
 
+}
+
+
+void Tablero::movimientopiezassprite() {
+
+	if (cursor.llevaficha && cursor.fichaencursor != nullptr)
+	{
+		Pokemon* p = cursor.fichaencursor;
+
+		switch (cursor.direccion_actual)
+		{
+		case Direccion::Abajo:
+			p->sprites->flip(false, false);
+			p->sprites->setState(1, false);
+			break;
+
+		case Direccion::Derecha:
+			p->sprites->flip(true, false);    //INVERTIR EL SPRITE 
+			p->sprites->setState(6, false);
+			break;
+
+		case Direccion::Izquierda:
+			p->sprites->flip(false, false);
+			p->sprites->setState(6, false);
+			break;
+
+		case Direccion::Arriba:
+			p->sprites->flip(false, false);
+			p->sprites->setState(5, false); 
+			break;
+		}
+	}
 }

@@ -83,108 +83,83 @@ void ArenaCombate::dibuja_BarrasVida()
 {
 	//Dibujar barras de vida 
 
-	double a{ 3.0 }, b{ 1.0 }, c{ 15.0 }, d{ 0.5 }; //Parametros de ajuste
+	double a{ 2.2 }, b{ 1.35 }, c{ 25.0 }, d{ 0.75 }; //Parametros de ajuste
 
-	//Barra de vida del equipo 1
-
-	if (equipo1->vida_actual >= 0)
-	{
-		glDisable(GL_LIGHTING);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("bin/sprites/iconos/salud.png").id);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glColor4ub(255, 255, 255, 255);
-		glBegin(GL_QUADS);
-		glTexCoord2f(0, 0);
-		glVertex3d(-dimensiones_arena.x - a, -equipo1->vida_actual / c, 0);
-		glTexCoord2f(0, 1);
-		glVertex3d(-dimensiones_arena.x - a, equipo1->vida_actual / c, 0);
-		glTexCoord2f(1, 1);
-		glVertex3d(-dimensiones_arena.x - b, equipo1->vida_actual / c, 0);
-		glTexCoord2f(1, 0);
-		glVertex3d(-dimensiones_arena.x - b, -equipo1->vida_actual / c, 0);
-		glEnd();
-		glDisable(GL_BLEND);
-		glDisable(GL_TEXTURE_2D);
-		glEnable(GL_LIGHTING);
-	}
-
-	//Contenedor de Barra de vida del equipo 1
-
+	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	//CONTENEDOR EQUIPO 1
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("bin/sprites/iconos/barravida.png").id);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glColor4ub(255, 255, 255, 255);
 	glBegin(GL_QUADS);
-	glTexCoord2f(0, 0);
-	glVertex3d(-dimensiones_arena.x - a, -dimensiones_arena.y - d, 0);
-	glTexCoord2f(0, 1);
-	glVertex3d(-dimensiones_arena.x - a, dimensiones_arena.y + d, 0);
-	glTexCoord2f(1, 1);
-	glVertex3d(-dimensiones_arena.x - b, dimensiones_arena.y + d, 0);
-	glTexCoord2f(1, 0);
-	glVertex3d(-dimensiones_arena.x - b, -dimensiones_arena.y - d, 0);
+	glTexCoord2f(0, 0); glVertex3d(-dimensiones_arena.x - 4, -dimensiones_arena.y - 0.75, 0.0);
+	glTexCoord2f(0, 1); glVertex3d(-dimensiones_arena.x - 4, dimensiones_arena.y + 0.75, 0.0);
+	glTexCoord2f(1, 1); glVertex3d(-dimensiones_arena.x - 0.5, dimensiones_arena.y + 0.75, 0.0);
+	glTexCoord2f(1, 0); glVertex3d(-dimensiones_arena.x - 0.5, -dimensiones_arena.y - 0.75, 0.0);
 	glEnd();
-	glDisable(GL_BLEND);
 	glDisable(GL_TEXTURE_2D);
+
+	//BARRA DE VIDA EQUIPO 1
+	if (equipo1->vida_actual >= 0) {
+		if (equipo1->vida_actual > equipo1->vida_max * 0.5f)
+			glColor4ub(50, 200, 50, 255);
+		else if (equipo1->vida_actual > equipo1->vida_max * 0.25f)
+			glColor4ub(230, 180, 0, 255);
+		else
+			glColor4ub(220, 40, 40, 255);
+
+		glBegin(GL_QUADS);
+		glVertex3d(-dimensiones_arena.x - a, -equipo1->vida_actual / c, 0.1);
+		glVertex3d(-dimensiones_arena.x - a, equipo1->vida_actual / c, 0.1);
+		glVertex3d(-dimensiones_arena.x - b, equipo1->vida_actual / c, 0.1);
+		glVertex3d(-dimensiones_arena.x - b, -equipo1->vida_actual / c, 0.1);
+		glEnd();
+	}
+
+	glDisable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 
-	//Barra de vida del equipo 2
 
-	if (equipo2->vida_actual >= 0)
-	{
-		glDisable(GL_LIGHTING);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("bin/sprites/iconos/salud.png").id);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glColor4ub(255, 255, 255, 255);
-		glBegin(GL_QUADS);
-		glTexCoord2f(0, 0);
-		glVertex3d(dimensiones_arena.x + a, -equipo2->vida_actual / c, 0);
-		glTexCoord2f(0, 1);
-		glVertex3d(dimensiones_arena.x + a, equipo2->vida_actual / c, 0);
-		glTexCoord2f(1, 1);
-		glVertex3d(dimensiones_arena.x + b, equipo2->vida_actual / c, 0);
-		glTexCoord2f(1, 0);
-		glVertex3d(dimensiones_arena.x + b, -equipo2->vida_actual / c, 0);
-		glEnd();
-		glDisable(GL_BLEND);
-		glDisable(GL_TEXTURE_2D);
-		glEnable(GL_LIGHTING);
-	}
-
-	//Contenedor de Barra de vida del equipo 2
-
+	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	//CONTENEDOR EQUIPO 2
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("bin/sprites/iconos/barravida.png").id);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glColor4ub(255, 255, 255, 255);
 	glBegin(GL_QUADS);
-	glTexCoord2f(0, 0);
-	glVertex3d(dimensiones_arena.x + a, -dimensiones_arena.y - d, 0);
-	glTexCoord2f(0, 1);
-	glVertex3d(dimensiones_arena.x + a, dimensiones_arena.y + d, 0);
-	glTexCoord2f(1, 1);
-	glVertex3d(dimensiones_arena.x + b, dimensiones_arena.y + d, 0);
-	glTexCoord2f(1, 0);
-	glVertex3d(dimensiones_arena.x + b, -dimensiones_arena.y - d, 0);
+	glTexCoord2f(0, 0); glVertex3d(dimensiones_arena.x + 4, -dimensiones_arena.y - 0.75, 0.0);
+	glTexCoord2f(0, 1); glVertex3d(dimensiones_arena.x + 4, dimensiones_arena.y + 0.75, 0.0);
+	glTexCoord2f(1, 1); glVertex3d(dimensiones_arena.x + 0.5, dimensiones_arena.y + 0.75, 0.0);
+	glTexCoord2f(1, 0); glVertex3d(dimensiones_arena.x + 0.5, -dimensiones_arena.y - 0.75, 0.0);
 	glEnd();
-	glDisable(GL_BLEND);
 	glDisable(GL_TEXTURE_2D);
+
+	//VIDA EQUIPO 2
+	if (equipo2->vida_actual >= 0) {
+		if (equipo2->vida_actual > equipo2->vida_max * 0.5f)
+			glColor4ub(50, 200, 50, 255);   //VERDE
+		else if (equipo2->vida_actual > equipo2->vida_max * 0.25f)
+			glColor4ub(230, 180, 0, 255);   //AMARILLO
+		else
+			glColor4ub(220, 40, 40, 255);   //ROJO
+
+		glBegin(GL_QUADS);
+		glVertex3d(dimensiones_arena.x + a, -equipo2->vida_actual / c, 0.1); 
+		glVertex3d(dimensiones_arena.x + a, equipo2->vida_actual / c, 0.1); 
+		glVertex3d(dimensiones_arena.x + b, equipo2->vida_actual / c, 0.1);  
+		glVertex3d(dimensiones_arena.x + b, -equipo2->vida_actual / c, 0.1);
+		glEnd();
+	}
+
+	glDisable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 }
 

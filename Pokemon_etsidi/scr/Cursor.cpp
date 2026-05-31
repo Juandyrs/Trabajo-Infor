@@ -96,10 +96,22 @@ void Cursor::Cursormover(bool key[], Pokemon* matriz[9][9]) {
     int absfila = fila;
     int abscolumna = columna;
 
-    if (key['a'] || key['A']) columna--;
-    else if (key['d'] || key['D']) columna++;
-    else if (key['s'] || key['S']) fila++;
-    else if (key['w'] || key['W']) fila--;
+    if (key['a'] || key['A']) {
+        columna--;
+        direccion_actual = Direccion::Izquierda;
+    }
+    else if (key['d'] || key['D']) {
+        columna++;
+        direccion_actual = Direccion::Derecha;
+    }
+    else if (key['s'] || key['S']) {
+        fila++;
+        direccion_actual = Direccion::Abajo;
+    }
+    else if (key['w'] || key['W']) {
+        fila--;
+        direccion_actual = Direccion::Arriba;
+    }
 
     if (columna < 0) columna = 0;
     if (columna > 8) columna = 8;

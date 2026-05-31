@@ -57,15 +57,15 @@ class Tablero
 	Pokemon* pokemon_anterior = nullptr;
 
 public:
-
-	void colocar_pokemon(int f, int c, Pokemon* p) { matriz[f][c] = p; } // no se puede poner &p puesto que p ya es un puntero a pokemon 
-
 	Tablero() = default;
 	
+
+	//IMPIMIR TABLERO LOGICO, COLOCAR POKEMONS Y REINICAR PARTIDA
     void imprimir();
 	void reiniciar_tablero();
 	void inicializar_tablero();
-	//para leer el tablero en 2D
+	void colocar_pokemon(int f, int c, Pokemon* p) { matriz[f][c] = p; }
+
 
 	//DIBUJARSE A SI MISMO Y A LOS POKEMONS O CASILLAS CORRESPONDIENTES o menu de hechizos O ESTADISTICAS
 	void tablerodibuja();
@@ -74,16 +74,15 @@ public:
 	void dibujarestadisticas();
 
 	//SON PARA VER LAS CONDICIONES DE MOVIMIENTO DEL TABLERO
-	int distanciarecorrida(int fi, int ci, int ff ,int cf);
 	bool casillaocupada(int ff, int cf);
 	bool casillaaliado(int ff, int cf, Pokemon* p);
 	bool casillaenemigo(int ff, int cf, Pokemon* p);
 	
+	//TURNO
 	void cambiarturno(); 
 	void conteoturno(); 
 	void turnofinalizadoexito(); //VA A SER DONDE MOVER FICHA DETECTE TRUE Y HAGA EL CONTEO Y EL CAMBIO DE TURNO.
 
-	//para mover el cursor y sacar el pokemon que esta en esa casilla 
 
 	//COMBATE, PASAR LOS PUNTEROS AL EXTERIOR (JUEGO)
 	Pokemon* ataque = nullptr;
@@ -94,6 +93,7 @@ public:
 	int columnaCombate;
 	bool arenabandera = false;
 
+	//DIBUJAR COSAS
 	void imprimir_turno();
 	void dibujar_fondo_tablero();
 	void dibujar_mov_posibles();
@@ -104,33 +104,30 @@ public:
 
 	//TABLERO MUEVE (FUNCION GLOBAL PARA PASAR A JUEGO)
 	void tableromueve(bool key[]);
-	//para cargar los pokemons en sus respectivos vectores de cada bando y obtener los muertos 
 
 	//MOVIMIENTO PIEZAS TABLERO
 	void cogerpieza(bool key[]);
 	void soltarpieza(bool key[]);
 
-	//para cargar los pokemons en sus respectivos vectores de cada bando
+	//CARGA DE POKEMONS
 	void cargar_pokemons(Pokemon* p);
 	vector <Pokemon*> obtener_pokemons_muertos_detu_bando();
 
-	//para lanzar los hechizos
+	//HECHIZOS
+	void hechizosmueve(bool key[]);	
 	bool lanzar_hechizo(int id_hechizo, int f, int c);
 
-	//MENU HECHIZOS
-	void hechizosmueve(bool key[]);
+	//IA
 	void habilitar_IA() { IA_activa = true; }
-
-
 	Pokemon* consultar_pok(int i, int j) const { return matriz[i][j]; };
 	int consultar_fila_seleccionada() const { return f_seleccionada; }
 	int consultar_columna_seleccionada() const { return c_seleccionada; }
 
 
+	//ESTADISTICAS Y MOVIMIENTO EN TABLERO
+	void movimientopiezassprite();
 	void actualiza(double dt);
 
-
-	//ESTADISTICAS
 
 };
 

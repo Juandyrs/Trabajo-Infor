@@ -311,7 +311,9 @@ void Juego::ArenaTablero() {
 	int c = Mitablerito.columnaCombate;
 
 //COLOCAR AL CANADOR
+
 	Mitablerito.matriz[f][c] = ganador;
+
 
 //BORRAR EL RESTO DE COSAS				//SI ESTAS COSAS VAN BIEN LAS ENCAPSULARE DENTRO DE TABLERO
 	Mitablerito.ataque = nullptr;

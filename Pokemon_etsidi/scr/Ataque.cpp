@@ -9,16 +9,16 @@
 void Rango::iniciar_ataque(Vector2D posicion, Vector2D dir)
 {
 	double velocidad_ataque = 0.1;
-
 	hitbox->pos = posicion;
 	dir_atk = dir;
 	vel_proyectil = velocidad_ataque * dir;
+	ETSIDI::play("bin/sonidos/Distancia.wav");
+	
 }
 
 void Rango::atacar_dibujar()
 {
 	if (dir_atk.modulo() == 0) return; // Si la dirección es un vector nulo, no se dibuja el ataque
-	
 	glColor3ub(255, 0, 0);
 	hitbox->dibujar();
 }
@@ -53,6 +53,7 @@ void Melee::iniciar_ataque(Vector2D posicion, Vector2D dir)
 	HitboxRectangular* h = dynamic_cast<HitboxRectangular*>(hitbox);
 	HitboxRectangular* aux = new HitboxRectangular(*h);
 	Vector2D ataque_centro = posicion + Vector2D{ aux->rectangulo.x * cos(ang_ataque),  aux->rectangulo.y * sin(ang_ataque) };
+	ETSIDI::play("bin/sonidos/Melee.wav");
 
 	hitbox->pos = ataque_centro;
 	dir_atk = dir;
@@ -142,6 +143,7 @@ void Area::iniciar_ataque(Vector2D posicion, Vector2D dir)
 {
 	// No es necesario el uso de la direccion
 	hitbox->pos = posicion;
+	ETSIDI::play("bin/sonidos/Volador.wav");
 }
 
 void Area::atacar_dibujar()

@@ -767,10 +767,10 @@ void Tablero::imprimir_turno() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glColor4f(0.0f, 0.0f, 0.0f, 0.8f);
 	glBegin(GL_QUADS);
-	glVertex2f(-5.0f, 46.0f);
-	glVertex2f(50.0f, 46.0f);
-	glVertex2f(50.0f, 52.0f);
-	glVertex2f(-5.0f, 52.0f);
+	glVertex2f(-5.0f, 44.0f);
+	glVertex2f(50.0f, 44.0f);
+	glVertex2f(50.0f, 55.0f);
+	glVertex2f(-5.0f, 55.0f);
 	glEnd();
 	glDisable(GL_BLEND);
 

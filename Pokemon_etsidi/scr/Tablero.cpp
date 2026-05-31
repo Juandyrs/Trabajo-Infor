@@ -381,6 +381,7 @@ void Tablero::cogerpieza(bool key[]) {
 
 }
 //SOLTAR PIEZA
+
 void Tablero::soltarpieza(bool key[]) {
 
 	int f = cursor.fila;
@@ -427,7 +428,11 @@ void Tablero::soltarpieza(bool key[]) {
 					Hechizo& magia = mago->libro_hechizos();
 					magia.restaurarmovimiento(p);
 				}
-
+				matriz[f][c] = p;
+				cursor.cursorsueltaficha();
+				ETSIDI::play("sonidos/impacto.wav");
+				imprimir();
+				return;
 			}
 
 			
@@ -558,13 +563,13 @@ void Tablero::dibujar_menu_hechizos() {
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
 	glColor3f(1.0f, 1.0f, 1.0f);
-	//static ETSIDI::Sprite ico1("bin/sprites/Iconos/teleport.png", 9.0f, 35.0f, 3.5f, 3.5f); ico1.draw();
-	//static ETSIDI::Sprite ico2("bin/sprites/Iconos/curar.png", 9.0f, 30.0f, 3.5f, 3.5f); ico2.draw();
-	//static ETSIDI::Sprite ico3("bin/sprites/Iconos/shiftime.png", 9.0f, 25.0f, 3.5f, 3.5f); ico3.draw();
-	//static ETSIDI::Sprite ico4("bin/sprites/Iconos/exchange.png", 9.0f, 20.0f, 3.5f, 3.5f); ico4.draw();
-	//static ETSIDI::Sprite ico5("bin/sprites/Iconos/elemental.png", 9.0f, 15.0f, 3.5f, 3.5f); ico5.draw();
-	//static ETSIDI::Sprite ico6("bin/sprites/Iconos/revivir.png", 9.0f, 10.0f, 3.5f, 3.5f); ico6.draw();
-	//static ETSIDI::Sprite ico7("bin/sprites/Iconos/imprison.png", 9.0f, 5.0f, 3.5f, 3.5f); ico7.draw();
+	static ETSIDI::Sprite ico1("bin/sprites/Iconos/low_teleport.png", 7.0f, 35.0f, 3.5f, 3.5f); ico1.draw();
+	static ETSIDI::Sprite ico2("bin/sprites/Iconos/low_curar.png", 7.0f, 30.0f, 3.5f, 3.5f); ico2.draw();
+	static ETSIDI::Sprite ico3("bin/sprites/Iconos/low_shiftime.png", 7.0f, 25.0f, 3.5f, 3.5f); ico3.draw();
+	static ETSIDI::Sprite ico4("bin/sprites/Iconos/low_exchange.png", 7.0f, 20.0f, 3.5f, 3.5f); ico4.draw();
+	static ETSIDI::Sprite ico5("bin/sprites/Iconos/low_elemental.png", 7.0f, 15.0f, 3.5f, 3.5f); ico5.draw();
+	static ETSIDI::Sprite ico6("bin/sprites/Iconos/low_revivir.png", 7.0f, 10.0f, 3.5f, 3.5f); ico6.draw();
+	static ETSIDI::Sprite ico7("bin/sprites/Iconos/cadena.png", 7.0f, 5.0f, 3.5f, 3.5f); ico7.draw();
 
 	//leyendas de los hechizos
 	glDisable(GL_BLEND);

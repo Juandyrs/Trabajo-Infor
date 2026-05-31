@@ -32,11 +32,11 @@ void ArenaCombate::dibuja_suelo()
 	const char* ruta;
 
 	if (tipocasi == TipoCasilla::clara)
-		ruta = "bin/fondos/fondo_claro.png";
+		ruta = "bin/fondos/pixelart_pradera.png";
 	else if (tipocasi == TipoCasilla::oscura)
-		ruta = "bin/fondos/fondo_oscuro.png";
+		ruta = "bin/fondos/pixelart_lava.png";
 	else
-		ruta = "bin/fondos/fondo_neutro.png"; 
+		ruta = "bin/fondos/pixelart_desierto.png"; 
 
 	glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture(ruta).id);
 

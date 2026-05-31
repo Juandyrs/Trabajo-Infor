@@ -121,15 +121,16 @@ public:
 	void hechizosmueve(bool key[]);
 	void habilitar_IA() { IA_activa = true; }
 
-<<<<<<< Updated upstream
+
 	Pokemon* consultar_pok(int i, int j) const { return matriz[i][j]; };
 	int consultar_fila_seleccionada() const { return f_seleccionada; }
 	int consultar_columna_seleccionada() const { return c_seleccionada; }
-=======
+
+
 	void actualiza(double dt);
 
 
 	//ESTADISTICAS
->>>>>>> Stashed changes
+
 };
 

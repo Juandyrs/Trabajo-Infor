@@ -143,13 +143,10 @@ void Tablero::tablerodibuja() {
 	dibujar_fondo_tablero();
 	dibujar_tableroyfichas();
 	cursor.dibujarcursor();
-<<<<<<< Updated upstream
 	
 	if (cursor.cursorllevaficha()) dibujar_mov_posibles();
 
-=======
 	dibujarestadisticas();
->>>>>>> Stashed changes
 	imprimir_turno();
 
 

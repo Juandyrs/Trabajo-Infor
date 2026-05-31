@@ -97,8 +97,8 @@ void OnTimer(int value)
 
 	Archon.jugar();
 	Archon.IA_juego();
-	Archon.animar();
 	Archon.actualizar_juego(dt);
+	Archon.animar();
 
 	//no borrar estas lineas
 	//indicamos que se vuelva a dibujar la pantalla, para que se vean los cambios

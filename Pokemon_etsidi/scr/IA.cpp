@@ -166,10 +166,13 @@ void IA::IA_Combate_Arena(ArenaCombate &arena)
 
 				else if (typeid(*arena.equipo2->ataque) == typeid(Rango))
 				{
+					
+					if(arena.obstaculos.distancia_obstaculo_cercano(*arena.equipo2) <= 0.02) Estado_Arena::Buscar; // Es necesario recalcular para que no se choque
+
 					if (!Colisiones::colision(arena.equipo1->hitbox, arena.equipo2->dir_mov, arena.equipo2->hitbox->pos)) estado_arena = Estado_Arena::Buscar;
 				}
 
-				if (cd2 <= 0  && !arena.equipo2->atacando ) atk2_ini = true; // IMPORTANTE VER
+				if (cd2 <= 0  && !arena.equipo2->atacando ) atk2_ini = true; 
 
 				break;
 
@@ -209,7 +212,7 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 
 		for (int i = 0; i < 8; i++)
 		{
-			puntos[i] = arena.equipo2->siguiente_posicion(movimientos[i], dt);
+			puntos[i] = arena.equipo2->siguiente_posicion(movimientos[i], dt * 6);
 			aux.hitbox->pos = puntos[i];
 			d_aux = arena.equipo1->consultar_posicion() - aux.hitbox->pos;
 
@@ -217,9 +220,9 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 
 			pesos[i] -= d_aux.modulo() * 10; //Premia el movimiento que se acerca al enemigo
 
-			for (auto e : posiciones_anterior) if (puntos[i] == e) pesos[i] -= 50; //Penaliza volver a alguna posicion anterior
+			for (auto e : posiciones_anterior) if ((arena.equipo2->consultar_posicion() - e).modulo() < 0.1) pesos[i] -= 50; //Penaliza volver a alguna posicion anterior
 
-			if (arena.obstaculos.distancia_obstaculo_cercano(aux) <= 0.01) pesos[i] -= 100; //Penaliza estar cerca de obstaculos
+			if (arena.obstaculos.distancia_obstaculo_cercano(aux) <= 0.2) pesos[i] -= 300; //Penaliza estar cerca de obstaculos
 
 			pesos[i] += rand() % (5 - 1 + 1) + 1; // Un poco de aleatoriedad para intentar evitar que se trabe
 
@@ -256,7 +259,7 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 
 		for (int i = 0; i < 8; i++)
 		{
-			puntos[i] = arena.equipo2->siguiente_posicion(movimientos[i], dt);
+			puntos[i] = arena.equipo2->siguiente_posicion(movimientos[i], dt * 6);
 			aux.hitbox->pos = puntos[i];
 			d_aux = arena.equipo1->consultar_posicion() - aux.hitbox->pos;
 
@@ -264,12 +267,12 @@ bool IA::buscar_camino_arena(ArenaCombate &arena)
 
 			if (1.0 <= d_aux.modulo() && d_aux.modulo() <= 1.5) pesos[i] += 20; //Premia el movimiento que se mantenga a una distancia del enemigo
 
-			for (int i = 0; i < 8; i++) 
+			for (int j = 0; j < 8; j++) 
 				if (Colisiones::colision(arena.equipo1->hitbox, movimientos[i], aux.hitbox->pos)) pesos[i] += 50; // Premia movimientos en los que se pueda acertar
 
-			for (auto e : posiciones_anterior) if (puntos[i] == e) pesos[i] -= 50; //Penaliza volver a alguna posicion anterior
+			for (auto e : posiciones_anterior) if ((puntos[i] - e).modulo() < 0.1) pesos[i] -= 50; //Penaliza volver a alguna posicion anterior
 
-			if (arena.obstaculos.distancia_obstaculo_cercano(aux) <= 0.01) pesos[i] -= 2000; //Penaliza estar cerca de obstaculos
+			if (arena.obstaculos.distancia_obstaculo_cercano(aux) <= 0.02) pesos[i] -= 2000; //Penaliza estar cerca de obstaculos
 
 			pesos[i] += rand() % (5 - 1 + 1) + 1; // Un poco de aleatoriedad para intentar evitar que se trabe
 		}

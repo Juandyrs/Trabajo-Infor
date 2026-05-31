@@ -16,9 +16,16 @@ bool Obs_Piedra::interrumpir(Pokemon &personaje, double dt)
 
 	if (Colisiones::colision(hitbox, personaje.consultar_hitbox()))
 	{
-		Vector2D paso_atras = personaje.consultar_dir() * personaje.consultar_vel() * dt;
-		Vector2D posicion_antigua = personaje.consultar_posicion() - paso_atras;
-		personaje.modificar_posicion(posicion_antigua);
+		//Se agrega un pequeno empuje para evitar adherirse a la piedra
+
+		Vector2D dir_empuje = personaje.consultar_posicion() - hitbox->pos;
+	
+		double paso_atras = personaje.consultar_vel() * dt * 1.2; // Se coloca un factor por la misma razon
+		Vector2D nueva_pos = personaje.consultar_posicion() + (dir_empuje.unitario() * paso_atras);;
+
+		personaje.modificar_posicion(nueva_pos);
+
+		personaje.modificar_mult_vel(0.0);
 
 		return true;
 	}

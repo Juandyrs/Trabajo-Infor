@@ -28,7 +28,8 @@ class Tablero
 	Pokemon* fichaSeleccionada = nullptr; //PARA LA FICHA SELECCIONADA
 	bool fichaYaSeleccionada = false; //SIRVE PARA SABER SI ESTA AGARRADA
 	vector <Pokemon*> equipo_entrenador; 
-	vector <Pokemon*> equipo_rocket; 
+	vector <Pokemon*> equipo_rocket;
+	inline static int f_seleccionada, c_seleccionada;
 
 	//LOGICA MOVIMIENTOS
 	
@@ -84,6 +85,7 @@ public:
 
 	void imprimir_turno();
 	void dibujar_fondo_tablero();
+	void dibujar_mov_posibles();
 
 	//para comprobar condiciones de victoria
 	bool controla_puntos_poder(Bando b); //victoria por puntos de poder
@@ -108,7 +110,8 @@ public:
 	void hechizosmueve(bool key[]);
 	void habilitar_IA() { IA_activa = true; }
 
-
-
+	Pokemon* consultar_pok(int i, int j) const { return matriz[i][j]; };
+	int consultar_fila_seleccionada() const { return f_seleccionada; }
+	int consultar_columna_seleccionada() const { return c_seleccionada; }
 };
 

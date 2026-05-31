@@ -2,9 +2,12 @@
 #include <string>
 #include <freeglut.h>
 #include <ETSIDI.h>
-
+#include "Vector2D.h"
+#include "Tablero.h"
+#include <cmath>
 
 using namespace std;
+using std::vector;
 
 void Pokemon::inicializa_datos(string n, char s, Bando b, Tipo tipo1, Tipo tipo2) {
 nombre = n;
@@ -53,6 +56,94 @@ void Pokemon::mover_arena(double dt)
 }
 
 //void Pokemon::pokemondibuja(int f, int c) {}
+
+vector<Vector2D> Pokemon::movimiento_valido(const Tablero *tablero)
+{
+	vector<Vector2D> movimientos_posibles{};
+
+	bool salir{ false };
+	int total_mov{};
+	int n_casillas = this->numero_casillas;
+	int f_actual = tablero->consultar_fila_seleccionada(), c_actual = tablero->consultar_columna_seleccionada();
+	
+	if (this->movimiento != TipoMovimiento::Tierra)
+	{
+
+		//Se calcula los movimientos posibles considerando un movimiento en rombo para las piezas que no sean de tierra
+		for (int df = -n_casillas; df <= n_casillas; df++)
+		{
+			int destino_f = f_actual + df;
+
+			if (destino_f < 0 || destino_f >= 9) continue;
+
+			int alcance_horizontal = n_casillas - abs(df);
+
+			for (int dc = -alcance_horizontal; dc <= alcance_horizontal; dc++)
+			{
+				int destino_c = c_actual + dc;
+
+				if (destino_c < 0 || destino_c >= 9) continue;
+				if (df == 0 && dc == 0) continue;
+
+				//Si la casilla no esta ocupada, es posible el movimiento o si el pokemon es de un equipo enemigo
+
+				auto p = tablero->consultar_pok(destino_f, destino_c);
+
+				if (p == nullptr || p->equipo != this->equipo) movimientos_posibles.push_back(Vector2D(destino_f, destino_c));
+			}
+		}
+	}
+	else
+	{
+		//Para las unidades de tierra es necesario calcular todas las direcciones para saber a donde se pueden mover
+		struct Nodo
+		{
+			int f, c;
+			int mov_dados;
+		};
+
+		vector<Nodo> nodos;
+		bool pasados[9][9]{ false }; // Guarda las posiciones que se ha pasado 
+
+		pasados[f_actual][c_actual] = true;
+		int movimientos_f[4] = { -1,1,0,0 }; // Movimientos 
+		int movimientos_c[4] = { 0,0,-1,1 }; // Movimientos 
+
+		nodos.push_back(Nodo(f_actual, c_actual, 0));
+
+		while (!nodos.empty())
+		{
+			Nodo nodo = nodos.front();
+			nodos.erase(nodos.begin());
+
+			if (nodo.mov_dados >= n_casillas) continue;
+
+			for (int i = 0; i < 4; i++)
+			{
+				int f_adyacente = nodo.f + movimientos_f[i];
+				int c_adyacente = nodo.c + movimientos_c[i];
+
+				if (f_adyacente < 0 || f_adyacente >= 9 || c_adyacente < 0 || c_adyacente >= 9) continue; //Limites
+				if (pasados[f_adyacente][c_adyacente]) continue; // Si ya he pasado
+
+				if (tablero->consultar_pok(f_adyacente, c_adyacente) == nullptr)
+				{
+					movimientos_posibles.push_back(Vector2D(f_adyacente, c_adyacente));
+					pasados[f_adyacente][c_adyacente] = true;
+					nodos.push_back(Nodo(f_adyacente, c_adyacente, nodo.mov_dados + 1));
+				}
+				else if (tablero->consultar_pok(f_adyacente, c_adyacente)->equipo != this->equipo)
+				{
+					movimientos_posibles.push_back(Vector2D(f_adyacente, c_adyacente));
+					pasados[f_adyacente][c_adyacente] = true;
+				}
+			}
+
+		}
+	}
+		return movimientos_posibles;
+}
+
 
 void Pokemon::dibujar_pokemon(int a)
 {

@@ -144,6 +144,8 @@ void Tablero::tablerodibuja() {
 	dibujar_tableroyfichas();
 	cursor.dibujarcursor();
 	
+	if (cursor.cursorllevaficha()) dibujar_mov_posibles();
+
 	imprimir_turno();
 
 
@@ -383,6 +385,8 @@ void Tablero::cogerpieza(bool key[]) {
 			if (matriz[f][c] != nullptr && ((int)matriz[f][c]->equipo) == int(Turnoactual)) { //RESTO DE PIEZAS DEL TURNO
 				cursor.cursorpillaficha(matriz[f][c]);
 				ETSIDI::play("bin/sonidos/sonidopoke.wav");
+				f_seleccionada = f;
+				c_seleccionada = c;
 				matriz[f][c] = nullptr;       //VACIAR ESA CASILLA
 			}
 		}
@@ -726,6 +730,31 @@ void Tablero::dibujar_fondo_tablero() {
 	glDisable(GL_BLEND);
 	glDisable(GL_TEXTURE_2D);
 
+}
+
+void Tablero::dibujar_mov_posibles()
+{
+	auto movimientos = cursor.fichaencursor->movimiento_valido(this);
+
+	for (auto e : movimientos)
+	{
+		float lado = 5.0f;
+		float x = e.y * lado; //ESTAN AL REVES POR QUE SI NO EL MOVIMIENTO SALE INVERTIDO :p
+		float y = (8 - e.x) * lado;
+
+		glDisable(GL_DEPTH_TEST);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glColor4ub(0, 0, 255, 100);
+		glBegin(GL_QUADS);
+		glVertex2f(x, y);
+		glVertex2f(x + lado, y);
+		glVertex2f(x + lado, y + lado);
+		glVertex2f(x, y + lado);
+		glEnd();
+		glDisable(GL_BLEND);
+		glEnable(GL_DEPTH_TEST);
+	}
 }
 
 void Tablero::imprimir_turno() {

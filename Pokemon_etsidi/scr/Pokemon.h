@@ -5,6 +5,9 @@
 #include "Vector2D.h"
 #include "Hitbox.h"
 #include <ETSIDI.h>
+#include <vector>
+
+class Tablero;
 
 using namespace std;
 
@@ -138,6 +141,8 @@ public:
 	int obtenerfila() { return pos_tab.x; }
 	int obtenercolumna() { return pos_tab.y; }
 	int obtenerncasillas() { return numero_casillas; }
+
+	vector<Vector2D> movimiento_valido(const Tablero *tablero);
 
 	//DIBUJADO
 	//void pokemondibuja(int f, int c);

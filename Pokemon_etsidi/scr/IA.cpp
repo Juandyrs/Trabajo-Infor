@@ -20,8 +20,8 @@ void IA::IA_Tablero(Tablero &tablero)
 
 	if (tablero.Turnoactual != TURNO::JUGADOR2) return;
 
-	int& c = tablero.cursor.columna;
-	int& f = tablero.cursor.fila;
+	int &c = tablero.cursor.columna;
+	int &f = tablero.cursor.fila;
 
 	static int c_agarrar{}, f_agarrar{};
 	static int c_soltar{}, f_soltar{};

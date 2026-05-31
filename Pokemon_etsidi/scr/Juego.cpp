@@ -155,12 +155,8 @@ void Juego::mover_Juego(bool key[])
 	switch (pantallaActual)
 	{
 	case MENU:
-
-		if ((musica_menu_iniciada==0)) {
-			ETSIDI::playMusica("bin/sonidos/musica_menu.mp3", true);
-			musica_menu_iniciada = true; 
-		}
-	
+		
+		
 		if (key['1']) {
 			IA_activa = false;
 			pantallaActual = TABLERO;
@@ -232,7 +228,16 @@ void Juego::jugar()
 
 		ArenaTablero();
 		break;
+
+	case MENU:
+		if (!musica_menu_iniciada) {
+			ETSIDI::playMusica("bin/sonidos/musica_menu.mp3", true);
+			musica_menu_iniciada = true;
+		}
+		
+		break;
 	}
+
 
 }
 

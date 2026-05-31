@@ -615,7 +615,7 @@ bool Tablero::lanzar_hechizo(int no_hechizo, int f, int c) {
 				return true;
 			}
 		}
-		cout << "No se puede curar o el hechizo esta gastado." << endl;
+		
 		return false;
 
 	case 3: //cambio tiempo del tablero

@@ -4,11 +4,11 @@
 bool Hechizo::llamar_curar(Pokemon* objetivo) {
 	if (Curar && objetivo != nullptr) {
 		objetivo->cura_max();
-		std::cout << "¡Hechizo de curacion aplicado!" << std::endl;
 		Curar = false; //gastamos el hechizo
 		return true;   //ha ido todo bien
 	}
-	std::cout << "¡Hechizo de curacion NO aplicado!" << std::endl;
+    mensaje_error = 1;   
+    t_error = 3.0f;  
 	return false;    //este no se aplica si no queda de ese hechizo o no se ha apuntado a ningun pokemon 
 
 }
@@ -82,4 +82,36 @@ bool Hechizo::llamar_revivir() {
 	}
 	std::cout << "¡Hechizo de revivir NO aplicado!" << std::endl;
 	return false;
+}
+
+
+void Hechizo::actualiza_t(float t) {
+    if (t_error > 0.0f) {
+        t_error=t_error - t;
+        if (t_error <= 0.0f) {
+            mensaje_error = 0; 
+        }
+    }
+}
+
+void Hechizo::dibuja_errores() {
+    if (t_error > 0.0f) {
+        glDisable(GL_LIGHTING);
+        glDisable(GL_DEPTH_TEST);
+
+
+        ETSIDI::setTextColor(1.0f, 0.1f, 0.1f);
+        ETSIDI::setFont("bin/fuentes/Bitwise.ttf", 24);
+
+
+        if (mensaje_error == 1) {
+            ETSIDI::printxy("HECHIZO YA UTILIZADO / NO DISPONIBLE", 10, 25);
+        }
+        else if (mensaje_error == 2) {
+            ETSIDI::printxy("HECHIZO 5 NO DISPONIBLE (SIN IMPLEMENTAR)", 8, 25);
+        }
+
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_LIGHTING);
+    }
 }

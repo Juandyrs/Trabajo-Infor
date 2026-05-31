@@ -1,5 +1,6 @@
 #pragma once
 #include "Pokemon.h"
+#include "Textos.h"
 
 class Hechizo
 {
@@ -11,6 +12,9 @@ class Hechizo
     Pokemon* pieza_bloqueada = nullptr;
     TipoMovimiento movoriginal;
     int casillasoriginal;
+    int mensaje_error{ 0 };     // donde 0 es ninguno, 1 es ya usado, y 2 es no anadido
+    float t_error{ 0.0f };
+
 
 public: 
 
@@ -30,10 +34,7 @@ public:
 
 
 
-    void gastarteletransporte() { Teletransporte = false; }
-    void gastracurar() { Curar = false; }
-    void gastarbloquear() { Bloquear = false; }
-    void gastarrevivir() { Revivir = false; }
-
+    void actualiza_t(float t); 
+    void dibuja_errores();
 };
 

@@ -20,7 +20,7 @@ class IA
 	inline static Estado_Arena estado_arena = Estado_Arena::Buscar;
 	inline static Estado_Tablero estado_tablero = Estado_Tablero::Decidir;
 	inline static double dt;
-	inline static double tiempo_pensar{ 0.5 }, tiempo;
+	inline static double tiempo_pensar{ 0.3 }, tiempo;
 	inline static bool sujetada{ false };
 
 public:

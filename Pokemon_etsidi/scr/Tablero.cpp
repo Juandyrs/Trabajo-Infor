@@ -156,9 +156,6 @@ void Tablero::tablerodibuja() {
 		mago->libro_hechizos().dibuja_errores();
 	}
 
-
-
-
 	//llamo al menu de hechizos si se ha pulsado la H
 	if (menu_hechizos_abierto) {
 		dibujar_menu_hechizos(); 

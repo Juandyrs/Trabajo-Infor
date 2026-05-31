@@ -36,16 +36,26 @@ void IA::IA_Tablero(Tablero &tablero)
 		break;
 
 	case Estado_Tablero::Decidir:
-
+	{
 		c_agarrar = rand() % 9;
 		f_agarrar = rand() % 9;
-		c_soltar = rand() % 9;
-		f_soltar = rand() % 9;
 
-		if (tablero.matriz[f_agarrar][c_agarrar] == nullptr) return;
-		if (tablero.matriz[f_agarrar][c_agarrar]->equipo != Bando::Team_Rocket) return;
-		if ((tablero.matriz[f_soltar][c_soltar] != nullptr) && (tablero.matriz[f_soltar][c_soltar]->equipo == Bando::Team_Rocket)) return;
+		if (tablero.matriz[f_agarrar][c_agarrar] == nullptr) return; // Si intenta agarrar una casilla vacía vuelve a calcular el movimiento
+		if (tablero.matriz[f_agarrar][c_agarrar]->equipo != Bando::Team_Rocket) return; // Si intenta agarrar un aliado vuelve a calcular el movimiento
 
+		tablero.c_seleccionada = c_agarrar;
+		tablero.f_seleccionada = f_agarrar;
+
+		auto mov_posibles = tablero.matriz[f_agarrar][c_agarrar]->movimiento_valido(&tablero);
+
+		if(mov_posibles.empty()) return; // Si el vector está vacío vuelve a calcular el movimiento
+
+		auto indice = rand() % mov_posibles.size();
+
+		c_soltar = mov_posibles[indice].y;
+		f_soltar = mov_posibles[indice].x;
+
+		if ((tablero.matriz[f_soltar][c_soltar] != nullptr) && (tablero.matriz[f_soltar][c_soltar]->equipo == Bando::Team_Rocket)) return; // Si intenta soltar en una casilla con aliados vuelve a calcular el movimiento
 
 		cout << c_agarrar << "," << f_agarrar << endl;
 		cout << c_soltar << "," << f_soltar << endl;
@@ -54,6 +64,7 @@ void IA::IA_Tablero(Tablero &tablero)
 		tiempo = 0.0;
 
 		break;
+	}
 
 	case Estado_Tablero::Actuar:
 
@@ -72,6 +83,8 @@ void IA::IA_Tablero(Tablero &tablero)
 				ETSIDI::play("bin/sonidos/sonidopoke.wav");
 				tablero.matriz[f][c] = nullptr;       //VACIAR ESA CASILLA
 				sujetada = true;
+
+				if (tablero.cursor.cursorllevaficha()) tablero.dibujar_mov_posibles();
 			}
 		}
 		else

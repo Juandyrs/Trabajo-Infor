@@ -54,9 +54,6 @@ void IA::IA_Tablero(Tablero &tablero)
 
 		if ((tablero.matriz[f_soltar][c_soltar] != nullptr) && (tablero.matriz[f_soltar][c_soltar]->equipo == Bando::Team_Rocket)) return; // Si intenta soltar en una casilla con aliados vuelve a calcular el movimiento
 
-		cout << c_agarrar << "," << f_agarrar << endl;
-		cout << c_soltar << "," << f_soltar << endl;
-
 		estado_tablero = Estado_Tablero::Pensar;
 		tiempo = 0.0;
 

@@ -420,6 +420,11 @@ void ArenaCombate::resetear_Arena()
 	equipo2->duracion_efecto = 0;
 	equipo1->dir_mov = Vector2D{ 0.0,0.0 };
 	equipo2->dir_mov = Vector2D{ 0.0,0.0 };
+	
+	//Reseteo de los sprites
+
+	equipo1->sprites->setState(1);
+	equipo2->sprites->setState(1);
 
 	if (typeid(equipo1) == typeid(CambiaFormas))
 	{

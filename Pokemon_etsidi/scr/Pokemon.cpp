@@ -187,7 +187,7 @@ void Pokemon::dibujar_pokemon()
 	if (dir_mov == Vector2D(0.0, 0.0))
 	{
 		if (moviendo) moviendo = false;
-		sprites->setState(0);
+		sprites->setState(1);
 	}
 	else
 	{

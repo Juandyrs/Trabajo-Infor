@@ -143,9 +143,13 @@ void Tablero::tablerodibuja() {
 	dibujar_fondo_tablero();
 	dibujar_tableroyfichas();
 	cursor.dibujarcursor();
+<<<<<<< Updated upstream
 	
 	if (cursor.cursorllevaficha()) dibujar_mov_posibles();
 
+=======
+	dibujarestadisticas();
+>>>>>>> Stashed changes
 	imprimir_turno();
 
 
@@ -593,7 +597,7 @@ void Tablero::dibujar_menu_hechizos() {
 	Textos::escribirCadena2D(9.5f, 29.5f, "2. Curar - Curar vida completa");
 	Textos::escribirCadena2D(9.5f, 24.5f, "3. Cambiar Tiempo - Altera casillas");
 	Textos::escribirCadena2D(9.5f, 19.5f, "4. Intercambiar - Cambiar 2 piezas");
-	Textos::escribirCadena2D(9.5f, 14.5f, "5. Invocar Elemental");
+	Textos::escribirCadena2D(9.5f, 14.5f, "5. Invocar Elemental (Proximamente)");
 	Textos::escribirCadena2D(9.5f, 9.5f, "6. Revivir - Revivir aliado");
 	Textos::escribirCadena2D(9.5f, 4.5f, "7. Encarcelar - Bloquear enemigo");
 
@@ -804,4 +808,114 @@ void Tablero::imprimir_turno() {
 	Textos::escribirCadena2DPequena(-4.0f, -7.5f, "[E] Coger/Lanzar  [Z] Soltar  [H] Hechizos (Cursor encima del Hechicero)");
 
 	glEnable(GL_DEPTH_TEST);
+}
+
+void Tablero::dibujarestadisticas() {
+	if (matriz[cursor.fila][cursor.columna] != nullptr) {
+
+		Pokemon* p = matriz[cursor.fila][cursor.columna];
+		glDisable(GL_DEPTH_TEST);
+		glDisable(GL_LIGHTING);
+
+		glDisable(GL_BLEND);
+		glDisable(GL_TEXTURE_2D);
+		glColor3f(1.0f, 1.0f, 1.0f);
+		char buffer[128];
+
+		ETSIDI::setTextColor(1, 1, 1);
+		ETSIDI::setFont("fuentes/PokemonClassic.ttf", 15);
+
+		string tipo;
+		switch (p->obtenertipomovimiento()) {
+		case TipoMovimiento::Tierra:        tipo = "Tierra";   break;
+		case TipoMovimiento::Vuelo:         tipo = "Aire";     break;
+		case TipoMovimiento::Teletransporte: tipo = "Psico";   break;
+		default:                            tipo = "Hechizo";  break;
+		}
+
+		float yy = 40.0f;
+		yy -= 3.5f;
+		Textos::escribirCadena2D(53.0f, yy, ("NOMBRE: " + p->consultar_nombre()).c_str());
+		static ETSIDI::Sprite ico1("bin/sprites/Iconos/pokeball.png", 51.5f, yy + 0.5, 2.0f, 2.0f); ico1.draw(); yy -= 3.5f;
+		Textos::escribirCadena2D(53.0f, yy, ("VIDA: " + to_string((int)p->consultar_vida()) + " / " + to_string((int)p->consultar_vidamax())).c_str());
+		static ETSIDI::Sprite ico2("bin/sprites/Iconos/corazon.png", 51.5f, yy + 0.5, 2.0f, 2.0f); ico2.draw(); yy -= 3.5f;
+		Textos::escribirCadena2D(53.0f, yy, ("ATAQUE: " + to_string((int)p->consultar_dano())).c_str());
+		static ETSIDI::Sprite ico3("bin/sprites/Iconos/espada.png", 51.5f, yy + 0.5, 2.0f, 2.0f); ico3.draw(); yy -= 3.5f;
+		Textos::escribirCadena2D(53.0f, yy, ("CASILLAS: " + to_string(p->obtenerncasillas())).c_str());
+		static ETSIDI::Sprite ico4("bin/sprites/Iconos/botas.png", 51.5f, yy + 1, 3.0f, 3.0f); ico4.draw(); yy -= 3.5f;
+		Textos::escribirCadena2D(53.0f, yy, ("TIPO: " + tipo).c_str());
+		static ETSIDI::Sprite ico5("bin/sprites/Iconos/tipo.png", 51.5f, yy + 0.5, 4.5f, 4.5f); ico5.draw(); yy -= 3.5f;
+
+
+
+		//std::string nombre = "Nombre: " + p->consultar_nombre();
+		//ETSIDI::printxy(nombre.c_str(), 0, 8, 2);
+		//std::string vida = "Vida: " + std::to_string((int)p->consultar_vida()) + " / " + std::to_string((int)p->consultar_vidamax());
+		//ETSIDI::printxy(vida.c_str(), 0, 7);
+		//std::string ataque = "Ataque: " + std::to_string((int)p->consultar_ataque());
+		//ETSIDI::printxy(ataque.c_str(), 0, 6);
+		//std::string mov = "Movimiento: " + std::to_string(p->obtenerncasillas()) + " casillas";
+		//ETSIDI::printxy(mov.c_str(), 0, 5);
+		//std::string lineaTipo = "Tipo: " + tipo;
+		//ETSIDI::printxy(lineaTipo.c_str(), 0, 4);
+
+		glEnable(GL_LIGHTING);
+		glEnable(GL_DEPTH_TEST);
+
+		if (p != pokemon_anterior)
+		{
+
+//BORRAR EL AUXILIAR
+			if (sprite_aux != nullptr)
+			{
+				delete sprite_aux;
+				sprite_aux = nullptr;
+			}
+
+//CREAR EL AUXILIAR NUEVO 
+			if (p != nullptr)
+			{
+				sprite_aux = new ETSIDI::SpriteSequence(
+					p->sprite.c_str(),3,5);
+
+				sprite_aux->setSize(8.0f, 8.0f);
+				sprite_aux->setCenter(0.5f, 0.5f);
+
+				total_frames_aux = 15;
+				frame_aux = 0;
+				sprite_aux->setState(0, false);
+			}
+
+			// Actualizar referencia
+			pokemon_anterior = p;
+		}
+		if (sprite_aux != nullptr)
+		{
+			glPushMatrix();
+			glTranslated(53.5f, 13.0f, 1.0f);
+			sprite_aux->draw();
+			glPopMatrix();
+		}
+	}
+
+}
+
+void Tablero::actualiza(double dt) {
+
+	if (sprite_aux != nullptr)
+	{
+		tiempo_aux += dt;
+
+		if (tiempo_aux >= intervalo_aux)
+		{
+			tiempo_aux = 0.0f;
+
+			frame_aux++;
+			if (frame_aux >= total_frames_aux)
+				frame_aux = 0;
+
+			sprite_aux->setState(frame_aux);
+		}
+	}
+
 }

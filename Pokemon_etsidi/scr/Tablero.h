@@ -46,6 +46,16 @@ class Tablero
 	Pokemon* p_revivir = nullptr;
 	int estado_hechizo = 1;
 
+
+	//ESTADISTICAS
+
+	float tiempo_aux = 0.0f;
+	float intervalo_aux = 0.15f;
+	int frame_aux = 0;
+	int total_frames_aux = 15;
+	ETSIDI::SpriteSequence* sprite_aux = nullptr;
+	Pokemon* pokemon_anterior = nullptr;
+
 public:
 
 	void colocar_pokemon(int f, int c, Pokemon* p) { matriz[f][c] = p; } // no se puede poner &p puesto que p ya es un puntero a pokemon 
@@ -57,10 +67,11 @@ public:
 	void inicializar_tablero();
 	//para leer el tablero en 2D
 
-	//DIBUJARSE A SI MISMO Y A LOS POKEMONS O CASILLAS CORRESPONDIENTES o menu de hechizos
+	//DIBUJARSE A SI MISMO Y A LOS POKEMONS O CASILLAS CORRESPONDIENTES o menu de hechizos O ESTADISTICAS
 	void tablerodibuja();
 	void dibujar_tableroyfichas();
 	void dibujar_menu_hechizos();
+	void dibujarestadisticas();
 
 	//SON PARA VER LAS CONDICIONES DE MOVIMIENTO DEL TABLERO
 	int distanciarecorrida(int fi, int ci, int ff ,int cf);
@@ -110,8 +121,15 @@ public:
 	void hechizosmueve(bool key[]);
 	void habilitar_IA() { IA_activa = true; }
 
+<<<<<<< Updated upstream
 	Pokemon* consultar_pok(int i, int j) const { return matriz[i][j]; };
 	int consultar_fila_seleccionada() const { return f_seleccionada; }
 	int consultar_columna_seleccionada() const { return c_seleccionada; }
+=======
+	void actualiza(double dt);
+
+
+	//ESTADISTICAS
+>>>>>>> Stashed changes
 };
 

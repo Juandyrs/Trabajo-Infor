@@ -19,16 +19,24 @@ void Cursor::dibujarcursor() {
     float y = (8 - fila) * lado;
 
     glDisable(GL_DEPTH_TEST);
+
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, ETSIDI::getTexture("bin/sprites/iconos/pokeball_pixel.png").id);
+
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glColor4ub(255, 255, 0, 100);
+
+    glColor4ub(255, 255, 255, 120);
+
     glBegin(GL_QUADS);
-    glVertex2f(x, y);
-    glVertex2f(x + lado, y);
-    glVertex2f(x + lado, y + lado);
-    glVertex2f(x, y + lado);
+    glTexCoord2f(0, 1); glVertex2f(x, y);
+    glTexCoord2f(1, 1); glVertex2f(x + lado, y);
+    glTexCoord2f(1, 0); glVertex2f(x + lado, y + lado);
+    glTexCoord2f(0, 0); glVertex2f(x, y + lado);
     glEnd();
+
     glDisable(GL_BLEND);
+    glDisable(GL_TEXTURE_2D);
     glEnable(GL_DEPTH_TEST);
 
     if (fichaencursor != nullptr && Tipomov != TipoMovimiento::Teletransporte ) { //EL PSIQUICO SE TELETRANSPORTA O LO QUE ES LO MISMO, NO SE DIBUJA CON EL CURSOR

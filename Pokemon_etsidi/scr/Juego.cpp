@@ -283,6 +283,7 @@ void  Juego::actualizar_juego(double dt)
 	}
 
 	if (pantallaActual == EstadoPantalla::ARENA) Arena.actualizar_arena(dt);
+	Mitablerito.actualiza(dt);
 }
 
 void Juego::TableroArena() {

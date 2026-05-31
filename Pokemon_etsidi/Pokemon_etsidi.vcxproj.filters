@@ -101,6 +101,12 @@
     <Image Include="bin\sprites\Iconos\low_revivir.png" />
     <Image Include="bin\sprites\Iconos\low_shiftime.png" />
     <Image Include="bin\sprites\Iconos\low_teleport.png" />
+    <Image Include="bin\sprites\Iconos\pokeball.png" />
+    <Image Include="bin\sprites\Iconos\pokeball_pixel.png" />
+    <Image Include="bin\sprites\Iconos\salud.png" />
+    <Image Include="bin\sprites\Iconos\barravida.png" />
+    <Image Include="bin\sprites\Iconos\tipo.png" />
+    <Image Include="bin\sprites\Iconos\botas.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\ETSIDI.dll" />
@@ -110,5 +116,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="piezas.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="bin\fuentes\PokemonClassic.ttf" />
   </ItemGroup>
 </Project>

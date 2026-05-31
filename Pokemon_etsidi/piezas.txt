@@ -22,7 +22,6 @@ Distancia,Umbreon,Team_Rocket,Siniestro,Ninguno,0,7,bin/sprites/Negra/UmbreonS.p
 Distancia,Umbreon,Team_Rocket,Siniestro,Ninguno,1,8,bin/sprites/Negra/UmbreonS.png,1.2,1.2,0.6,0.55,0.5,0.5
 Distancia,Umbreon,Team_Rocket,Siniestro,Ninguno,7,8,bin/sprites/Negra/UmbreonS.png,1.2,1.2,0.6,0.55,0.5,0.5
 Distancia,Umbreon,Team_Rocket,Siniestro,Ninguno,8,7,bin/sprites/Negra/UmbreonS.png,1.2,1.2,0.6,0.55,0.5,0.5
-Distancia,Umbreon,Team_Rocket,Siniestro,Ninguno,8,7,bin/sprites/Negra/UmbreonS.png,1.2,1.2,0.6,0.55,0.5,0.5
 
 Basico,Machomp,Entrenador,Lucha,Ninguno,1,1,bin/sprites/Blanca/MachopS.png,1.2,1.2,0.6,0.55,0.5,0.5
 Basico,Machomp,Entrenador,Lucha,Ninguno,2,1,bin/sprites/Blanca/MachopS.png,1.2,1.2,0.6,0.55,0.5,0.5

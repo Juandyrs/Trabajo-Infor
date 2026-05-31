@@ -516,16 +516,20 @@ void Tablero::cargar_pokemons(Pokemon* p) {
 			
 bool Tablero::quedan_piezas(Bando b) {
 	if (b == Bando::Entrenador) {
-		for (auto p : equipo_entrenador)
-			if (p->consultar_estado() == Estado::Vivo)
-				return true;
+		for (auto const& p : equipo_entrenador)
+		{
+			if (p->consultar_estado() == Estado::Vivo) return true;
+		}
+		return false;
 	}
 	else {
-		for (auto p : equipo_rocket)
-			if (p->consultar_estado() == Estado::Vivo)
-				return true;
+		for (auto const& p : equipo_rocket) 
+		{
+			if (p->consultar_estado() == Estado::Vivo) return true;
+		}
+		return false;
 	}
-	return false;
+
 }
 
 void Tablero::cargadatosarena() {

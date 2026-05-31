@@ -37,7 +37,7 @@ public:
 			, 3        //Numero de casilla
 			, 60.0    //Vida
 			, 2.0     //Velocidad
-			, 20.0    //Dano
+			, 9999.0    //Dano
 			, 5.0     //Cooldown
 			, s       //Ruta de imagen
 		)

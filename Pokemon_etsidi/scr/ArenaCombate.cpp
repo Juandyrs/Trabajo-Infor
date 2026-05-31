@@ -349,12 +349,12 @@ void ArenaCombate::inicializa_Arena(Pokemon *t1, Pokemon *t2, TipoCasilla casill
 
 Pokemon* ArenaCombate::devolver_ganador()
 {
-	if (equipo1->vida_actual == 0)
+	if (equipo1->vida_actual <= 0)
 	{
 		equipo1->estado = Estado::Muerto;
 		return equipo2;
 	}
-	if (equipo2->vida_actual == 0)
+	if (equipo2->vida_actual <= 0)
 	{
 		equipo2->estado = Estado::Muerto;
 		return equipo1;

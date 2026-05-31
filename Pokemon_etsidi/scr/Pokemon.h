@@ -173,6 +173,7 @@ public:
 	int consultar_duracion_estado() const { return duracion_efecto; }
 	Vector2D consultar_dir() const { return dir_mov; }
 	void cambiar_estado(Estado e) { estado = e; }
+	ETSIDI::SpriteSequence* consultar_sprites() const { return sprites; }
 
 	virtual void atacar(Pokemon &objetivo);
 	void mover_arena(double dt);

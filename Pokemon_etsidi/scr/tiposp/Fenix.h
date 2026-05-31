@@ -19,7 +19,7 @@ public:
         vida_max = 60.0;
         vida_actual = 60.0;
         velocidad = 2.0;
-        hitbox = new HitboxRectangular({ 0.5,  0.5 });
+        hitbox = new HitboxRectangular({ 0.4,  0.4 });
     }
 
     Fenix(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t, string s, Vector2D centro = { 0,0 }, Vector2D set = { 0,0 }, Vector2D hit = { 0,0 })
@@ -40,7 +40,7 @@ public:
         )
     {
 		ataque = new Area(5.0, Vector2D{ 0.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 0.5, 60);
-        hitbox = new HitboxRectangular({ 0.5,  0.5 });
+        hitbox = new HitboxRectangular({ 0.4,  0.4 });
 
         sprites->setSize(set.x, set.y);
         sprites->setCenter(centro.x, centro.y);

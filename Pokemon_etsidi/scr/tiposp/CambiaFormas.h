@@ -5,7 +5,7 @@
 class CambiaFormas :
     public Pokemon
 {
-    string nombre_original;
+    ETSIDI::SpriteSequence* sprite_original;
 
 public:
 
@@ -15,7 +15,7 @@ public:
     {
         vida_max = 60.0;
         vida_actual = 60.0;
-        hitbox = new HitboxRectangular({ 0.5,  0.5 });
+        hitbox = new HitboxRectangular({ 0.4,  0.4 });
  
 
     }
@@ -36,9 +36,9 @@ public:
             , 5.0     //Cooldown
             , s        //Ruta de imagen
         )
-        , nombre_original(n)
+        , sprite_original(new ETSIDI::SpriteSequence(s.c_str(), 3, 5))
     {
-        hitbox = new HitboxRectangular({ 0.5,  0.5 });
+        hitbox = new HitboxRectangular({ 0.4,  0.4 });
 
         sprites->setSize(set.x, set.y);
         sprites->setCenter(centro.x, centro.y);

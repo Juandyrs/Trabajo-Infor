@@ -63,8 +63,8 @@ void ArenaCombate::dibuja_Personajes()
 		glPopMatrix();
 
 		// Para probar hitbox, temporal hasta que se prueben todos las colisiones
-		glColor3ub(0, 255, 255);
-		equipo1->hitbox->dibujar();
+		//glColor3ub(0, 255, 255);
+		//equipo1->hitbox->dibujar();
 	}
 
 	if(equipo2->vida_actual > 0)
@@ -75,8 +75,8 @@ void ArenaCombate::dibuja_Personajes()
 		glPopMatrix();
 
 		// Para probar hitbox, temporal hasta que se prueben todos las colisiones
-		glColor3ub(0, 255, 255);
-		equipo2->hitbox->dibujar();
+		//glColor3ub(0, 255, 255);
+		//equipo2->hitbox->dibujar();
 		
 	}
 
@@ -420,24 +420,24 @@ void ArenaCombate::resetear_Arena()
 	equipo2->duracion_efecto = 0;
 	equipo1->dir_mov = Vector2D{ 0.0,0.0 };
 	equipo2->dir_mov = Vector2D{ 0.0,0.0 };
-	
-	//Reseteo de los sprites
 
-	equipo1->sprites->setState(1);
-	equipo2->sprites->setState(1);
-
-	if (typeid(equipo1) == typeid(CambiaFormas))
+	if (typeid(*equipo1) == typeid(CambiaFormas))
 	{
 		//Se accede al pokemon como cambiaformas
 		CambiaFormas &p = dynamic_cast<CambiaFormas&>(*equipo1);
 		p.forma_original();
 	}
 
-	else if (typeid(equipo2) == typeid(CambiaFormas))
+	else if (typeid(*equipo2) == typeid(CambiaFormas))
 	{
 		CambiaFormas& p = dynamic_cast<CambiaFormas&>(*equipo2);
 		p.forma_original();
 	}
+
+	//Reseteo de los sprites
+
+	equipo1->sprites->setState(1);
+	equipo2->sprites->setState(1);
 }
 
 void ArenaCombate::actualizar_arena(double dt)

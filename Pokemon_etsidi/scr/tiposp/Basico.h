@@ -33,7 +33,7 @@ public:
     {
         //Arena
 		ataque = new Melee(10.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 1.0, 1.5, 5);
-        hitbox = new HitboxRectangular({ 0.5,  0.5 });
+        hitbox = new HitboxRectangular({ 0.4,  0.4 });
 
         sprites->setSize(set.x, set.y);
         sprites->setCenter(centro.x, centro.y);
@@ -42,9 +42,5 @@ public:
         set_s = set;
     }
 
-    
-
-
-    // Metodos de la arena
 };
 

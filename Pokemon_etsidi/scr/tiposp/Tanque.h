@@ -19,7 +19,7 @@ public:
 		velocidad = 2.0;
 		dano = 20.0;
 		cooldown = 5;
-		hitbox = new HitboxRectangular({ 0.5,  0.5 });
+		hitbox = new HitboxRectangular({ 0.4,  0.4 });
 	}
 
 	Tanque(string n, Bando b, Tipo tipo1, Tipo tipo2, Vector2D pos_t, string s, Vector2D centro = { 0,0 }, Vector2D set = { 0,0 }, Vector2D hit = { 0,0 })

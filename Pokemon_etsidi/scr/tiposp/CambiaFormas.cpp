@@ -3,7 +3,7 @@
 
 void CambiaFormas::cambiar_forma(Pokemon &enemigo)
 {
-	nombre = enemigo.consultar_nombre();
+	sprites = new ETSIDI::SpriteSequence(*enemigo.consultar_sprites());
 	velocidad = enemigo.consultar_vel();
 	dano = enemigo.consultar_dano();
 	cooldown = enemigo.consultar_cd();
@@ -11,13 +11,14 @@ void CambiaFormas::cambiar_forma(Pokemon &enemigo)
 
 	ataque = enemigo.consultar_ataque()->clonar();
 
-	std::cout << enemigo.consultar_ataque()->consultar_hitbox() << '\n';
-	std::cout << ataque->consultar_hitbox() << '\n';
 }
 
 void CambiaFormas::forma_original()
 {
-	nombre = nombre_original;
+	delete sprites;
+
+	sprites = sprite_original;
+
 	delete ataque;
 	delete hitbox;
 }

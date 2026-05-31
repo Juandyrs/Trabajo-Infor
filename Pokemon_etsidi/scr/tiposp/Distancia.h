@@ -20,7 +20,7 @@ public:
 		velocidad = 2.0;
 		dano = 20.0;
 		cooldown = 5;
-		hitbox = new HitboxRectangular({ 0.5,  0.5 });
+		hitbox = new HitboxRectangular({ 0.4,  0.4 });
 
 
 	}
@@ -43,7 +43,7 @@ public:
 		)
 	{
 		ataque = new Rango(20.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 0.5, 0.5);
-		hitbox = new HitboxRectangular({ 0.5,  0.5 });
+		hitbox = new HitboxRectangular({ 0.4,  0.4 });
 
 		sprites->setSize(set.x, set.y);
 		sprites->setCenter(centro.x, centro.y);

@@ -245,6 +245,8 @@ void Juego::jugar()
 
 void Juego::comprobar_victoria() {
 
+	if (this == nullptr) return;
+
 	// perder por quedarte sin pokemons
 	if (Mitablerito.quedan_piezas(Bando::Team_Rocket) == false)
 		resultado = ResultadoJuego::GANADORENTRENADOR;

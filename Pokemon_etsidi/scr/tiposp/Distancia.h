@@ -14,7 +14,7 @@ public:
 	//Constructor para la clase Distancia, que inicializa la clase
 	Distancia(int a) //Este constructor es para pruebas de la arena se debera quitar
 	{
-		ataque = new Rango(20.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 0.5, 0.25);
+		ataque = new Rango(20.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 0.75, 0.25);
 		vida_max = 60.0;
 		vida_actual = 60.0;
 		velocidad = 2.0;

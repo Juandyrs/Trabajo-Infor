@@ -76,7 +76,7 @@ void Tablero::inicializar_tablero()
 
 	//Inicializacion de las piezas
 
-	ifstream inicializa("piezas.txt");
+	ifstream inicializa("bin/piezas.txt");
 
 	if (!inicializa.is_open())	return; // Avisa si no se puede abrir el fichero
 
@@ -858,7 +858,7 @@ void Tablero::dibujarestadisticas() {
 //BORRAR EL AUXILIAR
 			if (sprite_aux != nullptr)
 			{
-				delete sprite_aux;
+				//delete sprite_aux; Se quito porque si no, no compila en Release
 				sprite_aux = nullptr;
 			}
 

@@ -82,8 +82,7 @@ bool Obs_Arbusto::interrumpir(Pokemon &personaje, double dt)
 	if (Colisiones::colision(hitbox, personaje.consultar_hitbox())
 		&& personaje.consultar_efecto_estado() != EfectoEstado::Invulnerable)
 	{
-		Vector2D aux = personaje.consultar_posicion() - personaje.consultar_dir() * reducir_vel * dt;
-		personaje.modificar_posicion(aux);
+		personaje.modificar_mult_vel(0.5);
 
 		return true;
 	}

@@ -81,14 +81,14 @@ public:
 class Obs_Arbusto :
 	public Obstaculo
 {
-	double reducir_vel;
+	double reducir_vel; //En %
 	ETSIDI::SpriteSequence sprite;
 
 public:
 
 	Obs_Arbusto(Vector2D pos)
 		: Obstaculo(pos, false)
-		, reducir_vel(1.0)
+		, reducir_vel(0.75)
 		, sprite("bin/sprites/Obstaculos/ObsFuego.png", 5, 1, 50)
 	{
 		sprite.setSize(1.0, 1.2);

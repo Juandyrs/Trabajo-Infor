@@ -9,9 +9,6 @@
 using std::vector;
 using std::max_element;
 
-extern bool atk2_ini;
-extern double cd2;
-
 extern bool keys[];
 int i{};
 
@@ -145,6 +142,8 @@ void IA::IA_Combate_Arena(ArenaCombate &arena)
 	int decision = rand() % (8 - 1 + 1) + 1;
 	static int frame{100};
 	Vector2D distancia = arena.equipo1->consultar_posicion() - arena.equipo2->consultar_posicion();
+	double cd2 = arena.cd2;
+	bool& atk2_ini = arena.atk2_ini;
 
 	if (typeid(arena.equipo2) != typeid(Distancia) && frame%10 == 0)
 	{

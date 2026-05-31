@@ -8,11 +8,13 @@
 
 class ArenaCombate
 {
-	Vector2D dimensiones_arena{4.5, 4.5};
+	Vector2D dimensiones_arena{ 4.5, 4.5 };
 	Pokemon *equipo1, *equipo2;
 	ListaObstaculos obstaculos;
-	bool IA_activa{false};
+	bool IA_activa{ false };
 	TipoCasilla tipocasi;
+	inline static bool atk1_ini{ false }, atk2_ini{ false };
+	inline static double cd1{ 0.0 }, cd2{ 0.0 };
 
 public:
 	

@@ -52,7 +52,7 @@ void Pokemon::mover_arena(double dt)
 {
 	if (dir_mov == Vector2D(0.0, 0.0)) return;
 
-	hitbox->pos += dir_mov * velocidad * dt;
+	hitbox->pos += dir_mov * velocidad * mult_vel * dt;
 }
 
 //void Pokemon::pokemondibuja(int f, int c) {}

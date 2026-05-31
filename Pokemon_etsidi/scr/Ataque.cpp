@@ -95,9 +95,20 @@ bool Melee::colision_ataque(Pokemon &objetivo)
 	if (Colisiones::colision(aux, objetivo.consultar_hitbox())
 		&& (objetivo.consultar_efecto_estado() != EfectoEstado::Invulnerable))
 	{
-		objetivo.recibir_dano(dano);
-		delete aux;
-		return true;
+
+		if (frame > 0)
+		{
+			frame -= 1;
+			delete aux;
+			return false;
+		}
+		else
+		{
+			objetivo.recibir_dano(dano);
+			frame = frame_ataque;
+			delete aux;
+			return true;
+		}
 	}
 
 	if (frame > 0)

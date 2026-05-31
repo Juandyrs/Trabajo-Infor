@@ -40,7 +40,7 @@ public:
 		)
 	{
 		ataque = new Rango(20.0, Vector2D{ 1.0, 0.0 }, Vector2D{ 0.0, 0.0 }, 0.5, 0.5);
-		hitbox = new HitboxRectangular({ 0.5,  0.5 });
+		hitbox = new HitboxRectangular(hit);
 
 		sprites->setSize(set.x, set.y);
 		sprites->setCenter(centro.x, centro.y);

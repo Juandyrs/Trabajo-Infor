@@ -63,6 +63,7 @@ protected:
 	double velocidad;
 	double dano;
 	double cooldown;
+	double mult_vel{ 1 };
 	Hitbox *hitbox; //La posicion en la arena esta guardada en la hitbox
 	Vector2D dir_mov;
 	Ataque *ataque;
@@ -157,6 +158,7 @@ public:
 	void modificar_posicion(Vector2D nueva_pos) { hitbox->pos = nueva_pos; }
 	void modificar_estado(EfectoEstado nuevo_estado, int duracion) { efecto_estado = nuevo_estado; duracion_efecto = duracion; }
 	void modificar_dir(Vector2D dir) { dir_mov = dir; }
+	void modificar_mult_vel(double mult) { mult_vel = mult; }
 
 	Hitbox* consultar_hitbox() const { return hitbox; }
 	Vector2D consultar_dim_hitbox() const;// Sirve por que todas son rectangulares
@@ -177,7 +179,7 @@ public:
 
 	virtual void atacar(Pokemon &objetivo);
 	void mover_arena(double dt);
-	Vector2D siguiente_posicion(const Vector2D dir, const double dt) const { return hitbox->pos + dir * velocidad * dt; }
+	Vector2D siguiente_posicion(const Vector2D dir, const double dt) const { return hitbox->pos + dir * velocidad * mult_vel * dt; }
 	
 	//para el hechizo de cura
 	void cura_max() { vida_actual = vida_max; }

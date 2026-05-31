@@ -1,47 +1,47 @@
-Hechicero,Alakazam,Entrenador,Psiquico,Ninguno,4,0,bin/sprites/Blanca/AlakazamS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Hechicero,Gengar,Team_Rocket,Fantasma,Veneno,4,8,bin/sprites/Negra/GengarS.png,1.2,1.2,0.6,0.55,1.0,1.0
+Hechicero,Alakazam,Entrenador,Psiquico,Ninguno,4,0,bin/sprites/Blanca/AlakazamS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Hechicero,Gengar,Team_Rocket,Fantasma,Veneno,4,8,bin/sprites/Negra/GengarS.png,1.2,1.2,0.6,0.55,0.5,0.5
 
-Volador,Charizard,Entrenador,Fuego,Volador,2,0,bin/sprites/Blanca/CharizardS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Volador,Charizard,Entrenador,Fuego,Volador,6,0,bin/sprites/Blanca/CharizardS.png,1.2,1.2,0.6,0.55,1.0,1.0
+Volador,Charizard,Entrenador,Fuego,Volador,2,0,bin/sprites/Blanca/CharizardS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Volador,Charizard,Entrenador,Fuego,Volador,6,0,bin/sprites/Blanca/CharizardS.png,1.2,1.2,0.6,0.55,0.5,0.5
 
-Volador,Crobat,Team_Rocket,Volador,Veneno,2,8,bin/sprites/Negra/CrobatS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Volador,Crobat,Team_Rocket,Volador,Veneno,6,8,bin/sprites/Negra/CrobatS.png,1.2,1.2,0.6,0.55,1.0,1.0
+Volador,Crobat,Team_Rocket,Volador,Veneno,2,8,bin/sprites/Negra/CrobatS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Volador,Crobat,Team_Rocket,Volador,Veneno,6,8,bin/sprites/Negra/CrobatS.png,1.2,1.2,0.6,0.55,0.5,0.5
 
-Tanque,Snorlax,Entrenador,Normal,Ninguno,0,0,bin/sprites/Blanca/SnorlaxS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Tanque,Snorlax,Entrenador,Normal,Ninguno,8,0,bin/sprites/Blanca/SnorlaxS.png,1.2,1.2,0.6,0.55,1.0,1.0
+Tanque,Snorlax,Entrenador,Normal,Ninguno,0,0,bin/sprites/Blanca/SnorlaxS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Tanque,Snorlax,Entrenador,Normal,Ninguno,8,0,bin/sprites/Blanca/SnorlaxS.png,1.2,1.2,0.6,0.55,0.5,0.5
 
-Tanque,Tyranitar,Team_Rocket,Tierra,Siniestro,0,8,bin/sprites/Negra/TyranitarS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Tanque,Tyranitar,Team_Rocket,Tierra,Siniestro,8,8,bin/sprites/Negra/TyranitarS.png,1.2,1.2,0.6,0.55,1.0,1.0
+Tanque,Tyranitar,Team_Rocket,Tierra,Siniestro,0,8,bin/sprites/Negra/TyranitarS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Tanque,Tyranitar,Team_Rocket,Tierra,Siniestro,8,8,bin/sprites/Negra/TyranitarS.png,1.2,1.2,0.6,0.55,0.5,0.5
 
-Distancia,Leafeon,Entrenador,Planta,Ninguno,0,1,bin/sprites/Blanca/LeafeonS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Distancia,Leafeon,Entrenador,Planta,Ninguno,1,0,bin/sprites/Blanca/LeafeonS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Distancia,Leafeon,Entrenador,Planta,Ninguno,7,0,bin/sprites/Blanca/LeafeonS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Distancia,Leafeon,Entrenador,Planta,Ninguno,8,1,bin/sprites/Blanca/LeafeonS.png,1.2,1.2,0.6,0.55,1.0,1.0
+Distancia,Leafeon,Entrenador,Planta,Ninguno,0,1,bin/sprites/Blanca/LeafeonS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Distancia,Leafeon,Entrenador,Planta,Ninguno,1,0,bin/sprites/Blanca/LeafeonS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Distancia,Leafeon,Entrenador,Planta,Ninguno,7,0,bin/sprites/Blanca/LeafeonS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Distancia,Leafeon,Entrenador,Planta,Ninguno,8,1,bin/sprites/Blanca/LeafeonS.png,1.2,1.2,0.6,0.55,0.5,0.5
 
-Distancia,Umbreon,Team_Rocket,Siniestro,Ninguno,0,7,bin/sprites/Negra/UmbreonS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Distancia,Umbreon,Team_Rocket,Siniestro,Ninguno,1,8,bin/sprites/Negra/UmbreonS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Distancia,Umbreon,Team_Rocket,Siniestro,Ninguno,7,8,bin/sprites/Negra/UmbreonS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Distancia,Umbreon,Team_Rocket,Siniestro,Ninguno,8,7,bin/sprites/Negra/UmbreonS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Distancia,Umbreon,Team_Rocket,Siniestro,Ninguno,8,7,bin/sprites/Negra/UmbreonS.png,1.2,1.2,0.6,0.55,1.0,1.0
+Distancia,Umbreon,Team_Rocket,Siniestro,Ninguno,0,7,bin/sprites/Negra/UmbreonS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Distancia,Umbreon,Team_Rocket,Siniestro,Ninguno,1,8,bin/sprites/Negra/UmbreonS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Distancia,Umbreon,Team_Rocket,Siniestro,Ninguno,7,8,bin/sprites/Negra/UmbreonS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Distancia,Umbreon,Team_Rocket,Siniestro,Ninguno,8,7,bin/sprites/Negra/UmbreonS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Distancia,Umbreon,Team_Rocket,Siniestro,Ninguno,8,7,bin/sprites/Negra/UmbreonS.png,1.2,1.2,0.6,0.55,0.5,0.5
 
-Basico,Machomp,Entrenador,Lucha,Ninguno,1,1,bin/sprites/Blanca/MachopS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Basico,Machomp,Entrenador,Lucha,Ninguno,2,1,bin/sprites/Blanca/MachopS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Basico,Machomp,Entrenador,Lucha,Ninguno,3,1,bin/sprites/Blanca/MachopS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Basico,Machomp,Entrenador,Lucha,Ninguno,4,1,bin/sprites/Blanca/MachopS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Basico,Machomp,Entrenador,Lucha,Ninguno,5,1,bin/sprites/Blanca/MachopS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Basico,Machomp,Entrenador,Lucha,Ninguno,6,1,bin/sprites/Blanca/MachopS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Basico,Machomp,Entrenador,Lucha,Ninguno,7,1,bin/sprites/Blanca/MachopS.png,1.2,1.2,0.6,0.55,1.0,1.0
+Basico,Machomp,Entrenador,Lucha,Ninguno,1,1,bin/sprites/Blanca/MachopS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Basico,Machomp,Entrenador,Lucha,Ninguno,2,1,bin/sprites/Blanca/MachopS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Basico,Machomp,Entrenador,Lucha,Ninguno,3,1,bin/sprites/Blanca/MachopS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Basico,Machomp,Entrenador,Lucha,Ninguno,4,1,bin/sprites/Blanca/MachopS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Basico,Machomp,Entrenador,Lucha,Ninguno,5,1,bin/sprites/Blanca/MachopS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Basico,Machomp,Entrenador,Lucha,Ninguno,6,1,bin/sprites/Blanca/MachopS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Basico,Machomp,Entrenador,Lucha,Ninguno,7,1,bin/sprites/Blanca/MachopS.png,1.2,1.2,0.6,0.55,0.5,0.5
 
-Basico,Meow,Team_Rocket,Normal,Ninguno,1,7,bin/sprites/Negra/MeowS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Basico,Meow,Team_Rocket,Normal,Ninguno,2,7,bin/sprites/Negra/MeowS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Basico,Meow,Team_Rocket,Normal,Ninguno,3,7,bin/sprites/Negra/MeowS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Basico,Meow,Team_Rocket,Normal,Ninguno,4,7,bin/sprites/Negra/MeowS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Basico,Meow,Team_Rocket,Normal,Ninguno,5,7,bin/sprites/Negra/MeowS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Basico,Meow,Team_Rocket,Normal,Ninguno,6,7,bin/sprites/Negra/MeowS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Basico,Meow,Team_Rocket,Normal,Ninguno,7,7,bin/sprites/Negra/MeowS.png,1.2,1.2,0.6,0.55,1.0,1.0
+Basico,Meow,Team_Rocket,Normal,Ninguno,1,7,bin/sprites/Negra/MeowS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Basico,Meow,Team_Rocket,Normal,Ninguno,2,7,bin/sprites/Negra/MeowS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Basico,Meow,Team_Rocket,Normal,Ninguno,3,7,bin/sprites/Negra/MeowS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Basico,Meow,Team_Rocket,Normal,Ninguno,4,7,bin/sprites/Negra/MeowS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Basico,Meow,Team_Rocket,Normal,Ninguno,5,7,bin/sprites/Negra/MeowS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Basico,Meow,Team_Rocket,Normal,Ninguno,6,7,bin/sprites/Negra/MeowS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Basico,Meow,Team_Rocket,Normal,Ninguno,7,7,bin/sprites/Negra/MeowS.png,1.2,1.2,0.6,0.55,0.5,0.5
 
-Fenix,Moltres,Entrenador,Fuego,Volador,5,0,bin/sprites/Blanca/MoltresS.png,1.2,1.2,0.6,0.55,1.0,1.0
-Fenix,Moltres,Entrenador,Fuego,Volador,3,0,bin/sprites/Blanca/MoltresS.png,1.2,1.2,0.6,0.55,1.0,1.0
+Fenix,Moltres,Entrenador,Fuego,Volador,5,0,bin/sprites/Blanca/MoltresS.png,1.2,1.2,0.6,0.55,0.5,0.5
+Fenix,Moltres,Entrenador,Fuego,Volador,3,0,bin/sprites/Blanca/MoltresS.png,1.2,1.2,0.6,0.55,0.5,0.5
 
-CambiaFormas,Ditto,Team_Rocket,Normal,Ninguno,3,8,bin/sprites/Negra/DittoS.png,1.2,1.2,0.6,0.55,1.0,1.0
-CambiaFormas,Ditto,Team_Rocket,Normal,Ninguno,5,8,bin/sprites/Negra/DittoS.png,1.2,1.2,0.6,0.55,1.0,1.0
+CambiaFormas,Ditto,Team_Rocket,Normal,Ninguno,3,8,bin/sprites/Negra/DittoS.png,1.2,1.2,0.6,0.55,0.5,0.5
+CambiaFormas,Ditto,Team_Rocket,Normal,Ninguno,5,8,bin/sprites/Negra/DittoS.png,1.2,1.2,0.6,0.55,0.5,0.5

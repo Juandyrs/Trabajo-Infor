@@ -6,9 +6,6 @@
 #include "IA.h"
 #include <ETSIDI.h>
 
-bool atk1_ini = false, atk2_ini = false;
-double cd1 = 0.0, cd2 = 0.0;
-
 //Metodos de dibujo
 
 void ArenaCombate::dibuja_Arena()
@@ -193,14 +190,9 @@ void ArenaCombate::dibuja_BarrasVida()
 
 void ArenaCombate::dibuja_Ataques()
 {
-	if (equipo1->atacando)
-	{
-		equipo1->ataque->atacar_dibujar();
-	}
-	if (equipo2->atacando)
-	{
-		equipo2->ataque->atacar_dibujar();
-	}
+	if (equipo1->atacando) equipo1->ataque->atacar_dibujar();
+	if (equipo2->atacando) equipo2->ataque->atacar_dibujar();
+	
 }
 
 
@@ -233,23 +225,25 @@ void ArenaCombate::arena_combate()
 		atk2_ini = false;
 	}
 
+	equipo1->atacar(*equipo2);
+	equipo2->atacar(*equipo1);
+
 	if (equipo1->atacando) equipo1->atacando = !InteraccionArena::colisiona_ataques_obst(obstaculos, *equipo1->consultar_ataque());
 	if (equipo1->atacando) equipo1->atacando = !InteraccionArena::colision_ataques_arena(*this, *equipo1->consultar_ataque());
 
 	if (equipo2->atacando) equipo2->atacando = !InteraccionArena::colisiona_ataques_obst(obstaculos, *equipo2->consultar_ataque());
 	if (equipo2->atacando) equipo2->atacando = !InteraccionArena::colision_ataques_arena(*this, *equipo2->consultar_ataque());
 
-	equipo1->atacar(*equipo2);
-	equipo2->atacar(*equipo1);
-
 	// Cooldown para pruebas, hay que cambiarlo 
-	if (cd1 > 0) cd1 -= 1;
-	if (cd2 > 0) cd2 -= 1;
-
+	if (cd1 > 0) cd1 -= 0.2;
+	if (cd2 > 0) cd2 -= 0.2;
 }
 
 void ArenaCombate::interaccion_obstaculos(double dt)
 {
+	equipo1->mult_vel = 1.0;
+	equipo2->mult_vel = 1.0;
+
 	obstaculos.interrumpir_Obstaculos(*equipo1, dt);
 	obstaculos.interrumpir_Obstaculos(*equipo2, dt);
 }
@@ -442,8 +436,8 @@ void ArenaCombate::resetear_Arena()
 
 void ArenaCombate::actualizar_arena(double dt)
 {
+	interaccion_obstaculos(dt);
+
 	equipo1->mover_arena(dt);
 	equipo2->mover_arena(dt);
-
-	interaccion_obstaculos(dt);
 }
